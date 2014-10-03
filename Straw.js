@@ -22,7 +22,7 @@ var Straw = function() {
  | Queuing Tasks
  |--------------------------------------------------------------------------
  |
- |  We need a place to queue all user registered tasks. For each method
+ | We need a place to queue all user registered tasks. For each method
  | call from Straw.sip(), we'll update this array so that we know
  | which tasks need to be triggered, when running 'gulp'.
  |
@@ -70,10 +70,10 @@ Straw.config = {
     specPath: 'spec',
 
     // Any CSS files to hash?
-    hashesStyles: false,
+    hashesStyles: '',
 
     // Any JS files to hash?
-    hashesScripts: false,
+    hashesScripts: '',
 
     // Should we concatenate any JS or CSS files?
     concatenate: {
@@ -180,7 +180,7 @@ config.combineStyles = function(styles, baseDir, output) {
 config.hash = function(type, assets) {
     var property = 'hashes' + type.charAt(0).toUpperCase() + type.substring(1);
 
-    this[property] = (assets || '');
+    this[property] = assets;
 
     queueTask('hash');
 

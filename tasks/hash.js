@@ -19,7 +19,7 @@ var mustRunFirst = _.intersection(straw.tasks, [
 ]);
 
 gulp.task('hash', mustRunFirst, function() {
-    if (config.hashesScripts !== false) {
+    if (config.hashesScripts) {
         gulp.src(config.hashesScripts || config.jsOutput + '/**/*.js')
             .pipe(plugins.rev())
             .pipe(gulp.dest(config.jsOutput))
