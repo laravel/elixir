@@ -27,7 +27,7 @@ gulp.task('hash', mustRunFirst, function() {
             .pipe(gulp.dest(config.jsOutput));
     }
 
-    if (config.hashesStyles !== false) {
+    if (config.hashesStyles) {
         gulp.src(config.hashesStyles || config.cssOutput + '/**/*.css')
             .pipe(plugins.rev())
             .pipe(gulp.dest(config.cssOutput))
