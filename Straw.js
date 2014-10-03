@@ -178,9 +178,9 @@ config.combineStyles = function(styles, baseDir, output) {
 
 
 config.hash = function(type, assets) {
-    var method = 'hashes' + type.charAt(0).toUpperCase() + type.substring(1);
+    var property = 'hashes' + type.charAt(0).toUpperCase() + type.substring(1);
 
-    this[method] = (assets || '');
+    this[property] = (assets || '');
 
     queueTask('hash');
 
