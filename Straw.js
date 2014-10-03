@@ -91,7 +91,7 @@ Straw.config = {
 
 var config = Straw.config;
 
-config.useCSSPreprocessor = function(type, source, output) {
+config.useCssPreprocessor = function(type, source, output) {
     this.cssPreprocessor = type;
     this.cssPreprocessorSource = source;
     if (output) this.cssOutput = output;
@@ -105,14 +105,14 @@ config.useCSSPreprocessor = function(type, source, output) {
 config.useSass = function(source, output) {
     source = source || 'resources/assets/sass';
 
-    return this.useCSSPreprocessor('sass', source, output);
+    return this.useCssPreprocessor('sass', source, output);
 },
 
 
 config.useLess = function(source, output) {
     source = source || 'resources/assets/less';
 
-    return this.useCSSPreprocessor('less', source, output);
+    return this.useCssSPreprocessor('less', source, output);
 },
 
 
