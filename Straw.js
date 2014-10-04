@@ -70,17 +70,18 @@ Straw.config = {
         scripts: {}
     },
 
-    // Where should compiled CSS be saved?
-    cssOutput: 'public/css',
-
-    // Where should compiled JS be saved?
-    jsOutput: 'public/js',
-
     // Should we concatenate any JS or CSS files?
     concatenate: {
         css: {},
         js: {}
-    }
+    },
+
+    // Where should compiled CSS be saved?
+    cssOutput: 'public/css',
+
+    // Where should compiled JS be saved?
+    jsOutput: 'public/js'
+
 };
 
 var config = Straw.config;
