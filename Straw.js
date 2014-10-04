@@ -135,14 +135,11 @@ config.runPHPSpec = function(src) {
 },
 
 config.combine = function(type, files, baseDir, output) {
-    var extension = '.' + type;
-
-    if ( ! _.isArray(files)) files = [files];
+    var ext = '.' + type;
+    baseDir = baseDir || '.';
 
     files = files.map(function(file) {
-        file.indexOf(extension) > -1 || (file += extension);
-
-        return (baseDir || '.') + '/' + file;
+        return baseDir + '/' + file.replace(ext, '') + ext;
     });
 
     this.concatenate[type].source = files;
