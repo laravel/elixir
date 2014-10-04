@@ -36,8 +36,8 @@ var queueTask = function(task) {
  | Configuration
  |--------------------------------------------------------------------------
  |
- |  This object houses our master configuration, while also providing a
- |  number of readable methods to update the respective values.
+ | This object houses our master configuration, while also providing a
+ | number of readable methods to update the respective values.
  |
  */
 Straw.config = {
