@@ -155,9 +155,7 @@ config.styles = function(styles, baseDir, output) {
 },
 
 config.version = function(type, assets) {
-    var property = 'versions' + type.charAt(0).toUpperCase() + type.substring(1);
-
-    this[property] = assets;
+    this['versions' + type] = assets;
 
     queueTask('version');
 
@@ -165,11 +163,11 @@ config.version = function(type, assets) {
 }
 
 config.versionStyles = function(assets) {
-    return this.version('styles', assets);
+    return this.version('Styles', assets);
 }
 
 config.versionScripts = function(assets) {
-    return this.version('scripts', assets);
+    return this.version('Scripts', assets);
 }
 
 
