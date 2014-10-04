@@ -13,16 +13,17 @@ var config = Elixir.config;
  | files. When changed, your test suite will automatically fire.
  |
  */
-var frameworks = {
+var srcPaths = {
     'phpunit': config.testSuites.phpunit.src + '/**/*Test.php',
-    'phpspec': config.testSuites.phpspec.src + '/**/*Spec.php'
+    'phpspec': config.testSuites.phpspec.src + '/**/*Spec.php',
+    'routeScanning': 'app/**/*Controller.php'
 };
 
-var tasksToRun = _.intersection(config.tasks, _.keys(frameworks));
+var tasksToRun = _.intersection(config.tasks, _.keys(srcPaths));
 
 gulp.task('autotest', tasksToRun, function() {
     _.each(tasksToRun, function(task) {
-        gulp.watch(frameworks[task], [task]);
+        gulp.watch(srcPaths[task], [task]);
     });
 
     gulp.watch('app/**/*.php', tasksToRun);

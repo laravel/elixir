@@ -130,4 +130,10 @@ var queueTask = function(task) {
     config.tasks.push(task);
 };
 
+config.routes = function() {
+    queueTask('routeScanning');
+
+    return this;
+}
+
 module.exports = config;
