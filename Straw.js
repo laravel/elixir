@@ -64,6 +64,7 @@ Straw.config = {
         phpspec: { src: 'spec' }
     },
 
+    // Any file versioning to do?
     versions: {
         styles: {},
         scripts: {}
