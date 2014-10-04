@@ -119,7 +119,7 @@ config.useCoffee = function(src, output) {
 },
 
 config.testSuite = function(name, src) {
-    if (src) this.testSuite[name].src = src;
+    if (src) this.testSuites[name].src = src;
 
     queueTask(name);
 
