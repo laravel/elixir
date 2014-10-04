@@ -10,9 +10,6 @@
 var Straw = function() {
     this.sip = function(callback) {
         callback(Straw.config);
-
-        // We want a clean Gulpfile.
-        require('require-dir')('./tasks');
     };
 };
 
@@ -27,7 +24,11 @@ var Straw = function() {
  |
  */
 Straw.Elixir = function(callback) {
-    return (new Straw).sip(callback);
+    var elixir = (new Straw).sip(callback);
+
+    require('require-dir')('./tasks');
+
+    return elixir;
 };
 
 
