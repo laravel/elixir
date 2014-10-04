@@ -60,12 +60,13 @@ Straw.config = {
 
     // What are the defaults for any test suites?
     testSuites: {
-        phpunit: {
-            src: 'tests'
-        },
-        phpspec: {
-            src: 'spec'
-        }
+        phpunit: { src: 'tests' },
+        phpspec: { src: 'spec' }
+    },
+
+    versions: {
+        styles: {},
+        scripts: {}
     },
 
     // Where should compiled CSS be saved?
@@ -73,12 +74,6 @@ Straw.config = {
 
     // Where should compiled JS be saved?
     jsOutput: 'public/js',
-
-    // Any CSS files to version?
-    versionsStyles: false,
-
-    // Any JS files to version?
-    versionsScripts: false,
 
     // Should we concatenate any JS or CSS files?
     concatenate: {
@@ -155,19 +150,19 @@ config.styles = function(styles, baseDir, output) {
 },
 
 config.version = function(type, assets) {
-    this['versions' + type] = assets;
+    this.versions[type].src = assets;
 
-    queueTask('version');
+    queueTask('version' + type.charAt(0).toUpperCase() + type.substring(1));
 
-   return this;
-}
+    return this;
+},
 
 config.versionStyles = function(assets) {
-    return this.version('Styles', assets);
+    return this.version('styles', assets);
 }
 
 config.versionScripts = function(assets) {
-    return this.version('Scripts', assets);
+    return this.version('scripts', assets);
 }
 
 
