@@ -1,3 +1,7 @@
+var queueTask = function(task) {
+    config.tasks.push(task);
+};
+
 var config = {
 
     // The tasks to trigger when calling 'gulp'.
@@ -131,14 +135,11 @@ config.versionScripts = function(assets) {
     return this.version('scripts', assets);
 }
 
-var queueTask = function(task) {
-    config.tasks.push(task);
-};
-
 config.routes = function() {
     queueTask('routeScanning');
 
     return this;
 }
+
 
 module.exports = config;
