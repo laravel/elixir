@@ -15,7 +15,7 @@ var config = require('../Straw').config;
 gulp.task('phpspec', function() {
     var options = { 'verbose': 'v', notify: true, clear: true };
 
-    gulp.src(config.specPath + '/**/*Spec.php')
+    gulp.src(config.testSuites.phpspec.src + '/**/*Spec.php')
         .pipe(plugins.phpspec('', options))
             .on('error', plugins.notify.onError({
                 title: 'Failure',

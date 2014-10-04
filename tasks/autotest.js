@@ -14,8 +14,8 @@ var config = straw.config;
  |
  */
 var frameworks = {
-    'phpunit': config.testPath + '/**/*Test.php',
-    'phpspec': config.specPath + '/**/*Spec.php'
+    'phpunit': config.testSuites.phpunit.src + '/**/*Test.php',
+    'phpspec': config.testSuites.phpspec.src + '/**/*Spec.php'
 };
 
 var tasksToRun = _.intersection(straw.tasks, _.keys(frameworks));

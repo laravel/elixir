@@ -15,7 +15,7 @@ var config = require('../Straw').config;
 gulp.task('phpunit', function() {
     var options =  { debug: true, notify: true, clear: true };
 
-    gulp.src(config.testPath + '/**/*Test.php')
+    gulp.src(config.testSuites.phpunit.src + '/**/*Test.php')
         .pipe(plugins.phpunit('', options)).on('error', plugins.notify.onError({
             title: 'Failure',
             message: 'Your PHPUnit tests have failed!'

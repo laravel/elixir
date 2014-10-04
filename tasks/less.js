@@ -23,11 +23,11 @@ gulp.task('less', function() {
         this.emit('end');
     };
 
-    gulp.src(config.cssPreprocessorSource + '/**/*.less')
+    gulp.src(config.preprocessors.less.src + '/**/*.less')
         .pipe(plugins.less()).on('error', onError)
         .pipe(plugins.autoprefixer())
         .pipe(plugins.minifyCss())
-        .pipe(gulp.dest(config.cssOutput))
+        .pipe(gulp.dest(config.preprocessors.less.output))
         .pipe(plugins.notify({
             title: 'Less',
             subtitle: 'Compiled!'

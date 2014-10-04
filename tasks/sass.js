@@ -23,10 +23,10 @@ gulp.task('sass', function() {
         this.emit('end');
     };
 
-    return gulp.src(config.cssPreprocessorSource + '/**/*.+(scss|sass)')
+    return gulp.src(config.preprocessors.sass.src + '/**/*.+(scss|sass)')
         .pipe(plugins.rubySass({ style: 'compressed' })).on('error', onError)
         .pipe(plugins.autoprefixer())
-        .pipe(gulp.dest(config.cssOutput))
+        .pipe(gulp.dest(config.preprocessors.sass.output))
         .pipe(plugins.notify({
             title: 'Sass',
             subtitle: 'Compiled!'

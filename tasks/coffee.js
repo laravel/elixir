@@ -22,10 +22,10 @@ gulp.task('coffee', function() {
         this.emit('end');
     };
 
-    return gulp.src(config.jsPreprocessorSource + '/**/*.coffee')
+    return gulp.src(config.preprocessors.coffee.src + '/**/*.coffee')
         .pipe(plugins.coffee().on('error', onError))
         .pipe(plugins.uglify())
-        .pipe(gulp.dest(config.jsOutput))
+        .pipe(gulp.dest(config.preprocessors.coffee.output))
         .pipe(plugins.notify({
             title: 'CoffeeScript',
             subtitle: 'Compiled!'

@@ -14,9 +14,9 @@ var config = straw.config;
  |
  */
 var preprocessors = {
-    'sass': config.cssPreprocessorSource + '/**/*.+(scss|sass)',
-    'less': config.cssPreprocessorSource + '/**/*.less',
-    'coffee': config.jsPreprocessorSource + '/**/*.coffee'
+    'sass': config.preprocessors['sass'].src + '/**/*.+(scss|sass)',
+    'less': config.preprocessors['less'].src + '/**/*.less',
+    'coffee': config.preprocessors['coffee'].src + '/**/*.coffee'
 };
 
 var tasksToRun = _.intersection(straw.tasks, _.keys(preprocessors));

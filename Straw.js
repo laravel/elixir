@@ -1,3 +1,6 @@
+var _ = require('underscore');
+
+
 /*
  |--------------------------------------------------------------------------
  | Straw
@@ -45,29 +48,37 @@ var queueTask = function(task) {
  */
 Straw.config = {
 
-    // Which CSS preprocessor are we using?
-    cssPreprocessor: false,
+    // What are the default for any preprocessors?
+    preprocessors: {
+        less: {
+            src: 'resources/assets/less',
+            output: 'public/css'
+        },
+        sass: {
+            src: 'resources/assets/sass',
+            output: 'public/css'
+        },
+        coffee: {
+            src: 'resources/assets/coffee',
+            output: 'public/js'
+        }
+    },
 
-    // What is the path to the CSS preprocessor source?
-    cssPreprocessorSource: false,
-
-    // Which JS preprocessor are we using?
-    jsPreprocessor: false,
-
-    // What is the path to the JS preprocessor source?
-    jsPreprocessorSource: false,
+    // What are the defaults for any test suites?
+    testSuites: {
+        phpunit: {
+            src: 'tests'
+        },
+        phpspec: {
+            src: 'spec'
+        }
+    },
 
     // Where should compiled CSS be saved?
     cssOutput: 'public/css',
 
     // Where should compiled JS be saved?
     jsOutput: 'public/js',
-
-    // What is the path to the PHPUnit tests?
-    testPath: 'tests',
-
-    // What is the path to the PHPSpec tests?
-    specPath: 'spec',
 
     // Any CSS files to hash?
     hashesStyles: '',
@@ -77,78 +88,56 @@ Straw.config = {
 
     // Should we concatenate any JS or CSS files?
     concatenate: {
-        css: {
-            source: '',
-            to: ''
-        },
-        js: {
-            source: '',
-            to: ''
-        }
+        css: { source: '', to: ''},
+        js: { source: '', to: '' }
     }
-
 };
 
 var config = Straw.config;
 
-config.useCssPreprocessor = function(type, source, output) {
-    this.cssPreprocessor = type;
-    this.cssPreprocessorSource = source;
-    if (output) this.cssOutput = output;
+config.preprocessor = function(name, src, output) {
+    var preprocessor = this.preprocessors[name];
 
-    queueTask(type);
+    if (src) preprocessor.src = src;
+    if (output) preprocessor.output = output;
 
-    return this;
-},
-
-
-config.useSass = function(source, output) {
-    source = source || 'resources/assets/sass';
-
-    return this.useCssPreprocessor('sass', source, output);
-},
-
-
-config.useLess = function(source, output) {
-    source = source || 'resources/assets/less';
-
-    return this.useCssSPreprocessor('less', source, output);
-},
-
-
-config.useCoffee = function(source, output) {
-    source = source || 'resources/assets/coffee';
-
-    this.jsPreprocessor = 'coffee';
-    this.jsPreprocessorSource = source;
-    if (output) this.jsOutput = output;
-
-    queueTask('coffee');
+    queueTask(name);
 
     return this;
 },
 
+config.useSass = function(src, output) {
+    return this.preprocessor('sass', src, output);
+},
 
-config.runPHPUnit = function(path) {
-    if (path) this.testPath = path;
+config.useLess = function(src, output) {
+    return this.preprocessor('less', src, output);
+},
 
-    queueTask('phpunit');
+config.useCoffee = function(src, output) {
+    return this.preprocessor('coffee', src, output);
+},
+
+config.testSuite = function(name, src) {
+    if (src) this.testSuite[name].src = src;
+
+    queueTask(name);
 
     return this;
 },
 
-
-config.runPHPSpec = function(path) {
-    if (path) this.specPath = path;
-
-    queueTask('phpspec');
-
-    return this;
+config.runPHPUnit = function(src) {
+    return this.testSuite('phpunit', src);
 },
 
+config.runPHPSpec = function(src) {
+    return this.testSuite('phpspec', src);
+},
 
 config.combine = function(type, files, baseDir, output) {
     var extension = '.' + type;
+
+    if ( ! _.isArray(files)) files = [files];
 
     files = files.map(function(file) {
         file.indexOf(extension) > -1 || (file += extension);
@@ -162,20 +151,17 @@ config.combine = function(type, files, baseDir, output) {
     return this;
 },
 
-
 config.combineScripts = function(scripts, baseDir, output) {
     queueTask('combineScripts');
 
     return this.combine('js', scripts, baseDir, output);
 },
 
-
 config.combineStyles = function(styles, baseDir, output) {
     queueTask('combineStyles');
 
     return this.combine('css', styles, baseDir, output);
 },
-
 
 config.hash = function(type, assets) {
     var property = 'hashes' + type.charAt(0).toUpperCase() + type.substring(1);
@@ -187,15 +173,12 @@ config.hash = function(type, assets) {
    return this;
 }
 
-
 config.hashStyles = function(assets) {
     return this.hash('styles', assets);
 }
 
-
 config.hashScripts = function(assets) {
     return this.hash('scripts', assets);
 }
-
 
 module.exports = Straw;
