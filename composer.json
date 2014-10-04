@@ -1,0 +1,23 @@
+{
+    "name": "laravel/straw",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jeffrey Way",
+            "email": "jeffrey@laracasts.com"
+        },
+        {
+            "name": "Taylor Otwell",
+            "email": "taylorotwell@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    },
+    "minimum-stability": "dev"
+}
