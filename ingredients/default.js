@@ -1,9 +1,6 @@
 var gulp = require('gulp');
-var tasksToRun = require('../Straw').tasks;
+var tasksToRun = require('../Elixir').tasks;
 
-if ( ! tasksToRun.length) {
-    console.error('\033[31m You have not called any tasks in your Gulpfile.');
-}
 
 /*
  |--------------------------------------------------------------------------

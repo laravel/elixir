@@ -1,7 +1,7 @@
 var gulp = require('gulp');
 var _ = require('underscore');
-var straw = require('../Straw');
-var config = straw.config;
+var Elixir = require('../Elixir');
+var config = Elixir.config;
 
 
 /*
@@ -19,7 +19,7 @@ var preprocessors = {
     'coffee': config.preprocessors['coffee'].src + '/**/*.coffee'
 };
 
-var tasksToRun = _.intersection(straw.tasks, _.keys(preprocessors));
+var tasksToRun = _.intersection(Elixir.tasks, _.keys(preprocessors));
 
 gulp.task('watch', tasksToRun, function() {
     _.each(tasksToRun, function(task) {

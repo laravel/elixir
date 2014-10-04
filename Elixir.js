@@ -1,17 +1,21 @@
 /*
  |--------------------------------------------------------------------------
- | Straw
+ | The Entry Point
  |--------------------------------------------------------------------------
  |
- | Straw is a fun and clean entry point for Gulp usage. Use a fluent
- | API to specify your needs, and be done with it!
+ | Elixir will be the entry point from the Gulpfile. When called, we'll
+ | immediately trigger the user's Gulp config settings.
  |
  */
-var Straw = function() {
-    this.sip = function(callback) {
-        callback(Straw.config);
-    };
+var Elixir = function(recipe) {
+    require('require-dir')('./ingredients');
+
+    return Elixir.brew(recipe);
 };
+
+Elixir.brew = function(recipe) {
+    return recipe(Elixir.config);
+}
 
 
 /*
@@ -20,14 +24,14 @@ var Straw = function() {
  |--------------------------------------------------------------------------
  |
  | We need a place to queue all user registered tasks. For each method
- | call from Straw.sip(), we'll update this array so that we know
+ | call from Elixir.sip(), we'll update this array so that we know
  | which tasks need to be triggered, when running 'gulp'.
  |
  */
-Straw.tasks = [];
+Elixir.tasks = [];
 
 var queueTask = function(task) {
-    Straw.tasks.push(task);
+    Elixir.tasks.push(task);
 };
 
 
@@ -40,7 +44,7 @@ var queueTask = function(task) {
  | number of readable methods to update the respective values.
  |
  */
-Straw.config = {
+Elixir.config = {
 
     // What are the default for any preprocessors?
     preprocessors: {
@@ -84,7 +88,7 @@ Straw.config = {
 
 };
 
-var config = Straw.config;
+var config = Elixir.config;
 
 config.preprocessor = function(name, src, output) {
     var preprocessor = this.preprocessors[name];
@@ -167,23 +171,4 @@ config.versionScripts = function(assets) {
     return this.version('scripts', assets);
 }
 
-
-/*
- |--------------------------------------------------------------------------
- | The Entry Point
- |--------------------------------------------------------------------------
- |
- | Elixir will be the entry point from the Gulpfile. When called, we'll
- | immediately trigger the user's Gulp config settings. This will
- | be available globally.
- |
- */
-Elixir = function(callback) {
-    var elixir = (new Straw).sip(callback);
-
-    require('require-dir')('./tasks');
-
-    return elixir;
-};
-
-module.exports = Straw;
+module.exports = Elixir;

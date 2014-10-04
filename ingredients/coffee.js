@@ -1,36 +1,35 @@
 var gulp = require('gulp');
 var plugins = require('gulp-load-plugins')();
-var config = require('../Straw').config;
+var config = require('../Elixir').config;
 
 
 /*
  |--------------------------------------------------------------------------
- | Less Compilation
+ | CoffeeScript Compilation
  |--------------------------------------------------------------------------
  |
- | This task will compile your Less, auto-prefix it, minify it, and then
+ | This task will compile your CoffeeScript, minify it, and then optionally
  | generate a manifest file, to help with automatic cache-busting.
  |
  */
-gulp.task('less', function() {
+gulp.task('coffee', function() {
     var onError = function(err) {
-        notify.onError({
-            title:    "Gulp",
-            subtitle: "Compilation Failed!",
-            message:  "Error: <%= error.message %>",
+        plugins.notify.onError({
+            title:    'CoffeeScript',
+            subtitle: 'Compilation Failed!',
+            message:  'Error: <%= error.message %>',
             icon: __dirname + '/../icons/laravel.png'
         })(err);
 
         this.emit('end');
     };
 
-    gulp.src(config.preprocessors.less.src + '/**/*.less')
-        .pipe(plugins.less()).on('error', onError)
-        .pipe(plugins.autoprefixer())
-        .pipe(plugins.minifyCss())
-        .pipe(gulp.dest(config.preprocessors.less.output))
+    return gulp.src(config.preprocessors.coffee.src + '/**/*.coffee')
+        .pipe(plugins.coffee().on('error', onError))
+        .pipe(plugins.uglify())
+        .pipe(gulp.dest(config.preprocessors.coffee.output))
         .pipe(plugins.notify({
-            title: 'Less',
+            title: 'CoffeeScript',
             subtitle: 'Compiled!',
             icon: __dirname + '/../icons/laravel.png',
             message: ' '

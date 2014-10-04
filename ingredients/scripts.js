@@ -1,6 +1,7 @@
 var gulp = require('gulp');
 var plugins = require('gulp-load-plugins')();
-var config = require('../Straw').config;
+var config = require('../Elixir').config;
+
 
 /*
  |--------------------------------------------------------------------------

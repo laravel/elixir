@@ -1,7 +1,7 @@
 var gulp = require('gulp');
 var _ = require('underscore');
-var straw = require('../Straw');
-var config = straw.config;
+var Elixir = require('../Elixir');
+var config = Elixir.config;
 
 
 /*
@@ -18,7 +18,7 @@ var frameworks = {
     'phpspec': config.testSuites.phpspec.src + '/**/*Spec.php'
 };
 
-var tasksToRun = _.intersection(straw.tasks, _.keys(frameworks));
+var tasksToRun = _.intersection(Elixir.tasks, _.keys(frameworks));
 
 gulp.task('autotest', tasksToRun, function() {
     _.each(tasksToRun, function(task) {

@@ -1,4 +1,4 @@
-require('./vendor/laravel/straw/Straw');
+require('./vendor/laravel/straw/Elixir');
 
 
 /*
