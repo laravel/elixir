@@ -16,24 +16,6 @@ var Straw = function() {
 
 /*
  |--------------------------------------------------------------------------
- | The Entry Point
- |--------------------------------------------------------------------------
- |
- | Elixir will be the entry point from the Gulpfile. When called,
- | we'll immediately trigger the user's Gulp config settings.
- |
- */
-Straw.Elixir = function(callback) {
-    var elixir = (new Straw).sip(callback);
-
-    require('require-dir')('./tasks');
-
-    return elixir;
-};
-
-
-/*
- |--------------------------------------------------------------------------
  | Queuing Tasks
  |--------------------------------------------------------------------------
  |
@@ -189,5 +171,24 @@ config.versionStyles = function(assets) {
 config.versionScripts = function(assets) {
     return this.version('scripts', assets);
 }
+
+
+/*
+ |--------------------------------------------------------------------------
+ | The Entry Point
+ |--------------------------------------------------------------------------
+ |
+ | Elixir will be the entry point from the Gulpfile. When called, we'll
+ | immediately trigger the user's Gulp config settings. This will
+ | be available globally.
+ |
+ */
+Elixir = function(callback) {
+    var elixir = (new Straw).sip(callback);
+
+    require('require-dir')('./tasks');
+
+    return elixir;
+};
 
 module.exports = Straw;
