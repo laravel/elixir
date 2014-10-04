@@ -37,6 +37,11 @@ var config = {
         js: {}
     },
 
+    // Directories to scan.
+    scans: {
+        routes: { baseDir: './app' }
+    },
+
     // The default CSS output directory.
     cssOutput: 'public/css',
 

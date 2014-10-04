@@ -1,5 +1,6 @@
 var gulp = require('gulp');
 var shell = require('gulp-shell');
+var elixir = require('../Elixir');
 
 
 /*
@@ -13,6 +14,8 @@ var shell = require('gulp-shell');
  |
  */
 gulp.task('routeScanning', function() {
-    gulp.src('app/**/*Controller.php', {read: false})
+    var baseDir = elixir.config.scans.routes.baseDir;
+
+    gulp.src(baseDir + '/**/*Controller.php', {read: false})
         .pipe(shell('php artisan route:scan', {ignoreErrors: true}));
 });
