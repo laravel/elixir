@@ -19,6 +19,20 @@ var Straw = function() {
 
 /*
  |--------------------------------------------------------------------------
+ | The Entry Point
+ |--------------------------------------------------------------------------
+ |
+ | Elixir will be the entry point from the Gulpfile. When called,
+ | we'll immediately trigger the user's Gulp config settings.
+ |
+ */
+Straw.Elixir = function(callback) {
+    return (new Straw).sip(callback);
+};
+
+
+/*
+ |--------------------------------------------------------------------------
  | Queuing Tasks
  |--------------------------------------------------------------------------
  |
@@ -77,11 +91,11 @@ Straw.config = {
     // Where should compiled JS be saved?
     jsOutput: 'public/js',
 
-    // Any CSS files to hash?
-    hashesStyles: '',
+    // Any CSS files to version?
+    versionsStyles: false,
 
-    // Any JS files to hash?
-    hashesScripts: '',
+    // Any JS files to version?
+    versionsScripts: false,
 
     // Should we concatenate any JS or CSS files?
     concatenate: {
@@ -103,15 +117,15 @@ config.preprocessor = function(name, src, output) {
     return this;
 },
 
-config.useSass = function(src, output) {
+config.sass = function(src, output) {
     return this.preprocessor('sass', src, output);
 },
 
-config.useLess = function(src, output) {
+config.less = function(src, output) {
     return this.preprocessor('less', src, output);
 },
 
-config.useCoffee = function(src, output) {
+config.coffee = function(src, output) {
     return this.preprocessor('coffee', src, output);
 },
 
@@ -123,11 +137,11 @@ config.testSuite = function(name, src) {
     return this;
 },
 
-config.runPHPUnit = function(src) {
+config.phpUnit = function(src) {
     return this.testSuite('phpunit', src);
 },
 
-config.runPHPSpec = function(src) {
+config.phpSpec = function(src) {
     return this.testSuite('phpspec', src);
 },
 
@@ -145,34 +159,34 @@ config.combine = function(type, files, baseDir, output) {
     return this;
 },
 
-config.combineScripts = function(scripts, baseDir, output) {
-    queueTask('combineScripts');
+config.scripts = function(scripts, baseDir, output) {
+    queueTask('scripts');
 
     return this.combine('js', scripts, baseDir, output);
 },
 
-config.combineStyles = function(styles, baseDir, output) {
-    queueTask('combineStyles');
+config.styles = function(styles, baseDir, output) {
+    queueTask('styles');
 
     return this.combine('css', styles, baseDir, output);
 },
 
-config.hash = function(type, assets) {
-    var property = 'hashes' + type.charAt(0).toUpperCase() + type.substring(1);
+config.version = function(type, assets) {
+    var property = 'versions' + type.charAt(0).toUpperCase() + type.substring(1);
 
     this[property] = assets;
 
-    queueTask('hash');
+    queueTask('version');
 
    return this;
 }
 
-config.hashStyles = function(assets) {
-    return this.hash('styles', assets);
+config.versionStyles = function(assets) {
+    return this.version('styles', assets);
 }
 
-config.hashScripts = function(assets) {
-    return this.hash('scripts', assets);
+config.versionScripts = function(assets) {
+    return this.version('scripts', assets);
 }
 
 module.exports = Straw;

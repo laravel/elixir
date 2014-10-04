@@ -7,7 +7,7 @@ var config = straw.config;
 
 /*
  |--------------------------------------------------------------------------
- | File Revisioning
+ | Asset Versioning
  |--------------------------------------------------------------------------
  |
  | This task will append a unique hash to any relevant files that are fed to
@@ -15,20 +15,21 @@ var config = straw.config;
  |
  */
 var mustRunFirst = _.intersection(straw.tasks, [
-    'combineStyles', 'combineScripts', 'sass', 'less', 'coffee'
+    'styles', 'scripts', 'sass', 'less', 'coffee'
 ]);
 
-gulp.task('hash', mustRunFirst, function() {
-    if (config.hashesScripts) {
-        gulp.src(config.hashesScripts || config.jsOutput + '/**/*.js')
+
+gulp.task('version', mustRunFirst, function() {
+    if (config.versionsScripts) {
+        gulp.src(config.versionsScripts || config.jsOutput + '/**/*.js')
             .pipe(plugins.rev())
             .pipe(gulp.dest(config.jsOutput))
             .pipe(plugins.rev.manifest())
             .pipe(gulp.dest(config.jsOutput));
     }
 
-    if (config.hashesStyles) {
-        gulp.src(config.hashesStyles || config.cssOutput + '/**/*.css')
+    if (config.versionsStyles) {
+        gulp.src(config.versionsStyles || config.cssOutput + '/**/*.css')
             .pipe(plugins.rev())
             .pipe(gulp.dest(config.cssOutput))
             .pipe(plugins.rev.manifest())

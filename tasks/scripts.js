@@ -12,7 +12,7 @@ var config = require('../Straw').config;
  | HTTP requests that your app makes.
  |
  */
-gulp.task('combineScripts', function() {
+gulp.task('scripts', function() {
     var saveTo = config.concatenate.js.to || config.jsOutput;
     var concatName = 'all.min.js';
 

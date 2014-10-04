@@ -13,7 +13,7 @@ var config = require('../Straw').config;
  | of HTTP requests that your app makes.
  |
  */
-gulp.task('combineStyles', function() {
+gulp.task('styles', function() {
     var saveTo = config.concatenate.css.to || config.cssOutput;
     var concatName = 'all.min.css';
 

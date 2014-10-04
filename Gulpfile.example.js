@@ -1,4 +1,4 @@
-var straw = new (require ('./vendor/laravel/straw/Straw'));
+var Elixir = require('./vendor/laravel/straw/Straw').Elixir;
 
 
 /*
@@ -10,9 +10,8 @@ var straw = new (require ('./vendor/laravel/straw/Straw'));
  | in your application should be compiled, watched, or merged.
  |
  */
-straw.sip(function(please) {
-    please.useSass()
-          .runPHPUnit();
+Elixir(function(mix) {
+    mix.less();
 });
 
 
