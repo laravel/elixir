@@ -1,4 +1,4 @@
-var straw = new (require('./straw/Straw'));
+var straw = new (require ('./vendor/laravel/straw/Straw'));
 
 
 /*
