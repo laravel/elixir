@@ -77,8 +77,8 @@ Straw.config = {
 
     // Should we concatenate any JS or CSS files?
     concatenate: {
-        css: { source: '', to: ''},
-        js: { source: '', to: '' }
+        css: {},
+        js: {}
     }
 };
 
