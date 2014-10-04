@@ -1,5 +1,5 @@
 var gulp = require('gulp');
-var tasksToRun = require('../Elixir').tasks;
+var tasksToRun = require('../Elixir').config.tasks;
 
 
 /*

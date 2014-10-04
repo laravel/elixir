@@ -19,7 +19,7 @@ var preprocessors = {
     'coffee': config.preprocessors['coffee'].src + '/**/*.coffee'
 };
 
-var tasksToRun = _.intersection(Elixir.tasks, _.keys(preprocessors));
+var tasksToRun = _.intersection(config.tasks, _.keys(preprocessors));
 
 gulp.task('watch', tasksToRun, function() {
     _.each(tasksToRun, function(task) {
