@@ -1,13 +1,3 @@
-/*
- |--------------------------------------------------------------------
- | Configuration
- |--------------------------------------------------------------------
- |
- | This object houses our master configuration, while also
- | providing a number of readable methods to update the
- | respective values.
- |
- */
 var config = {
 
     // The tasks to trigger when calling 'gulp'.
