@@ -16,8 +16,9 @@ gulp.task('less', function() {
     var onError = function(err) {
         notify.onError({
             title:    "Gulp",
-            subtitle: "Compilation Failed",
-            message:  "Error: <%= error.message %>"
+            subtitle: "Compilation Failed!",
+            message:  "Error: <%= error.message %>",
+            icon: __dirname + '/../icons/laravel.png'
         })(err);
 
         this.emit('end');
@@ -30,6 +31,8 @@ gulp.task('less', function() {
         .pipe(gulp.dest(config.preprocessors.less.output))
         .pipe(plugins.notify({
             title: 'Less',
-            subtitle: 'Compiled!'
+            subtitle: 'Compiled!',
+            icon: __dirname + '/../icons/laravel.png',
+            message: ' '
         }));
 });

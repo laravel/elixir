@@ -15,8 +15,9 @@ gulp.task('coffee', function() {
     var onError = function(err) {
         plugins.notify.onError({
             title:    'CoffeeScript',
-            subtitle: 'Compilation Failed',
-            message:  'Error: <%= error.message %>'
+            subtitle: 'Compilation Failed!',
+            message:  'Error: <%= error.message %>',
+            icon: __dirname + '/../icons/laravel.png'
         })(err);
 
         this.emit('end');
@@ -28,6 +29,8 @@ gulp.task('coffee', function() {
         .pipe(gulp.dest(config.preprocessors.coffee.output))
         .pipe(plugins.notify({
             title: 'CoffeeScript',
-            subtitle: 'Compiled!'
+            subtitle: 'Compiled!',
+            icon: __dirname + '/../icons/laravel.png',
+            message: ' '
         }));
 });

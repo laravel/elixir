@@ -13,22 +13,24 @@ var config = require('../Straw').config;
  |
  */
 gulp.task('sass', function() {
-    var onError = function(err) {
-        plugins.notify.onError({
-            title:    'Sass',
-            subtitle: 'Compilation Failed',
-            message:  'Error: <%= error.message %>'
-        })(err);
-
-        this.emit('end');
-    };
-
     return gulp.src(config.preprocessors.sass.src + '/**/*.+(scss|sass)')
-        .pipe(plugins.rubySass({ style: 'compressed' })).on('error', onError)
+        .pipe(plugins.rubySass({ style: 'compressed' }))
+            .on('error', function(err) {
+                plugins.notify.onError({
+                    title:    'Sass',
+                    subtitle: 'Compilation Failed!',
+                    message:  'Error: <%= error.message %>',
+                    icon: __dirname + '/../icons/laravel.png'
+                })(err);
+
+                this.emit('end');
+            })
         .pipe(plugins.autoprefixer())
         .pipe(gulp.dest(config.preprocessors.sass.output))
         .pipe(plugins.notify({
             title: 'Sass',
-            subtitle: 'Compiled!'
+            subtitle: 'Compiled!',
+            message: ' ',
+            icon: __dirname + '/../icons/laravel.png'
         }));
 });

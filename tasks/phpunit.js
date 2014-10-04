@@ -18,10 +18,12 @@ gulp.task('phpunit', function() {
     gulp.src(config.testSuites.phpunit.src + '/**/*Test.php')
         .pipe(plugins.phpunit('', options)).on('error', plugins.notify.onError({
             title: 'Failure',
-            message: 'Your PHPUnit tests have failed!'
+            message: 'Your PHPUnit tests have failed!',
+            icon: __dirname + '/../icons/fail.png'
         }))
         .pipe(plugins.notify({
             title: 'Success',
-            message: 'All PHPUnit tests have passed!'
+            message: 'All PHPUnit tests have passed!',
+            icon: __dirname + '/../icons/pass.png'
         }));
 });
