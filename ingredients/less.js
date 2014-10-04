@@ -14,7 +14,7 @@ var config = require('../Elixir').config;
  */
 gulp.task('less', function() {
     var onError = function(err) {
-        notify.onError({
+        plugins.notify.onError({
             title:    "Gulp",
             subtitle: "Compilation Failed!",
             message:  "Error: <%= error.message %>",
