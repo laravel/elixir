@@ -23,9 +23,9 @@ Elixir.brew = function(recipe) {
  | Queuing Tasks
  |--------------------------------------------------------------------------
  |
- | We need a place to queue all user registered tasks. For each method
- | call from Elixir.sip(), we'll update this array so that we know
- | which tasks need to be triggered, when running 'gulp'.
+ | We need a place to queue all user registered tasks. For each request
+ | from the Gulpfile, we'll update this array so that we know which
+ | tasks need to be triggered when running 'gulp'.
  |
  */
 Elixir.tasks = [];
