@@ -24,7 +24,9 @@ gulp.task('less', function() {
         this.emit('end');
     };
 
-    gulp.src(config.preprocessors.less.src + '/**/*.less')
+    var src = config.preprocessors.less.src;
+
+    gulp.src(src.indexOf('.less') ? src : src + '/**/*.less')
         .pipe(plugins.less()).on('error', onError)
         .pipe(plugins.autoprefixer())
         .pipe(plugins.minifyCss())

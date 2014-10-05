@@ -24,7 +24,9 @@ gulp.task('coffee', function() {
         this.emit('end');
     };
 
-    return gulp.src(config.preprocessors.coffee.src + '/**/*.coffee')
+    var src = config.preprocessors.coffee.src;
+
+    return gulp.src(src.indexOf('.coffee') ? src : src + '/**/*.coffee')
         .pipe(plugins.coffee().on('error', onError))
         .pipe(plugins.uglify())
         .pipe(gulp.dest(config.preprocessors.coffee.output))
