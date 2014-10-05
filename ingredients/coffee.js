@@ -24,9 +24,17 @@ gulp.task('coffee', function() {
         this.emit('end');
     };
 
-    var src = config.preprocessors.coffee.src;
+    var getSrc = function() {
+        var src = config.preprocessors.coffee.src;
 
-    return gulp.src(src.indexOf('.coffee') ? src : src + '/**/*.coffee')
+        var providedDirectSrc = function(src) {
+            return src.indexOf('.coffee') > 1;
+        };
+
+        return providedDirectSrc(src) ? src : src + '/**/*.coffee';
+    };
+
+    return gulp.src(getSrc())
         .pipe(plugins.coffee().on('error', onError))
         .pipe(plugins.uglify())
         .pipe(gulp.dest(config.preprocessors.coffee.output))

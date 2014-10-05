@@ -24,9 +24,17 @@ gulp.task('less', function() {
         this.emit('end');
     };
 
-    var src = config.preprocessors.less.src;
+    var getSrc = function() {
+        var src = config.preprocessors.less.src;
 
-    gulp.src(src.indexOf('.less') ? src : src + '/**/*.less')
+        var providedDirectSrc = function(src) {
+            return src.indexOf('.less') > -1;
+        };
+
+        return providedDirectSrc(src) ? src : src + '/**/*.less';
+    };
+
+    gulp.src(getSrc())
         .pipe(plugins.less()).on('error', onError)
         .pipe(plugins.autoprefixer())
         .pipe(plugins.minifyCss())

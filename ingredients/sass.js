@@ -13,9 +13,17 @@ var config = require('../Elixir').config;
  |
  */
 gulp.task('sass', function() {
-    var src = config.preprocessors.less.sass;
+    var getSrc = function() {
+        var src = config.preprocessors.sass.src;
 
-    return gulp.src(src.match(/\.s[ac]ss/) ? src : src + '/**/*.+(scss|sass)')
+        var providedDirectSrc = function(src) {
+            return src.match(/\.s[ac]ss$/) > -1;
+        };
+
+        return providedDirectSrc(src) ? src : src + '/**/*.+(scss|sass)';
+    };
+
+    return gulp.src(getSrc())
         .pipe(plugins.rubySass({ style: 'compressed' }))
             .on('error', function(err) {
                 plugins.notify.onError({
