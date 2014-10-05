@@ -11,14 +11,17 @@ var config = {
     preprocessors: {
         less: {
             src: 'resources/assets/less',
+            search: '/**/*.less',
             output: 'public/css'
         },
         sass: {
             src: 'resources/assets/sass',
+            search: '/**/*.+(sass|scss)',
             output: 'public/css'
         },
         coffee: {
             src: 'resources/assets/coffee',
+            search: '/**/*.coffee',
             output: 'public/js'
         }
     },
@@ -54,10 +57,19 @@ var config = {
 
 };
 
-config.preprocessor = function(name, src, output) {
+config.preprocessor = function(name, src, output, fileExt) {
     var preprocessor = this.preprocessors[name];
 
-    if (src) preprocessor.src = src;
+    if (src) {
+        preprocessor.src = src;
+
+        // If the user provides a src of a direct file, then
+        // we need to modify our search regex a bit.
+        if (src.match(new RegExp(fileExt || '.'+name))) {
+            this.preprocessors[name].search = '';
+        }
+    }
+
     if (output) preprocessor.output = output;
 
     queueTask(name);
@@ -66,7 +78,7 @@ config.preprocessor = function(name, src, output) {
 },
 
 config.sass = function(src, output) {
-    return this.preprocessor('sass', src, output);
+    return this.preprocessor('sass', src, output, '.s[ac]ss');
 },
 
 config.less = function(src, output) {

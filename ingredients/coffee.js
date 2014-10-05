@@ -13,6 +13,8 @@ var config = require('../Elixir').config;
  |
  */
 gulp.task('coffee', function() {
+    var coffeeConfig = config.preprocessors.coffee;
+
     var onError = function(err) {
         plugins.notify.onError({
             title:    'CoffeeScript',
@@ -23,18 +25,7 @@ gulp.task('coffee', function() {
 
         this.emit('end');
     };
-
-    var getSrc = function() {
-        var src = config.preprocessors.coffee.src;
-
-        var providedDirectSrc = function(src) {
-            return src.indexOf('.coffee') > 1;
-        };
-
-        return providedDirectSrc(src) ? src : src + '/**/*.coffee';
-    };
-
-    return gulp.src(getSrc())
+    return gulp.src(coffeeConfig.src + coffeeConfig.search)
         .pipe(plugins.coffee().on('error', onError))
         .pipe(plugins.uglify())
         .pipe(gulp.dest(config.preprocessors.coffee.output))

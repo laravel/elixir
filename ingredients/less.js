@@ -13,6 +13,8 @@ var config = require('../Elixir').config;
  |
  */
 gulp.task('less', function() {
+    var lessConfig = config.preprocessors.less;
+
     var onError = function(err) {
         plugins.notify.onError({
             title:    "Gulp",
@@ -24,17 +26,7 @@ gulp.task('less', function() {
         this.emit('end');
     };
 
-    var getSrc = function() {
-        var src = config.preprocessors.less.src;
-
-        var providedDirectSrc = function(src) {
-            return src.indexOf('.less') > -1;
-        };
-
-        return providedDirectSrc(src) ? src : src + '/**/*.less';
-    };
-
-    gulp.src(getSrc())
+    gulp.src(lessConfig.src + lessConfig.search)
         .pipe(plugins.less()).on('error', onError)
         .pipe(plugins.autoprefixer())
         .pipe(plugins.minifyCss())
