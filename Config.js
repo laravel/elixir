@@ -136,7 +136,7 @@ config.versionScripts = function(assets) {
 }
 
 config.routes = function(baseDir) {
-    this.scans.routes.baseDir = baseDir;
+    if (baseDir) this.scans.routes.baseDir = baseDir;
 
     queueTask('routeScanning');
 
