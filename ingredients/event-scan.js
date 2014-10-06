@@ -1,6 +1,5 @@
 var gulp = require('gulp');
 var shell = require('gulp-shell');
-var elixir = require('../Elixir');
 
 
 /*
@@ -13,8 +12,5 @@ var elixir = require('../Elixir');
  |
  */
 gulp.task('eventScanning', function() {
-    var baseDir = elixir.config.scans.events.baseDir;
-
-    gulp.src(baseDir + '/**/*.php', {read: false})
-        .pipe(shell('php artisan event:scan', {ignoreErrors: true}));
+    gulp.src('').pipe(shell('php artisan event:scan', {ignoreErrors: true}));
 });
