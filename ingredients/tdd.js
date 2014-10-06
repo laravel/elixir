@@ -20,9 +20,10 @@ var srcPaths = {
     'routeScanning': config.scans.routes.baseDir + '/**/*Controller.php'
 };
 
+
 var tasksToRun = _.intersection(config.tasks, _.keys(srcPaths));
 
-gulp.task('autotest', tasksToRun, function() {
+gulp.task('tdd', tasksToRun, function() {
     _.each(tasksToRun, function(task) {
         gulp.watch(srcPaths[task], [task]);
     });
