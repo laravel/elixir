@@ -15,9 +15,9 @@ var phpspec = config.testSuites.phpspec;
  |
  */
 var srcPaths = {
+    'routeScanning': config.scans.routes.baseDir + '/**/*Controller.php',
     'phpunit': phpunit.src + '/**/*Test.php',
-    'phpspec': phpspec.src + '/**/*Spec.php',
-    'routeScanning': config.scans.routes.baseDir + '/**/*Controller.php'
+    'phpspec': phpspec.src + '/**/*Spec.php'
 };
 
 
