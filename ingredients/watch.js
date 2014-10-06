@@ -17,7 +17,7 @@ var coffee = config.preprocessors.coffee;
  */
 var srcPaths = {
     'sass': sass.src + sass.search,
-    'less': less.src + less.search,
+    'less': 'resources/assets/less/**/*.less',
     'coffee': coffee.src + coffee.search,
     'routeScanning': config.scans.routes.baseDir + '/**/*Controller.php'
 };
