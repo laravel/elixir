@@ -46,7 +46,8 @@ var config = {
 
     // Directories to scan.
     scans: {
-        routes: { baseDir: './app' }
+        routes: { baseDir: './app' },
+        events: { baseDir: './app'}
     },
 
     // The default CSS output directory.
@@ -155,5 +156,12 @@ config.routes = function(baseDir) {
     return this;
 }
 
+config.events = function(baseDir) {
+    if (baseDir) this.scans.events.baseDir = baseDir;
+
+    queueTask('eventScanning');
+
+    return this;
+}
 
 module.exports = config;
