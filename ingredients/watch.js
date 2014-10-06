@@ -19,7 +19,8 @@ var srcPaths = {
     'sass': sass.src + sass.search,
     'less': 'resources/assets/less/**/*.less',
     'coffee': coffee.src + coffee.search,
-    'routeScanning': config.scans.routes.baseDir + '/**/*Controller.php'
+    'routeScanning': config.scans.routes.baseDir + '/**/*Controller.php',
+    'eventScanning': config.scans.events.baseDir + '/**/*.php'
 };
 
 var tasksToRun = _.intersection(config.tasks, _.keys(srcPaths));
