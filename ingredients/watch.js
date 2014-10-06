@@ -1,7 +1,9 @@
 var gulp = require('gulp');
 var _ = require('underscore');
-var Elixir = require('../Elixir');
-var config = Elixir.config;
+var config = require('../Elixir').config;
+var sass = config.preprocessors.sass;
+var less = config.preprocessors.less;
+var coffee = config.preprocessors.coffee;
 
 
 /*
@@ -14,10 +16,10 @@ var config = Elixir.config;
  |
  */
 var srcPaths = {
-    'sass': config.preprocessors['sass'].src + '/**/*.+(scss|sass)',
-    'less': config.preprocessors['less'].src + '/**/*.less',
-    'coffee': config.preprocessors['coffee'].src + '/**/*.coffee',
-    'routeScanning': 'app/**/*Controller.php'
+    'sass': sass.src + sass.search,
+    'less': less.src + less.search,
+    'coffee': coffee.src + coffee.search,
+    'routeScanning': config.scans.routes.baseDir + '/**/*Controller.php'
 };
 
 var tasksToRun = _.intersection(config.tasks, _.keys(srcPaths));

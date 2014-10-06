@@ -1,7 +1,8 @@
 var gulp = require('gulp');
 var _ = require('underscore');
-var Elixir = require('../Elixir');
-var config = Elixir.config;
+var config = require('../Elixir').config;
+var phpunit = config.testSuites.phpunit;
+var phpspec = config.testSuites.phpspec;
 
 
 /*
@@ -14,9 +15,9 @@ var config = Elixir.config;
  |
  */
 var srcPaths = {
-    'phpunit': config.testSuites.phpunit.src + '/**/*Test.php',
-    'phpspec': config.testSuites.phpspec.src + '/**/*Spec.php',
-    'routeScanning': 'app/**/*Controller.php'
+    'phpunit': phpunit.src + '/**/*Test.php',
+    'phpspec': phpspec.src + '/**/*Spec.php',
+    'routeScanning': config.scans.routes.baseDir + '/**/*Controller.php'
 };
 
 var tasksToRun = _.intersection(config.tasks, _.keys(srcPaths));
