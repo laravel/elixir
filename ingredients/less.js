@@ -26,7 +26,7 @@ gulp.task('less', function() {
         this.emit('end');
     };
 
-    gulp.src(lessConfig.src + lessConfig.search)
+    return gulp.src(lessConfig.src + lessConfig.search)
         .pipe(plugins.less()).on('error', onError)
         .pipe(plugins.autoprefixer())
         .pipe(plugins.minifyCss())
