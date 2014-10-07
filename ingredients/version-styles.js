@@ -2,6 +2,9 @@ var gulp = require('gulp');
 var _ = require('underscore');
 var plugins = require('gulp-load-plugins')();
 var config = require('../Elixir').config;
+var mustRunFirst = _.intersection(config.tasks, [
+    'sass', 'less', 'styles'
+]);
 
 
 /*
@@ -13,10 +16,6 @@ var config = require('../Elixir').config;
  | it, and prepare a manifest file. This will help with cache-busting.
  |
  */
-var mustRunFirst = _.intersection(config.tasks, [
-    'styles', 'sass', 'less'
-]);
-
 gulp.task('versionStyles', mustRunFirst, function() {
     gulp.src(config.versions.styles.src)
         .pipe(plugins.rev())

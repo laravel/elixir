@@ -2,6 +2,7 @@ var gulp = require('gulp');
 var _ = require('underscore');
 var plugins = require('gulp-load-plugins')();
 var config = require('../Elixir').config;
+var mustRunFirst = _.intersection(config.tasks, ['coffee', 'scripts']);
 
 
 /*
@@ -13,8 +14,6 @@ var config = require('../Elixir').config;
  | it, and prepare a manifest file. This will help with cache-busting.
  |
  */
-var mustRunFirst = _.intersection(config.tasks, ['scripts', 'coffee' ]);
-
 gulp.task('versionScripts', mustRunFirst, function() {
     gulp.src(config.versions.scripts.src)
         .pipe(plugins.rev())

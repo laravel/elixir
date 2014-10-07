@@ -1,8 +1,8 @@
 var gulp = require('gulp');
 var _ = require('underscore');
 var config = require('../Elixir').config;
-var phpunit = config.testSuites.phpunit;
-var phpspec = config.testSuites.phpspec;
+var srcPaths = config.watchers.tdd();
+var tasksToRun = _.intersection(config.tasks, _.keys(srcPaths));
 
 
 /*
@@ -14,17 +14,8 @@ var phpspec = config.testSuites.phpspec;
  | files. When changed, your test suite will automatically fire.
  |
  */
-var srcPaths = {
-    'routeScanning': config.scans.routes.baseDir + '/**/*Controller.php',
-    'phpunit': phpunit.src + '/**/*Test.php',
-    'phpspec': phpspec.src + '/**/*Spec.php'
-};
-
-
-var tasksToRun = _.intersection(config.tasks, _.keys(srcPaths));
-
 gulp.task('tdd', tasksToRun, function() {
-    _.each(tasksToRun, function(task) {
+    tasksToRun.forEach(function(task) {
         gulp.watch(srcPaths[task], [task]);
     });
 

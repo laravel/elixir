@@ -1,6 +1,7 @@
 var gulp = require('gulp');
 var plugins = require('gulp-load-plugins')();
 var config = require('../Elixir').config;
+var lessConfig = config.preprocessors.less;
 
 
 /*
@@ -13,8 +14,6 @@ var config = require('../Elixir').config;
  |
  */
 gulp.task('less', function() {
-    var lessConfig = config.preprocessors.less;
-
     var onError = function(err) {
         plugins.notify.onError({
             title:    "Gulp",
@@ -25,8 +24,8 @@ gulp.task('less', function() {
 
         this.emit('end');
     };
-
-    return gulp.src(lessConfig.src + lessConfig.search)
+console.log(config.preprocessors.baseDir + lessConfig.src + lessConfig.search);
+    return gulp.src(config.preprocessors.baseDir + lessConfig.src + lessConfig.search)
         .pipe(plugins.less()).on('error', onError)
         .pipe(plugins.autoprefixer())
         .pipe(plugins.minifyCss())

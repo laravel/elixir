@@ -1,6 +1,7 @@
 var gulp = require('gulp');
 var plugins = require('gulp-load-plugins')();
 var config = require('../Elixir').config;
+var coffeeConfig = config.preprocessors.coffee;
 
 
 /*
@@ -13,8 +14,6 @@ var config = require('../Elixir').config;
  |
  */
 gulp.task('coffee', function() {
-    var coffeeConfig = config.preprocessors.coffee;
-
     var onError = function(err) {
         plugins.notify.onError({
             title:    'CoffeeScript',
@@ -25,7 +24,8 @@ gulp.task('coffee', function() {
 
         this.emit('end');
     };
-    return gulp.src(coffeeConfig.src + coffeeConfig.search)
+
+    return gulp.src( config.preprocessors.baseDir + coffeeConfig.src + coffeeConfig.search)
         .pipe(plugins.coffee().on('error', onError))
         .pipe(plugins.uglify())
         .pipe(gulp.dest(config.preprocessors.coffee.output))

@@ -1,6 +1,7 @@
 var gulp = require('gulp');
 var plugins = require('gulp-load-plugins')();
 var config = require('../Elixir').config;
+var phpspecConfig = config.testSuites.phpspec;
 
 
 /*
@@ -15,7 +16,7 @@ var config = require('../Elixir').config;
 gulp.task('phpspec', function() {
     var options = { 'verbose': 'v', notify: true, clear: true };
 
-    gulp.src(config.testSuites.phpspec.src + '/**/*Spec.php')
+    gulp.src(phpspecConfig.src + phpspecConfig.search)
         .pipe(plugins.phpspec('', options))
             .on('error', plugins.notify.onError({
                 title: 'Failure',

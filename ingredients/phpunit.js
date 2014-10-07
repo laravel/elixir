@@ -1,6 +1,7 @@
 var gulp = require('gulp');
 var plugins = require('gulp-load-plugins')();
 var config = require('../Elixir').config;
+var phpunitConfig = config.testSuites.phpunit;
 
 
 /*
@@ -15,7 +16,7 @@ var config = require('../Elixir').config;
 gulp.task('phpunit', function() {
     var options =  { debug: true, notify: true, clear: true };
 
-    gulp.src(config.testSuites.phpunit.src + '/**/*Test.php')
+    gulp.src(phpunitConfig.src + phpunitConfig.search)
         .pipe(plugins.phpunit('', options)).on('error', plugins.notify.onError({
             title: 'Failure',
             message: 'Your PHPUnit tests have failed!',
