@@ -89,7 +89,13 @@ config.preprocessor = function(name, src, output, fileExt) {
     var preprocessor = this.preprocessors[name];
 
     if (src) {
-        preprocessor.src = src.replace(this.preprocessors.baseDir, '');
+
+        // We'll accept:
+        // 1. The entire path to the asset
+        // 2. The "from basedir" path to the asset
+        // 3. The "from asset" folder path to the asset.
+        preprocessor.src = name + '/' +
+            src.replace(this.preprocessors.baseDir + name, '').replace(name+'/', '');
 
         // If the user provides a src of a direct file, then
         // we need to modify our search regex a bit.

@@ -24,7 +24,7 @@ gulp.task('less', function() {
 
         this.emit('end');
     };
-
+console.log(config.preprocessors.baseDir + lessConfig.src + lessConfig.search);
     return gulp.src(config.preprocessors.baseDir + lessConfig.src + lessConfig.search)
         .pipe(plugins.less()).on('error', onError)
         .pipe(plugins.autoprefixer())
