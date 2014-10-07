@@ -89,7 +89,7 @@ config.preprocessor = function(name, src, output, fileExt) {
     var preprocessor = this.preprocessors[name];
 
     if (src) {
-        preprocessor.src = src;
+        preprocessor.src = src.replace(this.preprocessors.baseDir, '');
 
         // If the user provides a src of a direct file, then
         // we need to modify our search regex a bit.
