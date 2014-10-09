@@ -7,7 +7,7 @@ var elixir = require('./vendor/laravel/straw/Elixir');
  |
  | Elixir provides a clean, fluent API for defining some basic
  | Gulp tasks for your Laravel application. Elixir supports
- | several common CSS, JavaScript and even testing tools.
+ | several common CSS, JavaScript and even testing tools!
  |
  | In addition, Elixir will monitor your files for changes and
  | rebuild your scanned route and event configurations each
