@@ -164,7 +164,7 @@ config.styles = function(styles, baseDir, output) {
 },
 
 config.version = function(assets, baseDir) {
-    if (baseDir) this.version.baseDir = baseDir;
+    if (baseDir) this.versioning.baseDir = baseDir;
 
     this.versioning.src = assets;
 
