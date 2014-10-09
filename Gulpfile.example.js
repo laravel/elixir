@@ -1,4 +1,4 @@
-var elixir = require('./vendor/laravel/straw/Elixir');
+var elixir = require('./vendor/laravel/elixir/Elixir');
 
 /*
  |----------------------------------------------------------------
