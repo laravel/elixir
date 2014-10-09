@@ -69,7 +69,7 @@ var config = {
 
     // Optional file versioning.
     versioning: {
-        baseDir: 'public/build',
+        buildDir: 'public/build',
         src: []
     },
 
@@ -163,10 +163,12 @@ config.styles = function(styles, baseDir, output) {
     return this.combine('css', styles, baseDir, output);
 },
 
-config.version = function(assets, baseDir) {
-    if (baseDir) this.versioning.baseDir = baseDir;
+config.version = function(assets, buildDir) {
+    if (buildDir) this.versioning.buildDir = buildDir;
 
-    this.versioning.src = assets;
+    this.versioning.src = assets.map(function(asset) {
+        return 'public/' + asset.replace('public/', '');
+    });
 
     return queueTask('version');
 },

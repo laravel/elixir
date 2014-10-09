@@ -19,12 +19,12 @@ var mustRunFirst = _.intersection(config.tasks, [
  */
 
 gulp.task('version', mustRunFirst, function() {
-    gulp.src(config.versioning.baseDir + '/*' , { read: false })
+    gulp.src(config.versioning.buildDir + '/*' , { read: false })
         .pipe(plugins.clean({ force: true }));
 
     gulp.src(config.versioning.src)
         .pipe(plugins.rev())
-        .pipe(gulp.dest(config.versioning.baseDir))
+        .pipe(gulp.dest(config.versioning.buildDir))
         .pipe(plugins.rev.manifest())
-        .pipe(gulp.dest(config.versioning.baseDir));
+        .pipe(gulp.dest(config.versioning.buildDir));
 });
