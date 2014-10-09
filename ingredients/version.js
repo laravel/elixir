@@ -4,12 +4,12 @@ var config = require('../Elixir').config;
 var plugins = require('gulp-load-plugins')();
 
 var mustRunFirst = _.intersection(config.tasks, [
-	'coffee', 'scripts'
+    'less', 'sass', 'coffee', 'styles', 'scripts'
 ]);
 
 /*
  |----------------------------------------------------------------
- | JavaScript Versioning / Cache Busting
+ | Versioning / Cache Busting
  |----------------------------------------------------------------
  |
  | This task will append a small hash on the end of your file
@@ -18,10 +18,13 @@ var mustRunFirst = _.intersection(config.tasks, [
  |
  */
 
-gulp.task('versionScripts', mustRunFirst, function() {
-    gulp.src(config.versions.scripts.src)
+gulp.task('version', mustRunFirst, function() {
+    gulp.src(config.versioning.baseDir + '/*' , { read: false })
+        .pipe(plugins.clean({ force: true }));
+
+    gulp.src(config.versioning.src)
         .pipe(plugins.rev())
-        .pipe(gulp.dest(config.jsOutput))
+        .pipe(gulp.dest(config.versioning.baseDir))
         .pipe(plugins.rev.manifest())
-        .pipe(gulp.dest(config.jsOutput));
+        .pipe(gulp.dest(config.versioning.baseDir));
 });

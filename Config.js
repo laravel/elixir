@@ -18,8 +18,7 @@ var config = {
                 coffee: config.preprocessors.baseDir + '/**/*.coffee',
                 routeScanning: 'app/**/*Controller.php',
                 eventScanning: 'app/**/*.php',
-                versionStyles: config.versions.styles.src,
-                versionScripts: config.versions.scripts.src
+                version: 'public/css/bootstrap.css'
             }
         },
 
@@ -69,9 +68,9 @@ var config = {
     },
 
     // Optional file versioning.
-    versions: {
-        styles: {},
-        scripts: {}
+    versioning: {
+        baseDir: 'public/build',
+        src: []
     },
 
     // Scripts and styles to combine.
@@ -164,19 +163,13 @@ config.styles = function(styles, baseDir, output) {
     return this.combine('css', styles, baseDir, output);
 },
 
-config.version = function(type, assets) {
-    this.versions[type].src = assets;
+config.version = function(assets, baseDir) {
+    if (baseDir) this.version.baseDir = baseDir;
 
-    return queueTask('version' + type.charAt(0).toUpperCase() + type.substring(1));
+    this.versioning.src = assets;
+
+    return queueTask('version');
 },
-
-config.versionStyles = function(assets) {
-    return this.version('styles', assets);
-}
-
-config.versionScripts = function(assets) {
-    return this.version('scripts', assets);
-}
 
 config.routes = function() {
     return queueTask('routeScanning');
