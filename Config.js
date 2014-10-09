@@ -138,11 +138,8 @@ config.phpSpec = function(src) {
 },
 
 config.combine = function(type, files, baseDir, output) {
-    var ext = '.' + type;
-    baseDir = baseDir || '.';
-
     files = files.map(function(file) {
-        return baseDir + '/' + file.replace(ext, '') + ext;
+        return (baseDir || '.') + '/' + file
     });
 
     this.concatenate[type].source = files;
