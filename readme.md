@@ -1,3 +1,5 @@
-# Straw
+# Laravel Elixir
 
-Easy asset management.
+Beautiful Gulp tasks for your Laravel applications.
+
+Official documentation coming soon.
