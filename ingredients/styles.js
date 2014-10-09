@@ -1,18 +1,18 @@
 var gulp = require('gulp');
-var plugins = require('gulp-load-plugins')();
 var config = require('../Elixir').config;
-
+var plugins = require('gulp-load-plugins')();
 
 /*
- |--------------------------------------------------------------------------
- | Concatenate Styles
- |--------------------------------------------------------------------------
+ |----------------------------------------------------------------
+ | CSS File Concatenation
+ |----------------------------------------------------------------
  |
- | This task will concatenate and minify any CSS files in order.
- | This gives you a quick and easy way to reduce the number
- | of HTTP requests that your app makes.
+ | This task will concatenate and minify your style sheet files
+ | in order, which provides a quick and simple way to reduce
+ | the number of HTTP requests your application fires off.
  |
  */
+
 gulp.task('styles', function() {
     var saveTo = config.concatenate.css.to || config.cssOutput;
     var concatName = 'all.min.css';

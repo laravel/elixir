@@ -1,23 +1,24 @@
 var gulp = require('gulp');
-var plugins = require('gulp-load-plugins')();
 var config = require('../Elixir').config;
 var lessConfig = config.preprocessors.less;
-
+var plugins = require('gulp-load-plugins')();
 
 /*
- |--------------------------------------------------------------------------
- | Less Compilation
- |--------------------------------------------------------------------------
+ |----------------------------------------------------------------
+ | Less Compilation Task
+ |----------------------------------------------------------------
  |
- | This task will compile your Less, auto-prefix it, minify it, and then
- | generate a manifest file, to help with automatic cache-busting.
+ | This task will compile your Less, including minification and
+ | and auto-prefixing. Less is one of the CSS pre-precessors
+ | supported by Elixir, along with the Sass CSS processor.
  |
  */
+
 gulp.task('less', function() {
     var onError = function(err) {
         plugins.notify.onError({
-            title:    "Gulp",
-            subtitle: "Compilation Failed!",
+            title:    "Laravel Elixir",
+            subtitle: "Less Compilation Failed!",
             message:  "Error: <%= error.message %>",
             icon: __dirname + '/../icons/laravel.png'
         })(err);
@@ -31,8 +32,8 @@ gulp.task('less', function() {
         .pipe(plugins.minifyCss())
         .pipe(gulp.dest(config.preprocessors.less.output))
         .pipe(plugins.notify({
-            title: 'Less',
-            subtitle: 'Compiled!',
+            title: 'Laravel Elixir',
+            subtitle: 'Less Compiled!',
             icon: __dirname + '/../icons/laravel.png',
             message: ' '
         }));

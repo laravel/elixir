@@ -1,19 +1,23 @@
 var gulp = require('gulp');
 var _ = require('underscore');
-var plugins = require('gulp-load-plugins')();
 var config = require('../Elixir').config;
-var mustRunFirst = _.intersection(config.tasks, ['coffee', 'scripts']);
+var plugins = require('gulp-load-plugins')();
 
+var mustRunFirst = _.intersection(config.tasks, [
+	'coffee', 'scripts'
+]);
 
 /*
- |--------------------------------------------------------------------------
- | Script Versioning
- |--------------------------------------------------------------------------
+ |----------------------------------------------------------------
+ | JavaScript Versioning / Cache Busting
+ |----------------------------------------------------------------
  |
- | This task will append a unique hash to any relevant files that are fed to
- | it, and prepare a manifest file. This will help with cache-busting.
+ | This task will append a small hash on the end of your file
+ | and generate a manifest file which contains the current
+ | "version" of the filename for the application to use.
  |
  */
+
 gulp.task('versionScripts', mustRunFirst, function() {
     gulp.src(config.versions.scripts.src)
         .pipe(plugins.rev())

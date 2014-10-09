@@ -1,15 +1,15 @@
 var gulp = require('gulp');
 var tasksToRun = require('../Elixir').config.tasks;
 
-
 /*
- |--------------------------------------------------------------------------
- | The Default Runner
- |--------------------------------------------------------------------------
+ |----------------------------------------------------------------
+ | Default Task
+ |----------------------------------------------------------------
  |
- | This is the task that will fire when you simply run `gulp` from the
- | command line. We'll use the Straw.sip() call to determine which
- | tasks we need to run.
+ | This task will run when the developer executes "gulp" on the
+ | command line. We'll use this configuration object to know
+ | which tasks should be fired when this task is executed.
  |
  */
+
 gulp.task('default', tasksToRun);

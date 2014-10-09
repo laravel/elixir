@@ -1,20 +1,23 @@
 var gulp = require('gulp');
 var _ = require('underscore');
 var config = require('../Elixir').config;
+
 var srcPaths = config.watchers.tdd();
 var tasksToRun = _.intersection(config.tasks, _.keys(srcPaths));
 
-
 /*
- |--------------------------------------------------------------------------
- | Tests Watcher
- |--------------------------------------------------------------------------
+ |----------------------------------------------------------------
+ | Automated Testing
+ |----------------------------------------------------------------
  |
- | This task sets up a watcher for your tests, as well as your app's PHP
- | files. When changed, your test suite will automatically fire.
+ | This task will setup a water to run your automated tests on
+ | every file change you make. You will get notified of the
+ | result of the test suite each time tests are executed.
  |
  */
+
 gulp.task('tdd', tasksToRun, function() {
+
     tasksToRun.forEach(function(task) {
         gulp.watch(srcPaths[task], [task]);
     });

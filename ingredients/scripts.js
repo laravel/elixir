@@ -1,21 +1,21 @@
 var gulp = require('gulp');
-var plugins = require('gulp-load-plugins')();
 var config = require('../Elixir').config;
-
+var plugins = require('gulp-load-plugins')();
 
 /*
- |--------------------------------------------------------------------------
- | Concatenate Scripts
- |--------------------------------------------------------------------------
+ |----------------------------------------------------------------
+ | JavaScript File Concatenation
+ |----------------------------------------------------------------
  |
- | This task will concatenate and minify any JavaScript files in order.
- | This gives you a quick and easy way to reduce the number of
- | HTTP requests that your app makes.
+ | This task will concatenate and minify your JavaScript files
+ | in order. This provides a quick and simple way to reduce
+ | the number of HTTP requests your application executes.
  |
  */
+
 gulp.task('scripts', function() {
-    var saveTo = config.concatenate.js.to || config.jsOutput;
     var concatName = 'all.min.js';
+    var saveTo = config.concatenate.js.to || config.jsOutput;
 
     if (saveTo.indexOf('.js') > -1) {
         var pathFragments = saveTo.split('/');

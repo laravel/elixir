@@ -1,29 +1,23 @@
-var Elixir = require('./vendor/laravel/straw/Elixir');
-
+var elixir = require('./vendor/laravel/straw/Elixir');
 
 /*
  |----------------------------------------------------------------
  | Have a Drink
  |----------------------------------------------------------------
  |
- | Here, you'll find a nice fluent API for specifying which files
- | in your application should be compiled, watched, or merged.
+ | Elixir provides a clean, fluent API for defining some basic
+ | Gulp tasks for your Laravel application. Elixir supports
+ | several common CSS, JavaScript and even testing tools.
+ |
+ | In addition, Elixir will monitor your files for changes and
+ | rebuild your scanned route and event configurations each
+ | time you update your code. It is quick and convenient!
  |
  */
-Elixir(function(mix) {
-    mix.less();
+
+elixir(function(mix) {
+    mix.less("bootstrap.less")
+       .routes()
+       .events()
+       .phpUnit();
 });
-
-
-/*
- |----------------------------------------------------------------
- | Still Thirsty?
- |----------------------------------------------------------------
- |
- | If you'd like to override any of the default tasks, or even
- | specify your own, you may do so below.
- |
- | var gulp = require('gulp');
- | gulp.task('foo', function() {});
- |
- */
