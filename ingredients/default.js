@@ -8,7 +8,7 @@ var tasksToRun = require('../Elixir').config.tasks;
  |--------------------------------------------------------------------------
  |
  | This is the task that will fire when you simply run `gulp` from the
- | command line. We'll use the Straw.sip() call to determine which
+ | command line. We'll use the Elixir() call to determine which
  | tasks we need to run.
  |
  */
