@@ -41,11 +41,13 @@ var config = {
             search: '/**/*.less',
             output: 'public/css'
         },
+
         sass: {
             src: '/sass',
             search: '/**/*.+(sass|scss)',
             output: 'public/css'
         },
+
         coffee: {
             src: '/coffee',
             search: '/**/*.coffee',
@@ -59,6 +61,7 @@ var config = {
             src: 'tests',
             search: '/**/*Test.php'
         },
+
         phpspec: {
             src: 'spec',
             search: '/**/*Spec.php'

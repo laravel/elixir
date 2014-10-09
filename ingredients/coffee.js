@@ -21,7 +21,7 @@ gulp.task('coffee', function() {
             title:    'Laravel Elixir',
             subtitle: 'CoffeeScript Compilation Failed!',
             message:  'Error: <%= error.message %>',
-            icon: __dirname + '/../icons/laravel.png'
+            icon: __dirname + '/../icons/fail.png'
         })(err);
 
         this.emit('end');

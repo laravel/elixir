@@ -23,7 +23,7 @@ gulp.task('sass', function() {
                     title:    'Laravel Elixir',
                     subtitle: 'Sass Compilation Failed!',
                     message:  'Error: <%= error.message %>',
-                    icon: __dirname + '/../icons/laravel.png'
+                    icon: __dirname + '/../icons/fail.png'
                 })(err);
 
                 this.emit('end');
