@@ -87,7 +87,7 @@ config.preprocessor = function(name, src, output) {
     if (src) {
         preprocessor.src = prefixDirToFiles(path, src);
     } else {
-        preprocessor.src = path + '/' + this.preprocessors.sass.search;
+        preprocessor.src = path + '/' + this.preprocessors[name].search;
     }
 
     if (output) preprocessor.output = output;
