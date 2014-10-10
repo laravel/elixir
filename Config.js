@@ -85,7 +85,7 @@ config.preprocessor = function(name, src, output, fileExt) {
 
     if (src) {
         // The full path to the src file is optional.
-        preprocessor.src = this.preprocessors.baseDir + name + '/' +
+        preprocessor.src = name + '/' +
             src.replace(this.preprocessors.baseDir + name, '')
                .replace(name + '/', '');
 
