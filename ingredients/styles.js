@@ -24,7 +24,7 @@ gulp.task('styles', function() {
         saveTo = pathFragments.join('/');
     }
 
-    return gulp.src(config.concatenate.css.source)
+    return gulp.src(config.concatenate.css.src)
         .pipe(plugins.concat(concatName))
         .pipe(plugins.minifyCss())
         .pipe(gulp.dest(saveTo));

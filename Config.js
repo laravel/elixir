@@ -127,7 +127,7 @@ config.phpSpec = function(src) {
 },
 
 config.combine = function(type, files, baseDir, output) {
-    this.concatenate[type].source = prefixDirToFiles(baseDir || 'public', files);
+    this.concatenate[type].src = prefixDirToFiles(baseDir || 'public', files);
     this.concatenate[type].to = output;
 
     return this;

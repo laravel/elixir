@@ -24,7 +24,7 @@ gulp.task('scripts', function() {
         saveTo = pathFragments.join('/');
     }
 
-    return gulp.src(config.concatenate.js.source)
+    return gulp.src(config.concatenate.js.src)
         .pipe(plugins.concat(concatName))
         .pipe(plugins.uglify())
         .pipe(gulp.dest(saveTo));
