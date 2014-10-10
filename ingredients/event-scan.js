@@ -13,5 +13,5 @@ var shell = require('gulp-shell');
  */
 
 gulp.task('eventScanning', function() {
-    gulp.src('').pipe(shell('php artisan event:scan', {ignoreErrors: true}));
+    return gulp.src('').pipe(shell('php artisan event:scan', {ignoreErrors: true}));
 });

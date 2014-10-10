@@ -13,5 +13,5 @@ var shell = require('gulp-shell');
  */
 
 gulp.task('routeScanning', function() {
-    gulp.src('').pipe(shell('php artisan route:scan', {ignoreErrors: true}));
+    return gulp.src('').pipe(shell('php artisan route:scan', {ignoreErrors: true}));
 });
