@@ -17,7 +17,7 @@
     "autoload": {
         "files": [
             "helpers.php"
-        ],
+        ]
     },
     "extra": {
         "branch-alias": {
