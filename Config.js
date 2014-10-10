@@ -12,7 +12,7 @@ var config = {
                 coffee: config.preprocessors.baseDir + '/**/*.coffee',
                 routeScanning: 'app/**/*Controller.php',
                 eventScanning: 'app/**/*.php',
-                version: 'public/css/bootstrap.css'
+                version: config.versioning.src
             }
         },
 
