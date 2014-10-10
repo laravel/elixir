@@ -6,10 +6,12 @@ var config = {
     // The default watchers and paths.
     watchers: {
         default: function() {
+            var baseDir = config.preprocessors.baseDir;
+
             return {
-                sass: config.preprocessors.baseDir + '/**/*.+(sass|scss)',
-                less: config.preprocessors.baseDir + '/**/*.less',
-                coffee: config.preprocessors.baseDir + '/**/*.coffee',
+                sass: baseDir + '/**/*.+(sass|scss)',
+                less: baseDir + '/**/*.less',
+                coffee: baseDir + '/**/*.coffee',
                 routeScanning: 'app/**/*Controller.php',
                 eventScanning: 'app/**/*.php',
                 version: config.versioning.src
@@ -17,10 +19,12 @@ var config = {
         },
 
         tdd: function() {
+            var suites = config.testSuites;
+
             return {
                 routeScanning: 'app/**/*Controller.php',
-                phpunit: config.testSuites.phpunit.src + config.testSuites.phpunit.search,
-                phpspec: config.testSuites.phpspec.src + config.testSuites.phpspec.search
+                phpunit: suites.phpunit.src + suites.phpunit.search,
+                phpspec: suites.phpspec.src + suites.phpspec.search
             }
         }
     },
