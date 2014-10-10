@@ -10,7 +10,7 @@ var tasksToRun = _.intersection(config.tasks, _.keys(srcPaths));
  | Automated Testing
  |----------------------------------------------------------------
  |
- | This task will setup a water to run your automated tests on
+ | This task will setup a watcher to run your automated tests on
  | every file change you make. You will get notified of the
  | result of the test suite each time tests are executed.
  |
