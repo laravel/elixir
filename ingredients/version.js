@@ -2,6 +2,7 @@ var gulp = require('gulp');
 var _ = require('underscore');
 var config = require('../Elixir').config;
 var plugins = require('gulp-load-plugins')();
+var del = require('del');
 
 var mustRunFirst = _.intersection(config.tasks, [
     'less', 'sass', 'coffee', 'styles', 'scripts'
@@ -19,8 +20,7 @@ var mustRunFirst = _.intersection(config.tasks, [
  */
 
 gulp.task('version', mustRunFirst, function() {
-    gulp.src(config.versioning.buildDir + '/*' , { read: false })
-        .pipe(plugins.clean({ force: true }));
+    del(config.versioning.buildDir + '/*', { force: true })
 
     gulp.src(config.versioning.src)
         .pipe(plugins.rev())
