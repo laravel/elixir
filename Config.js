@@ -1,11 +1,4 @@
-var queueTask = function(task) {
-    config.tasks.push(task);
-
-    return config;
-};
-
 var config = {
-
     // All user requested tasks from the Gulpfile.
     tasks: [],
 
@@ -84,24 +77,19 @@ var config = {
 
     // The default JS output directory.
     jsOutput: 'public/js'
-
 };
 
 config.preprocessor = function(name, src, output, fileExt) {
     var preprocessor = this.preprocessors[name];
 
     if (src) {
-
-        // We'll accept:
-        // 1. The entire path to the asset
-        // 2. The "from basedir" path to the asset
-        // 3. The "from asset" folder path to the asset.
+        // The full path to the src file is optional.
         preprocessor.src = name + '/' +
-            src.replace(this.preprocessors.baseDir + name, '').replace(name+'/', '');
+            src.replace(this.preprocessors.baseDir + name, '')
+               .replace(name + '/', '');
 
-        // If the user provides a src of a direct file, then
-        // we need to modify our search regex a bit.
-        if (src.match(new RegExp(fileExt || '.'+name))) {
+        // For direct files, we should remove the search path.
+        if (src.match(new RegExp(fileExt || '.' + name))) {
             this.preprocessors[name].search = '';
         }
     }
@@ -138,11 +126,7 @@ config.phpSpec = function(src) {
 },
 
 config.combine = function(type, files, baseDir, output) {
-    files = files.map(function(file) {
-        return (baseDir || '.') + '/' + file
-    });
-
-    this.concatenate[type].source = files;
+    this.concatenate[type].source = prefixDirToFiles(baseDir, files);
     this.concatenate[type].to = output;
 
     return this;
@@ -163,9 +147,7 @@ config.styles = function(styles, baseDir, output) {
 config.version = function(assets, buildDir) {
     if (buildDir) this.versioning.buildDir = buildDir;
 
-    this.versioning.src = assets.map(function(asset) {
-        return 'public/' + asset.replace('public/', '');
-    });
+    this.versioning.src = prefixDirToFiles('public', assets);
 
     return queueTask('version');
 },
@@ -176,6 +158,20 @@ config.routes = function() {
 
 config.events = function() {
     return queueTask('eventScanning');
+}
+
+var queueTask = function(task) {
+    config.tasks.push(task);
+
+    return config;
+};
+
+var prefixDirToFiles = function(dir, files) {
+    return files.map(function(file) {
+        dir = (dir || '.') + '/';
+
+        return dir + file.replace(dir, '');
+    });
 }
 
 module.exports = config;

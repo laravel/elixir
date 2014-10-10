@@ -3,7 +3,6 @@ var config = require('../Elixir').config;
 var plugins = require('gulp-load-plugins')();
 var coffeeConfig = config.preprocessors.coffee;
 
-
 /*
  |----------------------------------------------------------------
  | CoffeeScript Compilation
