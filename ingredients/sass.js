@@ -17,7 +17,7 @@ var sass = require('gulp-sass');
 
 gulp.task('sass', function() {
 
-    return gulp.src(config.preprocessors.baseDir + sassConfig.src + sassConfig.search)
+    return gulp.src(config.preprocessors.sass.src)
         .pipe(sass({ outputStyle: 'compressed' }))
             .on('error', function(err) {
                 plugins.notify.onError({

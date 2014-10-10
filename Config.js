@@ -80,19 +80,14 @@ var config = {
     jsOutput: 'public/js'
 };
 
-config.preprocessor = function(name, src, output, fileExt) {
+config.preprocessor = function(name, src, output) {
     var preprocessor = this.preprocessors[name];
+    var path = config.preprocessors.baseDir + name;
 
-    if (src && ! Array.isArray(src)) {
-        // The full path to the src file is optional.
-        preprocessor.src = name + '/' +
-            src.replace(this.preprocessors.baseDir + name, '')
-               .replace(name + '/', '');
-
-        // For direct files, we should remove the search path.
-        if (src.match(new RegExp(fileExt || '\\.' + name))) {
-            preprocessor.search = '';
-        }
+    if (src) {
+        preprocessor.src = prefixDirToFiles(path, src);
+    } else {
+        preprocessor.src = path + '/' + this.preprocessors.sass.search;
     }
 
     if (output) preprocessor.output = output;
@@ -101,7 +96,7 @@ config.preprocessor = function(name, src, output, fileExt) {
 },
 
 config.sass = function(src, output) {
-    return this.preprocessor('sass', src, output, '\\.s[ac]ss');
+    return this.preprocessor('sass', src, output);
 },
 
 config.less = function(src, output) {
