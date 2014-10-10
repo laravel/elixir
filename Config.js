@@ -90,7 +90,7 @@ config.preprocessor = function(name, src, output, fileExt) {
                .replace(name + '/', '');
 
         // For direct files, we should remove the search path.
-        if (src.match(new RegExp(fileExt || '.' + name))) {
+        if (src.match(new RegExp(fileExt || '\\.' + name))) {
             this.preprocessors[name].search = '';
         }
     }
@@ -101,7 +101,7 @@ config.preprocessor = function(name, src, output, fileExt) {
 },
 
 config.sass = function(src, output) {
-    return this.preprocessor('sass', src, output, '.s[ac]ss');
+    return this.preprocessor('sass', src, output, '\\.s[ac]ss');
 },
 
 config.less = function(src, output) {
