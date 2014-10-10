@@ -17,11 +17,9 @@ if ( ! function_exists('elixir'))
 			$manifest = json_decode(public_path().'/build/.json', true);
 		}
 
-		$basePath = public_path().'/build';
-
 		if (isset($manifest[$file]))
 		{
-			return public_path.'/build/'.$manifest[$file];
+			return '/build/'.$manifest[$file];
 		}
 
 		throw new InvalidArgumentException("File not defined in asset manifest.");
