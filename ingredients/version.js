@@ -1,7 +1,7 @@
 var gulp = require('gulp');
 var _ = require('underscore');
 var config = require('../Elixir').config;
-var plugins = require('gulp-load-plugins')();
+var rev = require('gulp-rev');
 var del = require('del');
 
 var mustRunFirst = _.intersection(config.tasks, [
@@ -20,11 +20,13 @@ var mustRunFirst = _.intersection(config.tasks, [
  */
 
 gulp.task('version', mustRunFirst, function() {
-    del(config.versioning.buildDir + '/*', { force: true })
+    var buildDir = config.versioning.buildDir;
+
+    del(buildDir + '/*', { force: true })
 
     gulp.src(config.versioning.src)
-        .pipe(plugins.rev())
-        .pipe(gulp.dest(config.versioning.buildDir))
-        .pipe(plugins.rev.manifest())
-        .pipe(gulp.dest(config.versioning.buildDir));
+        .pipe(rev())
+        .pipe(gulp.dest(buildDir))
+        .pipe(rev.manifest())
+        .pipe(gulp.dest(buildDir));
 });
