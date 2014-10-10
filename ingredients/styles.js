@@ -14,18 +14,8 @@ var plugins = require('gulp-load-plugins')();
  */
 
 gulp.task('styles', function() {
-    var saveTo = config.concatenate.css.to || config.cssOutput;
-    var concatName = 'all.min.css';
-
-    if (saveTo.indexOf('.css') > -1) {
-        var pathFragments = saveTo.split('/');
-
-        concatName = pathFragments.pop();
-        saveTo = pathFragments.join('/');
-    }
-
     return gulp.src(config.concatenate.css.src)
-        .pipe(plugins.concat(concatName))
+        .pipe(plugins.concat(config.concatenate.css.concatName))
         .pipe(plugins.minifyCss())
-        .pipe(gulp.dest(saveTo));
+        .pipe(gulp.dest(config.concatenate.css.to));
 });

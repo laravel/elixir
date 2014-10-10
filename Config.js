@@ -127,8 +127,19 @@ config.phpSpec = function(src) {
 },
 
 config.combine = function(type, files, baseDir, output) {
+    var concatName = 'all.min.' + type;
+    var output = output || this[type + 'Output'];
+
+    if (output.indexOf('.' + type) > -1) {
+        var pathFragments = output.split('/');
+
+        concatName = pathFragments.pop();
+        output = pathFragments.join('/');
+    }
+
     this.concatenate[type].src = prefixDirToFiles(baseDir || 'public', files);
     this.concatenate[type].to = output;
+    this.concatenate[type].concatName = concatName;
 
     return this;
 },
