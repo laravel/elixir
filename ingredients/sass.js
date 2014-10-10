@@ -2,6 +2,7 @@ var gulp = require('gulp');
 var config = require('../Elixir').config;
 var sassConfig = config.preprocessors.sass;
 var plugins = require('gulp-load-plugins')();
+var sass = require('gulp-sass');
 
 /*
  |----------------------------------------------------------------
@@ -17,7 +18,7 @@ var plugins = require('gulp-load-plugins')();
 gulp.task('sass', function() {
 
     return gulp.src(config.preprocessors.baseDir + sassConfig.src + sassConfig.search)
-        .pipe(plugins.rubySass({ style: 'compressed' }))
+        .pipe(sass({ outputStyle: 'compressed' }))
             .on('error', function(err) {
                 plugins.notify.onError({
                     title:    'Laravel Elixir',
