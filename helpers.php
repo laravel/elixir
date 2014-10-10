@@ -14,7 +14,7 @@ if ( ! function_exists('elixir'))
 
 		if (is_null($manifest))
 		{
-			$manifest = json_decode(public_path().'/build/rev-manifest.json', true);
+			$manifest = json_decode(file_get_contents(public_path().'/build/rev-manifest.json'), true);
 		}
 
 		if (isset($manifest[$file]))
