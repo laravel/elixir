@@ -168,9 +168,9 @@ var queueTask = function(task) {
 };
 
 var prefixDirToFiles = function(dir, files) {
-    return files.map(function(file) {
-        dir = (dir || '.') + '/';
+    dir = (dir || '.') + '/';
 
+    return files.map(function(file) {
         return dir + file.replace(dir, '');
     });
 }
