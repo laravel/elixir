@@ -1,5 +1,5 @@
 var config = {
-    
+
     // All user requested tasks from the Gulpfile.
     tasks: [],
 
@@ -85,7 +85,7 @@ config.preprocessor = function(name, src, output, fileExt) {
 
     if (src) {
         // The full path to the src file is optional.
-        preprocessor.src = name + '/' +
+        preprocessor.src = this.preprocessors.baseDir + name + '/' +
             src.replace(this.preprocessors.baseDir + name, '')
                .replace(name + '/', '');
 
