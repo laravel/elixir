@@ -170,6 +170,8 @@ var queueTask = function(task) {
 var prefixDirToFiles = function(dir, files) {
     dir = (dir || '.') + '/';
 
+    if ( ! Array.isArray(files)) files = [files];
+
     return files.map(function(file) {
         return dir + file.replace(dir, '');
     });
