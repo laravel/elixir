@@ -1,10 +1,12 @@
+var util = require('gulp-util');
+
 var config = {
 
     // All user requested tasks from the Gulpfile.
     tasks: [],
 
     // Are we in production mode?
-    production: false,
+    production: !! util.env.production,
 
     // The default watchers and paths.
     watchers: {

@@ -2,8 +2,6 @@ var gulp = require('gulp');
 var config = require('../Elixir').config;
 var tasksToRun = config.tasks;
 
-config.production = !! (require('gulp-util').env.production);
-
 /*
  |----------------------------------------------------------------
  | Default Task
