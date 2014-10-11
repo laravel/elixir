@@ -97,33 +97,33 @@ config.preprocessor = function(name, src, output) {
     if (output) preprocessor.output = output;
 
     return queueTask(name);
-},
+};
 
 config.sass = function(src, output) {
     return this.preprocessor('sass', src, output);
-},
+};
 
 config.less = function(src, output) {
     return this.preprocessor('less', src, output);
-},
+};
 
 config.coffee = function(src, output) {
     return this.preprocessor('coffee', src, output);
-},
+};
 
 config.testSuite = function(name, src) {
     if (src) this.testSuites[name].src = src;
 
     return queueTask(name);
-},
+};
 
 config.phpUnit = function(src) {
     return this.testSuite('phpunit', src);
-},
+};
 
 config.phpSpec = function(src) {
     return this.testSuite('phpspec', src);
-},
+};
 
 config.combine = function(type, files, baseDir, output) {
     var concatName = 'all.min.' + type;
@@ -141,19 +141,19 @@ config.combine = function(type, files, baseDir, output) {
     this.concatenate[type].concatName = concatName;
 
     return this;
-},
+};
 
 config.scripts = function(scripts, baseDir, output) {
     queueTask('scripts');
 
     return this.combine('js', scripts, baseDir, output);
-},
+};
 
 config.styles = function(styles, baseDir, output) {
     queueTask('styles');
 
     return this.combine('css', styles, baseDir, output);
-},
+};
 
 config.version = function(assets, buildDir) {
     if (buildDir) this.versioning.buildDir = buildDir;
@@ -161,15 +161,15 @@ config.version = function(assets, buildDir) {
     this.versioning.src = prefixDirToFiles('public', assets);
 
     return queueTask('version');
-},
+};
 
 config.routes = function() {
     return queueTask('routeScanning');
-}
+};
 
 config.events = function() {
     return queueTask('eventScanning');
-}
+};
 
 var queueTask = function(task) {
     config.tasks.push(task);
@@ -183,6 +183,6 @@ var prefixDirToFiles = function(dir, files) {
     return files.map(function(file) {
         return dir + '/' + file.replace(dir, '');
     });
-}
+};
 
 module.exports = config;
