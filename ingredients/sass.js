@@ -1,6 +1,5 @@
 var gulp = require('gulp');
 var config = require('../Elixir').config;
-var sassConfig = config.preprocessors.sass;
 var plugins = require('gulp-load-plugins')();
 var sass = require('gulp-sass');
 
