@@ -24,7 +24,8 @@ gulp.task('version', mustRunFirst, function() {
 
     del(buildDir + '/*', { force: true })
 
-    gulp.src(config.versioning.src)
+    gulp.src(config.versioning.src, {base: "public"})
+        .pipe(gulp.dest(buildDir))
         .pipe(rev())
         .pipe(gulp.dest(buildDir))
         .pipe(rev.manifest())
