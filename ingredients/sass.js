@@ -18,7 +18,7 @@ var sass = require('gulp-sass');
 gulp.task('sass', function() {
 
     return gulp.src(config.preprocessors.sass.src)
-        .pipe(sass({ outputStyle: 'compressed' }))
+        .pipe(sass({ outputStyle: config.production ? 'compressed' : 'nested' }))
             .on('error', function(err) {
                 plugins.notify.onError({
                     title:    'Laravel Elixir',

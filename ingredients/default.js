@@ -1,5 +1,8 @@
 var gulp = require('gulp');
-var tasksToRun = require('../Elixir').config.tasks;
+var config = require('../Elixir').config;
+var tasksToRun = config.tasks;
+
+config.production = !! (require('gulp-util').env.production);
 
 /*
  |----------------------------------------------------------------

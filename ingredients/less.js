@@ -28,7 +28,7 @@ gulp.task('less', function() {
     return gulp.src(config.preprocessors.less.src)
         .pipe(plugins.less()).on('error', onError)
         .pipe(plugins.autoprefixer())
-        .pipe(plugins.minifyCss())
+        .pipe(plugins.if(config.production, plugins.minifyCss()))
         .pipe(gulp.dest(config.preprocessors.less.output))
         .pipe(plugins.notify({
             title: 'Laravel Elixir',

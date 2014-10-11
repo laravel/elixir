@@ -27,7 +27,7 @@ gulp.task('coffee', function() {
 
     return gulp.src(config.preprocessors.coffee.src)
         .pipe(plugins.coffee().on('error', onError))
-        .pipe(plugins.uglify())
+        .pipe(plugins.if(config.production, plugins.uglify()))
         .pipe(gulp.dest(config.preprocessors.coffee.output))
         .pipe(plugins.notify({
             title: 'Laravel Elixir',
