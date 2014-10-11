@@ -22,11 +22,12 @@ var mustRunFirst = _.intersection(config.tasks, [
 gulp.task('version', mustRunFirst, function() {
     var buildDir = config.versioning.buildDir;
 
-    del(buildDir + '/*', { force: true })
-
-    gulp.src(config.versioning.src)
-        .pipe(rev())
-        .pipe(gulp.dest(buildDir))
-        .pipe(rev.manifest())
-        .pipe(gulp.dest(buildDir));
+    del(buildDir + '/*', { force: true }, function() {
+        gulp.src(config.versioning.src, {base: "public"})
+            .pipe(gulp.dest(buildDir))
+            .pipe(rev())
+            .pipe(gulp.dest(buildDir))
+            .pipe(rev.manifest())
+            .pipe(gulp.dest(buildDir));
+    });
 });
