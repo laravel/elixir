@@ -22,7 +22,7 @@ if ( ! function_exists('elixir'))
 			return '/build/'.$manifest[$file];
 		}
 
-		throw new InvalidArgumentException("File not defined in asset manifest.");
+		throw new InvalidArgumentException("File {$file} not defined in asset manifest.");
 	}
 
 }
