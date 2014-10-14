@@ -1,5 +1,6 @@
 var gulp = require('gulp');
 var shell = require('gulp-shell');
+var elixir = require('laravel-elixir');
 
 /*
  |----------------------------------------------------------------
@@ -12,6 +13,13 @@ var shell = require('gulp-shell');
  |
  */
 
-gulp.task('routeScanning', function() {
-    return gulp.src('').pipe(shell('php artisan route:scan', {ignoreErrors: true}));
+elixir.extend('routes', function() {
+
+    gulp.task('routeScanning', function() {
+        return gulp.src('').pipe(shell('php artisan route:scan', {ignoreErrors: true}));
+    });
+
+    this.registerWatcher('routeScanning', 'app/**/*Controller.php');
+    this.queueTask('routeScanning');
+
 });

@@ -1,6 +1,6 @@
 var Elixir = function(recipe) {
-	recipe(Elixir.config);
 	require('require-dir')('./ingredients');
+	recipe(Elixir.config);
 };
 
 Elixir.config = require('./Config');

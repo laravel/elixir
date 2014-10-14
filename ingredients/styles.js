@@ -1,5 +1,6 @@
 var gulp = require('gulp');
-var config = require('laravel-elixir').config;
+var elixir = require('laravel-elixir');
+var config = elixir.config;
 var plugins = require('gulp-load-plugins')();
 
 /*
@@ -13,9 +14,15 @@ var plugins = require('gulp-load-plugins')();
  |
  */
 
-gulp.task('styles', function() {
-    return gulp.src(config.concatenate.css.src)
-        .pipe(plugins.concat(config.concatenate.css.concatName))
-        .pipe(plugins.minifyCss())
-        .pipe(gulp.dest(config.concatenate.css.to));
+elixir.extend('styles', function(styles, baseDir, output) {
+
+    gulp.task('styles', function() {
+        return gulp.src(config.concatenate.css.src)
+            .pipe(plugins.concat(config.concatenate.css.concatName))
+            .pipe(plugins.minifyCss())
+            .pipe(gulp.dest(config.concatenate.css.to));
+    });
+
+    return this.combine('css', styles, baseDir, output, 'styles');
+
 });

@@ -1,5 +1,6 @@
 var gulp = require('gulp');
-var config = require('laravel-elixir').config;
+var elixir = require('laravel-elixir');
+var config = elixir.config;
 var plugins = require('gulp-load-plugins')();
 
 /*
@@ -13,27 +14,33 @@ var plugins = require('gulp-load-plugins')();
  |
  */
 
-gulp.task('less', function() {
-    var onError = function(err) {
-        plugins.notify.onError({
-            title:    "Laravel Elixir",
-            subtitle: "Less Compilation Failed!",
-            message:  "Error: <%= error.message %>",
-            icon: __dirname + '/../icons/fail.png'
-        })(err);
+elixir.extend('less', function(src, output) {
 
-        this.emit('end');
-    };
+    gulp.task('less', function() {
+        var onError = function(err) {
+            plugins.notify.onError({
+                title:    "Laravel Elixir",
+                subtitle: "Less Compilation Failed!",
+                message:  "Error: <%= error.message %>",
+                icon: __dirname + '/../icons/fail.png'
+            })(err);
 
-    return gulp.src(config.preprocessors.less.src)
-        .pipe(plugins.less()).on('error', onError)
-        .pipe(plugins.autoprefixer())
-        .pipe(plugins.if(config.production, plugins.minifyCss()))
-        .pipe(gulp.dest(config.preprocessors.less.output))
-        .pipe(plugins.notify({
-            title: 'Laravel Elixir',
-            subtitle: 'Less Compiled!',
-            icon: __dirname + '/../icons/laravel.png',
-            message: ' '
-        }));
+            this.emit('end');
+        };
+
+        return gulp.src(config.preprocessors.less.src)
+            .pipe(plugins.less()).on('error', onError)
+            .pipe(plugins.autoprefixer())
+            .pipe(plugins.if(config.production, plugins.minifyCss()))
+            .pipe(gulp.dest(config.preprocessors.less.output))
+            .pipe(plugins.notify({
+                title: 'Laravel Elixir',
+                subtitle: 'Less Compiled!',
+                icon: __dirname + '/../icons/laravel.png',
+                message: ' '
+            }));
+    });
+
+    return this.addPreprocessor('less', src, output);
+
 });

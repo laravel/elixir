@@ -1,12 +1,9 @@
 var gulp = require('gulp');
 var _ = require('underscore');
-var config = require('laravel-elixir').config;
+var elixir = require('laravel-elixir');
+var config = elixir.config;
 var rev = require('gulp-rev');
 var del = require('del');
-
-var mustRunFirst = _.intersection(config.tasks, [
-    'less', 'sass', 'coffee', 'styles', 'scripts'
-]);
 
 /*
  |----------------------------------------------------------------
@@ -19,15 +16,27 @@ var mustRunFirst = _.intersection(config.tasks, [
  |
  */
 
-gulp.task('version', mustRunFirst, function() {
-    var buildDir = config.versioning.buildDir;
+elixir.extend('version', function(src, buildDir) {
 
-    del(buildDir + '/*', { force: true }, function() {
-        gulp.src(config.versioning.src, { base: './public' })
-            .pipe(gulp.dest(buildDir))
-            .pipe(rev())
-            .pipe(gulp.dest(buildDir))
-            .pipe(rev.manifest())
-            .pipe(gulp.dest(buildDir));
+    var mustRunFirst = _.intersection(config.tasks, [
+        'less', 'sass', 'coffee', 'styles', 'scripts'
+    ]);
+
+    src = this.prefixDirToFiles('public', src);
+    buildDir = buildDir || this.versioning.buildDir;
+
+    gulp.task('version', mustRunFirst, function() {
+        del(buildDir + '/*', { force: true }, function() {
+            gulp.src(src, { base: './public' })
+                .pipe(gulp.dest(buildDir))
+                .pipe(rev())
+                .pipe(gulp.dest(buildDir))
+                .pipe(rev.manifest())
+                .pipe(gulp.dest(buildDir));
+        });
     });
+
+    this.queueTask('version');
+    this.registerWatcher('version', src);
+
 });

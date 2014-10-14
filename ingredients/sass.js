@@ -1,7 +1,9 @@
 var gulp = require('gulp');
-var config = require('laravel-elixir').config;
+var elixir = require('laravel-elixir');
+var config = elixir.config;
 var plugins = require('gulp-load-plugins')();
 var sass = require('gulp-sass');
+
 
 /*
  |----------------------------------------------------------------
@@ -14,26 +16,33 @@ var sass = require('gulp-sass');
  |
  */
 
-gulp.task('sass', function() {
+elixir.extend('sass', function(src, output) {
 
-    return gulp.src(config.preprocessors.sass.src)
-        .pipe(sass({ outputStyle: config.production ? 'compressed' : 'nested' }))
-            .on('error', function(err) {
-                plugins.notify.onError({
-                    title:    'Laravel Elixir',
-                    subtitle: 'Sass Compilation Failed!',
-                    message:  'Error: <%= error.message %>',
-                    icon: __dirname + '/../icons/fail.png'
-                })(err);
+    gulp.task('sass', function() {
+        return gulp.src(config.preprocessors.sass.src)
+            .pipe(sass({ outputStyle: config.production ? 'compressed' : 'nested' }))
+                .on('error', function(err) {
+                    plugins.notify.onError({
+                        title:    'Laravel Elixir',
+                        subtitle: 'Sass Compilation Failed!',
+                        message:  'Error: <%= error.message %>',
+                        icon: __dirname + '/../icons/fail.png'
+                    })(err);
 
-                this.emit('end');
-            })
-        .pipe(plugins.autoprefixer())
-        .pipe(gulp.dest(config.preprocessors.sass.output))
-        .pipe(plugins.notify({
-            title: 'Laravel Elixir',
-            subtitle: 'Sass Compiled!',
-            message: ' ',
-            icon: __dirname + '/../icons/laravel.png'
-        }));
+                    this.emit('end');
+                })
+            .pipe(plugins.autoprefixer())
+            .pipe(gulp.dest(config.preprocessors.sass.output))
+            .pipe(plugins.notify({
+                title: 'Laravel Elixir',
+                subtitle: 'Sass Compiled!',
+                message: ' ',
+                icon: __dirname + '/../icons/laravel.png'
+            }));
+    });
+
+    this.addPreprocessor('sass', src, output);
+
+    return this;
+
 });

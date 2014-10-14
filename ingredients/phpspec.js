@@ -1,7 +1,8 @@
 var gulp = require('gulp');
-var config = require('laravel-elixir').config;
+
 var plugins = require('gulp-load-plugins')();
-var phpspecConfig = config.testSuites.phpspec;
+
+var elixir = require('laravel-elixir');
 
 /*
  |----------------------------------------------------------------
@@ -14,19 +15,31 @@ var phpspecConfig = config.testSuites.phpspec;
  |
  */
 
-gulp.task('phpspec', function() {
-    var options = { 'verbose': 'v', notify: true, clear: true };
+elixir.extend('phpspec', function(src) {
 
-    gulp.src(phpspecConfig.src + phpspecConfig.search)
-        .pipe(plugins.phpspec('', options))
+    src = src || this.testSuites.phpspec;
+
+    gulp.task('phpspec', function() {
+        var options = { 'verbose': 'v', notify: true, clear: true };
+
+        gulp.src(src)
+            .pipe(plugins.phpspec('', options))
             .on('error', plugins.notify.onError({
                 title: 'Red!',
                 message: 'Your PHPSpec tests failed!',
                 icon: __dirname + '/../icons/fail.png'
             }))
-        .pipe(plugins.notify({
-            title: 'Green!',
-            message: 'Your PHPSpec tests passed!',
-            icon: __dirname + '/../icons/pass.png'
-        }));
+            .pipe(plugins.notify({
+                title: 'Green!',
+                message: 'Your PHPSpec tests passed!',
+                icon: __dirname + '/../icons/pass.png'
+            }));
+    });
+
+    this.registerWatcher('phpspec', src, 'tdd');
+
+    return this.queueTask('phpspec');
+
 });
+
+

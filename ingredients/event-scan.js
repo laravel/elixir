@@ -1,5 +1,6 @@
 var gulp = require('gulp');
 var shell = require('gulp-shell');
+var elixir = require('laravel-elixir');
 
 /*
  |----------------------------------------------------------------
@@ -12,6 +13,12 @@ var shell = require('gulp-shell');
  |
  */
 
-gulp.task('eventScanning', function() {
-    return gulp.src('').pipe(shell('php artisan event:scan', {ignoreErrors: true}));
+elixir.extend('events', function() {
+
+    gulp.task('eventScanning', function() {
+        return gulp.src('').pipe(shell('php artisan event:scan', {ignoreErrors: true}));
+    });
+
+    return this.queueTask('eventScanning');
+
 });

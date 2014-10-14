@@ -2,9 +2,6 @@ var gulp = require('gulp');
 var _ = require('underscore');
 var config = require('laravel-elixir').config;
 
-var srcPaths = config.watchers.tdd;
-var tasksToRun = _.intersection(config.tasks, _.keys(srcPaths));
-
 /*
  |----------------------------------------------------------------
  | Automated Testing
@@ -16,7 +13,10 @@ var tasksToRun = _.intersection(config.tasks, _.keys(srcPaths));
  |
  */
 
-gulp.task('tdd', tasksToRun, function() {
+gulp.task('tdd', function() {
+
+    var srcPaths = config.watchers.tdd;
+    var tasksToRun = _.intersection(config.tasks, _.keys(srcPaths));
 
     tasksToRun.forEach(function(task) {
         gulp.watch(srcPaths[task], [task]);

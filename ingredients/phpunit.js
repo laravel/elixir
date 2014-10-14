@@ -1,7 +1,7 @@
 var gulp = require('gulp');
-var config = require('laravel-elixir').config;
 var plugins = require('gulp-load-plugins')();
-var phpunitConfig = config.testSuites.phpunit;
+var elixir = require('laravel-elixir');
+var config = elixir.config;
 
 /*
  |----------------------------------------------------------------
@@ -14,19 +14,29 @@ var phpunitConfig = config.testSuites.phpunit;
  |
  */
 
-gulp.task('phpunit', function() {
-    var options =  { debug: true, notify: true, clear: true };
+elixir.extend('phpunit', function(src) {
 
-    gulp.src(phpunitConfig.src + phpunitConfig.search)
-        .pipe(plugins.phpunit('', options))
+    src = src || 'tests/**/*Test.php';
+
+    gulp.task('phpunit', function() {
+        var options = { debug: true, notify: true, clear: true };
+
+        gulp.src(src)
+            .pipe(plugins.phpunit('', options))
             .on('error', plugins.notify.onError({
                 title: 'Red!',
                 message: 'Your PHPUnit tests failed!',
                 icon: __dirname + '/../icons/fail.png'
-        }))
-        .pipe(plugins.notify({
-            title: 'Green!',
-            message: 'Your PHPUnit tests passed!',
-            icon: __dirname + '/../icons/pass.png'
-        }));
+            }))
+            .pipe(plugins.notify({
+                title: 'Green!',
+                message: 'Your PHPUnit tests passed!',
+                icon: __dirname + '/../icons/pass.png'
+            }));
+    });
+
+    this.registerWatcher('phpunit', src, 'tdd');
+
+    return this.queueTask('phpunit');
+
 });

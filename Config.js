@@ -3,18 +3,11 @@ var util = require('gulp-util');
 var config = {
 
     // All user requested tasks from the Gulpfile.
-    tasks: ['routeScanning'],
+    tasks: [],
 
 
     // The default watchers and paths.
-    watchers: {
-        default: {
-            'routeScanning': 'app/**/*Controller.php'
-        },
-        tdd: {
-            'routeScanning': 'app/**/*Controller.php'
-        }
-    },
+    watchers: {},
 
 
     // Are we in production mode?
@@ -47,22 +40,14 @@ var config = {
 
     // The defaults for any test suites.
     testSuites: {
-        phpunit: {
-            src: 'tests',
-            search: '/**/*Test.php'
-        },
-
-        phpspec: {
-            src: 'spec',
-            search: '/**/*Spec.php'
-        }
+        phpunit: 'tests/**/*Test.php',
+        phpspec: 'spec/**/*Spec.php'
     },
 
 
     // Optional file versioning.
     versioning: {
-        buildDir: 'public/build',
-        src: []
+        buildDir: 'public/build'
     },
 
 
@@ -94,15 +79,12 @@ config.registerWatcher = function(task, search, group) {
 }
 
 
-// ---- Now, for the readable config setters ---- //
-
-
-config.preprocessor = function(name, src, output) {
+config.addPreprocessor = function(name, src, output) {
     var preprocessor = this.preprocessors[name];
     var path = config.preprocessors.baseDir + name + '/';
 
     if (src) {
-        preprocessor.src = prefixDirToFiles(path, src);
+        preprocessor.src = this.prefixDirToFiles(path, src);
     } else {
         preprocessor.src = path + preprocessor.search;
     }
@@ -111,43 +93,7 @@ config.preprocessor = function(name, src, output) {
 
     this.registerWatcher(name, path + preprocessor.search);
 
-    return queueTask(name);
-};
-
-
-config.sass = function(src, output) {
-    return this.preprocessor('sass', src, output);
-};
-
-
-config.less = function(src, output) {
-    return this.preprocessor('less', src, output);
-};
-
-
-config.coffee = function(src, output) {
-    return this.preprocessor('coffee', src, output);
-};
-
-
-config.testSuite = function(name, src) {
-    var suite = this.testSuites[name];
-
-    if (src) suite.src = src;
-
-    this.registerWatcher(name, suite.src + suite.search, 'tdd');
-
-    return queueTask(name);
-};
-
-
-config.phpUnit = function(src) {
-    return this.testSuite('phpunit', src);
-};
-
-
-config.phpSpec = function(src) {
-    return this.testSuite('phpspec', src);
+    return this.queueTask(name);
 };
 
 
@@ -163,57 +109,26 @@ config.combine = function(type, files, baseDir, output, taskName) {
         output = pathFragments.join('/');
     }
 
-    concatType.src = prefixDirToFiles(baseDir || 'public', files);
+    concatType.src = this.prefixDirToFiles(baseDir || 'public', files);
     concatType.to = output;
     concatType.concatName = concatName;
 
     this.registerWatcher(taskName, output + '/**/*.' + type);
 
-    queueTask(taskName);
+    this.queueTask(taskName);
 
     return this;
 };
 
 
-config.scripts = function(scripts, baseDir, output) {
-    return this.combine('js', scripts, baseDir, output, 'scripts');
+config.queueTask = function(task) {
+    this.tasks.push(task);
+
+    return this;
 };
 
 
-config.styles = function(styles, baseDir, output) {
-    return this.combine('css', styles, baseDir, output, 'styles');
-};
-
-
-config.version = function(assets, buildDir) {
-    if (buildDir) this.versioning.buildDir = buildDir;
-
-    this.versioning.src = prefixDirToFiles('public', assets);
-
-    this.registerWatcher('version', config.versioning.src);
-
-    return queueTask('version');
-};
-
-
-config.routes = function() {
-    return queueTask('routeScanning');
-};
-
-
-config.events = function() {
-    return queueTask('eventScanning');
-};
-
-
-var queueTask = function(task) {
-    config.tasks.push(task);
-
-    return config;
-};
-
-
-var prefixDirToFiles = function(dir, files) {
+config.prefixDirToFiles = function(dir, files) {
     if ( ! Array.isArray(files)) files = [files];
 
     return files.map(function(file) {
