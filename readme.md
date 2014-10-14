@@ -26,7 +26,7 @@ By default, Laravel Homestead includes everything you need; however, if you aren
 can easily install Node by visiting [nodejs.org](http://nodejs.org), and clicking install. Don't worry, it's
 quick and easy!
 
- ### Gulp
+### Gulp
 
 Next, you'll want to pull in [Gulp](http://gulpjs.com) globally, like so:
 
@@ -34,7 +34,7 @@ Next, you'll want to pull in [Gulp](http://gulpjs.com) globally, like so:
 
 ### Laravel Elixir
 
-The only remaining step is to install Elixir! With a new install of Laravel, you'll find a `package.json` file. You may
+The only remaining step is to install Elixir! With a new install of Laravel, you'll find a `package.json` file in the root. You may
 install the dependencies it references by running:
 
     npm install
