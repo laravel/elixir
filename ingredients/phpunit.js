@@ -14,7 +14,7 @@ var config = elixir.config;
  |
  */
 
-elixir.extend('phpunit', function(src) {
+elixir.extend('phpUnit', function(src) {
 
     src = src || 'tests/**/*Test.php';
 

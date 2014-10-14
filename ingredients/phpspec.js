@@ -15,7 +15,7 @@ var elixir = require('laravel-elixir');
  |
  */
 
-elixir.extend('phpspec', function(src) {
+elixir.extend('phpSpec', function(src) {
 
     src = src || 'spec/**/*Spec.php';
 
