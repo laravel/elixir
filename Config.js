@@ -16,25 +16,7 @@ var config = {
 
     // The defaults for any preprocessors.
     preprocessors: {
-        baseDir: 'resources/assets/',
-
-        less: {
-            src: '/less',
-            search: '/**/*.less',
-            output: 'public/css'
-        },
-
-        sass: {
-            src: '/sass',
-            search: '/**/*.+(sass|scss)',
-            output: 'public/css'
-        },
-
-        coffee: {
-            src: '/coffee',
-            search: '/**/*.coffee',
-            output: 'public/js'
-        }
+        baseDir: 'resources/assets/'
     },
 
 
@@ -52,6 +34,13 @@ var config = {
 };
 
 
+/**
+ * Designate that the given task should be watched.
+ *
+ * @param {string} task
+ * @param {string} search
+ * @param {string} group
+ */
 config.registerWatcher = function(task, search, group) {
     group = group || 'default';
 
@@ -63,24 +52,31 @@ config.registerWatcher = function(task, search, group) {
 }
 
 
-config.addPreprocessor = function(name, src, output) {
-    var preprocessor = this.preprocessors[name];
-    var path = config.preprocessors.baseDir + name + '/';
-
+/**
+ * Build up the given src file(s), to be passed to Gulp.
+ *
+ * @param {string|array} src
+ * @param {string}       baseDir
+ * @param {string}       search
+ */
+config.buildGulpSrc = function(src, baseDir, search) {
     if (src) {
-        preprocessor.src = this.prefixDirToFiles(path, src);
-    } else {
-        preprocessor.src = path + preprocessor.search;
+        return this.prefixDirToFiles(baseDir, src);
     }
 
-    if (output) preprocessor.output = output;
-
-    this.registerWatcher(name, path + preprocessor.search);
-
-    return this.queueTask(name);
+    return baseDir + search;
 };
 
 
+/**
+ * Handle the preparation for combining any assets.
+ *
+ * @param {string} type
+ * @param {array}  files
+ * @param {string} baseDir
+ * @param {string} output
+ * @param {string} taskName
+ */
 config.combine = function(type, files, baseDir, output, taskName) {
     var concatType = this.concatenate[type];
     var concatName = 'all.min.' + type;
@@ -105,6 +101,11 @@ config.combine = function(type, files, baseDir, output, taskName) {
 };
 
 
+/**
+ * Register the given task to be triggered by Gulp.
+ *
+ * @param {string} task
+ */
 config.queueTask = function(task) {
     this.tasks.push(task);
 
@@ -112,6 +113,12 @@ config.queueTask = function(task) {
 };
 
 
+/**
+ * Prefix a directory path to an array of files.
+ *
+ * @param {string}       dir
+ * @param {string|array} files
+ */
 config.prefixDirToFiles = function(dir, files) {
     if ( ! Array.isArray(files)) files = [files];
 

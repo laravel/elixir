@@ -18,8 +18,12 @@ var sass = require('gulp-sass');
 
 elixir.extend('sass', function(src, output) {
 
+    var baseDir = this.preprocessors.baseDir + 'sass';
+
+    src = this.buildGulpSrc(src, baseDir, '**/*.+(sass|scss)');
+
     gulp.task('sass', function() {
-        return gulp.src(config.preprocessors.sass.src)
+        return gulp.src(src)
             .pipe(sass({ outputStyle: config.production ? 'compressed' : 'nested' }))
                 .on('error', function(err) {
                     plugins.notify.onError({
@@ -32,7 +36,7 @@ elixir.extend('sass', function(src, output) {
                     this.emit('end');
                 })
             .pipe(plugins.autoprefixer())
-            .pipe(gulp.dest(config.preprocessors.sass.output))
+            .pipe(gulp.dest(output || config.cssOutput))
             .pipe(plugins.notify({
                 title: 'Laravel Elixir',
                 subtitle: 'Sass Compiled!',
@@ -41,8 +45,8 @@ elixir.extend('sass', function(src, output) {
             }));
     });
 
-    this.addPreprocessor('sass', src, output);
+    this.registerWatcher('sass', baseDir + '/**/*.+(sass|scss)');
 
-    return this;
+    return this.queueTask('sass');
 
 });

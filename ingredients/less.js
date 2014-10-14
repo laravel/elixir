@@ -9,12 +9,16 @@ var plugins = require('gulp-load-plugins')();
  |----------------------------------------------------------------
  |
  | This task will compile your Less, including minification and
- | and auto-prefixing. Less is one of the CSS pre-precessors
+ | and auto-prefixing. Less is one of the CSS pre-processors
  | supported by Elixir, along with the Sass CSS processor.
  |
  */
 
 elixir.extend('less', function(src, output) {
+
+    var baseDir = this.preprocessors.baseDir + 'less';
+
+    src = this.buildGulpSrc(src, baseDir, '**/*.less');
 
     gulp.task('less', function() {
         var onError = function(err) {
@@ -28,11 +32,11 @@ elixir.extend('less', function(src, output) {
             this.emit('end');
         };
 
-        return gulp.src(config.preprocessors.less.src)
+        return gulp.src(src)
             .pipe(plugins.less()).on('error', onError)
             .pipe(plugins.autoprefixer())
             .pipe(plugins.if(config.production, plugins.minifyCss()))
-            .pipe(gulp.dest(config.preprocessors.less.output))
+            .pipe(gulp.dest(output || config.cssOutput))
             .pipe(plugins.notify({
                 title: 'Laravel Elixir',
                 subtitle: 'Less Compiled!',
@@ -41,6 +45,8 @@ elixir.extend('less', function(src, output) {
             }));
     });
 
-    return this.addPreprocessor('less', src, output);
+    this.registerWatcher('less', baseDir + '/**/*.less');
+
+    return this.queueTask('less');
 
 });

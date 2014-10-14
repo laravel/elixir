@@ -16,6 +16,10 @@ var plugins = require('gulp-load-plugins')();
 
 elixir.extend('coffee', function(src, output) {
 
+    var baseDir = this.preprocessors.baseDir + 'coffee';
+
+    src = this.buildGulpSrc(src, baseDir, '**/*.coffee');
+
     gulp.task('coffee', function() {
         var onError = function(err) {
             plugins.notify.onError({
@@ -28,10 +32,10 @@ elixir.extend('coffee', function(src, output) {
             this.emit('end');
         };
 
-        return gulp.src(config.preprocessors.coffee.src)
+        return gulp.src(src)
             .pipe(plugins.coffee().on('error', onError))
             .pipe(plugins.if(config.production, plugins.uglify()))
-            .pipe(gulp.dest(config.preprocessors.coffee.output))
+            .pipe(gulp.dest(output || config.jsOutput))
             .pipe(plugins.notify({
                 title: 'Laravel Elixir',
                 subtitle: 'CoffeeScript Compiled!',
@@ -40,6 +44,8 @@ elixir.extend('coffee', function(src, output) {
             }));
     });
 
-    return this.addPreprocessor('coffee', src, output);
+    this.registerWatcher('coffee', baseDir + '/**/*.coffee');
+
+    return this.queueTask('coffee');
 
 });
