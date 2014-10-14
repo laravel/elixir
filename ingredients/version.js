@@ -4,7 +4,6 @@ var elixir = require('laravel-elixir');
 var config = elixir.config;
 var rev = require('gulp-rev');
 var del = require('del');
-var inSequence = require('run-sequence');
 
 /*
  |----------------------------------------------------------------
