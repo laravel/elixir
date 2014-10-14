@@ -1,6 +1,6 @@
 var gulp = require('gulp');
 var _ = require('underscore');
-var config = require('../Elixir').config;
+var config = require('laravel-elixir').config;
 var rev = require('gulp-rev');
 var del = require('del');
 
@@ -23,7 +23,7 @@ gulp.task('version', mustRunFirst, function() {
     var buildDir = config.versioning.buildDir;
 
     del(buildDir + '/*', { force: true }, function() {
-        gulp.src(config.versioning.src, {base: "public"})
+        gulp.src(config.versioning.src, { base: './public' })
             .pipe(gulp.dest(buildDir))
             .pipe(rev())
             .pipe(gulp.dest(buildDir))

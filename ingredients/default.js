@@ -1,5 +1,5 @@
 var gulp = require('gulp');
-var tasksToRun = require('../Elixir').config.tasks;
+var tasksToRun = require('laravel-elixir').config.tasks;
 
 /*
  |----------------------------------------------------------------

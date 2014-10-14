@@ -1,8 +1,8 @@
 var gulp = require('gulp');
 var _ = require('underscore');
-var config = require('../Elixir').config;
+var config = require('laravel-elixir').config;
 
-var srcPaths = config.watchers.tdd();
+var srcPaths = config.watchers.tdd;
 var tasksToRun = _.intersection(config.tasks, _.keys(srcPaths));
 
 /*

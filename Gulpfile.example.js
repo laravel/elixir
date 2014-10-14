@@ -1,4 +1,4 @@
-var elixir = require('./vendor/laravel/elixir/Elixir');
+var elixir = require('laravel-elixir');
 
 /*
  |----------------------------------------------------------------
@@ -13,7 +13,5 @@ var elixir = require('./vendor/laravel/elixir/Elixir');
 
 elixir(function(mix) {
     mix.sass("bootstrap.scss")
-       .routes()
-       .events()
-       .phpUnit();
+        .phpUnit();
 });

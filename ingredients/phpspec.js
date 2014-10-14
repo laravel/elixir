@@ -1,5 +1,5 @@
 var gulp = require('gulp');
-var config = require('../Elixir').config;
+var config = require('laravel-elixir').config;
 var plugins = require('gulp-load-plugins')();
 var phpspecConfig = config.testSuites.phpspec;
 

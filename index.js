@@ -5,4 +5,8 @@ var Elixir = function(recipe) {
 
 Elixir.config = require('./Config');
 
+Elixir.extend = function(name, task, callback) {
+	Elixir.config[task || name] = callback;
+};
+
 module.exports = Elixir;
