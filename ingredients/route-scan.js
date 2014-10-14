@@ -20,6 +20,7 @@ elixir.extend('routes', function() {
     });
 
     this.registerWatcher('routeScanning', 'app/**/*Controller.php');
-    this.queueTask('routeScanning');
+
+    return this.queueTask('routeScanning');
 
 });
