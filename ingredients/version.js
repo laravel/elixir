@@ -4,6 +4,7 @@ var elixir = require('laravel-elixir');
 var config = elixir.config;
 var rev = require('gulp-rev');
 var del = require('del');
+var inSequence = require('run-sequence');
 
 /*
  |----------------------------------------------------------------
@@ -18,16 +19,12 @@ var del = require('del');
 
 elixir.extend('version', function(src, buildDir) {
 
-    var mustRunFirst = _.intersection(config.tasks, [
-        'less', 'sass', 'coffee', 'styles', 'scripts'
-    ]);
-
     src = this.prefixDirToFiles('public', src);
     buildDir = buildDir || 'public/build';
 
-    gulp.task('version', mustRunFirst, function() {
+    gulp.task('version', function() {
         del(buildDir + '/*', { force: true }, function() {
-            gulp.src(src, { base: './public' })
+            return gulp.src(src, { base: './public' })
                 .pipe(gulp.dest(buildDir))
                 .pipe(rev())
                 .pipe(gulp.dest(buildDir))
@@ -36,7 +33,8 @@ elixir.extend('version', function(src, buildDir) {
         });
     });
 
-    this.queueTask('version');
     this.registerWatcher('version', src);
+
+    return this.queueTask('version');
 
 });
