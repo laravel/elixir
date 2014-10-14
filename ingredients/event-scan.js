@@ -19,6 +19,7 @@ elixir.extend('events', function() {
         return gulp.src('').pipe(shell('php artisan event:scan', {ignoreErrors: true}));
     });
 
+    this.registerWatcher('eventScanning', 'app/**/*.php');
     return this.queueTask('eventScanning');
 
 });
