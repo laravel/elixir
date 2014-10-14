@@ -17,7 +17,7 @@ var elixir = require('laravel-elixir');
 
 elixir.extend('phpspec', function(src) {
 
-    src = src || this.testSuites.phpspec;
+    src = src || 'spec/**/*Spec.php';
 
     gulp.task('phpspec', function() {
         var options = { 'verbose': 'v', notify: true, clear: true };

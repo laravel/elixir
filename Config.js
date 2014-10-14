@@ -38,24 +38,8 @@ var config = {
     },
 
 
-    // The defaults for any test suites.
-    testSuites: {
-        phpunit: 'tests/**/*Test.php',
-        phpspec: 'spec/**/*Spec.php'
-    },
-
-
-    // Optional file versioning.
-    versioning: {
-        buildDir: 'public/build'
-    },
-
-
     // Scripts and styles to combine.
-    concatenate: {
-        css: {},
-        js: {}
-    },
+    concatenate: { css: {}, js: {} },
 
 
     // The default CSS output directory.

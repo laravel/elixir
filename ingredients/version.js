@@ -23,7 +23,7 @@ elixir.extend('version', function(src, buildDir) {
     ]);
 
     src = this.prefixDirToFiles('public', src);
-    buildDir = buildDir || this.versioning.buildDir;
+    buildDir = buildDir || 'public/build';
 
     gulp.task('version', mustRunFirst, function() {
         del(buildDir + '/*', { force: true }, function() {
