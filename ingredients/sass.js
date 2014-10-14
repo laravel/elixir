@@ -18,7 +18,7 @@ var sass = require('gulp-sass');
 
 elixir.extend('sass', function(src, output) {
 
-    var baseDir = this.preprocessors.baseDir + 'sass';
+    var baseDir = this.preprocessors.baseDir + 'sass/';
 
     src = this.buildGulpSrc(src, baseDir, '**/*.+(sass|scss)');
 

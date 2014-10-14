@@ -16,7 +16,7 @@ var plugins = require('gulp-load-plugins')();
 
 elixir.extend('less', function(src, output) {
 
-    var baseDir = this.preprocessors.baseDir + 'less';
+    var baseDir = this.preprocessors.baseDir + 'less/';
 
     src = this.buildGulpSrc(src, baseDir, '**/*.less');
 

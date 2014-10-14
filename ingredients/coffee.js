@@ -16,7 +16,7 @@ var plugins = require('gulp-load-plugins')();
 
 elixir.extend('coffee', function(src, output) {
 
-    var baseDir = this.preprocessors.baseDir + 'coffee';
+    var baseDir = this.preprocessors.baseDir + 'coffee/';
 
     src = this.buildGulpSrc(src, baseDir, '**/*.coffee');
 
