@@ -178,8 +178,7 @@ You can even create your own Gulp tasks, and hook them into Elixir. Imagine that
 
      });
 
-Notice that we `extend` Elixir's API by passing the key that we will use within our Gulpfile, as well as a callback function
-that will create the Gulp task.
+Notice that we `extend` Elixir's API by passing the key that we will use within our Gulpfile, as well as a callback function that will create the Gulp task.
 
 If you want your custom task to be monitored, then register a watcher as well.
 
@@ -199,3 +198,10 @@ You're done! Now, you can mix it in.
     });
 
 With this addition, each time you trigger Gulp, Picard will request some tea.
+
+### Available Extension
+
+You'll find a number of Elixir extensions at [npmjs.org](https://www.npmjs.org/search?q=laravel-elixir), under the "laravel-elixir-*" namespace.
+
+- [Stylus](https://www.npmjs.org/package/laravel-elixir-stylus)
+- [Codeception](https://www.npmjs.org/package/laravel-elixir-codeception)
