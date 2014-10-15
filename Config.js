@@ -93,7 +93,7 @@ config.combine = function(type, files, baseDir, output, taskName) {
     concatType.to = output;
     concatType.concatName = concatName;
 
-    this.registerWatcher(taskName, output + '/**/*.' + type);
+    this.registerWatcher(taskName, baseDir + '/**/*.' + type);
 
     this.queueTask(taskName);
 
