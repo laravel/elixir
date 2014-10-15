@@ -14,7 +14,7 @@ var plugins = require('gulp-load-plugins')();
  |
  */
 
-elixir.extend('styles', function(scripts, baseDir, output) {
+elixir.extend('scripts', function(scripts, baseDir, output) {
 
     gulp.task('scripts', function() {
         return gulp.src(config.concatenate.js.src)
