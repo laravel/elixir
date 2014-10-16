@@ -1,7 +1,8 @@
 var gulp = require('gulp');
 var elixir = require('laravel-elixir');
 var config = elixir.config;
-var plugins = require('gulp-load-plugins')();
+var jsMinifier = require('gulp-uglify');
+var gulpCombiner = require('./helpers/GulpCombiner.js')
 
 /*
  |----------------------------------------------------------------
@@ -17,24 +18,11 @@ var plugins = require('gulp-load-plugins')();
 elixir.extend('scripts', function(scripts, baseDir, output) {
 
     gulp.task('scripts', function() {
-        var scripts = config.concatenate.js;
-
-        scripts.forEach(function(set, index) {
-            var fileName = set.concatName;
-
-            // If we're dealing with multiple script concats,
-            // but the user didn't give us a filename to use
-            // then we'll append the index to the filename
-            // to prevent any possible collisions.
-            if (scripts.length !== 1 && fileName == 'all.js') {
-                fileName = fileName.replace('.js', '-' + index + '.js');
-            }
-
-            return gulp.src(set.src)
-                .pipe(plugins.concat(fileName))
-                .pipe(plugins.if(config.production, plugins.uglify()))
-                .pipe(gulp.dest(set.to));
-        });
+        gulpCombiner({
+            assets: config.concatenate.js,
+            minifier: jsMinifier,
+            extension: 'js'
+        })
     });
 
     return this.combine('js', scripts, baseDir, output, 'scripts');

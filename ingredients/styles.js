@@ -1,7 +1,8 @@
 var gulp = require('gulp');
 var elixir = require('laravel-elixir');
 var config = elixir.config;
-var plugins = require('gulp-load-plugins')();
+var cssMinifier = require('gulp-minify-css');
+var gulpCombiner = require('./helpers/GulpCombiner.js')
 
 /*
  |----------------------------------------------------------------
@@ -17,23 +18,10 @@ var plugins = require('gulp-load-plugins')();
 elixir.extend('styles', function(styles, baseDir, output) {
 
     gulp.task('styles', function() {
-        var styles = config.concatenate.css;
-
-        styles.forEach(function(set, index) {
-            var fileName = set.concatName;
-
-            // If we're dealing with multiple style concats,
-            // but the user didn't give us a filename to use
-            // then we'll append the index to the filename
-            // to prevent any possible collisions.
-            if (styles.length !== 1 && fileName == 'all.css') {
-                fileName = fileName.replace('.css', '-' + index + '.css');
-            }
-
-            return gulp.src(set.src)
-                .pipe(plugins.concat(fileName))
-                .pipe(plugins.if(config.production, plugins.minifyCss()))
-                .pipe(gulp.dest(set.to));
+        gulpCombiner({
+            assets: config.concatenate.css,
+            minifier: cssMinifier,
+            extension: 'css'
         });
     });
 
