@@ -17,10 +17,24 @@ var plugins = require('gulp-load-plugins')();
 elixir.extend('scripts', function(scripts, baseDir, output) {
 
     gulp.task('scripts', function() {
-        return gulp.src(config.concatenate.js.src)
-            .pipe(plugins.concat(config.concatenate.js.concatName))
-            .pipe(plugins.uglify())
-            .pipe(gulp.dest(config.concatenate.js.to));
+        var scripts = config.concatenate.js;
+
+        scripts.forEach(function(set, index) {
+            var fileName = set.concatName;
+
+            // If we're dealing with multiple script concats,
+            // but the user didn't give us a filename to use
+            // then we'll append the index to the filename
+            // to prevent any possible collisions.
+            if (scripts.length !== 1 && fileName == 'all.js') {
+                fileName = fileName.replace('.js', '-' + index + '.js');
+            }
+
+            return gulp.src(set.src)
+                .pipe(plugins.concat(fileName))
+                .pipe(plugins.uglify())
+                .pipe(gulp.dest(set.to));
+        });
     });
 
     return this.combine('js', scripts, baseDir, output, 'scripts');

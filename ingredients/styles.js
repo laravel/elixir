@@ -17,10 +17,24 @@ var plugins = require('gulp-load-plugins')();
 elixir.extend('styles', function(styles, baseDir, output) {
 
     gulp.task('styles', function() {
-        return gulp.src(config.concatenate.css.src)
-            .pipe(plugins.concat(config.concatenate.css.concatName))
-            .pipe(plugins.minifyCss())
-            .pipe(gulp.dest(config.concatenate.css.to));
+        var styles = config.concatenate.css;
+
+        styles.forEach(function(set, index) {
+            var fileName = set.concatName;
+
+            // If we're dealing with multiple style concats,
+            // but the user didn't give us a filename to use
+            // then we'll append the index to the filename
+            // to prevent any possible collisions.
+            if (styles.length !== 1 && fileName == 'all.css') {
+                fileName = fileName.replace('.css', '-' + index + '.css');
+            }
+
+            return gulp.src(set.src)
+                .pipe(plugins.concat(fileName))
+                .pipe(plugins.minifyCss())
+                .pipe(gulp.dest(set.to));
+        });
     });
 
     return this.combine('css', styles, baseDir, output, 'styles');

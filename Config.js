@@ -21,7 +21,7 @@ var config = {
 
 
     // Scripts and styles to combine.
-    concatenate: { css: {}, js: {} },
+    concatenate: { css: [], js: [] },
 
 
     // The default CSS output directory.
@@ -78,8 +78,8 @@ config.buildGulpSrc = function(src, baseDir, search) {
  * @param {string} taskName
  */
 config.combine = function(type, files, baseDir, output, taskName) {
-    var concatType = this.concatenate[type];
-    var concatName = 'all.min.' + type;
+    var toCombine = this.concatenate[type];
+    var concatName = 'all.' + type;
     var output = output || this[type + 'Output'];
 
     if (output.indexOf('.' + type) > -1) {
@@ -89,13 +89,19 @@ config.combine = function(type, files, baseDir, output, taskName) {
         output = pathFragments.join('/');
     }
 
-    concatType.src = this.prefixDirToFiles(baseDir || 'public', files);
-    concatType.to = output;
-    concatType.concatName = concatName;
+    toCombine.push({
+        src: this.prefixDirToFiles(baseDir || 'public', files),
+        to: output,
+        concatName: concatName
+    });
 
-    this.registerWatcher(taskName, baseDir + '/**/*.' + type);
+    // We only need to queue and register a watcher once.
+    // This prevents multiple calls for mix.scripts().scripts().
+    if (this.tasks.indexOf(taskName) == -1) {
+        this.registerWatcher(taskName, baseDir + '/**/*.' + type);
 
-    this.queueTask(taskName);
+        this.queueTask(taskName);
+    }
 
     return this;
 };
