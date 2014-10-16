@@ -5,6 +5,8 @@ var plugins = require('gulp-load-plugins')();
 
 module.exports = function(options) {
 
+    var ext = '.' + options.extension;
+
     options.assets.forEach(function(set, index) {
         var fileName = set.concatName;
 
@@ -12,8 +14,8 @@ module.exports = function(options) {
         // but the user didn't give us a filename to use
         // then we'll append the index to the filename
         // to prevent any possible collisions.
-        if (options.assets.length !== 1 && fileName == 'all.' + options.extension) {
-            fileName = fileName.replace('.' + options.extension, '-' + index + '.' + options.extension);
+        if (options.assets.length !== 1 && fileName == 'all' + ext) {
+            fileName = fileName.replace(ext, '-' + index + ext);
         }
 
         return gulp.src(set.src)
