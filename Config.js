@@ -88,7 +88,7 @@ config.combine = function(type, files, baseDir, output, taskName) {
         output = pathFragments.join('/');
     }
 
-    concatType.src = this.prefixDirToFiles(baseDir || 'public', files);
+    concatType.src = this.prefixDirToFiles(baseDir, files);
     concatType.to = output;
     concatType.concatName = concatName;
 
