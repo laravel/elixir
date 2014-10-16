@@ -165,6 +165,8 @@ Now that you've told Elixir which tasks to execute, you only need to trigger Gul
 
     gulp tdd
 
+> **Note:** All tasks will assume a development environment, and will exclude minification. For production, use `gulp --production`.
+
 <a name="extensions"></a>
 ## Extensions
 
