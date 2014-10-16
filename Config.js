@@ -14,10 +14,8 @@ var config = {
     production: !! util.env.production,
 
 
-    // The defaults for any preprocessors.
-    preprocessors: {
-        baseDir: 'resources/assets/'
-    },
+    // The defaults for any assets.
+    baseDir: 'resources/assets/',
 
 
     // Scripts and styles to combine.
@@ -78,6 +76,7 @@ config.buildGulpSrc = function(src, baseDir, search) {
  * @param {string} taskName
  */
 config.combine = function(type, files, baseDir, output, taskName) {
+    var baseDir = baseDir || this.baseDir + type;
     var concatType = this.concatenate[type];
     var concatName = 'all.min.' + type;
     var output = output || this[type + 'Output'];
