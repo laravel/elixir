@@ -99,6 +99,13 @@ Now that you've installed Elixir, you'll be compiling, concatenating, and watchi
         ]);
     });
 
+#### Combine Multiple Sets of Scripts
+
+    elixir(function(mix) {
+        mix.scripts(['js/jquery.js', 'js/main.js'])
+           .scripts(['js/forum.js', 'js/threads.js']);
+    });
+
 #### Version/Hash a File
 
     elixir(function(mix) {
