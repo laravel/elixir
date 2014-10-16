@@ -32,7 +32,7 @@ elixir.extend('scripts', function(scripts, baseDir, output) {
 
             return gulp.src(set.src)
                 .pipe(plugins.concat(fileName))
-                .pipe(plugins.uglify())
+                .pipe(plugins.if(config.production, plugins.uglify()))
                 .pipe(gulp.dest(set.to));
         });
     });
