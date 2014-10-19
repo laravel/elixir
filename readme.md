@@ -99,6 +99,12 @@ Now that you've installed Elixir, you'll be compiling, concatenating, and watchi
         ]);
     });
 
+#### Combine All Scripts in a Special Directory
+
+    elixir(function(mix) {
+        mix.scripts('', 'resources/assets/scripts');
+    });
+
 #### Combine Multiple Sets of Scripts
 
     elixir(function(mix) {
