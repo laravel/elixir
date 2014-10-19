@@ -14,8 +14,8 @@ var config = {
     production: !! util.env.production,
 
 
-    // The defaults for any assets.
-    baseDir: 'resources/assets/',
+    // The base dir for any assets.
+    assetsDir: 'resources/assets/',
 
 
     // Scripts and styles to combine.
@@ -76,7 +76,7 @@ config.buildGulpSrc = function(src, baseDir, search) {
  * @param {string} taskName
  */
 config.combine = function(type, files, baseDir, output, taskName) {
-    var baseDir = baseDir || this.baseDir + type;
+    var baseDir = baseDir || this.assetsDir + type;
     var toCombine = this.concatenate[type];
     var concatName = 'all.' + type;
     var output = output || this[type + 'Output'];
@@ -89,7 +89,7 @@ config.combine = function(type, files, baseDir, output, taskName) {
     }
 
     toCombine.push({
-        src: this.prefixDirToFiles(baseDir || 'public', files),
+        src: this.prefixDirToFiles(baseDir, files),
         to: output,
         concatName: concatName
     });

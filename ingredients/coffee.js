@@ -16,9 +16,9 @@ var plugins = require('gulp-load-plugins')();
 
 elixir.extend('coffee', function(src, output) {
 
-    var baseDir = this.baseDir + 'coffee/';
+    var assetsDir = this.assetsDir + 'coffee/';
 
-    src = this.buildGulpSrc(src, baseDir, '**/*.coffee');
+    src = this.buildGulpSrc(src, assetsDir, '**/*.coffee');
 
     gulp.task('coffee', function() {
         var onError = function(err) {
@@ -44,7 +44,7 @@ elixir.extend('coffee', function(src, output) {
             }));
     });
 
-    this.registerWatcher('coffee', baseDir + '/**/*.coffee');
+    this.registerWatcher('coffee', assetsDir + '/**/*.coffee');
 
     return this.queueTask('coffee');
 

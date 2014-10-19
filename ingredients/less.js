@@ -16,9 +16,9 @@ var plugins = require('gulp-load-plugins')();
 
 elixir.extend('less', function(src, output) {
 
-    var baseDir = this.baseDir + 'less/';
+    var assetsDir = this.assetsDir + 'less/';
 
-    src = this.buildGulpSrc(src, baseDir, '**/*.less');
+    src = this.buildGulpSrc(src, assetsDir, '**/*.less');
 
     gulp.task('less', function() {
         var onError = function(err) {
@@ -45,7 +45,7 @@ elixir.extend('less', function(src, output) {
             }));
     });
 
-    this.registerWatcher('less', baseDir + '/**/*.less');
+    this.registerWatcher('less', assetsDir + '/**/*.less');
 
     return this.queueTask('less');
 

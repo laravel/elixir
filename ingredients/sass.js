@@ -18,9 +18,9 @@ var sass = require('gulp-sass');
 
 elixir.extend('sass', function(src, output) {
 
-    var baseDir = this.baseDir + 'sass/';
+    var assetsDir = this.assetsDir + 'sass/';
 
-    src = this.buildGulpSrc(src, baseDir, '**/*.+(sass|scss)');
+    src = this.buildGulpSrc(src, assetsDir, '**/*.+(sass|scss)');
 
     gulp.task('sass', function() {
         return gulp.src(src)
@@ -45,7 +45,7 @@ elixir.extend('sass', function(src, output) {
             }));
     });
 
-    this.registerWatcher('sass', baseDir + '/**/*.+(sass|scss)');
+    this.registerWatcher('sass', assetsDir + '/**/*.+(sass|scss)');
 
     return this.queueTask('sass');
 
