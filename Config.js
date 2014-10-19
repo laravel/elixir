@@ -80,6 +80,7 @@ config.combine = function(type, files, baseDir, output, taskName) {
     var toCombine = this.concatenate[type];
     var concatName = 'all.' + type;
     var output = output || this[type + 'Output'];
+    var files = files || '**/*.' + type;
 
     if (output.indexOf('.' + type) > -1) {
         var pathFragments = output.split('/');
