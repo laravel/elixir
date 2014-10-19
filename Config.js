@@ -76,7 +76,7 @@ config.buildGulpSrc = function(src, baseDir, search) {
  * @param {string} taskName
  */
 config.combine = function(type, files, baseDir, output, taskName) {
-    var baseDir = baseDir || this.assetsDir + type;
+    var baseDir = baseDir || 'public';
     var toCombine = this.concatenate[type];
     var concatName = 'all.' + type;
     var output = output || this[type + 'Output'];
