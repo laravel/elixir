@@ -1,8 +1,9 @@
 var gulp = require('gulp');
 var elixir = require('laravel-elixir');
-var config = elixir.config;
-var plugins = require('gulp-load-plugins')();
-var sass = require('gulp-sass');
+var gulpCssCompiler = require('./helpers/GulpCssCompiler');
+var _ = require('underscore');
+
+var inProduction = elixir.config.production
 
 
 /*
@@ -16,37 +17,19 @@ var sass = require('gulp-sass');
  |
  */
 
-elixir.extend('sass', function(src, output) {
+elixir.extend('sass', function(src, output, options) {
 
-    var assetsDir = this.assetsDir + 'sass/';
+    var defaults = {
+        outputStyle: inProduction ? 'compressed' : 'nested'
+    };
 
-    src = this.buildGulpSrc(src, assetsDir, '**/*.+(sass|scss)');
-
-    gulp.task('sass', function() {
-        return gulp.src(src)
-            .pipe(sass({ outputStyle: config.production ? 'compressed' : 'nested', sourceComments: 'normal' }))
-                .on('error', function(err) {
-                    plugins.notify.onError({
-                        title:    'Laravel Elixir',
-                        subtitle: 'Sass Compilation Failed!',
-                        message:  'Error: <%= error.message %>',
-                        icon: __dirname + '/../icons/fail.png'
-                    })(err);
-
-                    this.emit('end');
-                })
-            .pipe(plugins.autoprefixer())
-            .pipe(gulp.dest(output || config.cssOutput))
-            .pipe(plugins.notify({
-                title: 'Laravel Elixir',
-                subtitle: 'Sass Compiled!',
-                message: ' ',
-                icon: __dirname + '/../icons/laravel.png'
-            }));
+    return gulpCssCompiler({
+        compiler: 'Sass',
+        pluginName: 'sass',
+        pluginOptions: _.extend(defaults, options),
+        src: src,
+        output: output,
+        search: '**/*.+(sass|scss)'
     });
-
-    this.registerWatcher('sass', assetsDir + '/**/*.+(sass|scss)');
-
-    return this.queueTask('sass');
 
 });

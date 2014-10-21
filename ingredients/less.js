@@ -1,7 +1,5 @@
-var gulp = require('gulp');
 var elixir = require('laravel-elixir');
-var config = elixir.config;
-var plugins = require('gulp-load-plugins')();
+var gulpCssCompiler = require('./helpers/GulpCssCompiler');
 
 /*
  |----------------------------------------------------------------
@@ -14,39 +12,15 @@ var plugins = require('gulp-load-plugins')();
  |
  */
 
-elixir.extend('less', function(src, output) {
+elixir.extend('less', function(src, output, options) {
 
-    var assetsDir = this.assetsDir + 'less/';
-
-    src = this.buildGulpSrc(src, assetsDir, '**/*.less');
-
-    gulp.task('less', function() {
-        var onError = function(err) {
-            plugins.notify.onError({
-                title:    "Laravel Elixir",
-                subtitle: "Less Compilation Failed!",
-                message:  "Error: <%= error.message %>",
-                icon: __dirname + '/../icons/fail.png'
-            })(err);
-
-            this.emit('end');
-        };
-
-        return gulp.src(src)
-            .pipe(plugins.less()).on('error', onError)
-            .pipe(plugins.autoprefixer())
-            .pipe(plugins.if(config.production, plugins.minifyCss()))
-            .pipe(gulp.dest(output || config.cssOutput))
-            .pipe(plugins.notify({
-                title: 'Laravel Elixir',
-                subtitle: 'Less Compiled!',
-                icon: __dirname + '/../icons/laravel.png',
-                message: ' '
-            }));
+    return gulpCssCompiler({
+        compiler: 'Less',
+        pluginName: 'less',
+        pluginOptions: options,
+        src: src,
+        output: output,
+        search: '**/*.less'
     });
-
-    this.registerWatcher('less', assetsDir + '/**/*.less');
-
-    return this.queueTask('less');
 
 });
