@@ -1,5 +1,6 @@
 var gulp = require('gulp');
 var plugins = require('gulp-load-plugins')();
+var _ = require('underscore');
 var elixir = require('laravel-elixir');
 var config = elixir.config;
 
@@ -14,13 +15,14 @@ var config = elixir.config;
  |
  */
 
-elixir.extend('phpUnit', function(src) {
+elixir.extend('phpUnit', function(src, options) {
 
     src = src || 'tests/**/*Test.php';
+    options = _.extend({
+        debug: true, notify: true, clear: true
+    }, options);
 
     gulp.task('phpunit', function() {
-        var options = { debug: true, notify: true, clear: true };
-
         gulp.src(src)
             .pipe(plugins.phpunit('', options))
             .on('error', plugins.notify.onError({

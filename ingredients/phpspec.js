@@ -1,7 +1,6 @@
 var gulp = require('gulp');
-
 var plugins = require('gulp-load-plugins')();
-
+var _ = require('underscore');
 var elixir = require('laravel-elixir');
 
 /*
@@ -15,13 +14,14 @@ var elixir = require('laravel-elixir');
  |
  */
 
-elixir.extend('phpSpec', function(src) {
+elixir.extend('phpSpec', function(src, options) {
 
     src = src || 'spec/**/*Spec.php';
+    options = _.extend({
+        'verbose': 'v', notify: true, clear: true
+    }, options);
 
     gulp.task('phpspec', function() {
-        var options = { 'verbose': 'v', notify: true, clear: true };
-
         gulp.src(src)
             .pipe(plugins.phpspec('', options))
             .on('error', plugins.notify.onError({
