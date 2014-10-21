@@ -20,6 +20,7 @@ elixir.extend('events', function() {
     });
 
     this.registerWatcher('eventScanning', 'app/**/*.php');
+
     return this.queueTask('eventScanning');
 
 });
