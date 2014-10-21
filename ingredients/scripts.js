@@ -1,6 +1,4 @@
-var gulp = require('gulp');
 var elixir = require('laravel-elixir');
-var config = elixir.config;
 var jsMinifier = require('gulp-uglify');
 var gulpCombiner = require('./helpers/GulpCombiner.js')
 
@@ -17,14 +15,13 @@ var gulpCombiner = require('./helpers/GulpCombiner.js')
 
 elixir.extend('scripts', function(scripts, baseDir, output) {
 
-    gulp.task('scripts', function() {
-        gulpCombiner({
-            assets: config.concatenate.js,
-            minifier: jsMinifier,
-            extension: 'js'
-        })
+    return gulpCombiner({
+        assets: scripts,
+        baseDir: baseDir,
+        output: output,
+        taskName: 'scripts',
+        minifier: jsMinifier,
+        extension: 'js'
     });
-
-    return this.combine('js', scripts, baseDir, output, 'scripts');
 
 });
