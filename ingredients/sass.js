@@ -24,7 +24,7 @@ elixir.extend('sass', function(src, output) {
 
     gulp.task('sass', function() {
         return gulp.src(src)
-            .pipe(sass({ outputStyle: config.production ? 'compressed' : 'nested' }))
+            .pipe(sass({ outputStyle: config.production ? 'compressed' : 'nested', sourceComments: 'normal' }))
                 .on('error', function(err) {
                     plugins.notify.onError({
                         title:    'Laravel Elixir',
