@@ -1,7 +1,6 @@
-var gulp = require('gulp');
-var plugins = require('gulp-load-plugins')();
-var _ = require('underscore');
 var elixir = require('laravel-elixir');
+var _ = require('underscore');
+var gulpTester = require('./helpers/GulpTester');
 
 /*
  |----------------------------------------------------------------
@@ -16,30 +15,11 @@ var elixir = require('laravel-elixir');
 
 elixir.extend('phpSpec', function(src, options) {
 
-    src = src || 'spec/**/*Spec.php';
-    options = _.extend({
-        'verbose': 'v', notify: true, clear: true
-    }, options);
-
-    gulp.task('phpspec', function() {
-        gulp.src(src)
-            .pipe(plugins.phpspec('', options))
-            .on('error', plugins.notify.onError({
-                title: 'Red!',
-                message: 'Your PHPSpec tests failed!',
-                icon: __dirname + '/../icons/fail.png'
-            }))
-            .pipe(plugins.notify({
-                title: 'Green!',
-                message: 'Your PHPSpec tests passed!',
-                icon: __dirname + '/../icons/pass.png'
-            }));
+    return gulpTester({
+        framework: 'PHPSpec',
+        pluginName: 'phpspec',
+        pluginOptions: _.extend({ verbose: 'v', notify: true }, options),
+        src: src || 'spec/**/*Spec.php'
     });
 
-    this.registerWatcher('phpspec', src, 'tdd');
-
-    return this.queueTask('phpspec');
-
 });
-
-

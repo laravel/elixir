@@ -1,8 +1,6 @@
-var gulp = require('gulp');
-var plugins = require('gulp-load-plugins')();
-var _ = require('underscore');
 var elixir = require('laravel-elixir');
-var config = elixir.config;
+var _ = require('underscore');
+var gulpTester = require('./helpers/GulpTester');
 
 /*
  |----------------------------------------------------------------
@@ -17,28 +15,11 @@ var config = elixir.config;
 
 elixir.extend('phpUnit', function(src, options) {
 
-    src = src || 'tests/**/*Test.php';
-    options = _.extend({
-        debug: true, notify: true, clear: true
-    }, options);
-
-    gulp.task('phpunit', function() {
-        gulp.src(src)
-            .pipe(plugins.phpunit('', options))
-            .on('error', plugins.notify.onError({
-                title: 'Red!',
-                message: 'Your PHPUnit tests failed!',
-                icon: __dirname + '/../icons/fail.png'
-            }))
-            .pipe(plugins.notify({
-                title: 'Green!',
-                message: 'Your PHPUnit tests passed!',
-                icon: __dirname + '/../icons/pass.png'
-            }));
+    return gulpTester({
+        framework: 'PHPUnit',
+        pluginName: 'phpunit',
+        pluginOptions: _.extend({ debug: true, notify: true }, options),
+        src: src || 'tests/**/*Test.php'
     });
-
-    this.registerWatcher('phpunit', src, 'tdd');
-
-    return this.queueTask('phpunit');
 
 });
