@@ -10,12 +10,12 @@ module.exports = function(options) {
             .on('error', plugins.notify.onError({
                 title: 'Red!',
                 message: 'Your ' + options.framework + ' tests failed!',
-                icon: __dirname + '/../icons/fail.png'
+                icon: __dirname + '/../../icons/fail.png'
             }))
             .pipe(plugins.notify({
                 title: 'Green!',
                 message: 'Your ' + options.framework + ' tests passed!',
-                icon: __dirname + '/../icons/pass.png'
+                icon: __dirname + '/../../icons/pass.png'
             }));
     });
 
