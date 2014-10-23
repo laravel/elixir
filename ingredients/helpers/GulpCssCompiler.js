@@ -5,7 +5,7 @@ var config = require('laravel-elixir').config;
 module.exports = function(options) {
 
     var src = config.buildGulpSrc(
-        options.src, options.assetsDir, options.search
+        options.src, config.assetsDir, options.search
     );
 
     gulp.task(options.pluginName, function() {
