@@ -62,7 +62,7 @@ config.buildGulpSrc = function(src, baseDir, search) {
         return this.prefixDirToFiles(baseDir, src);
     }
 
-    return baseDir + search;
+    return baseDir + '/' + search;
 };
 
 
