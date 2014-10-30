@@ -14,10 +14,19 @@ var elixir = require('laravel-elixir');
 
 elixir.extend('copy', function(src, output) {
 
+    var config = this;
+
     gulp.task('copy', function() {
-        return gulp.src(src).pipe(gulp.dest(output));
+        config.duplicate.forEach(function(copy) {
+            return gulp.src(copy.src).pipe(gulp.dest(copy.output));
+        });
     });
 
-    return this.queueTask('copy');
+    config.duplicate.push({
+        src: src,
+        output: output
+    });
+
+    return config.queueTask('copy');
 
 });

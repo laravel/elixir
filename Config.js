@@ -22,6 +22,10 @@ var config = {
     concatenate: { css: [], js: [] },
 
 
+    // Files to be copied.
+    duplicate: [],
+
+
     // The default CSS output directory.
     cssOutput: 'public/css',
 
@@ -113,7 +117,10 @@ config.combine = function(type, files, baseDir, output, taskName) {
  * @param {string} task
  */
 config.queueTask = function(task) {
-    this.tasks.push(task);
+    if (this.tasks.indexOf(task) == -1)
+    {
+        this.tasks.push(task);
+    }
 
     return this;
 };
