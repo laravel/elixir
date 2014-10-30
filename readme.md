@@ -89,6 +89,8 @@ Now that you've installed Elixir, you'll be compiling, concatenating, and watchi
             "css/main.css"
         ]);
     });
+    
+This will assume that the `public/` folder is the base directory.    
 
 #### Combine Scripts
 
@@ -220,3 +222,4 @@ You'll find a number of Elixir extensions at [npmjs.org](https://www.npmjs.org/s
 
 - [Stylus](https://www.npmjs.org/package/laravel-elixir-stylus)
 - [Codeception](https://www.npmjs.org/package/laravel-elixir-codeception)
+- [Browserify](https://www.npmjs.org/package/laravel-elixir-browserify)
