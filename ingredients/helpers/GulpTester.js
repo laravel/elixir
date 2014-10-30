@@ -5,7 +5,7 @@ var config = require('laravel-elixir').config;
 module.exports = function(options) {
 
     gulp.task(options.pluginName, function() {
-        gulp.src(options.src)
+        return gulp.src(options.src)
             .pipe(plugins[options.pluginName]('', options.pluginOptions))
             .on('error', plugins.notify.onError({
                 title: 'Red!',

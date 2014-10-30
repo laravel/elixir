@@ -7,6 +7,7 @@ module.exports = function(options) {
     gulp.task(options.taskName, function() {
         var ext = '.' + options.extension;
         var assets = config.concatenate[options.extension];
+        var stream;
 
         assets.forEach(function(set, index) {
             var fileName = set.concatName;
@@ -19,11 +20,13 @@ module.exports = function(options) {
                 fileName = fileName.replace(ext, '-' + index + ext);
             }
 
-            return gulp.src(set.src)
+            stream = gulp.src(set.src)
                 .pipe(plugins.concat(fileName))
                 .pipe(plugins.if(config.production, options.minifier.call(this)))
                 .pipe(gulp.dest(set.to));
         });
+
+        return stream;
     });
 
    return config.combine(
