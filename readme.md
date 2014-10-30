@@ -89,6 +89,8 @@ Now that you've installed Elixir, you'll be compiling, concatenating, and watchi
             "css/main.css"
         ]);
     });
+    
+This will assume that the `public/` folder is the base directory.    
 
 #### Combine Scripts
 
