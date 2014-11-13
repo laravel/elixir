@@ -1,4 +1,6 @@
 var util = require('gulp-util');
+var fs = require('fs');
+var _ = require('underscore');
 
 var config = {
 
@@ -138,6 +140,22 @@ config.prefixDirToFiles = function(dir, files) {
     return files.map(function(file) {
         return dir + '/' + file.replace(dir, '');
     });
+};
+
+
+/**
+ * Set the default directory paths.
+ *
+ * @param {string} file
+ */
+config.setDefaultsFrom = function(file) {
+    var defaults;
+
+    if (fs.existsSync(file)) {
+        defaults = JSON.parse(fs.readFileSync(file, 'utf8'));
+
+        _.extend(this, defaults);
+    }
 };
 
 

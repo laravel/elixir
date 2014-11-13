@@ -89,8 +89,8 @@ Now that you've installed Elixir, you'll be compiling, concatenating, and watchi
             "css/main.css"
         ]);
     });
-    
-This will assume that the `public/` folder is the base directory.    
+
+This will assume that the `public/` folder is the base directory.
 
 #### Combine Scripts
 
@@ -174,6 +174,27 @@ Now that you've told Elixir which tasks to execute, you only need to trigger Gul
     gulp tdd
 
 > **Note:** All tasks will assume a development environment, and will exclude minification. For production, use `gulp --production`.
+
+<a name="defaults"></a>
+## Directory Defaults
+
+While Elixir will assume the default Laravel 5 directory structure, it's possible that you'd prefer to put your assets, styles, and scripts within a different location. No problem!
+
+Create a `elixir.json` file within the root of your project, and update the necessary paths as needed.
+
+```
+{
+    "assetsDir": "app/assets/",
+
+    "cssOutput": "public/css/",
+
+    "jsOutput": "public/js/"
+}
+```
+
+- **`assetsDir`**: The path to the base directory for Sass, Less, CoffeeScript, etc.
+- **`cssOutput`**: The path to where compiled CSS should be saved.
+- **`jsOutput`**: The path to where compiled JavaScript should be saved.
 
 <a name="extensions"></a>
 ## Extensions
