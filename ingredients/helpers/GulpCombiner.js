@@ -96,7 +96,7 @@ module.exports = function(options) {
         type: options.extension,
         files: options.assets,
         baseDir: options.baseDir,
-        outputDir: options.outputDir,
+        outputDir: options.output,
         taskName: options.taskName
     });
 
