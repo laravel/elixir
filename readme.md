@@ -252,3 +252,4 @@ You'll find a number of Elixir extensions at [npmjs.org](https://www.npmjs.org/s
 - [Codeception](https://www.npmjs.org/package/laravel-elixir-codeception)
 - [Browserify](https://www.npmjs.org/package/laravel-elixir-browserify)
 - [Jade](https://www.npmjs.org/package/laravel-elixir-jade)
+- [Bower](https://www.npmjs.org/package/laravel-elixir-bower)
