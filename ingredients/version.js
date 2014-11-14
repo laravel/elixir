@@ -17,7 +17,7 @@ var del = require('del');
 elixir.extend('version', function(src, buildDir) {
 
     src = this.prefixDirToFiles('public', src);
-    buildDir = buildDir || 'public/build';
+    buildDir = buildDir ? buildDir + '/build' : 'public/build';
 
     gulp.task('version', function() {
         del(buildDir + '/*', { force: true }, function() {
