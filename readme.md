@@ -144,6 +144,12 @@ This will automatically monitor your controllers for changes (and route annotati
         mix.events();
     });
 
+#### Copy Files
+
+    elixir(function(mix) {
+        // from, to
+        mix.copy('vendor/jquery.js', 'public/css/jquery.js');
+    });
 
 #### Put It All Together
 
