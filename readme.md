@@ -4,6 +4,7 @@
 - [Installation & Setup](#installation)
 - [Usage](#usage)
 - [Gulp](#gulp)
+- [Directory Defaults](#defaults)
 - [Extensions](#extensions)
 
 <a name="introduction"></a>
@@ -237,7 +238,7 @@ You're done! Now, you can mix it in.
 
 With this addition, each time you trigger Gulp, Picard will request some tea.
 
-### Available Extension
+### Available Extensions
 
 You'll find a number of Elixir extensions at [npmjs.org](https://www.npmjs.org/search?q=laravel-elixir), under the "laravel-elixir-*" namespace.
 
