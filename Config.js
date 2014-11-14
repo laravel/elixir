@@ -73,47 +73,6 @@ config.buildGulpSrc = function(src, baseDir, search) {
 
 
 /**
- * Handle the preparation for combining any assets.
- *
- * @param {string} type
- * @param {array}  files
- * @param {string} baseDir
- * @param {string} output
- * @param {string} taskName
- */
-config.combine = function(type, files, baseDir, output, taskName) {
-    var baseDir = baseDir || 'public';
-    var toCombine = this.concatenate[type];
-    var concatName = 'all.' + type;
-    var output = output || this[type + 'Output'];
-    var files = files || '**/*.' + type;
-
-    if (output.indexOf('.' + type) > -1) {
-        var pathFragments = output.split('/');
-
-        concatName = pathFragments.pop();
-        output = pathFragments.join('/');
-    }
-
-    toCombine.push({
-        src: this.prefixDirToFiles(baseDir, files),
-        to: output,
-        concatName: concatName
-    });
-
-    // We only need to queue and register a watcher once.
-    // This prevents multiple calls for mix.scripts().scripts().
-    if (this.tasks.indexOf(taskName) == -1) {
-        this.registerWatcher(taskName, baseDir + '/**/*.' + type);
-
-        this.queueTask(taskName);
-    }
-
-    return this;
-};
-
-
-/**
  * Register the given task to be triggered by Gulp.
  *
  * @param {string} task

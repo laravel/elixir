@@ -1,6 +1,6 @@
 var elixir = require('laravel-elixir');
 var jsMinifier = require('gulp-uglify');
-var gulpCombiner = require('./helpers/GulpCombiner.js')
+var combine = require('./helpers/GulpCombiner.js')
 
 /*
  |----------------------------------------------------------------
@@ -15,7 +15,7 @@ var gulpCombiner = require('./helpers/GulpCombiner.js')
 
 elixir.extend('scripts', function(scripts, baseDir, output) {
 
-    return gulpCombiner({
+    return combine({
         assets: scripts,
         baseDir: baseDir,
         output: output,
