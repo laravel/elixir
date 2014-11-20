@@ -33,7 +33,7 @@ gulp.task('compile', function() {
             .pipe(lessFilter.restore())
 
         .pipe(jsFilter)
-            .pipe(gulp.dest(config.jsOutput = '/vendor'));
+            .pipe(gulp.dest(config.jsOutput + '/vendor'));
 });
 
 
