@@ -21,7 +21,7 @@ gulp.task('compile', function() {
 
     gulp.src('./bower_components/**/*')
         .pipe(cssFilter)
-            .pipe(gulp.dest(assetsDir + 'css/vendor'))
+            .pipe(gulp.dest('public/css/vendor'))
             .pipe(cssFilter.restore())
 
         .pipe(sassFilter)
