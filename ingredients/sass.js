@@ -20,7 +20,8 @@ var inProduction = elixir.config.production
 elixir.extend('sass', function(src, output, options) {
 
     var defaults = {
-        outputStyle: inProduction ? 'compressed' : 'nested'
+        outputStyle: inProduction ? 'compressed' : 'nested',
+        includePaths: [elixir.config.assetsDir + "sass/vendor/bootstrap-sass-official/assets/stylesheets"]
     };
 
     return gulpCssCompiler({
