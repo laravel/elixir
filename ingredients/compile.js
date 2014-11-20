@@ -1,6 +1,7 @@
 var gulp = require('gulp');
 var elixir = require('laravel-elixir');
 var filter = require('gulp-filter');
+var config = elixir.config;
 
 /*
  |----------------------------------------------------------------
@@ -17,23 +18,22 @@ gulp.task('compile', function() {
     var sassFilter = filter('**/*.+(sass|scss)');
     var lessFilter = filter('**/*.less');
     var jsFilter = filter('**/*.js');
-    var assetsDir = elixir.config.assetsDir;
 
     gulp.src('./bower_components/**/*')
         .pipe(cssFilter)
-            .pipe(gulp.dest('public/css/vendor'))
+            .pipe(gulp.dest(config.cssOutput + '/vendor'))
             .pipe(cssFilter.restore())
 
         .pipe(sassFilter)
-            .pipe(gulp.dest(assetsDir + 'sass/vendor'))
+            .pipe(gulp.dest(config.assetsDir + 'sass/vendor'))
             .pipe(sassFilter.restore())
 
         .pipe(lessFilter)
-            .pipe(gulp.dest(assetsDir + 'less/vendor'))
+            .pipe(gulp.dest(config.assetsDir + 'less/vendor'))
             .pipe(lessFilter.restore())
 
         .pipe(jsFilter)
-            .pipe(gulp.dest('public/js/vendor'));
+            .pipe(gulp.dest(config.jsOutput = '/vendor'));
 });
 
 
