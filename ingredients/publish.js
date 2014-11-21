@@ -21,7 +21,7 @@ elixir.extend('publish', function(bowerSrc) {
         var lessFilter = filter('**/*.less');
         var jsFilter = filter('**/*.js');
 
-        gulp.src(bowerSrc + '**/*')
+        gulp.src(bowerSrc + '/**/*')
             .pipe(cssFilter)
                 .pipe(gulp.dest(config.cssOutput + '/vendor'))
                 .pipe(cssFilter.restore())
