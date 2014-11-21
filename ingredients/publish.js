@@ -13,13 +13,13 @@ var config = elixir.config;
  |
  */
 
-gulp.task('compile', function() {
+gulp.task('publish', function() {
     var cssFilter = filter('**/*.css');
     var sassFilter = filter('**/*.+(sass|scss)');
     var lessFilter = filter('**/*.less');
     var jsFilter = filter('**/*.js');
 
-    gulp.src('./bower_components/**/*')
+    gulp.src('./vendor/bower_components/**/*')
         .pipe(cssFilter)
             .pipe(gulp.dest(config.cssOutput + '/vendor'))
             .pipe(cssFilter.restore())
