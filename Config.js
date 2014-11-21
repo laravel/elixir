@@ -5,7 +5,7 @@ var _ = require('underscore');
 var config = {
 
     // All user requested tasks from the Gulpfile.
-    tasks: [],
+    tasks: ['publish'],
 
 
     // The default watchers and paths.
