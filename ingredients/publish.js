@@ -13,27 +13,32 @@ var config = elixir.config;
  |
  */
 
-gulp.task('publish', function() {
-    var cssFilter = filter('**/*.css');
-    var sassFilter = filter('**/*.+(sass|scss)');
-    var lessFilter = filter('**/*.less');
-    var jsFilter = filter('**/*.js');
+elixir.extend('publish', function(bowerSrc) {
 
-    gulp.src('./vendor/bower_components/**/*')
-        .pipe(cssFilter)
-            .pipe(gulp.dest(config.cssOutput + '/vendor'))
-            .pipe(cssFilter.restore())
+    gulp.task('publish', function() {
+        var cssFilter = filter('**/*.css');
+        var sassFilter = filter('**/*.+(sass|scss)');
+        var lessFilter = filter('**/*.less');
+        var jsFilter = filter('**/*.js');
 
-        .pipe(sassFilter)
-            .pipe(gulp.dest(config.assetsDir + 'sass/vendor'))
-            .pipe(sassFilter.restore())
+        gulp.src(bowerSrc + '**/*')
+            .pipe(cssFilter)
+                .pipe(gulp.dest(config.cssOutput + '/vendor'))
+                .pipe(cssFilter.restore())
 
-        .pipe(lessFilter)
-            .pipe(gulp.dest(config.assetsDir + 'less/vendor'))
-            .pipe(lessFilter.restore())
+            .pipe(sassFilter)
+                .pipe(gulp.dest(config.assetsDir + 'sass/vendor'))
+                .pipe(sassFilter.restore())
 
-        .pipe(jsFilter)
-            .pipe(gulp.dest(config.jsOutput + '/vendor'));
+            .pipe(lessFilter)
+                .pipe(gulp.dest(config.assetsDir + 'less/vendor'))
+                .pipe(lessFilter.restore())
+
+            .pipe(jsFilter)
+                .pipe(gulp.dest(config.jsOutput + '/vendor'));
+    });
+
+    return this.queueTask('publish');
+
 });
-
 
