@@ -18,22 +18,12 @@ elixir.extend('publish', function(bowerDir) {
 
     gulp.task('publish', function() {
         var cssFilter = filter('**/*.css');
-        var sassFilter = filter('**/*.+(sass|scss)');
-        var lessFilter = filter('**/*.less');
         var jsFilter = filter('**/*.js');
 
         gulp.src(mainBowerFiles(), { base: bowerDir })
             .pipe(cssFilter)
                 .pipe(gulp.dest(config.cssOutput + '/vendor'))
                 .pipe(cssFilter.restore())
-
-            .pipe(sassFilter)
-                .pipe(gulp.dest(config.assetsDir + 'sass/vendor'))
-                .pipe(sassFilter.restore())
-
-            .pipe(lessFilter)
-                .pipe(gulp.dest(config.assetsDir + 'less/vendor'))
-                .pipe(lessFilter.restore())
 
             .pipe(jsFilter)
                 .pipe(gulp.dest(config.jsOutput + '/vendor'));
