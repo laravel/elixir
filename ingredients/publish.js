@@ -2,6 +2,7 @@ var gulp = require('gulp');
 var elixir = require('laravel-elixir');
 var filter = require('gulp-filter');
 var config = elixir.config;
+var mainBowerFiles = require('main-bower-files');
 
 /*
  |----------------------------------------------------------------
@@ -21,7 +22,7 @@ elixir.extend('publish', function(bowerSrc) {
         var lessFilter = filter('**/*.less');
         var jsFilter = filter('**/*.js');
 
-        gulp.src(bowerSrc + '/**/*')
+        gulp.src(mainBowerFiles(), { base: bowerSrc })
             .pipe(cssFilter)
                 .pipe(gulp.dest(config.cssOutput + '/vendor'))
                 .pipe(cssFilter.restore())

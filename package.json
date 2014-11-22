@@ -1,6 +1,6 @@
 {
     "name": "laravel-elixir",
-    "version": "0.6.2",
+    "version": "0.6.3",
     "description": "Laravel Elixir Core",
     "main": "index.js",
     "scripts": {
@@ -38,6 +38,7 @@
         "gulp-filter": "^1.0.2",
         "install": "^0.1.7",
         "npm": "^2.1.2",
+        "main-bower-files": "^2.4.0",
         "require-dir": "^0.1.0",
         "underscore": "^1.7.0",
         "run-sequence": "^1.0.1"
