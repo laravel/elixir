@@ -15,10 +15,12 @@ var gulpTester = require('./helpers/GulpTester');
 
 elixir.extend('phpUnit', function(src, options) {
 
+    options = _.extend({ debug: true, notify: true }, options);
+
     return gulpTester({
         framework: 'PHPUnit',
         pluginName: 'phpunit',
-        pluginOptions: _.extend({ debug: true, notify: true }, options),
+        pluginOptions: options,
         src: src || 'tests/**/*Test.php'
     });
 

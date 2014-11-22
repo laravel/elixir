@@ -25,10 +25,7 @@ elixir.extend('copy', function(src, output) {
         return stream;
     });
 
-    config.duplicate.push({
-        src: src,
-        output: output
-    });
+    config.duplicate.push({ src: src, output: output });
 
     return config.queueTask('copy');
 

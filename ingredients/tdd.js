@@ -14,7 +14,6 @@ var config = require('laravel-elixir').config;
  */
 
 gulp.task('tdd', function() {
-
     var srcPaths = config.watchers.tdd;
     var tasksToRun = _.intersection(config.tasks, _.keys(srcPaths));
 

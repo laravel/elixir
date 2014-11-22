@@ -5,7 +5,6 @@ var _ = require('underscore');
 
 var inProduction = elixir.config.production
 
-
 /*
  |----------------------------------------------------------------
  | Sass Compilation Task
@@ -19,15 +18,15 @@ var inProduction = elixir.config.production
 
 elixir.extend('sass', function(src, output, options) {
 
-    var defaults = {
+    options = _.extend({
         outputStyle: inProduction ? 'compressed' : 'nested',
         includePaths: [elixir.config.bowerDir + "/bootstrap-sass-official/assets/stylesheets"]
-    };
+    }, options);
 
     return gulpCssCompiler({
         compiler: 'Sass',
         pluginName: 'sass',
-        pluginOptions: _.extend(defaults, options),
+        pluginOptions: options,
         src: src,
         output: output,
         search: '**/*.+(sass|scss)'

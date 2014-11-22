@@ -1,7 +1,7 @@
 var gulp = require('gulp');
 var elixir = require('laravel-elixir');
-var filter = require('gulp-filter');
 var config = elixir.config;
+var filter = require('gulp-filter');
 var mainBowerFiles = require('main-bower-files');
 
 /*
@@ -17,15 +17,11 @@ var mainBowerFiles = require('main-bower-files');
 elixir.extend('publish', function(bowerDir) {
 
     gulp.task('publish', function() {
-        var cssFilter = filter('**/*.css');
-        var jsFilter = filter('**/*.js');
-
         gulp.src(mainBowerFiles(), { base: bowerDir })
-            .pipe(cssFilter)
+            .pipe(filter('**/*.css'))
                 .pipe(gulp.dest(config.cssOutput + '/vendor'))
                 .pipe(cssFilter.restore())
-
-            .pipe(jsFilter)
+            .pipe(filter('**/*.js'))
                 .pipe(gulp.dest(config.jsOutput + '/vendor'));
     });
 

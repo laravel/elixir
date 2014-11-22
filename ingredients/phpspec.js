@@ -15,10 +15,12 @@ var gulpTester = require('./helpers/GulpTester');
 
 elixir.extend('phpSpec', function(src, options) {
 
+    options = _.extend({ verbose: 'v', notify: true }, options);
+
     return gulpTester({
         framework: 'PHPSpec',
         pluginName: 'phpspec',
-        pluginOptions: _.extend({ verbose: 'v', notify: true }, options),
+        pluginOptions: options,
         src: src || 'spec/**/*Spec.php'
     });
 
