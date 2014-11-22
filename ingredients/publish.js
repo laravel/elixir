@@ -14,7 +14,7 @@ var mainBowerFiles = require('main-bower-files');
  |
  */
 
-elixir.extend('publish', function(bowerSrc) {
+elixir.extend('publish', function(bowerDir) {
 
     gulp.task('publish', function() {
         var cssFilter = filter('**/*.css');
@@ -22,7 +22,7 @@ elixir.extend('publish', function(bowerSrc) {
         var lessFilter = filter('**/*.less');
         var jsFilter = filter('**/*.js');
 
-        gulp.src(mainBowerFiles(), { base: bowerSrc })
+        gulp.src(mainBowerFiles(), { base: bowerDir })
             .pipe(cssFilter)
                 .pipe(gulp.dest(config.cssOutput + '/vendor'))
                 .pipe(cssFilter.restore())
@@ -38,6 +38,8 @@ elixir.extend('publish', function(bowerSrc) {
             .pipe(jsFilter)
                 .pipe(gulp.dest(config.jsOutput + '/vendor'));
     });
+
+    this.bowerDir = bowerDir;
 
     return this.queueTask('publish');
 

@@ -20,6 +20,10 @@ var config = {
     assetsDir: 'resources/assets/',
 
 
+    // The path to bower_components.
+    bowerDir: 'vendor/bower_components',
+
+
     // Scripts and styles to combine.
     concatenate: { css: [], js: [] },
 
