@@ -13,9 +13,10 @@ var fs = require('fs');
  * @param  {string}  extension
  * @return {boolean}
  */
-var multipleConcatsWithoutOutputPaths = function(assets, fileName, extension) {
-    return assets.length !== 1 && fileName == 'all' + extension
+var multiConcatsWithoutOutputPaths = function(assets, fileName, extension) {
+    return assets.length !== 1 && fileName == 'all.' + extension
 };
+
 
 /**
  * Apply an index to an existing filename, before the extension.
@@ -25,9 +26,23 @@ var multipleConcatsWithoutOutputPaths = function(assets, fileName, extension) {
  * @param  {string} extension
  * @return {string}
  */
-var applyIndexToOutputPath = function(index, fileName, extension) {
-    return fileName.replace(extension, '-' + index + extension);
+var applyIndexToFileName = function(index, fileName, extension) {
+    return fileName.replace(extension, '-' + index + '.' + extension);
 }
+
+
+/**
+ * Delete the merged file from the previous run.
+ *
+ * @param  {[string]} path
+ * @return {void}
+ */
+var deletePreviouslyMergedFile = function(path) {
+    if (fs.existsSync(path)) {
+        fs.unlinkSync(path);
+    }
+};
+
 
 /**
  * Queue up a request for file concatenations.
@@ -35,7 +50,7 @@ var applyIndexToOutputPath = function(index, fileName, extension) {
  * @param  {object} options
  * @return {void}
  */
-var queueAssetCombining = function(options) {
+var queueAssetMerging = function(options) {
     var baseDir = options.baseDir || 'public';
     var type = options.type;
     var concatFileName = 'all.' + type;
@@ -51,8 +66,6 @@ var queueAssetCombining = function(options) {
         outputDir = pathSegments.join('/');
     }
 
-    // We'll queue a new array of files to be concatenated with Gulp.
-    // This way, multiple sets of of files may be concatenated.
     config.concatenate[type].push({
         src: utilities.prefixDirToFiles(baseDir, files),
         to: outputDir,
@@ -92,25 +105,19 @@ var buildTask = function(options) {
  *
  * @param  {object}  set
  * @param  {index}   index
+ * @param  {assets}  assets
  * @param  {options} options
  * @return {object}
  */
 var mergeFileSet = function(set, index, assets, options) {
     var fileName = set.concatFileName;
-    var extension = '.' + options.extension;
-    var mergePath;
 
-    // If we're dealing with multiple asset concats, but the user didn't give
-    // us a filename to use, then we'll add an index to the file name.
-    if (multipleConcatsWithoutOutputPaths(assets, fileName, extension))
+    if (multiConcatsWithoutOutputPaths(assets, fileName, options.extension))
     {
-        fileName = applyIndexToOutputPath(++index, fileName, extension);
+        fileName = applyIndexToFileName(++index, fileName, options.extension);
     }
 
-    mergePath = [set.to, fileName].join('/');
-    if (fs.existsSync(mergePath)) {
-        fs.unlinkSync(mergePath);
-    }
+    deletePreviouslyMergedFile(set.to + '/' + fileName);
 
     return gulp.src(set.src)
                .pipe(plugins.concat(fileName))
@@ -121,7 +128,7 @@ var mergeFileSet = function(set, index, assets, options) {
 
 module.exports = function(options) {
 
-    queueAssetCombining({
+    queueAssetMerging({
         type: options.extension,
         files: options.assets,
         baseDir: options.baseDir,
