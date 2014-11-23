@@ -46,7 +46,6 @@ var buildTask = function() {
 
     gulp.task('publish', function() {
         config.duplicate.forEach(function(toCopy) {
-            // return console.log(toCopy);
             stream = gulp
                     .src(toCopy.src.path)
                     .pipe(gulpif( ! toCopy.src.isDir, rename(toCopy.dest.basename)))
