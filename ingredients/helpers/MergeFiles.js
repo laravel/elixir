@@ -5,6 +5,25 @@ var utilities = require('./Utilities');
 var fs = require('fs');
 
 /**
+ * Construct the merged file name.
+ *
+ * @param  {array}  assets
+ * @param  {string} fileName
+ * @param  {ext}    ext
+ * @param  {index}  index
+ * @return {string}
+ */
+var constructFileName = function(assets, fileName, ext, index) {
+    var ext = '.' + ext;
+
+    if (multiConcatsWithoutOutputPaths(assets, fileName, ext)) {
+        return fileName.replace(ext, '-' + (++index + ext));
+    }
+
+    return fileName;
+}
+
+/**
  * Determine if we need to concat multiple sets,
  * but the user didn't specify output filenames.
  *
@@ -14,23 +33,8 @@ var fs = require('fs');
  * @return {boolean}
  */
 var multiConcatsWithoutOutputPaths = function(assets, fileName, extension) {
-    return assets.length !== 1 && fileName == 'all.' + extension
+    return assets.length !== 1 && fileName == 'all' + extension
 };
-
-
-/**
- * Apply an index to an existing filename, before the extension.
- *
- * @param  {string} index
- * @param  {string} fileName
- * @param  {string} extension
- * @return {string}
- */
-var applyIndexToFileName = function(index, fileName, extension) {
-    var ext = '.' + extension;
-
-    return fileName.replace(ext, '-' + index + ext);
-}
 
 
 /**
@@ -112,12 +116,7 @@ var buildTask = function(options) {
  * @return {object}
  */
 var mergeFileSet = function(set, index, assets, options) {
-    var fileName = set.concatFileName;
-
-    if (multiConcatsWithoutOutputPaths(assets, fileName, options.extension))
-    {
-        fileName = applyIndexToFileName(++index, fileName, options.extension);
-    }
+    fileName = constructFileName(assets, set.concatFileName, options.extension, index);
 
     deletePreviouslyMergedFile(set.to + '/' + fileName);
 
