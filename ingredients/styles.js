@@ -32,7 +32,7 @@ elixir.extend('stylesIn', function(baseDir, output) {
         assets: '**/*.css',
         baseDir: baseDir,
         output: output || baseDir,
-        taskName: 'scripts',
+        taskName: 'styles',
         minifier: cssMinifier,
         extension: 'css'
     });
