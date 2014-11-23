@@ -1,6 +1,6 @@
 var elixir = require('laravel-elixir');
-var cssMinifier = require('gulp-minify-css');
 var combine = require('./helpers/MergeFiles.js');
+var MergeRequest = require('./helpers/MergeRequest');
 
 /*
  |----------------------------------------------------------------
@@ -13,28 +13,23 @@ var combine = require('./helpers/MergeFiles.js');
  |
  */
 
-elixir.extend('styles', function(styles, baseDir, output) {
+elixir.extend('styles', function(styles, baseDir, outputDir) {
+    outputDir = outputDir || elixir.config.cssOutput;
 
-    return combine({
-        assets: styles,
-        baseDir: baseDir,
-        output: output,
-        taskName: 'styles',
-        minifier: cssMinifier,
-        extension: 'css',
-    });
-
+    return combine(mergeRequest(styles, baseDir, outputDir));
 });
 
-elixir.extend('stylesIn', function(baseDir, output) {
+elixir.extend('stylesIn', function(baseDir, outputDir) {
+    outputDir = outputDir || baseDir;
 
-    return combine({
-        assets: '**/*.css',
-        baseDir: baseDir,
-        output: output || baseDir,
-        taskName: 'styles',
-        minifier: cssMinifier,
-        extension: 'css'
-    });
-
+    return combine(mergeRequest('**/*.css', baseDir, outputDir));
 });
+
+var mergeRequest = function(styles, baseDir, outputDir) {
+    var request = new MergeRequest(styles, baseDir, outputDir, 'css');
+
+    request.taskName = 'styles';
+    request.minifier = require('gulp-minify-css');
+
+    return request;
+};

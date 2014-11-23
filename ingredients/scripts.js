@@ -1,6 +1,6 @@
 var elixir = require('laravel-elixir');
-var jsMinifier = require('gulp-uglify');
-var combine = require('./helpers/MergeFiles.js')
+var combine = require('./helpers/MergeFiles.js');
+var MergeRequest = require('./helpers/MergeRequest');
 
 /*
  |----------------------------------------------------------------
@@ -13,28 +13,23 @@ var combine = require('./helpers/MergeFiles.js')
  |
  */
 
-elixir.extend('scripts', function(scripts, baseDir, output) {
+elixir.extend('scripts', function(scripts, baseDir, outputDir) {
+    outputDir = outputDir || elixir.config.jsOutput;
 
-    return combine({
-        assets: scripts,
-        baseDir: baseDir,
-        output: output,
-        taskName: 'scripts',
-        minifier: jsMinifier,
-        extension: 'js'
-    });
-
+    return combine(mergeRequest(scripts, baseDir, outputDir))
 });
 
-elixir.extend('scriptsIn', function(baseDir, output) {
+elixir.extend('scriptsIn', function(baseDir, outputDir) {
+    outputDir = outputDir || baseDir;
 
-    return combine({
-        assets: '**/*.js',
-        baseDir: baseDir,
-        output: output || baseDir,
-        taskName: 'scripts',
-        minifier: jsMinifier,
-        extension: 'js'
-    });
-
+    return combine(mergeRequest('**/*.js', baseDir, outputDir));
 });
+
+var mergeRequest = function(styles, baseDir, outputDir) {
+    var request = new MergeRequest(styles, baseDir, outputDir, 'js');
+
+    request.taskName = 'scripts';
+    request.minifier = require('gulp-uglify');
+
+    return request;
+};
