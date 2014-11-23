@@ -48,13 +48,13 @@ Now that you've installed Elixir, you'll be compiling, concatenating, and watchi
 #### Compile Less
 
     elixir(function(mix) {
-        mix.less("bootstrap.less");
+        mix.less("app.less");
     });
 
 #### Compile Sass
 
     elixir(function(mix) {
-        mix.sass("bootstrap.scss");
+        mix.sass("app.scss");
     });
 
 #### Compile CoffeeScript
@@ -93,6 +93,12 @@ Now that you've installed Elixir, you'll be compiling, concatenating, and watchi
 
 This will assume that the `public/` folder is the base directory.
 
+#### Combine All Styles in a Directory
+
+    elixir(function(mix) {
+        mix.stylesIn("public/css");
+    });
+
 #### Combine Scripts
 
     elixir(function(mix) {
@@ -102,10 +108,10 @@ This will assume that the `public/` folder is the base directory.
         ]);
     });
 
-#### Combine All Scripts in a Special Directory
+#### Combine All Scripts in a Directory
 
     elixir(function(mix) {
-        mix.scripts('', 'resources/assets/scripts');
+        mix.scriptsIn("resources/assets/scripts");
     });
 
 #### Combine Multiple Sets of Scripts
@@ -144,23 +150,39 @@ This will automatically monitor your controllers for changes (and route annotati
         mix.events();
     });
 
-#### Copy Files
+#### Copy a File
 
     elixir(function(mix) {
         // from, to
-        mix.copy('vendor/jquery.js', 'public/css/jquery.js');
+        mix.copy("vendor/jquery.js", "public/css/jquery.js");
+    });
+
+#### Copy a Directory of Files
+
+    elixir(function(mix) {
+        mix.copy("path/to/folder", "path/to/destination/folder");
     });
 
 #### Put It All Together
 
     elixir(function(mix) {
-        mix.less("bootstrap.less")
+        mix.less("app.less")
            .coffee()
            .phpUnit()
-           .version("css/bootstrap.css")
-           .routes()
-           .events();
+           .version("css/bootstrap.css");
     });
+
+#### Publish a Bower File or Folder
+
+    elixir(function(mix) {
+        mix.publish(
+            "jquery/dist/jquery.min.js",
+            "public/js/vendor/jquery.js"
+        );
+    });
+
+This task allows you to copy any file (or directory) from `vendor/bower_components` to the appropriate
+place in your application.
 
 
 <a name="gulp"></a>
