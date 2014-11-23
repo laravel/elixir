@@ -3,42 +3,15 @@ var fs = require('fs');
 var _ = require('underscore');
 
 var config = {
-
-    // All user requested tasks from the Gulpfile.
-    tasks: [],
-
-
-    // The default watchers and paths.
-    watchers: {},
-
-
-    // Are we in production mode?
     production: !! util.env.production,
-
-
-    // The base dir for any assets.
     assetsDir: 'resources/assets/',
-
-
-    // The path to bower_components.
-    bowerDir: 'vendor/bower_components',
-
-
-    // Files to be copied.
-    duplicate: [],
-
-
-    // Scripts and styles to combine.
-    concatenate: { css: [], js: [] },
-
-
-    // The default CSS output directory.
     cssOutput: 'public/css',
-
-
-    // The default JS output directory.
-    jsOutput: 'public/js'
-
+    jsOutput: 'public/js',
+    bowerDir: 'vendor/bower_components',
+    tasks: [],
+    watchers: {},
+    duplicate: [],
+    concatenate: { css: [], js: [] }
 };
 
 
