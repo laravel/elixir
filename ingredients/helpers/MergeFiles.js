@@ -2,6 +2,7 @@ var gulp = require('gulp');
 var config = require('laravel-elixir').config;
 var plugins = require('gulp-load-plugins')();
 var utilities = require('./Utilities');
+var fs = require('fs');
 
 /**
  * Determine if we need to concat multiple sets,
@@ -82,6 +83,10 @@ module.exports = function(options) {
             if (multipleConcatsWithoutOutputPaths(assets, fileName, extension))
             {
                 fileName = applyIndexToOutputPath(++index, fileName, extension);
+            }
+
+            if (fs.existsSync(set.to + '/' + fileName)) {
+                fs.unlinkSync(set.to + '/' + fileName);
             }
 
             stream = gulp.src(set.src)
