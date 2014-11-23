@@ -27,7 +27,9 @@ var multiConcatsWithoutOutputPaths = function(assets, fileName, extension) {
  * @return {string}
  */
 var applyIndexToFileName = function(index, fileName, extension) {
-    return fileName.replace(extension, '-' + index + '.' + extension);
+    var ext = '.' + extension;
+
+    return fileName.replace(ext, '-' + index + ext);
 }
 
 
