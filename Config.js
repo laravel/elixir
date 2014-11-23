@@ -24,12 +24,12 @@ var config = {
     bowerDir: 'vendor/bower_components',
 
 
-    // Scripts and styles to combine.
-    concatenate: { css: [], js: [] },
-
-
     // Files to be copied.
     duplicate: [],
+
+
+    // Scripts and styles to combine.
+    concatenate: { css: [], js: [] },
 
 
     // The default CSS output directory.

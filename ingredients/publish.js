@@ -1,33 +1,24 @@
 var gulp = require('gulp');
+var publish = require('./helpers/GulpCopier');
 var elixir = require('laravel-elixir');
 var config = elixir.config;
-var filter = require('gulp-filter');
-var mainBowerFiles = require('main-bower-files');
 
 /*
  |----------------------------------------------------------------
- | Gulp Bower Compilation
+ | Bower Publishing
  |----------------------------------------------------------------
  |
- | This task will search for any relevant Bower dependencies, and
- | copy them to the correct directories for your Laravel app.
+ | This task allows you to copy any files from the bower_components
+ | directory to the appropriate locations in your application.
  |
  */
 
-elixir.extend('publish', function(bowerDir) {
+elixir.extend('publish', function(source, destination) {
+    source = config.bowerDir + '/' + source.replace(config.bowerDir, '');
 
-    gulp.task('publish', function() {
-        gulp.src(mainBowerFiles(), { base: bowerDir })
-            .pipe(filter('**/*.css'))
-                .pipe(gulp.dest(config.cssOutput + '/vendor'))
-                .pipe(cssFilter.restore())
-            .pipe(filter('**/*.js'))
-                .pipe(gulp.dest(config.jsOutput + '/vendor'));
-    });
-
-    this.bowerDir = bowerDir;
-
-    return this.queueTask('publish');
-
+    return publish(source, destination);
 });
 
+elixir.extend('copy', function(source, destination) {
+    return publish(source, destination);
+});
