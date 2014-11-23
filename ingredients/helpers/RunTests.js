@@ -7,6 +7,8 @@ module.exports = function(options) {
 
     var onError = function(e) {
         new Notification().forFailedTests(e, options.framework);
+
+        this.emit('end');
     };
 
     gulp.task(options.pluginName, function() {
