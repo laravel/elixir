@@ -25,3 +25,16 @@ elixir.extend('scripts', function(scripts, baseDir, output) {
     });
 
 });
+
+elixir.extend('scriptsIn', function(baseDir, output) {
+
+    return combine({
+        assets: '**/*.js',
+        baseDir: baseDir,
+        output: output || baseDir,
+        taskName: 'scripts',
+        minifier: jsMinifier,
+        extension: 'js'
+    });
+
+});

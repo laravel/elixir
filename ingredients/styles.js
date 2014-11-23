@@ -25,3 +25,16 @@ elixir.extend('styles', function(styles, baseDir, output) {
     });
 
 });
+
+elixir.extend('stylesIn', function(baseDir, output) {
+
+    return combine({
+        assets: '**/*.css',
+        baseDir: baseDir,
+        output: output || baseDir,
+        taskName: 'scripts',
+        minifier: cssMinifier,
+        extension: 'css'
+    });
+
+});
