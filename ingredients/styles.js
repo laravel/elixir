@@ -1,6 +1,6 @@
 var elixir = require('laravel-elixir');
 var cssMinifier = require('gulp-minify-css');
-var combine = require('./helpers/GulpCombiner.js');
+var combine = require('./helpers/MergeFiles.js');
 
 /*
  |----------------------------------------------------------------

@@ -1,6 +1,7 @@
 var gulp = require('gulp');
 var config = require('laravel-elixir').config;
 var plugins = require('gulp-load-plugins')();
+var utilities = require('./Utilities');
 
 /**
  * Determine if we need to concat multiple sets,
@@ -52,7 +53,7 @@ var queueAssetCombining = function(options) {
     // We'll queue a new array of files to be concatenated with Gulp.
     // This way, multiple sets of of files may be concatenated.
     config.concatenate[type].push({
-        src: config.prefixDirToFiles(baseDir, files),
+        src: utilities.prefixDirToFiles(baseDir, files),
         to: outputDir,
         concatFileName: concatFileName
     });

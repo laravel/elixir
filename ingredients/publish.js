@@ -1,5 +1,5 @@
 var gulp = require('gulp');
-var publish = require('./helpers/GulpCopier');
+var publish = require('./helpers/CopyFiles');
 var elixir = require('laravel-elixir');
 var config = elixir.config;
 

@@ -2,6 +2,8 @@ var gulp = require('gulp');
 var elixir = require('laravel-elixir');
 var config = elixir.config;
 var plugins = require('gulp-load-plugins')();
+var utilities = require('./helpers/Utilities');
+var Notification = require('./helpers/Notification');
 
 /*
  |----------------------------------------------------------------
@@ -18,30 +20,20 @@ elixir.extend('coffee', function(src, output) {
 
     var assetsDir = this.assetsDir + 'coffee/';
 
-    src = this.buildGulpSrc(src, assetsDir, '**/*.coffee');
+    var onError = function(e) {
+        new Notification().error(e, 'CoffeeScript Compilation Failed!');
+
+        this.emit('end');
+    };
+
+    src = utilities.buildGulpSrc(src, assetsDir, '**/*.coffee');
 
     gulp.task('coffee', function() {
-        var onError = function(err) {
-            plugins.notify.onError({
-                title:    'Laravel Elixir',
-                subtitle: 'CoffeeScript Compilation Failed!',
-                message:  'Error: <%= error.message %>',
-                icon: __dirname + '/../icons/fail.png'
-            })(err);
-
-            this.emit('end');
-        };
-
         return gulp.src(src)
             .pipe(plugins.coffee().on('error', onError))
             .pipe(plugins.if(config.production, plugins.uglify()))
             .pipe(gulp.dest(output || config.jsOutput))
-            .pipe(plugins.notify({
-                title: 'Laravel Elixir',
-                subtitle: 'CoffeeScript Compiled!',
-                icon: __dirname + '/../icons/laravel.png',
-                message: ' '
-            }));
+            .pipe(new Notification().message('CoffeeScript Compiled!'));
     });
 
     this.registerWatcher('coffee', assetsDir + '/**/*.coffee');

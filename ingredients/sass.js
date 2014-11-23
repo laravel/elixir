@@ -1,6 +1,6 @@
 var gulp = require('gulp');
 var elixir = require('laravel-elixir');
-var gulpCssCompiler = require('./helpers/GulpCssCompiler');
+var compile = require('./helpers/CompileCSS');
 var _ = require('underscore');
 
 var inProduction = elixir.config.production
@@ -23,7 +23,7 @@ elixir.extend('sass', function(src, output, options) {
         includePaths: [elixir.config.bowerDir + "/bootstrap-sass-official/assets/stylesheets"]
     }, options);
 
-    return gulpCssCompiler({
+    return compile({
         compiler: 'Sass',
         pluginName: 'sass',
         pluginOptions: options,

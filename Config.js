@@ -61,22 +61,6 @@ config.registerWatcher = function(task, search, group) {
 
 
 /**
- * Build up the given src file(s), to be passed to Gulp.
- *
- * @param {string|array} src
- * @param {string}       baseDir
- * @param {string}       search
- */
-config.buildGulpSrc = function(src, baseDir, search) {
-    if (src) {
-        return this.prefixDirToFiles(baseDir, src);
-    }
-
-    return baseDir + '/' + search;
-};
-
-
-/**
  * Register the given task to be triggered by Gulp.
  *
  * @param {string} task
@@ -88,21 +72,6 @@ config.queueTask = function(task) {
     }
 
     return this;
-};
-
-
-/**
- * Prefix a directory path to an array of files.
- *
- * @param {string}       dir
- * @param {string|array} files
- */
-config.prefixDirToFiles = function(dir, files) {
-    if ( ! Array.isArray(files)) files = [files];
-
-    return files.map(function(file) {
-        return dir + '/' + file.replace(dir, '');
-    });
 };
 
 

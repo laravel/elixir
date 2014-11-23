@@ -1,6 +1,6 @@
 var elixir = require('laravel-elixir');
 var _ = require('underscore');
-var gulpTester = require('./helpers/GulpTester');
+var runTests = require('./helpers/RunTests');
 
 /*
  |----------------------------------------------------------------
@@ -17,7 +17,7 @@ elixir.extend('phpSpec', function(src, options) {
 
     options = _.extend({ verbose: 'v', notify: true }, options);
 
-    return gulpTester({
+    return runTests({
         framework: 'PHPSpec',
         pluginName: 'phpspec',
         pluginOptions: options,

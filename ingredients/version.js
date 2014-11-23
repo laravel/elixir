@@ -2,6 +2,7 @@ var gulp = require('gulp');
 var elixir = require('laravel-elixir');
 var rev = require('gulp-rev');
 var del = require('del');
+var utilities = require('./helpers/Utilities');
 
 /*
  |----------------------------------------------------------------
@@ -16,7 +17,7 @@ var del = require('del');
 
 elixir.extend('version', function(src, buildDir) {
 
-    src = this.prefixDirToFiles('public', src);
+    src = utilities.prefixDirToFiles('public', src);
     buildDir = buildDir ? buildDir + '/build' : 'public/build';
 
     gulp.task('version', function() {

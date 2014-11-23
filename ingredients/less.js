@@ -1,5 +1,5 @@
 var elixir = require('laravel-elixir');
-var gulpCssCompiler = require('./helpers/GulpCssCompiler');
+var compile = require('./helpers/CompileCSS');
 
 /*
  |----------------------------------------------------------------
@@ -14,7 +14,7 @@ var gulpCssCompiler = require('./helpers/GulpCssCompiler');
 
 elixir.extend('less', function(src, output, options) {
 
-    return gulpCssCompiler({
+    return compile({
         compiler: 'Less',
         pluginName: 'less',
         pluginOptions: options,

@@ -1,22 +1,19 @@
 var gulp = require('gulp');
 var plugins = require('gulp-load-plugins')();
 var config = require('laravel-elixir').config;
+var Notification = require('./Notification');
 
 module.exports = function(options) {
+
+    var onError = function(e) {
+        new Notification().forFailedTests(e, options.framework);
+    };
 
     gulp.task(options.pluginName, function() {
         return gulp.src(options.src)
             .pipe(plugins[options.pluginName]('', options.pluginOptions))
-            .on('error', plugins.notify.onError({
-                title: 'Red!',
-                message: 'Your ' + options.framework + ' tests failed!',
-                icon: __dirname + '/../../icons/fail.png'
-            }))
-            .pipe(plugins.notify({
-                title: 'Green!',
-                message: 'Your ' + options.framework + ' tests passed!',
-                icon: __dirname + '/../../icons/pass.png'
-            }));
+            .on('error', onError)
+            .pipe(new Notification().forPassedTests(options.framework));
     });
 
     config.registerWatcher(options.pluginName, options.src, 'tdd');
