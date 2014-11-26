@@ -17,6 +17,19 @@ var deletePreviouslyMergedFile = function(path) {
 
 
 /**
+ * Figure out which files should be watched, and re-merged.
+ *
+ * @param  {object} request
+ * @return {array}
+ */
+var getFilesToWatch = function(request) {
+    var alreadyBeingWatched = config.watchers.default[request.taskName];
+
+    return alreadyBeingWatched ? alreadyBeingWatched.concat(request.files) : request.files;
+};
+
+
+/**
  * Create the Gulp task.
  *
  * @return {void}
@@ -24,14 +37,8 @@ var deletePreviouslyMergedFile = function(path) {
 var buildTask = function(request) {
     config.concatenate[request.type].push(request);
 
-    // We only need to queue and register a watcher once.
-    if (config.tasks.indexOf(request.taskName) == -1) {
-        config.registerWatcher(
-            request.taskName, request.baseDir + request.search
-        );
-
-        config.queueTask(request.taskName);
-    }
+    config.registerWatcher(request.taskName, getFilesToWatch(request));
+    config.queueTask(request.taskName);
 
     gulp.task(request.taskName, function() {
         var assets = config.concatenate[request.type];
