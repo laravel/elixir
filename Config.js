@@ -9,7 +9,7 @@ var config = {
     jsOutput: 'public/js',
     bowerDir: 'vendor/bower_components',
     tasks: [],
-    watchers: {},
+    watchers: { default: {} },
     duplicate: [],
     concatenate: { css: [], js: [] }
 };
