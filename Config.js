@@ -4,7 +4,7 @@ var _ = require('underscore');
 
 var config = {
     production: !! util.env.production,
-    assetsDir: 'resources/assets/',
+    assetsDir: 'assets/',
     cssOutput: 'public/css',
     jsOutput: 'public/js',
     bowerDir: 'vendor/bower_components',

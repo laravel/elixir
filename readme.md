@@ -111,7 +111,7 @@ This will assume that the `public/` folder is the base directory.
 #### Combine All Scripts in a Directory
 
     elixir(function(mix) {
-        mix.scriptsIn("resources/assets/scripts");
+        mix.scriptsIn("assets/scripts");
     });
 
 #### Combine Multiple Sets of Scripts
