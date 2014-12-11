@@ -21,5 +21,5 @@ gulp.task('tdd', function() {
         gulp.watch(srcPaths[task], [task]);
     });
 
-    gulp.watch('app/**/*.php', tasksToRun);
+    gulp.watch(config.srcDir + '/**/*.php', tasksToRun);
 });
