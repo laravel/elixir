@@ -25,8 +25,8 @@ elixir.extend('scriptsIn', function(baseDir, outputDir) {
     return combine(mergeRequest('**/*.js', baseDir, outputDir));
 });
 
-var mergeRequest = function(styles, baseDir, outputDir) {
-    var request = new MergeRequest(styles, baseDir, outputDir, 'js');
+var mergeRequest = function(scripts, baseDir, outputDir) {
+    var request = new MergeRequest(scripts, baseDir, outputDir, 'js');
 
     request.taskName = 'scripts';
     request.minifier = require('gulp-uglify');
