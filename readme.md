@@ -135,43 +135,6 @@ Within your views, you may use the `elixir()` function to load the appropriately
 
 Behind the scenes, the `elixir()` function will determine the name of the hashed file that should be included.
 
-#### Scan For Routes
-
-    elixir(function(mix) {
-        mix.routes();
-    });
-
-This will automatically monitor your controllers for changes (and route annotations), and re-generate the cached routes file.
- The same is true for events.
-
-#### Scan For Events
-
-    elixir(function(mix) {
-        mix.events();
-    });
-
-#### Copy a File
-
-    elixir(function(mix) {
-        // from, to
-        mix.copy("vendor/jquery.js", "public/css/jquery.js");
-    });
-
-#### Copy a Directory of Files
-
-    elixir(function(mix) {
-        mix.copy("path/to/folder", "path/to/destination/folder");
-    });
-
-#### Put It All Together
-
-    elixir(function(mix) {
-        mix.less("app.less")
-           .coffee()
-           .phpUnit()
-           .version("css/bootstrap.css");
-    });
-
 #### Copy a File to a New Location
 
     elixir(function(mix) {
@@ -184,7 +147,14 @@ This will automatically monitor your controllers for changes (and route annotati
         mix.copy('vendor/package/views', 'resources/views');
     });
 
+#### Put It All Together
 
+    elixir(function(mix) {
+        mix.less("app.less")
+           .coffee()
+           .phpUnit()
+           .version("css/bootstrap.css");
+    });
 
 
 <a name="gulp"></a>
