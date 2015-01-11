@@ -172,17 +172,19 @@ This will automatically monitor your controllers for changes (and route annotati
            .version("css/bootstrap.css");
     });
 
-#### Publish a Bower File or Folder
+#### Copy a File to a New Location
 
     elixir(function(mix) {
-        mix.publish(
-            "jquery/dist/jquery.min.js",
-            "public/js/vendor/jquery.js"
-        );
+        mix.copy('vendor/foo/bar.css', 'public/css/bar.css');
     });
 
-This task allows you to copy any file (or directory) from `vendor/bower_components` to the appropriate
-place in your application.
+#### Copy an Entire Directory to a New Location
+
+    elixir(function(mix) {
+        mix.copy('vendor/package/views', 'resources/views');
+    });
+
+
 
 
 <a name="gulp"></a>
