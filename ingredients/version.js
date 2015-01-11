@@ -2,7 +2,7 @@ var gulp = require('gulp');
 var elixir = require('laravel-elixir');
 var rev = require('gulp-rev');
 var del = require('del');
-var utilities = require('./helpers/Utilities');
+var utilities = require('./commands/Utilities');
 
 /*
  |----------------------------------------------------------------

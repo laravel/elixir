@@ -1,6 +1,6 @@
 var elixir = require('laravel-elixir');
 var _ = require('underscore');
-var runTests = require('./helpers/RunTests');
+var runTests = require('./commands/RunTests');
 
 /*
  |----------------------------------------------------------------

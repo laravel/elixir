@@ -1,5 +1,5 @@
 var elixir = require('laravel-elixir');
-var compile = require('./helpers/CompileCSS');
+var compile = require('./commands/CompileCSS');
 
 /*
  |----------------------------------------------------------------
