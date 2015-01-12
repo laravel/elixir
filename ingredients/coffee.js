@@ -16,7 +16,7 @@ var Notification = require('./commands/Notification');
  |
  */
 
-elixir.extend('coffee', function(src, output) {
+elixir.extend('coffee', function(src, output, options) {
 
     var assetsDir = this.assetsDir + 'coffee/';
 
@@ -30,7 +30,7 @@ elixir.extend('coffee', function(src, output) {
 
     gulp.task('coffee', function() {
         return gulp.src(src)
-            .pipe(plugins.coffee().on('error', onError))
+            .pipe(plugins.coffee(options).on('error', onError))
             .pipe(plugins.if(config.production, plugins.uglify()))
             .pipe(gulp.dest(output || config.jsOutput))
             .pipe(new Notification().message('CoffeeScript Compiled!'));
