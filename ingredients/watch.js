@@ -8,7 +8,7 @@ var tasksToRun;
 
 gulp.task('watch', function() {
     srcPaths = config.watchers.default;
-    tasksToRun = _.intersection(config.tasks, _.keys(srcPaths).concat('publish'));
+    tasksToRun = _.intersection(config.tasks, _.keys(srcPaths).concat('copy'));
 
     inSequence.apply(this, tasksToRun.concat('watch-assets'));
 });
