@@ -47,115 +47,146 @@ Now that you've installed Elixir, you'll be compiling, concatenating, and watchi
 
 #### Compile Less
 
-    elixir(function(mix) {
-        mix.less("app.less");
-    });
+```javascript
+elixir(function(mix) {
+    mix.less("app.less");
+});
+```
 
 #### Compile Sass
 
-    elixir(function(mix) {
-        mix.sass("app.scss");
-    });
+```javascript
+elixir(function(mix) {
+    mix.sass("app.scss");
+});
+```
 
 #### Compile CoffeeScript
 
-    elixir(function(mix) {
-        mix.coffee();
-    });
+```javascript
+elixir(function(mix) {
+    mix.coffee();
+});
+```
 
 #### Compile All Less and CoffeeScript
 
-    elixir(function(mix) {
-        mix.less()
-           .coffee();
-    });
+```javascript
+elixir(function(mix) {
+    mix.less()
+       .coffee();
+});
+```
 
 #### Trigger PHPUnit Tests
 
-    elixir(function(mix) {
-        mix.phpUnit();
-    });
+```javascript
+elixir(function(mix) {
+    mix.phpUnit();
+});
+```
 
 #### Trigger PHPSpec Tests
 
-    elixir(function(mix) {
-        mix.phpSpec();
-    });
+```javascript
+elixir(function(mix) {
+    mix.phpSpec();
+});
+```
 
 #### Combine Stylesheets
 
-    elixir(function(mix) {
-        mix.styles([
-            "css/normalize.css",
-            "css/main.css"
-        ]);
-    });
+```javascript
+elixir(function(mix) {
+    mix.styles([
+        "css/normalize.css",
+        "css/main.css"
+    ]);
+});
+```
 
 This will assume that the `public/` folder is the base directory.
 
 #### Combine All Styles in a Directory
 
-    elixir(function(mix) {
-        mix.stylesIn("public/css");
-    });
+```javascript
+elixir(function(mix) {
+    mix.stylesIn("public/css");
+});
+```
 
 #### Combine Scripts
 
-    elixir(function(mix) {
-        mix.scripts([
-            "js/jquery.js",
-            "js/app.js"
-        ]);
-    });
+```javascript
+elixir(function(mix) {
+    mix.scripts([
+        "js/jquery.js",
+        "js/app.js"
+    ]);
+});
+```
 
 #### Combine All Scripts in a Directory
 
-    elixir(function(mix) {
-        mix.scriptsIn("resources/assets/scripts");
-    });
+```javascript
+elixir(function(mix) {
+    mix.scriptsIn("resources/assets/scripts");
+});
+```
 
 #### Combine Multiple Sets of Scripts
 
-    elixir(function(mix) {
-        mix.scripts(['js/jquery.js', 'js/main.js'])
-           .scripts(['js/forum.js', 'js/threads.js']);
-    });
+```javascript
+elixir(function(mix) {
+    mix.scripts(['js/jquery.js', 'js/main.js'])
+       .scripts(['js/forum.js', 'js/threads.js']);
+});
+```
 
 #### Version/Hash a File
 
-    elixir(function(mix) {
-        mix.version("css/all.css");
-    });
+```javascript
+elixir(function(mix) {
+    mix.version("css/all.css");
+});
+```
 
 This will append a unique hash to the filename, allowing for cache-busting. Perhaps something like: `all-16d570a7.css`.
 
 Within your views, you may use the `elixir()` function to load the appropriately hashed asset. Here's an example:
 
-    <link rel="stylesheet" href="{{ elixir("css/all.css") }}">
+```html
+<link rel="stylesheet" href="{{ elixir("css/all.css") }}">
+```
 
 Behind the scenes, the `elixir()` function will determine the name of the hashed file that should be included.
 
 #### Copy a File to a New Location
 
-    elixir(function(mix) {
-        mix.copy('vendor/foo/bar.css', 'public/css/bar.css');
-    });
+```js
+elixir(function(mix) {
+    mix.copy('vendor/foo/bar.css', 'public/css/bar.css');
+});
+```
 
 #### Copy an Entire Directory to a New Location
 
-    elixir(function(mix) {
-        mix.copy('vendor/package/views', 'resources/views');
-    });
+```js
+elixir(function(mix) {
+    mix.copy('vendor/package/views', 'resources/views');
+});
+```
 
 #### Put It All Together
 
-    elixir(function(mix) {
-        mix.less("app.less")
-           .coffee()
-           .phpUnit()
-           .version("css/bootstrap.css");
-    });
-
+```javascript
+elixir(function(mix) {
+    mix.less("app.less")
+       .coffee()
+       .phpUnit()
+       .version("css/bootstrap.css");
+});
+```
 
 <a name="gulp"></a>
 ## Gulp
@@ -183,7 +214,7 @@ While Elixir will assume the default Laravel 5 directory structure, it's possibl
 
 Create a `elixir.json` file within the root of your project, and update the necessary paths as needed.
 
-```
+```json
 {
     "assetsDir": "app/assets/",
 
@@ -203,38 +234,46 @@ Create a `elixir.json` file within the root of your project, and update the nece
 You can even create your own Gulp tasks, and hook them into Elixir. Imagine that you want to add a fun task that
  uses the Terminal to verbally notify you with some message. Here's what that might look like:
 
-     var elixir = require("laravel-elixir");
-     var gulp = require("gulp");
-     var shell = require("gulp-shell");
+```javascript
+ var elixir = require("laravel-elixir");
+ var gulp = require("gulp");
+ var shell = require("gulp-shell");
 
-     elixir.extend("message", function(message) {
+ elixir.extend("message", function(message) {
 
-         gulp.task("say", function() {
-             gulp.src("").pipe(shell("say " + message));
-         });
-
-         return this.queueTask("say");
-
+     gulp.task("say", function() {
+         gulp.src("").pipe(shell("say " + message));
      });
+
+     return this.queueTask("say");
+
+ });
+```
 
 Notice that we `extend` Elixir's API by passing the key that we will use within our Gulpfile, as well as a callback function that will create the Gulp task.
 
 If you want your custom task to be monitored, then register a watcher as well.
 
-    this.registerWatcher("message", "**/*.php");
+```javascript
+this.registerWatcher("message", "**/*.php");
+```
 
 This lines designates that when any file that matches the regex, `**/*.php` is modified, we want to trigger the `message` task.
 
 That's it! You may either place this at the top of your Gulpfile, or instead extract it to a custom tasks file. If you
 choose the latter approach, simple require it into your Gulpfile, like so:
 
-    require("./custom-tasks")
+```javascript
+require("./custom-tasks")
+```
 
 You're done! Now, you can mix it in.
 
-    elixir(function(mix) {
-        mix.message("Tea, Earl Grey, Hot");
-    });
+```javascript
+elixir(function(mix) {
+    mix.message("Tea, Earl Grey, Hot");
+});
+```
 
 With this addition, each time you trigger Gulp, Picard will request some tea.
 
