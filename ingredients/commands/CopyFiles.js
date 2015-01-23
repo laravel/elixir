@@ -44,7 +44,7 @@ var parseDest = function(dest) {
 var buildTask = function() {
     var stream;
 
-    gulp.task('publish', function() {
+    gulp.task('copy', function() {
         config.duplicate.forEach(function(toCopy) {
             stream = gulp
                     .src(toCopy.src.path)
@@ -65,5 +65,5 @@ module.exports = function(src, dest) {
 
     buildTask();
 
-    return config.queueTask('publish');
+    return config.queueTask('copy');
 };
