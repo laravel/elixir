@@ -1,7 +1,7 @@
 var utilities = require('./Utilities');
 
 var MergeRequest = function(files, baseDir, outputDir, ext) {
-    this.baseDir = baseDir || 'public';
+    this.baseDir = baseDir || 'resources/' + ext;
     this.search = '**/*.' + ext;
     this.files = utilities.prefixDirToFiles(this.baseDir, files || this.search);
     this.type = ext;
