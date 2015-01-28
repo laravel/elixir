@@ -13,10 +13,10 @@ var MergeRequest = require('./commands/MergeRequest');
  |
  */
 
-elixir.extend('styles', function(styles, baseDir, outputDir) {
+elixir.extend('styles', function(styles, outputDir, baseDir) {
     outputDir = outputDir || elixir.config.cssOutput;
 
-    return combine(mergeRequest(styles, baseDir, outputDir));
+    return combine(mergeRequest(styles, outputDir, baseDir));
 });
 
 elixir.extend('stylesIn', function(baseDir, outputDir) {
@@ -25,7 +25,7 @@ elixir.extend('stylesIn', function(baseDir, outputDir) {
     return combine(mergeRequest('**/*.css', baseDir, outputDir));
 });
 
-var mergeRequest = function(styles, baseDir, outputDir) {
+var mergeRequest = function(styles, outputDir, baseDir) {
     var request = new MergeRequest(styles, baseDir, outputDir, 'css');
 
     request.taskName = 'styles';

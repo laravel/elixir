@@ -13,10 +13,10 @@ var MergeRequest = require('./commands/MergeRequest');
  |
  */
 
-elixir.extend('scripts', function(scripts, baseDir, outputDir) {
+elixir.extend('scripts', function(scripts, outputDir, baseDir) {
     outputDir = outputDir || elixir.config.jsOutput;
 
-    return combine(mergeRequest(scripts, baseDir, outputDir))
+    return combine(mergeRequest(scripts, outputDir, baseDir))
 });
 
 elixir.extend('scriptsIn', function(baseDir, outputDir) {
@@ -25,7 +25,7 @@ elixir.extend('scriptsIn', function(baseDir, outputDir) {
     return combine(mergeRequest('**/*.js', baseDir, outputDir));
 });
 
-var mergeRequest = function(scripts, baseDir, outputDir) {
+var mergeRequest = function(scripts, outputDir, baseDir) {
     var request = new MergeRequest(scripts, baseDir, outputDir, 'js');
 
     request.taskName = 'scripts';
