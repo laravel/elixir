@@ -22,7 +22,7 @@ elixir.extend('styles', function(styles, outputDir, baseDir) {
 elixir.extend('stylesIn', function(baseDir, outputDir) {
     outputDir = outputDir || baseDir;
 
-    return combine(mergeRequest('**/*.css', baseDir, outputDir));
+    return combine(mergeRequest('**/*.css', outputDir, baseDir));
 });
 
 var mergeRequest = function(styles, outputDir, baseDir) {

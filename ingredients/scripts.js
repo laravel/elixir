@@ -22,7 +22,7 @@ elixir.extend('scripts', function(scripts, outputDir, baseDir) {
 elixir.extend('scriptsIn', function(baseDir, outputDir) {
     outputDir = outputDir || baseDir;
 
-    return combine(mergeRequest('**/*.js', baseDir, outputDir));
+    return combine(mergeRequest('**/*.js', outputDir, baseDir));
 });
 
 var mergeRequest = function(scripts, outputDir, baseDir) {
