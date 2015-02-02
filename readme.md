@@ -35,8 +35,7 @@ Next, you'll want to pull in [Gulp](http://gulpjs.com) globally, like so:
 
 ### Laravel Elixir
 
-The only remaining step is to install Elixir! With a new install of Laravel, you'll find a `package.json` file in the root. You may
-install the dependencies it references by running:
+The only remaining step is to install Elixir! With a new install of Laravel, you'll find a `package.json` file in the root. You may install the dependencies it references by running:
 
     npm install
 
@@ -53,6 +52,8 @@ elixir(function(mix) {
 });
 ```
 
+This assumes that your Less files are stored in `resources/assets/less`.
+
 #### Compile Sass
 
 ```javascript
@@ -61,6 +62,8 @@ elixir(function(mix) {
 });
 ```
 
+This assumes that your Sass files are stored in `resources/assets/sass`.
+
 #### Compile CoffeeScript
 
 ```javascript
@@ -68,6 +71,8 @@ elixir(function(mix) {
     mix.coffee();
 });
 ```
+
+This assumes that your CoffeeScript files are stored in `resources/assets/coffee`.
 
 #### Compile All Less and CoffeeScript
 
@@ -99,13 +104,37 @@ elixir(function(mix) {
 ```javascript
 elixir(function(mix) {
     mix.styles([
-        "css/normalize.css",
-        "css/main.css"
+        "normalize.css",
+        "main.css"
     ]);
 });
 ```
 
-This will assume that the `public/` folder is the base directory.
+This will assume that the `resources/css` folder is the base directory.
+
+#### Combine Stylesheets and Save to a Custom Directory
+
+```javascript
+elixir(function(mix) {
+    mix.styles([
+        "normalize.css",
+        "main.css"
+    ], 'public/build/css/everything.css');
+});
+```
+
+#### Combine Stylesheets from a Custom Base Directory
+
+```javascript
+elixir(function(mix) {
+    mix.styles([
+        "normalize.css",
+        "main.css"
+    ], 'public/build/css/everything.css', 'public/js');
+});
+```
+
+The third argument to both the `styles` and `scripts` methods refers to the base directory that you wish Elixir to search from.
 
 #### Combine All Styles in a Directory
 
@@ -120,17 +149,19 @@ elixir(function(mix) {
 ```javascript
 elixir(function(mix) {
     mix.scripts([
-        "js/jquery.js",
-        "js/app.js"
+        "jquery.js",
+        "app.js"
     ]);
 });
 ```
+
+Again, this assumes a `resources/js` base directory.
 
 #### Combine All Scripts in a Directory
 
 ```javascript
 elixir(function(mix) {
-    mix.scriptsIn("resources/assets/scripts");
+    mix.scriptsIn("public/js/some/directory");
 });
 ```
 
@@ -138,8 +169,8 @@ elixir(function(mix) {
 
 ```javascript
 elixir(function(mix) {
-    mix.scripts(['js/jquery.js', 'js/main.js'])
-       .scripts(['js/forum.js', 'js/threads.js']);
+    mix.scripts(['jquery.js', 'main.js'], 'public/js/main.js')
+       .scripts(['forum.js', 'threads.js'], 'public/js/forum.js');
 });
 ```
 
@@ -260,8 +291,7 @@ this.registerWatcher("message", "**/*.php");
 
 This lines designates that when any file that matches the regex, `**/*.php` is modified, we want to trigger the `message` task.
 
-That's it! You may either place this at the top of your Gulpfile, or instead extract it to a custom tasks file. If you
-choose the latter approach, simple require it into your Gulpfile, like so:
+That's it! You may either place this at the top of your Gulpfile, or instead extract it to a custom tasks file. If you choose the latter approach, simple require it into your Gulpfile, like so:
 
 ```javascript
 require("./custom-tasks")
@@ -276,13 +306,3 @@ elixir(function(mix) {
 ```
 
 With this addition, each time you trigger Gulp, Picard will request some tea.
-
-### Available Extensions
-
-You'll find a number of Elixir extensions at [npmjs.org](https://www.npmjs.org/search?q=laravel-elixir), under the "laravel-elixir-*" namespace.
-
-- [Stylus](https://www.npmjs.org/package/laravel-elixir-stylus)
-- [Codeception](https://www.npmjs.org/package/laravel-elixir-codeception)
-- [Browserify](https://www.npmjs.org/package/laravel-elixir-browserify)
-- [Jade](https://www.npmjs.org/package/laravel-elixir-jade)
-- [Bower](https://www.npmjs.org/package/laravel-elixir-bower)
