@@ -21,8 +21,8 @@ elixir.extend('version', function(src, buildDir) {
     buildDir = buildDir ? buildDir + '/build' : 'public/build';
 
     gulp.task('version', function() {
-        del(buildDir + '/*', { force: true }, function() {
-            return gulp.src(src, { base: './public' })
+        del.sync(buildDir + '/*', { force: true });
+        return gulp.src(src, { base: './public' })
                 .pipe(gulp.dest(buildDir))
                 .pipe(rev())
                 .pipe(gulp.dest(buildDir))
