@@ -26,7 +26,7 @@ elixir.extend('version', function(src, buildDir) {
 
         del.sync(buildDir + '/*', { force: true });
 
-        stream = gulp.src(src, { base: './public' })
+        return gulp.src(src, { base: './public' })
             .pipe(gulp.dest(buildDir))
             .pipe(files)
             .pipe(rev())
@@ -39,8 +39,6 @@ elixir.extend('version', function(src, buildDir) {
                 // alongside the suffixed version.
                 del(files.paths);
             });
-
-        return stream;
     });
 
     this.registerWatcher('version', src);
