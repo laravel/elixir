@@ -3,6 +3,7 @@ var elixir = require('laravel-elixir');
 var rev = require('gulp-rev');
 var del = require('del');
 var utilities = require('./commands/Utilities');
+var vinylPaths = require('vinyl-paths');
 
 /*
  |----------------------------------------------------------------
@@ -21,14 +22,25 @@ elixir.extend('version', function(src, buildDir) {
     buildDir = buildDir ? buildDir + '/build' : 'public/build';
 
     gulp.task('version', function() {
+        var files = vinylPaths();
+
         del.sync(buildDir + '/*', { force: true });
-        return gulp.src(src, { base: './public' })
-                .pipe(gulp.dest(buildDir))
-                .pipe(rev())
-                .pipe(gulp.dest(buildDir))
-                .pipe(rev.manifest())
-                .pipe(gulp.dest(buildDir));
-        });
+
+        stream = gulp.src(src, { base: './public' })
+            .pipe(gulp.dest(buildDir))
+            .pipe(files)
+            .pipe(rev())
+            .pipe(gulp.dest(buildDir))
+            .pipe(rev.manifest())
+            .pipe(gulp.dest(buildDir))
+            .on('end', function() {
+                // We'll get rid of the duplicated file that
+                // usually gets put in the "build" folder,
+                // alongside the suffixed version.
+                del(files.paths);
+            });
+
+        return stream;
     });
 
     this.registerWatcher('version', src);
