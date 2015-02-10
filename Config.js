@@ -8,6 +8,7 @@ var config = {
     assetsDir: 'resources/assets/',
     cssOutput: 'public/css',
     jsOutput: 'public/js',
+    sourcemaps: ! util.env.production,
     bowerDir: 'vendor/bower_components',
     tasks: [],
     watchers: { default: {} },

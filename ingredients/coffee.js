@@ -30,8 +30,10 @@ elixir.extend('coffee', function(src, output, options) {
 
     gulp.task('coffee', function() {
         return gulp.src(src)
+            .pipe(plugins.if(config.sourcemaps, plugins.sourcemaps.init()))
             .pipe(plugins.coffee(options).on('error', onError))
             .pipe(plugins.if(config.production, plugins.uglify()))
+            .pipe(plugins.if(config.sourcemaps, plugins.sourcemaps.write('.')))
             .pipe(gulp.dest(output || config.jsOutput))
             .pipe(new Notification().message('CoffeeScript Compiled!'));
     });
