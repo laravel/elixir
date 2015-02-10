@@ -18,9 +18,11 @@ module.exports = function(options) {
 
     gulp.task(options.pluginName, function() {
         return gulp.src(src)
+            .pipe(plugins.if(!config.production, plugins.sourcemaps.init()))
             .pipe(plugins[options.pluginName](options.pluginOptions)).on('error', onError)
             .pipe(plugins.autoprefixer())
             .pipe(plugins.if(config.production, plugins.minifyCss()))
+            .pipe(plugins.if(!config.production, plugins.sourcemaps.write(options.output || config.cssOutput)))
             .pipe(gulp.dest(options.output || config.cssOutput))
             .pipe(new Notification().message(options.compiler + ' Compiled!'));
     });
