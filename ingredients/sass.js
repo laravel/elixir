@@ -3,7 +3,7 @@ var elixir = require('laravel-elixir');
 var compile = require('./commands/CompileCSS');
 var _ = require('underscore');
 
-var inProduction = elixir.config.production
+var inProduction = elixir.config.production;
 
 /*
  |----------------------------------------------------------------
