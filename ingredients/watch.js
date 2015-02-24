@@ -14,7 +14,7 @@ gulp.task('watch', function() {
 });
 
 gulp.task('watch-assets', function() {
-    for (task in srcPaths) {
+    for (var task in srcPaths) {
         gulp.watch(srcPaths[task], [task]);
     }
 });

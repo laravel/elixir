@@ -33,7 +33,7 @@ var parseDest = function(dest) {
     var isDir = (path.basename == path.name);
 
     return _.extend(path, { path: isDir ? dest : path.dirname });
-}
+};
 
 
 /**
