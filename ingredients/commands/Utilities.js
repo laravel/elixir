@@ -1,5 +1,3 @@
-var notify = require('gulp-notify');
-
 /**
  * Build up the given src file(s), to be passed to Gulp.
  *
