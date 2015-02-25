@@ -68,8 +68,10 @@ var mergeFileSet = function(set, index, assets, request) {
     deletePreviouslyMergedFile(set.outputDir + '/' + set.concatFileName);
 
     return gulp.src(set.files)
+               .pipe(plugins.if(config.sourcemaps, plugins.sourcemaps.init()))
                .pipe(plugins.concat(set.concatFileName))
                .pipe(plugins.if(config.production, request.minifier.call(this)))
+               .pipe(plugins.if(config.sourcemaps, plugins.sourcemaps.write('.')))
                .pipe(gulp.dest(set.outputDir));
 };
 
