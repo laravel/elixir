@@ -9,7 +9,8 @@ module.exports = function() {
             title: this.title,
             subtitle: subtitle,
             icon: __dirname + '/../../icons/laravel.png',
-            message: ' '
+            message: ' ',
+            onLast: true
         });
     };
 
@@ -27,7 +28,8 @@ module.exports = function() {
             title: 'Green!',
             subtitle: 'Your ' + framework + ' tests passed!',
             icon: __dirname + '/../../icons/pass.png',
-            message: ' '
+            message: ' ',
+            onLast: true
         });
     };
 
