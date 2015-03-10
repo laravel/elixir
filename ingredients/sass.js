@@ -20,10 +20,11 @@ elixir.extend('sass', function(src, output, options, useRuby) {
 
     options = function() {
         var outputStyle = useRuby ? 'style' : 'outputStyle';
+        var defaults = {};
 
-        return _.extend({
-            outputStyle: inProduction ? 'compressed' : 'nested'
-        }, options);
+        defaults[outputStyle] = inProduction ? 'compressed' : 'nested';
+
+        return _.extend(defaults, options);
     }();
 
     return compile({

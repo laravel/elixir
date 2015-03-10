@@ -16,7 +16,7 @@ module.exports = function(options) {
         var toMaps = plugins.if(config.sourcemaps, plugins.sourcemaps.init());
 
         if (options.plugin == 'gulp-ruby-sass') {
-            return require('gulp-ruby-sass')(src).pipe(toMaps);
+            return require('gulp-ruby-sass')(src, options.pluginOptions).pipe(toMaps);
         }
 
         return gulp.src(src).pipe(toMaps).pipe(
