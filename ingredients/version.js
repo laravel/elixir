@@ -87,11 +87,13 @@ var copyMaps = function(src, buildDir) {
 
     // We'll first get any files from the src
     // array that have companion .map files.
-    var mappings = src.map(function(file) {
+    var mappings = [];
+
+    src.forEach(function(file) {
         var map = file + '.map';
 
         if (fs.existsSync(map)) {
-            return map;
+            mappings.push(map);
         }
     });
 
