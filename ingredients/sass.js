@@ -16,16 +16,19 @@ var inProduction = elixir.config.production;
  |
  */
 
-elixir.extend('sass', function(src, output, options) {
+elixir.extend('sass', function(src, output, options, useRuby) {
 
-    options = _.extend({
-        outputStyle: inProduction ? 'compressed' : 'nested',
-        includePaths: [elixir.config.bowerDir + "/bootstrap-sass-official/assets/stylesheets"]
-    }, options);
+    options = function() {
+        var outputStyle = useRuby ? 'style' : 'outputStyle';
+
+        return _.extend({
+            outputStyle: inProduction ? 'compressed' : 'nested'
+        }, options);
+    }();
 
     return compile({
         compiler: 'Sass',
-        pluginName: 'sass',
+        plugin: useRuby ? 'gulp-ruby-sass' : 'sass',
         pluginOptions: options,
         src: src,
         output: output,

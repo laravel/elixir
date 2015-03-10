@@ -6,9 +6,23 @@ var Notification = require('./Notification');
 
 module.exports = function(options) {
 
+    var name = options.compiler.toLowerCase();
+
     var src = utilities.buildGulpSrc(
-        options.src, config.assetsDir + options.pluginName, options.search
+        options.src, config.assetsDir + name, options.search
     );
+
+    var triggerSass = function(src) {
+        var toMaps = plugins.if(config.sourcemaps, plugins.sourcemaps.init());
+
+        if (options.plugin == 'gulp-ruby-sass') {
+            return require('gulp-ruby-sass')(src).pipe(toMaps);
+        }
+
+        return gulp.src(src).pipe(toMaps).pipe(
+            plugins[options.plugin](options.pluginOptions)
+        );
+    };
 
     var onError = function(e) {
         new Notification().error(e, options.compiler + ' Compilation Failed!');
@@ -16,10 +30,8 @@ module.exports = function(options) {
         this.emit('end');
     };
 
-    gulp.task(options.pluginName, function() {
-        return gulp.src(src)
-            .pipe(plugins.if(config.sourcemaps, plugins.sourcemaps.init()))
-            .pipe(plugins[options.pluginName](options.pluginOptions)).on('error', onError)
+    gulp.task(name, function() {
+        return triggerSass(src).on('error', onError)
             .pipe(plugins.autoprefixer())
             .pipe(plugins.if(config.production, plugins.minifyCss()))
             .pipe(plugins.if(config.sourcemaps, plugins.sourcemaps.write('.')))
@@ -28,10 +40,10 @@ module.exports = function(options) {
     });
 
     config.registerWatcher(
-        options.pluginName,
-        config.assetsDir + options.pluginName + '/' + options.search
+        name,
+        config.assetsDir + name + '/' + options.search
     );
 
-    return config.queueTask(options.pluginName);
+    return config.queueTask(name);
 
 };
