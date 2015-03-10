@@ -17,23 +17,29 @@ var inProduction = elixir.config.production;
  */
 
 elixir.extend('sass', function(src, output, options, useRuby) {
-
-    options = function() {
-        var outputStyle = useRuby ? 'style' : 'outputStyle';
-        var defaults = {};
-
-        defaults[outputStyle] = inProduction ? 'compressed' : 'nested';
-
-        return _.extend(defaults, options);
-    }();
-
     return compile({
         compiler: 'Sass',
         plugin: useRuby ? 'gulp-ruby-sass' : 'sass',
-        pluginOptions: options,
+        pluginOptions: buildOptions(options, useRuby),
         src: src,
         output: output,
         search: '**/*.+(sass|scss)'
     });
-
 });
+
+
+/**
+ * Build up the Sass plugin options.
+ *
+ * @param   {object} options
+ * @param   {bool}   useRuby
+ * @returns {object}
+ */
+var buildOptions = function(options, useRuby) {
+    var defaults = {};
+    var outputStyle = useRuby ? 'style' : 'outputStyle';
+
+    defaults[outputStyle] = inProduction ? 'compressed' : 'nested';
+
+    return _.extend(defaults, options);
+};
