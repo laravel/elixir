@@ -5,18 +5,15 @@ var _ = require('underscore');
 
 var inProduction = elixir.config.production;
 
-/*
- |----------------------------------------------------------------
- | Sass Compilation Task
- |----------------------------------------------------------------
- |
- | This task will compile your Sass, including minification and
- | and auto-prefixing. Sass is one of the CSS pre-precessors
- | supported by Elixir, along with the Less CSS processor.
- |
+/**
+ * Prepare the Sass task.
+ *
+ * @param {string|array}  src
+ * @param {string}        output
+ * @param {object|null}   options
+ * @param {bool}          useRuby
  */
-
-elixir.extend('sass', function(src, output, options, useRuby) {
+var addSassTask = function(src, output, options, useRuby) {
     return compile({
         compiler: 'Sass',
         plugin: useRuby ? 'gulp-ruby-sass' : 'sass',
@@ -25,8 +22,7 @@ elixir.extend('sass', function(src, output, options, useRuby) {
         output: output,
         search: '**/*.+(sass|scss)'
     });
-});
-
+};
 
 /**
  * Build up the Sass plugin options.
@@ -43,3 +39,20 @@ var buildOptions = function(options, useRuby) {
 
     return _.extend(defaults, options);
 };
+
+
+/*
+ |----------------------------------------------------------------
+ | Sass Compilation Task
+ |----------------------------------------------------------------
+ |
+ | This task will compile your Sass, including minification and
+ | and auto-prefixing. Sass is one of the CSS pre-precessors
+ | supported by Elixir, along with the Less CSS processor.
+ |
+ */
+
+elixir.extend('sass', addSassTask);
+elixir.extend('rubySass', function(src, output, options) {
+    return addSassTask(src, output, options, true);
+});
