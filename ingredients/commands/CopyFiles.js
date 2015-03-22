@@ -32,7 +32,7 @@ var parseDest = function(dest) {
     var path = parsePath(dest);
     var isDir = (path.basename == path.name);
 
-    return _.extend(path, { path: isDir ? dest : path.dirname });
+    return _.extend(path, { path: isDir ? dest : path.dirname, isDir: isDir });
 };
 
 
@@ -48,7 +48,7 @@ var buildTask = function() {
         config.duplicate.forEach(function(toCopy) {
             stream = gulp
                     .src(toCopy.src.path)
-                    .pipe(gulpif( ! toCopy.src.isDir, rename(toCopy.dest.basename)))
+                    .pipe(gulpif( ! toCopy.dest.isDir, rename(toCopy.dest.basename)))
                     .pipe(gulp.dest(toCopy.dest.path));
         });
 
