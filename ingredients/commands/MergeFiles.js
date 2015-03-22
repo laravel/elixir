@@ -42,13 +42,8 @@ var buildTask = function(request) {
 
     gulp.task(request.taskName, function() {
         var assets = config.concatenate[request.type];
-        var stream;
 
-        assets.forEach(function(set, index) {
-            stream = mergeFileSet(set, index, assets, request);
-        });
-
-        return stream;
+        return mergeFileSet(assets, 0, request);
     });
 
     return config;
@@ -58,13 +53,14 @@ var buildTask = function(request) {
 /**
  * Use Gulp to merge one set of files.
  *
- * @param  {object}  set
- * @param  {index}   index
  * @param  {assets}  assets
+ * @param  {index}   index
  * @param  {request} request
  * @return {object}
  */
-var mergeFileSet = function(set, index, assets, request) {
+var mergeFileSet = function(assets, index, request) {
+    var set = assets[index];
+
     deletePreviouslyMergedFile(set.outputDir + '/' + set.concatFileName);
 
     return gulp.src(set.files)
@@ -72,7 +68,14 @@ var mergeFileSet = function(set, index, assets, request) {
                .pipe(plugins.concat(set.concatFileName))
                .pipe(plugins.if(config.production, request.minifier.call(this)))
                .pipe(plugins.if(config.sourcemaps, plugins.sourcemaps.write('.')))
-               .pipe(gulp.dest(set.outputDir));
+               .pipe(gulp.dest(set.outputDir))
+               .on('end', function() {
+                    index++;
+
+                    if (assets[index]) {
+                      mergeFileSet(assets, index, request);
+                    }
+               });
 };
 
 
