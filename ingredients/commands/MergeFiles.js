@@ -35,16 +35,18 @@ var getFilesToWatch = function(request) {
  * @return {void}
  */
 var buildTask = function(request) {
+    var task = request.taskName;
+
     config.concatenate[request.type].push(request);
 
-    config.registerWatcher(request.taskName, getFilesToWatch(request));
-    config.queueTask(request.taskName);
+    gulp.task(task, function() {
+        var files = config.concatenate[request.type];
 
-    gulp.task(request.taskName, function() {
-        var assets = config.concatenate[request.type];
-
-        return mergeFileSet(assets, 0, request);
+        return mergeFiles(files, request);
     });
+
+    config.registerWatcher(task, getFilesToWatch(request));
+    config.queueTask(task);
 
     return config;
 };
@@ -53,13 +55,15 @@ var buildTask = function(request) {
 /**
  * Use Gulp to merge one set of files.
  *
- * @param  {array}  assets
- * @param  {int}    index
+ * @param  {array}  files
  * @param  {object} request
+ * @param  {int}    index
  * @return {object}
  */
-var mergeFileSet = function(assets, index, request) {
-    var set = assets[index];
+var mergeFiles = function(files, request, index) {
+    index = index || 0;
+
+    var set = files[index];
 
     deletePreviouslyMergedFile(set.outputDir + '/' + set.concatFileName);
 
@@ -72,8 +76,8 @@ var mergeFileSet = function(assets, index, request) {
                .on('end', function() {
                     index++;
 
-                    if (assets[index]) {
-                      mergeFileSet(assets, index, request);
+                    if (files[index]) {
+                      mergeFiles(files, request, index);
                     }
                });
 };
