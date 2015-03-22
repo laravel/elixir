@@ -53,9 +53,9 @@ var buildTask = function(request) {
 /**
  * Use Gulp to merge one set of files.
  *
- * @param  {assets}  assets
- * @param  {index}   index
- * @param  {request} request
+ * @param  {array}  assets
+ * @param  {int}    index
+ * @param  {object} request
  * @return {object}
  */
 var mergeFileSet = function(assets, index, request) {
