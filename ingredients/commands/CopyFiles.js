@@ -15,7 +15,7 @@ var parseSrc = function(src) {
     var path = parsePath(src);
     var isDir = (path.basename == path.name);
 
-   return _.extend(path, {
+    return _.extend(path, {
         path: src + (isDir ? '/**/*' : ''),
         isDir: isDir
     });
