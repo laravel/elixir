@@ -58,9 +58,13 @@ var buildTask = function() {
 
 
 module.exports = function(src, dest) {
-    config.duplicate.push({
-        src: parseSrc(src),
-        dest: parseDest(dest)
+    src = Array.isArray(src) ? src : [src];
+
+    src.forEach(function(src) {
+        config.duplicate.push({
+            src: parseSrc(src),
+            dest: parseDest(dest)
+        });
     });
 
     buildTask();
