@@ -41,7 +41,7 @@ config.registerWatcher = function(task, search, group) {
  * @param {string} task
  */
 config.queueTask = function(task) {
-    if (_.contains(this.tasks, task)) {
+    if (! _.contains(this.tasks, task)) {
         this.tasks.push(task);
     }
 
