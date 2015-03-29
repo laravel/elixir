@@ -2,6 +2,7 @@ var gulp = require('gulp');
 var config = require('laravel-elixir').config;
 var plugins = require('gulp-load-plugins')();
 var fs = require('fs');
+var merge = require('merge-stream');
 
 /**
  * Delete the merged file from the previous run.
@@ -39,10 +40,10 @@ var buildTask = function(request) {
 
     config.concatenate[request.type].push(request);
 
-    gulp.task(task, function() {
-        var files = config.concatenate[request.type];
-
-        return mergeFiles(files, request);
+    gulp.task(request.taskName, function () {
+        return merge.apply(this, config.concatenate[request.type].map(function (set) {
+            return mergeFileSet(set, request);
+        }));
     });
 
     config.registerWatcher(task, getFilesToWatch(request));
@@ -55,16 +56,11 @@ var buildTask = function(request) {
 /**
  * Use Gulp to merge one set of files.
  *
- * @param  {array}  files
+ * @param  {object} set
  * @param  {object} request
- * @param  {int}    index
  * @return {object}
  */
-var mergeFiles = function(files, request, index) {
-    index = index || 0;
-
-    var set = files[index];
-
+var mergeFileSet = function (set, request) {
     deletePreviouslyMergedFile(set.outputDir + '/' + set.concatFileName);
 
     return gulp.src(set.files)
@@ -72,14 +68,7 @@ var mergeFiles = function(files, request, index) {
                .pipe(plugins.concat(set.concatFileName))
                .pipe(plugins.if(config.production, request.minifier.call(this)))
                .pipe(plugins.if(config.sourcemaps, plugins.sourcemaps.write('.')))
-               .pipe(gulp.dest(set.outputDir))
-               .on('end', function() {
-                    index++;
-
-                    if (files[index]) {
-                      mergeFiles(files, request, index);
-                    }
-               });
+               .pipe(gulp.dest(set.outputDir));
 };
 
 
