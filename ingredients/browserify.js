@@ -1,8 +1,8 @@
+var utilities = require('./commands/Utilities');
 var source = require('vinyl-source-stream');
 var parsePath = require('parse-filepath');
 var browserify = require('browserify');
 var elixir = require('laravel-elixir');
-var utilities = require('./Utilities');
 var reactify = require('reactify');
 var babelify = require('babelify');
 var gulpif = require('gulp-if');
@@ -32,9 +32,10 @@ var getDestination = function(output) {
 /**
  * Build the Gulp task.
  *
- * @param array src
+ * @param {array}  src
+ * @param {string} output
  */
-var buildTask = function(src) {
+var buildTask = function(src, output) {
     var destination = getDestination(output);
 
     gulp.task('browserify', function() {
