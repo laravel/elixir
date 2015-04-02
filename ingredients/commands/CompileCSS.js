@@ -31,6 +31,8 @@ module.exports = function(options) {
     };
 
     gulp.task(name, function() {
+        utilities.logTask("Running " + options.compiler, src);
+
         return triggerSass(src).on('error', onError)
             .pipe(plugins.autoprefixer())
             .pipe(plugins.if(config.production, plugins.minifyCss()))

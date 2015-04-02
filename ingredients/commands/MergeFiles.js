@@ -3,6 +3,7 @@ var config = require('laravel-elixir').config;
 var plugins = require('gulp-load-plugins')();
 var fs = require('fs');
 var merge = require('merge-stream');
+var utilities = require('./Utilities');
 
 /**
  * Delete the merged file from the previous run.
@@ -62,6 +63,8 @@ var buildTask = function(request) {
  */
 var mergeFileSet = function (set, request) {
     deletePreviouslyMergedFile(set.outputDir + '/' + set.concatFileName);
+
+    utilities.logTask("Merging " + request.taskName, set.files);
 
     return gulp.src(set.files)
                .pipe(plugins.if(config.sourcemaps, plugins.sourcemaps.init()))
