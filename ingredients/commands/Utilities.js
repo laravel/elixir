@@ -26,8 +26,10 @@ var buildGulpSrc = function(src, baseDir, search) {
 var prefixDirToFiles = function(dir, files) {
     if ( ! Array.isArray(files)) files = [files];
 
+    dir = dir.replace(/\/$/, '');
+
     return files.map(function(file) {
-        return dir + '/' + file.replace(dir, '');
+        return [dir, file.replace(dir, '')].join('/');
     });
 };
 
