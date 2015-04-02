@@ -48,13 +48,25 @@ var buildTask = function(src, output) {
 };
 
 
-elixir.extend('browserify', function(src, output) {
+/*
+ |----------------------------------------------------------------
+ | Browserify Task
+ |----------------------------------------------------------------
+ |
+ | This task will manage your entire Browserify workflow, from
+ | scratch! Also, it will channel all files through Babelify
+ | so that you may use all the ES6 goodness you can stand.
+ |
+ */
 
-    src = utilities.buildGulpSrc(src, './' + this.assetsDir, '**/*.jsx');
+elixir.extend('browserify', function(src, output, baseDir) {
+    baseDir = baseDir || this.assetsDir;
+    src = utilities.buildGulpSrc(src, './' + baseDir, '/**/*.jsx');
+    output = output || this.jsOutput;
 
     utilities.logTask('Running Browserify', src);
 
-    buildTask(src, output || this.jsOutput);
+    buildTask(src, output);
 
     this.queueTask('browserify');
 });
