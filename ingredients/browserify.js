@@ -68,5 +68,5 @@ elixir.extend('browserify', function(src, output, baseDir) {
 
     buildTask(src, output);
 
-    this.queueTask('browserify');
+    return this.queueTask('browserify');
 });
