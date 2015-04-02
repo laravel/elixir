@@ -43,9 +43,15 @@ var prefixDirToFiles = function(dir, files) {
  * @param {mixed}  files
  */
 var logTask = function(message, files) {
-    gutil.log(gutil.colors.black(message + ':', files.join(', ')));
+    var isFileList = Array.isArray(files);
 
-    assertFilesExist(files);
+    files = isFileList ? files : [files];
+
+    gutil.log(gutil.colors.black(message + ':', files));
+
+    if (isFileList) {
+        assertFilesExist(files);
+    }
 };
 
 
