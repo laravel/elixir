@@ -1,6 +1,6 @@
 {
   "name": "laravel-elixir",
-  "version": "0.16.0",
+  "version": "0.16.1",
   "description": "Laravel Elixir Core",
   "main": "index.js",
   "scripts": {
@@ -21,7 +21,7 @@
   "license": "MIT",
   "homepage": "https://github.com/laravel/elixir",
   "dependencies": {
-    "babelify": "^5.0.4",
+    "babelify": "^6.0.0",
     "browserify": "^9.0.4",
     "del": "^0.1.3",
     "gulp-autoprefixer": "^1.0.1",
