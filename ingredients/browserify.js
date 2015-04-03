@@ -73,5 +73,7 @@ elixir.extend('browserify', function(src, output, baseDir, options) {
 
     buildTask(src, output, options);
 
+    this.registerWatcher('browserify', baseDir + '/**/*.+(js|jsx|babel)');
+
     return this.queueTask('browserify');
 });
