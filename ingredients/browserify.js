@@ -45,7 +45,7 @@ var buildTask = function(src, output, options) {
 
     gulp.task('browserify', function() {
         return browserify(src)
-            .transform('babelify', options)
+            .transform(babelify, options)
             .bundle()
             .pipe(source(destination.saveFile))
             .pipe(gulp.dest(destination.saveDir));
