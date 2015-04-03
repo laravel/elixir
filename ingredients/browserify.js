@@ -34,13 +34,18 @@ var getDestination = function(output) {
  *
  * @param {array}  src
  * @param {string} output
+ * @param {object} options
  */
-var buildTask = function(src, output) {
+var buildTask = function(src, output, options) {
     var destination = getDestination(output);
+
+    options = options || {
+        optional: ["es7.classProperties"]
+    };
 
     gulp.task('browserify', function() {
         return browserify(src)
-            .transform('babelify')
+            .transform('babelify', options)
             .bundle()
             .pipe(source(destination.saveFile))
             .pipe(gulp.dest(destination.saveDir));
@@ -59,14 +64,14 @@ var buildTask = function(src, output) {
  |
  */
 
-elixir.extend('browserify', function(src, output, baseDir) {
+elixir.extend('browserify', function(src, output, baseDir, options) {
     baseDir = baseDir || 'resources/js';
     src = utilities.buildGulpSrc(src, './' + baseDir, '/**/*.jsx');
     output = output || this.jsOutput;
 
     utilities.logTask('Running Browserify', src);
 
-    buildTask(src, output);
+    buildTask(src, output, options);
 
     return this.queueTask('browserify');
 });
