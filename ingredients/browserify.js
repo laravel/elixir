@@ -65,15 +65,17 @@ var buildTask = function(src, output, options) {
  */
 
 elixir.extend('browserify', function(src, output, baseDir, options) {
+    var search = '/**/*.+(js|jsx|babel)';
+
     baseDir = baseDir || 'resources/js';
-    src = utilities.buildGulpSrc(src, './' + baseDir, '/**/*.jsx');
+    src = utilities.buildGulpSrc(src, './' + baseDir, search);
     output = output || this.jsOutput;
 
     utilities.logTask('Running Browserify', src);
 
     buildTask(src, output, options);
 
-    this.registerWatcher('browserify', baseDir + '/**/*.+(js|jsx|babel)');
+    this.registerWatcher('browserify', baseDir + search);
 
     return this.queueTask('browserify');
 });
