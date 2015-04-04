@@ -3,7 +3,6 @@ var source = require('vinyl-source-stream');
 var parsePath = require('parse-filepath');
 var browserify = require('browserify');
 var elixir = require('laravel-elixir');
-var reactify = require('reactify');
 var babelify = require('babelify');
 var gulpif = require('gulp-if');
 var gulp = require('gulp');
