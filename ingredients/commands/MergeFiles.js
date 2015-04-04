@@ -1,9 +1,9 @@
-var gulp = require('gulp');
 var config = require('laravel-elixir').config;
 var plugins = require('gulp-load-plugins')();
-var fs = require('fs');
-var merge = require('merge-stream');
 var utilities = require('./Utilities');
+var merge = require('merge-stream');
+var gulp = require('gulp');
+var fs = require('fs');
 
 
 /**
