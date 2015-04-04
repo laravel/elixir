@@ -41,7 +41,7 @@ var buildTask = function(src, output, options) {
 
     gulp.task('browserify', function() {
         return browserify(src, options)
-            .transform(babelify, { optional: ["es7.classProperties"] })
+            .transform(babelify, { stage: 0 })
             .bundle()
             .pipe(source(destination.saveFile))
             .pipe(gulp.dest(destination.saveDir));
