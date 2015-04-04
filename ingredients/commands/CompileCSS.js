@@ -71,11 +71,8 @@ module.exports = function(options) {
     var src = utilities.buildGulpSrc(options.src, dir, options.search);
     var watchPath = dir + '/' + options.search;
 
-    src.forEach(function(src) {
-        config.compile[name] = config.compile[name] || [];
-
-        config.compile[name].push({ src: src, options: options });
-    });
+    config.compile[name] = config.compile[name] || [];
+    config.compile[name].push({ src: src, options: options });
 
     return buildTask(name, watchPath);
 };
