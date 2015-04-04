@@ -42,6 +42,8 @@ var buildTask = function(src, buildDir) {
     gulp.task('version', function() {
         var files = vinylPaths();
 
+        utilities.logTask("Versioning", src);
+
         // To start, we'll clear out the build directory,
         // so that we can start from scratch.
         del.sync(buildDir + '/*', { force: true });
