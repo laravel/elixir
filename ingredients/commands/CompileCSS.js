@@ -3,6 +3,7 @@ var plugins = require('gulp-load-plugins')();
 var config = require('laravel-elixir').config;
 var utilities = require('./Utilities');
 var Notification = require('./Notification');
+var merge = require('merge-stream');
 
 /**
  * Display a compilation error notification.
@@ -39,33 +40,42 @@ var triggerSass = function(src, options) {
  * Build the Gulp task.
  *
  * @param {string} name
- * @param {mixed}  src
- * @param {object} options
+ * @param {string} watchPath
  */
-var buildTask = function(name, src, options) {
+var buildTask = function(name, watchPath) {
     gulp.task(name, function() {
-        utilities.logTask("Running " + options.compiler, src);
+        return merge.apply(this, config.compile[name].map(function(compile) {
+            var src = compile.src;
+            var options = compile.options;
 
-        return triggerSass(src, options).on('error', onError)
-            .pipe(plugins.autoprefixer())
-            .pipe(plugins.if(config.production, plugins.minifyCss()))
-            .pipe(plugins.if(config.sourcemaps, plugins.sourcemaps.write('.')))
-            .pipe(gulp.dest(options.output || config.cssOutput))
-            .pipe(new Notification().message(options.compiler + ' Compiled!'));
+            utilities.logTask("Running " + options.compiler, src);
+
+            return triggerSass(src, options).on('error', onError)
+                .pipe(plugins.autoprefixer())
+                .pipe(plugins.if(config.production, plugins.minifyCss()))
+                .pipe(plugins.if(config.sourcemaps, plugins.sourcemaps.write('.')))
+                .pipe(gulp.dest(options.output || config.cssOutput))
+                .pipe(new Notification().message(options.compiler + ' Compiled!'));
+        }));
     });
+
+    return config
+        .registerWatcher(name, watchPath)
+        .queueTask(name);
 }
 
 
 module.exports = function(options) {
     var name = options.compiler.toLowerCase();
-    var src = utilities.buildGulpSrc(
-        options.src, config.assetsDir + name, options.search
-    );
-    var watchPath = config.assetsDir + name + '/' + options.search;
+    var dir = config.assetsDir + name;
+    var src = utilities.buildGulpSrc(options.src, dir, options.search);
+    var watchPath = dir + '/' + options.search;
 
-    buildTask(name, src, options);
+    src.forEach(function(src) {
+        config.compile[name] = config.compile[name] || [];
 
-    return config
-        .registerWatcher(name, watchPath)
-        .queueTask(name);
+        config.compile[name].push({ src: src, options: options });
+    });
+
+    return buildTask(name, watchPath);
 };

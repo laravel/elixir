@@ -13,7 +13,8 @@ var config = {
     tasks: [],
     watchers: { default: {} },
     duplicate: [],
-    concatenate: { css: [], js: [] }
+    concatenate: { css: [], js: [] },
+    compile: {}
 };
 
 
