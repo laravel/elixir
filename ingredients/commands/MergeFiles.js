@@ -5,6 +5,7 @@ var fs = require('fs');
 var merge = require('merge-stream');
 var utilities = require('./Utilities');
 
+
 /**
  * Delete the merged file from the previous run.
  *
@@ -25,9 +26,9 @@ var deletePreviouslyMergedFile = function(path) {
  * @return {array}
  */
 var getFilesToWatch = function(request) {
-    var alreadyBeingWatched = config.watchers.default[request.taskName];
+    var alreadyWatched = config.watchers.default[request.taskName];
 
-    return alreadyBeingWatched ? alreadyBeingWatched.concat(request.files) : request.files;
+    return alreadyWatched ? alreadyWatched.concat(request.files) : request.files;
 };
 
 
@@ -38,19 +39,21 @@ var getFilesToWatch = function(request) {
  */
 var buildTask = function(request) {
     var task = request.taskName;
+    var toConcat = config.concatenate[request.type];
 
-    config.concatenate[request.type].push(request);
+    // So that we may call the styles and scripts methods as
+    // often as we want, we need to store every request.
+    toConcat.push(request);
 
-    gulp.task(request.taskName, function () {
-        return merge.apply(this, config.concatenate[request.type].map(function (set) {
+    gulp.task(task, function () {
+        return merge.apply(this, toConcat.map(function (set) {
             return mergeFileSet(set, request);
         }));
     });
 
-    config.registerWatcher(task, getFilesToWatch(request));
-    config.queueTask(task);
-
-    return config;
+    return config
+      .registerWatcher(task, getFilesToWatch(request))
+      .queueTask(task);
 };
 
 
