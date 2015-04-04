@@ -47,7 +47,7 @@ var logTask = function(message, files) {
 
     files = isFileList ? files : [files];
 
-    gutil.log(gutil.colors.black(message + ':', files));
+    gutil.log(gutil.colors.white(message + ':', files));
 
     if (isFileList) {
         assertFilesExist(files);
