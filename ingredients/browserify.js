@@ -70,6 +70,6 @@ elixir.extend('browserify', function(src, output, baseDir, options) {
 
     buildTask(src, output, options);
 
-    return this.registerWatcher('browserify', baseDir + search);
+    return this.registerWatcher('browserify', baseDir + search)
                .queueTask('browserify');
 });
