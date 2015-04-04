@@ -76,8 +76,8 @@ var assertFilesExist = function(files) {
         // paths that areregular expressions.
         if(/\*/.test(file)) return;
 
-        fs.exists(file, function(exists) {
-            if ( ! exists) {
+        fs.exists(file, function(found) {
+            if ( ! found) {
                 logMissingFile(file);
             }
         });
