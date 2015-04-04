@@ -64,7 +64,7 @@ var buildTask = function(request) {
 var mergeFileSet = function (set, request) {
     deletePreviouslyMergedFile(set.outputDir + '/' + set.concatFileName);
 
-    utilities.logTask("Merging " + request.taskName, set.files);
+    utilities.logTask("Merging", set.files);
 
     return gulp.src(set.files)
                .pipe(plugins.if(config.sourcemaps, plugins.sourcemaps.init()))
