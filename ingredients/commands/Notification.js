@@ -14,11 +14,15 @@ module.exports = function() {
     };
 
     this.error = function(e, message) {
-        return notify.onError({
+        notify.onError({
             title: this.title,
             message: message + ': <%= error.message %>',
             icon: __dirname + '/../../icons/fail.png'
         })(e);
+
+        // We'll spit out the error, just in case it's useful
+        // for the user.
+        console.log(e);
     };
 
     this.forPassedTests = function(framework) {
