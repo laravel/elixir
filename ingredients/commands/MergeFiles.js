@@ -46,6 +46,9 @@ var buildTask = function(request) {
     toConcat.push(request);
 
     gulp.task(task, function () {
+        // And then we'll simply loop over that stored list, and
+        // for each one, trigger Gulp. To keep from crossing
+        // the streams, we'll use the merge-stream plugin.
         return merge.apply(this, toConcat.map(function (set) {
             return mergeFileSet(set, request);
         }));
