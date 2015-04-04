@@ -4,7 +4,6 @@ var parsePath = require('parse-filepath');
 var browserify = require('browserify');
 var elixir = require('laravel-elixir');
 var babelify = require('babelify');
-var gulpif = require('gulp-if');
 var gulp = require('gulp');
 
 
