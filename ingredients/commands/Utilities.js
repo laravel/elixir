@@ -13,7 +13,7 @@ var buildGulpSrc = function(src, baseDir, search) {
         return prefixDirToFiles(baseDir, src);
     }
 
-    return baseDir + '/' + search;
+    return [baseDir + '/' + search];
 };
 
 
