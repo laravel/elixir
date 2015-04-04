@@ -1,20 +1,9 @@
-var gulp = require('gulp');
-var plugins = require('gulp-load-plugins')();
 var config = require('laravel-elixir').config;
-var utilities = require('./Utilities');
 var Notification = require('./Notification');
+var plugins = require('gulp-load-plugins')();
+var utilities = require('./Utilities');
 var merge = require('merge-stream');
-
-/**
- * Display a compilation error notification.
- *
- * @param {object} e
- */
-var onError = function(e) {
-    new Notification().error(e, options.compiler + ' Compilation Failed!');
-
-    this.emit('end');
-};
+var gulp = require('gulp');
 
 
 /**
@@ -23,16 +12,33 @@ var onError = function(e) {
  * @param {mixed}  src
  * @param {object} options
  */
-var triggerSass = function(src, options) {
-    var toMaps = plugins.if(config.sourcemaps, plugins.sourcemaps.init());
+var triggerCompiler = function(src, options) {
+    var compiler = plugins[options.plugin];
+    var pluginOptions = options.pluginOptions;
+    var toMaps = plugins.if(
+        config.sourcemaps, plugins.sourcemaps.init()
+    );
+
+    // If we're using the Ruby version of Sass, then we need to
+    // trigger the Gulp task in a slightly different manner.
 
     if (options.plugin == 'gulp-ruby-sass') {
-        return require('gulp-ruby-sass')(src, options.pluginOptions).pipe(toMaps);
+        var rubySass = require('gulp-ruby-sass')(src, pluginOptions);
+
+        stream = rubySass.pipe(toMaps);
+    } else {
+        var libSass = gulp.src(src);
+
+        stream = libSass.pipe(toMaps).pipe(compiler(pluginOptions));
     }
 
-    return gulp.src(src).pipe(toMaps).pipe(
-        plugins[options.plugin](options.pluginOptions)
-    );
+    return stream.on('error', function(e) {
+        var message = options.compiler + ' Compilation Failed!';
+
+        new Notification().error(e, message);
+
+        this.emit('end');
+    });
 };
 
 
@@ -50,7 +56,7 @@ var buildTask = function(name, watchPath) {
 
             utilities.logTask("Running " + options.compiler, src);
 
-            return triggerSass(src, options).on('error', onError)
+            return triggerCompiler(src, options)
                 .pipe(plugins.autoprefixer())
                 .pipe(plugins.if(config.production, plugins.minifyCss()))
                 .pipe(plugins.if(config.sourcemaps, plugins.sourcemaps.write('.')))
