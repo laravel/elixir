@@ -64,6 +64,7 @@ elixir.extend('browserify', function(src, output, baseDir, options) {
     baseDir = baseDir || 'resources/js';
     src = utilities.buildGulpSrc(src, './' + baseDir, search);
     output = output || this.jsOutput;
+    options = options || {};
 
     utilities.logTask('Running Browserify', src);
 
