@@ -24,6 +24,7 @@ var addSassTask = function(src, output, options, useRuby) {
     });
 };
 
+
 /**
  * Build up the Sass plugin options.
  *

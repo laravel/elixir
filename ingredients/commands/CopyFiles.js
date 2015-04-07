@@ -8,7 +8,7 @@ var _ = require('underscore');
 /**
  * Parse the Gulp source path.
  *
- * @param  {string} source
+ * @param  {string} src
  * @return {object}
  */
 var parseSrc = function(src) {
