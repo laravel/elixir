@@ -9,7 +9,7 @@ var fs = require('fs');
 /**
  * Delete the merged file from the previous run.
  *
- * @param  {[string]} path
+ * @param  {string} path
  * @return {void}
  */
 var deletePreviouslyMergedFile = function(path) {

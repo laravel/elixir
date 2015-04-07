@@ -33,7 +33,7 @@ config.registerWatcher = function(task, search, group) {
     this.watchers[group][task] = search;
 
     return this;
-}
+};
 
 
 /**
