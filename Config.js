@@ -5,6 +5,7 @@ var _ = require('underscore');
 var config = {
     production: !! util.env.production,
     srcDir: 'app',
+    publicDir: 'public',
     assetsDir: 'resources/assets/',
     cssOutput: 'public/css',
     jsOutput: 'public/js',
