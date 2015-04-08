@@ -10,7 +10,7 @@ var gulp = require('gulp');
 /**
  * Calculate the correct destination.
  *
- * @param string output
+ * @param {string} output
  */
 var getDestination = function(output) {
     output = parsePath(output);

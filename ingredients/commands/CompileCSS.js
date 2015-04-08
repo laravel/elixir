@@ -68,7 +68,7 @@ var buildTask = function(name, watchPath) {
     return config
         .registerWatcher(name, watchPath)
         .queueTask(name);
-}
+};
 
 
 module.exports = function(options) {

@@ -34,12 +34,10 @@ var prefixDirToFiles = function(dir, files) {
 };
 
 
-
-
 /**
  * Log an action to the console for user feedback.
  *
- * @param {string} heading
+ * @param {string} message
  * @param {mixed}  files
  */
 var logTask = function(message, files) {
@@ -58,7 +56,7 @@ var logTask = function(message, files) {
 /**
  * Log a missing file event to the console.
  *
- * @param {array} files
+ * @param {string} file
  */
 var logMissingFile = function(file) {
     return gutil.log(gutil.colors.bgRed('File not found: ' + file));
@@ -83,6 +81,7 @@ var assertFilesExist = function(files) {
         });
     });
 };
+
 
 module.exports = {
     buildGulpSrc: buildGulpSrc,
