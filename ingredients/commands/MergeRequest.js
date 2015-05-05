@@ -1,7 +1,8 @@
 var utilities = require('./Utilities');
+var config = require('laravel-elixir').config;
 
 var MergeRequest = function(files, baseDir, outputDir, ext) {
-    this.baseDir = baseDir || 'resources/' + ext;
+    this.baseDir = baseDir || config.assetsDir + ext;
     this.search = '**/*.' + ext;
     this.files = utilities.prefixDirToFiles(this.baseDir, files || this.search);
     this.type = ext;
