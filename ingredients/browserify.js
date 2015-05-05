@@ -61,7 +61,7 @@ var buildTask = function(src, output, options) {
 elixir.extend('browserify', function(src, output, baseDir, options) {
     var search = '/**/*.+(js|jsx|babel)';
 
-    baseDir = baseDir || 'resources/js';
+    baseDir = baseDir || elixir.config.assetsDir + 'js';
     src = utilities.buildGulpSrc(src, './' + baseDir, search);
     output = output || this.jsOutput;
     options = options || {};
