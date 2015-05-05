@@ -1,6 +1,6 @@
 {
   "name": "laravel-elixir",
-  "version": "1.0",
+  "version": "1.0.1",
   "description": "Laravel Elixir Core",
   "main": "index.js",
   "scripts": {
@@ -52,7 +52,8 @@
     "run-sequence": "^1.0.1",
     "underscore": "^1.7.0",
     "vinyl-paths": "^1.0.0",
-    "vinyl-source-stream": "^1.1.0"
+    "vinyl-source-stream": "^1.1.0",
+    "vinyl-buffer": "^1.0.0"
   },
   "devDependencies": {
     "gulp": "^3.8.8"

@@ -3,7 +3,10 @@ var source = require('vinyl-source-stream');
 var parsePath = require('parse-filepath');
 var browserify = require('browserify');
 var elixir = require('laravel-elixir');
+var buffer = require('vinyl-buffer');
+var uglify = require('gulp-uglify');
 var babelify = require('babelify');
+var gulpIf = require('gulp-if');
 var gulp = require('gulp');
 
 
@@ -42,6 +45,8 @@ var buildTask = function(src, output, options) {
             .transform(babelify, { stage: 0 })
             .bundle()
             .pipe(source(destination.saveFile))
+            .pipe(buffer())
+            .pipe(gulpIf(elixir.config.production, uglify()))
             .pipe(gulp.dest(destination.saveDir));
     });
 };
