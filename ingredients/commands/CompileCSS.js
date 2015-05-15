@@ -55,7 +55,7 @@ var buildTask = function(name, watchPath) {
             utilities.logTask("Running " + options.compiler, src);
 
             return triggerCompiler(src, options)
-                .pipe(plugins.autoprefixer())
+                .pipe(plugins.if(config.autoprefix, plugins.autoprefixer()))
                 .pipe(plugins.if(config.production, plugins.minifyCss()))
                 .pipe(plugins.if(config.sourcemaps, plugins.sourcemaps.write('.')))
                 .pipe(gulp.dest(options.output || config.cssOutput))
