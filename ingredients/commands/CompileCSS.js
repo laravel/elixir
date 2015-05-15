@@ -7,7 +7,7 @@ var gulp = require('gulp');
 
 
 /**
- * Trigger Sass compilation.
+ * Trigger preprocessor compilation.
  *
  * @param {mixed}  src
  * @param {object} options
@@ -27,9 +27,9 @@ var triggerCompiler = function(src, options) {
 
         stream = rubySass.pipe(toMaps);
     } else {
-        var libSass = gulp.src(src);
+        var src = gulp.src(src);
 
-        stream = libSass.pipe(toMaps).pipe(compiler(pluginOptions));
+        stream = src.pipe(toMaps).pipe(compiler(pluginOptions));
     }
 
     return stream.on('error', function(e) {
