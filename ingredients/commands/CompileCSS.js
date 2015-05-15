@@ -27,9 +27,7 @@ var triggerCompiler = function(src, options) {
 
         stream = rubySass.pipe(toMaps);
     } else {
-        var src = gulp.src(src);
-
-        stream = src.pipe(toMaps).pipe(compiler(pluginOptions));
+        stream = gulp.src(src).pipe(toMaps).pipe(compiler(pluginOptions));
     }
 
     return stream.on('error', function(e) {
