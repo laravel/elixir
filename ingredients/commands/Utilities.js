@@ -71,7 +71,7 @@ var logMissingFile = function(file) {
 var assertFilesExist = function(files) {
     files.forEach(function(file) {
         // We're not interested in working with
-        // paths that areregular expressions.
+        // paths that are regular expressions.
         if(/\*/.test(file)) return;
 
         fs.exists(file, function(found) {
