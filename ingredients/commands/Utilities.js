@@ -27,7 +27,7 @@ var prefixDirToFiles = function(dir, files) {
     if ( ! Array.isArray(files)) files = [files];
 
     return files.map(function(file) {
-        file = file.replace(dir, '');
+        file = file.replace(new RegExp('^' + dir), '');
 
         return [dir, file].join('/').replace('//', '/');
     });
