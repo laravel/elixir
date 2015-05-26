@@ -1,6 +1,6 @@
 var gulp = require('gulp');
-var elixir = require('laravel-elixir');
 var config = elixir.config;
+var elixir = require('laravel-elixir');
 var plugins = require('gulp-load-plugins')();
 var utilities = require('./commands/Utilities');
 var Notification = require('./commands/Notification');
