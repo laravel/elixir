@@ -27,14 +27,16 @@ elixir.extend('coffee', function(src, output, options) {
     };
 
     src = utilities.buildGulpSrc(src, assetsDir, '**/*.coffee');
+    output = output || config.jsOutput;
 
     gulp.task('coffee', function() {
         return gulp.src(src)
             .pipe(plugins.if(config.sourcemaps, plugins.sourcemaps.init()))
             .pipe(plugins.coffee(options).on('error', onError))
+            .pipe(plugins.concat(utilities.parse(output).name || 'app.js'))
             .pipe(plugins.if(config.production, plugins.uglify()))
             .pipe(plugins.if(config.sourcemaps, plugins.sourcemaps.write('.')))
-            .pipe(gulp.dest(output || config.jsOutput))
+            .pipe(gulp.dest(utilities.parse(output).baseDir))
             .pipe(new Notification().message('CoffeeScript Compiled!'));
     });
 
