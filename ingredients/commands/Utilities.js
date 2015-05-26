@@ -1,5 +1,6 @@
-var gutil = require('gulp-util');
 var fs = require('fs');
+var gutil = require('gulp-util');
+var parsePath = require('parse-filepath');
 
 /**
  * Build up the given src file(s), to be passed to Gulp.
