@@ -83,8 +83,25 @@ var assertFilesExist = function(files) {
 };
 
 
+/**
+ * Parse a given file or directory into segments.
+ *
+ * @param {string} path
+ */
+var parse = function(path) {
+    var segments = parsePath(path);
+
+    return {
+        name: segments.extname ? segments.basename : '',
+        extension: segments.extname,
+        baseDir: segments.extname ? segments.dirname : [segments.dirname, segments.basename].join('/')
+    };
+};
+
+
 module.exports = {
     buildGulpSrc: buildGulpSrc,
     prefixDirToFiles: prefixDirToFiles,
-    logTask: logTask
+    logTask: logTask,
+    parse: parse
 };
