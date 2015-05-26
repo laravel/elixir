@@ -29,6 +29,8 @@ elixir.extend('coffee', function(src, output, options) {
     src = utilities.buildGulpSrc(src, assetsDir, '**/*.coffee');
     output = output || config.jsOutput;
 
+    utilities.logTask("Running CoffeeScript", src);
+
     gulp.task('coffee', function() {
         return gulp.src(src)
             .pipe(plugins.if(config.sourcemaps, plugins.sourcemaps.init()))
