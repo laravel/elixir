@@ -1,9 +1,10 @@
-var config = require('laravel-elixir').config;
-var plugins = require('gulp-load-plugins')();
-var utilities = require('./Utilities');
-var merge = require('merge-stream');
-var gulp = require('gulp');
 var fs = require('fs');
+var gulp = require('gulp');
+var babel = require('gulp-babel');
+var merge = require('merge-stream');
+var utilities = require('./Utilities');
+var plugins = require('gulp-load-plugins')();
+var config = require('laravel-elixir').config;
 
 
 /**
@@ -75,6 +76,7 @@ var mergeFileSet = function (set, request) {
     return gulp.src(set.files)
                .pipe(plugins.if(config.sourcemaps, plugins.sourcemaps.init()))
                .pipe(plugins.concat(set.concatFileName))
+               .pipe(plugins.if(request.taskName = 'scripts' && config.babel.enabled, babel(config.babel.options)))
                .pipe(plugins.if(config.production, request.minifier.call(this)))
                .pipe(plugins.if(config.sourcemaps, plugins.sourcemaps.write('.')))
                .pipe(gulp.dest(set.outputDir));

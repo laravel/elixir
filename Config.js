@@ -16,7 +16,13 @@ var config = {
     watchers: { default: {} },
     duplicate: [],
     concatenate: { css: [], js: [] },
-    compile: {}
+    compile: {},
+    babel: {
+        enabled: true,
+        options: {
+            stage: 2
+        }
+    }
 };
 
 
