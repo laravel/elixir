@@ -19,7 +19,7 @@ var addSassTask = function(src, output, options, useRuby) {
         plugin: useRuby ? 'gulp-ruby-sass' : 'sass',
         pluginOptions: buildOptions(options, useRuby),
         src: src,
-        output: output,
+        output: output || elixir.config.cssOutput,
         search: '**/*.+(sass|scss)'
     });
 };

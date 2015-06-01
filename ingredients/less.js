@@ -19,7 +19,7 @@ elixir.extend('less', function(src, output, options) {
         plugin: 'less',
         pluginOptions: options,
         src: src,
-        output: output,
+        output: output || elixir.config.cssOutput,
         search: '**/*.less'
     });
 

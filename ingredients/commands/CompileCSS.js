@@ -56,9 +56,10 @@ var buildTask = function(name, watchPath) {
 
             return triggerCompiler(src, options)
                 .pipe(plugins.if(config.autoprefix, plugins.autoprefixer()))
+                .pipe(plugins.concat(utilities.parse(options.output).name || 'app.css'))
                 .pipe(plugins.if(config.production, plugins.minifyCss()))
                 .pipe(plugins.if(config.sourcemaps, plugins.sourcemaps.write('.')))
-                .pipe(gulp.dest(options.output || config.cssOutput))
+                .pipe(gulp.dest(utilities.parse(options.output).baseDir))
                 .pipe(new Notification().message(options.compiler + ' Compiled!'));
         }));
     });
