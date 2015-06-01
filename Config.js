@@ -21,9 +21,7 @@ var config = {
         enabled: true,
         options: {
             stage: 2,
-            query: {
-                compact: false
-            }
+            compact: false
         }
     }
 };
