@@ -20,7 +20,10 @@ var config = {
     babel: {
         enabled: true,
         options: {
-            stage: 2
+            stage: 2,
+            query: {
+                compact: false
+            }
         }
     }
 };
