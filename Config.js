@@ -21,7 +21,8 @@ var config = {
         enabled: true,
         options: {
             stage: 2,
-            compact: false
+            compact: false,
+            blacklist: ['useStrict']
         }
     }
 };
