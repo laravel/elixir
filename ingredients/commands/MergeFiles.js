@@ -71,7 +71,7 @@ var logTask = function(files) {
       message += " and Minifying";
   }
 
-  utilities.logTask(message, .files);
+  utilities.logTask(message, files);
 };
 
 
