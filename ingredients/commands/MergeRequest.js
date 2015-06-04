@@ -2,26 +2,14 @@ var utilities = require('./Utilities');
 var config = require('laravel-elixir').config;
 
 var MergeRequest = function(files, baseDir, outputDir, ext) {
+    var output = utilities.parse(outputDir);
+
     this.baseDir = baseDir || config.assetsDir + ext;
     this.search = '**/*.' + ext;
     this.files = utilities.prefixDirToFiles(this.baseDir, files || this.search);
     this.type = ext;
-    this.concatFileName = 'all.' + ext;
-
-    this.setOutputDir(outputDir);
-};
-
-MergeRequest.prototype.setOutputDir = function(outputDir) {
-    var pathSegments;
-
-    if (outputDir.indexOf('.' + this.type) > -1) {
-        pathSegments = outputDir.split('/');
-
-        this.concatFileName = pathSegments.pop();
-        outputDir = pathSegments.join('/');
-    }
-
-    this.outputDir = outputDir;
+    this.outputDir = output.baseDir;
+    this.concatFileName = output.name || 'all.' + ext;
 };
 
 module.exports = MergeRequest;
