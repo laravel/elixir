@@ -86,10 +86,14 @@ var mergeFileSet = function (set, request) {
 
     logTask(set.files);
 
+    var shouldCompile = function() {
+        return request.taskName === 'scripts' && request.hasOwnProperty('babel');
+    };
+
     return gulp.src(set.files)
                .pipe(plugins.if(config.sourcemaps, plugins.sourcemaps.init()))
                .pipe(plugins.concat(set.concatFileName))
-               .pipe(plugins.if(request.taskName === 'scripts' && config.babel.enabled, babel(config.babel.options)))
+               .pipe(plugins.if(shouldCompile(), babel(request.babel)))
                .pipe(plugins.if(config.production, request.minifier.call(this)))
                .pipe(plugins.if(config.sourcemaps, plugins.sourcemaps.write('.')))
                .pipe(gulp.dest(set.outputDir));

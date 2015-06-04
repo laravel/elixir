@@ -25,11 +25,22 @@ elixir.extend('scriptsIn', function(baseDir, outputDir) {
     return combine(mergeRequest('**/*.js', outputDir, baseDir));
 });
 
-var mergeRequest = function(scripts, outputDir, baseDir) {
+elixir.extend('babel', function(scripts, outputDir, baseDir, options) {
+    outputDir = outputDir || elixir.config.jsOutput;
+    options = options || elixir.config.babelOptions;
+
+    return combine(mergeRequest(scripts, outputDir, baseDir, options));
+});
+
+var mergeRequest = function(scripts, outputDir, baseDir, babel) {
     var request = new MergeRequest(scripts, baseDir, outputDir, 'js');
 
     request.taskName = 'scripts';
     request.minifier = require('gulp-uglify');
+
+    if (babel) {
+        request.babel = babel;
+    }
 
     return request;
 };

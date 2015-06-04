@@ -3,27 +3,23 @@ var fs = require('fs');
 var _ = require('underscore');
 
 var config = {
-    production:  !! util.env.production,
-    srcDir:      'app',
-    publicDir:   'public',
-    assetsDir:   'resources/assets/',
-    bowerDir:    'vendor/bower_components',
-    cssOutput:   'public/css',
-    jsOutput:    'public/js',
-    sourcemaps:  ! util.env.production,
-    autoprefix:  true,
-    tasks:       [],
-    watchers:    { default: {} },
-    duplicate:   [],
-    concatenate: { css: [], js: [] },
-    compile:     {},
-    babel: {
-        enabled: true,
-        options: {
-            stage: 2,
-            compact: false,
-            blacklist: ['useStrict']
-        }
+    production:   !! util.env.production,
+    srcDir:       'app',
+    publicDir:    'public',
+    assetsDir:    'resources/assets/',
+    bowerDir:     'vendor/bower_components',
+    cssOutput:    'public/css',
+    jsOutput:     'public/js',
+    sourcemaps:   ! util.env.production,
+    autoprefix:   true,
+    tasks:        [],
+    watchers:     { default: {} },
+    duplicate:    [],
+    concatenate:  { css: [], js: [] },
+    compile:      {},
+    babelOptions: {
+        stage: 2,
+        compact: false
     }
 };
 
