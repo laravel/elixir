@@ -62,6 +62,22 @@ var buildTask = function(request) {
 
 
 /**
+ * Log the task to the console.
+ *
+ * @param  {string|array} files
+ */
+var logTask = function(files) {
+  var message = "Merging";
+
+  if (config.production) {
+      message += " and Minifying";
+  }
+
+  utilities.logTask(message, .files);
+};
+
+
+/**
  * Use Gulp to merge one set of files.
  *
  * @param  {object} set
@@ -71,12 +87,7 @@ var buildTask = function(request) {
 var mergeFileSet = function (set, request) {
     deletePreviouslyMergedFile(set.outputDir + '/' + set.concatFileName);
 
-    var message = "Merging";
-
-    if (config.production) {
-        message += " And Minifying";
-    }
-    utilities.logTask(message, set.files);
+    logTask(set.files);
 
     return gulp.src(set.files)
                .pipe(plugins.if(config.sourcemaps, plugins.sourcemaps.init()))
