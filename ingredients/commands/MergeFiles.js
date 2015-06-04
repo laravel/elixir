@@ -10,8 +10,7 @@ var config = require('laravel-elixir').config;
 /**
  * Delete the merged file from the previous run.
  *
- * @param  {string} path
- * @return {void}
+ * @param {string} path
  */
 var deletePreviouslyMergedFile = function(path) {
     if (fs.existsSync(path)) {
@@ -23,8 +22,7 @@ var deletePreviouslyMergedFile = function(path) {
 /**
  * Figure out which files should be watched, and re-merged.
  *
- * @param  {object} request
- * @return {array}
+ * @param {object} request
  */
 var getFilesToWatch = function(request) {
     var alreadyWatched = config.watchers.default[request.taskName];
@@ -36,7 +34,7 @@ var getFilesToWatch = function(request) {
 /**
  * Create the Gulp task.
  *
- * @return {void}
+ * @param {object} request
  */
 var buildTask = function(request) {
     var task = request.taskName;
@@ -46,11 +44,11 @@ var buildTask = function(request) {
     // often as we want, we need to store every request.
     toConcat.push(request);
 
-    gulp.task(task, function () {
+    gulp.task(task, function() {
         // And then we'll simply loop over that stored list, and
         // for each one, trigger Gulp. To keep from crossing
         // the streams, we'll use the merge-stream plugin.
-        return merge.apply(this, toConcat.map(function (set) {
+        return merge.apply(this, toConcat.map(function(set) {
             return mergeFileSet(set, request);
         }));
     });
@@ -64,7 +62,7 @@ var buildTask = function(request) {
 /**
  * Log the task to the console.
  *
- * @param  {string|array} files
+ * @param {string|array} files
  */
 var logTask = function(files) {
   var message = "Merging";
@@ -82,7 +80,6 @@ var logTask = function(files) {
  *
  * @param  {object} set
  * @param  {object} request
- * @return {object}
  */
 var mergeFileSet = function (set, request) {
     deletePreviouslyMergedFile(set.outputDir + '/' + set.concatFileName);
