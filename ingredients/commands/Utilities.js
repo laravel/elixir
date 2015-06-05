@@ -96,8 +96,11 @@ var parse = function(path) {
     return {
         name: segments.extname ? segments.basename : '',
         extension: segments.extname,
-        baseDir: segments.extname ? segments.dirname : [segments.dirname, segments.basename].join('/')
+        baseDir: segments.extname ? segments.dirname : [segments.dirname, segments.basename].join('/').replace('//', '/'),
+        isDir: ! !! segments.extname,
+        path: path
     };
+
 };
 
 

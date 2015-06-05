@@ -1,8 +1,9 @@
-var gulp   = require('gulp');
-var gulpif = require('gulp-if');
-var rename = require('gulp-rename');
+var gulp      = require('gulp');
+var gulpif    = require('gulp-if');
 var utilities = require('./Utilities');
-var config = require('laravel-elixir').config;
+var rename    = require('gulp-rename');
+var merge     = require('merge-stream');
+var config    = require('laravel-elixir').config;
 
 
 /**
