@@ -7,7 +7,6 @@ var config = {
     srcDir:       'app',
     publicDir:    'public',
     assetsDir:    'resources/assets/',
-    bowerDir:     'vendor/bower_components',
     cssOutput:    'public/css',
     jsOutput:     'public/js',
     sourcemaps:   ! util.env.production,
