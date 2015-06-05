@@ -1,19 +1,19 @@
-var utilities = require('./commands/Utilities');
-var source = require('vinyl-source-stream');
-var parsePath = require('parse-filepath');
-var browserify = require('browserify');
-var partialify = require('partialify');
-var elixir = require('laravel-elixir');
-var buffer = require('vinyl-buffer');
-var uglify = require('gulp-uglify');
-var babelify = require('babelify');
-var gulpIf = require('gulp-if');
-var gulp = require('gulp');
+var gulp         = require('gulp');
+var gulpIf       = require('gulp-if');
+var babelify     = require('babelify');
+var uglify       = require('gulp-uglify');
+var buffer       = require('vinyl-buffer');
+var browserify   = require('browserify');
+var partialify   = require('partialify');
+var elixir       = require('laravel-elixir');
+var parsePath    = require('parse-filepath');
+var source       = require('vinyl-source-stream');
+var utilities    = require('./commands/Utilities');
 var Notification = require('./commands/Notification');
 
 
 /**
- * Calculate the correct destination.
+ * Calculate the correct save destination.
  *
  * @param {string} output
  */
@@ -71,8 +71,8 @@ elixir.extend('browserify', function(src, output, baseDir, options) {
     var search = '/**/*.+(js|jsx|babel)';
 
     baseDir = baseDir || elixir.config.assetsDir + 'js';
-    src = utilities.buildGulpSrc(src, './' + baseDir, search);
-    output = output || this.jsOutput;
+    src     = utilities.buildGulpSrc(src, './' + baseDir, search);
+    output  = output || this.jsOutput;
     options = options || {};
 
     buildTask(src, output, options);
