@@ -2,6 +2,7 @@ var utilities = require('./commands/Utilities');
 var source = require('vinyl-source-stream');
 var parsePath = require('parse-filepath');
 var browserify = require('browserify');
+var partialify = require('partialify');
 var elixir = require('laravel-elixir');
 var buffer = require('vinyl-buffer');
 var uglify = require('gulp-uglify');
