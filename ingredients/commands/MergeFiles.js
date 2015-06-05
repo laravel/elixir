@@ -48,9 +48,7 @@ var buildTask = function(request) {
         // And then we'll simply loop over that stored list, and
         // for each one, trigger Gulp. To keep from crossing
         // the streams, we'll use the merge-stream plugin.
-        return merge.apply(this, toConcat.map(function(set) {
-            return mergeFileSet(set, request);
-        }));
+        return merge.apply(this, toConcat.map(mergeFileSet));
     });
 
     return config
@@ -76,27 +74,26 @@ var logTask = function(files) {
 
 
 /**
- * Use Gulp to merge one set of files.
+ * Use Gulp to handle a request to merge files.
  *
- * @param  {object} set
  * @param  {object} request
  */
-var mergeFileSet = function (set, request) {
-    deletePreviouslyMergedFile(set.outputDir + '/' + set.concatFileName);
+var mergeFileSet = function (request) {
+    deletePreviouslyMergedFile(request.outputDir + '/' + request.concatFileName);
 
-    logTask(set.files);
+    logTask(request.files);
 
     var shouldCompile = function() {
         return request.taskName === 'scripts' && request.hasOwnProperty('babel');
     };
 
-    return gulp.src(set.files)
+    return gulp.src(request.files)
                .pipe(plugins.if(config.sourcemaps, plugins.sourcemaps.init()))
-               .pipe(plugins.concat(set.concatFileName))
+               .pipe(plugins.concat(request.concatFileName))
                .pipe(plugins.if(shouldCompile(), babel(request.babel)))
                .pipe(plugins.if(config.production, request.minifier.call(this)))
                .pipe(plugins.if(config.sourcemaps, plugins.sourcemaps.write('.')))
-               .pipe(gulp.dest(set.outputDir));
+               .pipe(gulp.dest(request.outputDir));
 };
 
 
