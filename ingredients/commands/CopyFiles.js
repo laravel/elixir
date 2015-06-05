@@ -1,6 +1,7 @@
 var gulp   = require('gulp');
-var rename = require('gulp-rename');
 var gulpif = require('gulp-if');
+var rename = require('gulp-rename');
+var utilities = require('./Utilities');
 var config = require('laravel-elixir').config;
 
 
