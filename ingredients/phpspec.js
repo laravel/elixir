@@ -1,6 +1,6 @@
-var elixir = require('laravel-elixir');
-var _ = require('underscore');
+var elixir   = require('laravel-elixir');
 var runTests = require('./commands/RunTests');
+var _        = require('underscore');
 
 /*
  |----------------------------------------------------------------
@@ -14,7 +14,6 @@ var runTests = require('./commands/RunTests');
  */
 
 elixir.extend('phpSpec', function(src, options) {
-
     options = _.extend({ verbose: 'v', notify: true }, options);
 
     return runTests({
@@ -23,5 +22,4 @@ elixir.extend('phpSpec', function(src, options) {
         pluginOptions: options,
         src: src || 'spec/**/*Spec.php'
     });
-
 });

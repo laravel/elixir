@@ -1,10 +1,9 @@
-var gulp = require('gulp');
-var elixir = require('laravel-elixir');
-var plugins = require('gulp-load-plugins')();
-var utilities = require('./commands/Utilities');
+var gulp         = require('gulp');
+var elixir       = require('laravel-elixir');
+var config       = elixir.config;
+var plugins      = require('gulp-load-plugins')();
+var utilities    = require('./commands/Utilities');
 var Notification = require('./commands/Notification');
-
-var config = elixir.config;
 
 
 /**
@@ -16,6 +15,10 @@ var config = elixir.config;
  */
 var buildTask = function(src, output, options) {
     gulp.task('coffee', function() {
+        var destination = utilities.parse(output);
+
+        utilities.logTask("Running CoffeeScript", src);
+
         return gulp.src(src)
             .pipe(plugins.if(config.sourcemaps, plugins.sourcemaps.init()))
             .pipe(plugins.coffee(options).on('error', function(e) {
@@ -23,10 +26,10 @@ var buildTask = function(src, output, options) {
 
                 this.emit('end');
             }))
-            .pipe(plugins.concat(utilities.parse(output).name || 'app.js'))
+            .pipe(plugins.concat(destination.name || 'app.js'))
             .pipe(plugins.if(config.production, plugins.uglify()))
             .pipe(plugins.if(config.sourcemaps, plugins.sourcemaps.write('.')))
-            .pipe(gulp.dest(utilities.parse(output).baseDir))
+            .pipe(gulp.dest(destination.baseDir))
             .pipe(new Notification().message('CoffeeScript Compiled!'));
     });
 };
@@ -43,16 +46,13 @@ var buildTask = function(src, output, options) {
  */
 
 elixir.extend('coffee', function(src, output, options) {
-
     var coffeeDir = this.assetsDir + 'coffee/';
 
     src = utilities.buildGulpSrc(src, coffeeDir, '**/*.coffee');
     output = output || config.jsOutput;
 
-    utilities.logTask("Running CoffeeScript", src);
     buildTask(src, output, options);
 
     return this.registerWatcher('coffee', coffeeDir + '/**/*.coffee')
                .queueTask('coffee');
-
 });

@@ -1,7 +1,7 @@
-var gulp = require('gulp');
-var _ = require('underscore');
-var config = require('laravel-elixir').config;
+var gulp       = require('gulp');
+var config     = require('laravel-elixir').config;
 var inSequence = require('run-sequence');
+var _          = require('underscore');
 
 var srcPaths;
 var tasksToRun;

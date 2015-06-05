@@ -1,5 +1,5 @@
-var elixir = require('laravel-elixir');
-var combine = require('./commands/MergeFiles.js');
+var elixir       = require('laravel-elixir');
+var combine      = require('./commands/MergeFiles.js');
 var MergeRequest = require('./commands/MergeRequest');
 
 /*

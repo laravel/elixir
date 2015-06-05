@@ -1,5 +1,5 @@
-var gulp = require('gulp');
-var config = require('laravel-elixir').config;
+var gulp       = require('gulp');
+var config     = require('laravel-elixir').config;
 var inSequence = require('run-sequence');
 
 /*

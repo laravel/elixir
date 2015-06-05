@@ -1,6 +1,6 @@
-var elixir = require('laravel-elixir');
-var _ = require('underscore');
+var elixir   = require('laravel-elixir');
 var runTests = require('./commands/RunTests');
+var _        = require('underscore');
 
 /*
  |----------------------------------------------------------------
@@ -14,7 +14,6 @@ var runTests = require('./commands/RunTests');
  */
 
 elixir.extend('phpUnit', function(src, options) {
-
     options = _.extend({ debug: true, notify: true }, options);
 
     return runTests({
@@ -23,5 +22,4 @@ elixir.extend('phpUnit', function(src, options) {
         pluginOptions: options,
         src: src || 'tests/**/*Test.php'
     });
-
 });
