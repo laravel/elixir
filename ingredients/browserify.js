@@ -36,12 +36,6 @@ var getDestination = function(output) {
 var buildTask = function(src, output, options) {
     var destination = getDestination(output);
 
-    var onError = function(e) {
-        new Notification().error(e, 'Browserify Bundling Failed!');
-
-        this.emit('end');
-    };
-
     gulp.task('browserify', function() {
         utilities.logTask('Running Browserify', src);
 
@@ -49,7 +43,11 @@ var buildTask = function(src, output, options) {
             .transform(babelify, { stage: 0 })
             .transform(partialify)
             .bundle()
-            .on('error', onError)
+            .on('error', function(e) {
+                new Notification().error(e, 'Browserify Failed!');
+
+                this.emit('end');
+            })
             .pipe(source(destination.fileName))
             .pipe(buffer())
             .pipe(gulpIf(elixir.config.production, uglify()))
