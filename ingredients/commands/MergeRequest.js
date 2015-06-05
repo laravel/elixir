@@ -1,5 +1,5 @@
 var utilities = require('./Utilities');
-var config = require('laravel-elixir').config;
+var config    = require('laravel-elixir').config;
 
 var MergeRequest = function(files, baseDir, outputDir, ext) {
     var output = utilities.parse(outputDir);
@@ -10,6 +10,7 @@ var MergeRequest = function(files, baseDir, outputDir, ext) {
     this.type = ext;
     this.outputDir = output.baseDir;
     this.concatFileName = output.name || 'all.' + ext;
+    this.outputPath = this.outputDir + '/' + this.concatFileName;
 };
 
 module.exports = MergeRequest;

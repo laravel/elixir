@@ -15,8 +15,6 @@ var config = {
     tasks:        [],
     collections:  [],
     watchers:     { default: {} },
-    duplicate:    [],
-    concatenate:  { css: [], js: [] },
     babelOptions: {
         stage: 2,
         compact: false
