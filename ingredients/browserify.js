@@ -8,6 +8,7 @@ var partialify   = require('partialify');
 var elixir       = require('laravel-elixir');
 var parsePath    = require('parse-filepath');
 var source       = require('vinyl-source-stream');
+var merge        = require('merge-stream');
 var utilities    = require('./commands/Utilities');
 var Notification = require('./commands/Notification');
 
@@ -28,30 +29,27 @@ var getDestination = function(output) {
 
 /**
  * Build the Gulp task.
- *
- * @param {array}  src
- * @param {string} output
- * @param {object} options
  */
-var buildTask = function(src, output, options) {
-    var destination = getDestination(output);
-
+var buildTask = function() {
     gulp.task('browserify', function() {
-        utilities.logTask('Running Browserify', src);
+        var dataSet = elixir.config.collections.browserify;
 
-        return browserify(src, options)
-            .transform(babelify, { stage: 0 })
-            .transform(partialify)
-            .bundle()
-            .on('error', function(e) {
-                new Notification().error(e, 'Browserify Failed!');
+        return merge.apply(this, dataSet.map(function(data) {
+            utilities.logTask('Running Browserify', data.src);
 
-                this.emit('end');
-            })
-            .pipe(source(destination.fileName))
-            .pipe(buffer())
-            .pipe(gulpIf(elixir.config.production, uglify()))
-            .pipe(gulp.dest(destination.dir));
+            return browserify(data.src, data.options)
+                .transform(babelify, { stage: 0 })
+                .transform(partialify)
+                .bundle()
+                .on('error', function(e) {
+                    new Notification().error(e, 'Browserify Failed!');
+                    this.emit('end');
+                })
+                .pipe(source(data.destination.fileName))
+                .pipe(buffer())
+                .pipe(gulpIf(elixir.config.production, uglify()))
+                .pipe(gulp.dest(data.destination.dir));
+        }));
     });
 };
 
@@ -71,11 +69,14 @@ elixir.extend('browserify', function(src, output, baseDir, options) {
     var search = '/**/*.+(js|jsx|babel)';
 
     baseDir = baseDir || elixir.config.assetsDir + 'js';
-    src     = utilities.buildGulpSrc(src, './' + baseDir, search);
-    output  = output || this.jsOutput;
-    options = options || {};
 
-    buildTask(src, output, options);
+    elixir.config.saveTask('browserify', {
+        src: utilities.buildGulpSrc(src, './' + baseDir, search),
+        destination: getDestination(output || this.jsOutput),
+        options: options || {}
+    });
+
+    buildTask();
 
     return this.registerWatcher('browserify', baseDir + search)
                .queueTask('browserify');

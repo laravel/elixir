@@ -72,4 +72,17 @@ config.setDefaultsFrom = function(file) {
 };
 
 
+/**
+ * Store a set of data in a collection.
+ *
+ * @param {string} key
+ * @param {object} data
+ */
+config.saveTask = function(key, data) {
+    this.collections[key] = this.collections[key] || [];
+
+    this.collections[key].push(data);
+}
+
+
 module.exports = config;
