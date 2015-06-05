@@ -35,6 +35,8 @@ var buildTask = function(src, output, options) {
     var destination = getDestination(output);
 
     gulp.task('browserify', function() {
+        utilities.logTask('Running Browserify', src);
+
         return browserify(src, options)
             .transform(babelify, { stage: 0 })
             .transform(partialify)
@@ -65,8 +67,6 @@ elixir.extend('browserify', function(src, output, baseDir, options) {
     src = utilities.buildGulpSrc(src, './' + baseDir, search);
     output = output || this.jsOutput;
     options = options || {};
-
-    utilities.logTask('Running Browserify', src);
 
     buildTask(src, output, options);
 
