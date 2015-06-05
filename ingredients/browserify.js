@@ -16,17 +16,11 @@ var gulp = require('gulp');
  * @param {string} output
  */
 var getDestination = function(output) {
-    output = parsePath(output);
-
-    var saveDir = output.extname
-        ? output.dirname
-        : (output.dirname + '/' + output.basename);
-
-    var saveFile = output.extname ? output.basename : 'bundle.js';
+    var parsed = utilities.parse(output);
 
     return {
-        saveFile: saveFile,
-        saveDir: saveDir
+        fileName: parsed.name || 'bundle.js',
+        dir: parsed.baseDir
     }
 };
 
@@ -43,11 +37,12 @@ var buildTask = function(src, output, options) {
     gulp.task('browserify', function() {
         return browserify(src, options)
             .transform(babelify, { stage: 0 })
+            .transform(partialify)
             .bundle()
-            .pipe(source(destination.saveFile))
+            .pipe(source(destination.fileName))
             .pipe(buffer())
             .pipe(gulpIf(elixir.config.production, uglify()))
-            .pipe(gulp.dest(destination.saveDir));
+            .pipe(gulp.dest(destination.dir));
     });
 };
 
