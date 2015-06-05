@@ -48,18 +48,20 @@ var triggerCompiler = function(src, options) {
  */
 var buildTask = function(name, watchPath) {
     gulp.task(name, function() {
-        return merge.apply(this, config.compile[name].map(function(compile) {
-            var src = compile.src;
-            var options = compile.options;
+        var dataSet = config.collections['compile'+name];
 
-            utilities.logTask("Running " + options.compiler, src);
+        return merge.apply(this, dataSet.map(function(data) {
+            var options = data.options;
+            var destination = utilities.parse(options.output);
 
-            return triggerCompiler(src, options)
+            utilities.logTask("Running " + options.compiler, data.src);
+
+            return triggerCompiler(data.src, options)
                 .pipe(plugins.if(config.autoprefix, plugins.autoprefixer()))
-                .pipe(plugins.concat(utilities.parse(options.output).name || 'app.css'))
+                .pipe(plugins.concat(destination.name || 'app.css'))
                 .pipe(plugins.if(config.production, plugins.minifyCss()))
                 .pipe(plugins.if(config.sourcemaps, plugins.sourcemaps.write('.')))
-                .pipe(gulp.dest(utilities.parse(options.output).baseDir))
+                .pipe(gulp.dest(destination.baseDir))
                 .pipe(new Notification().message(options.compiler + ' Compiled!'));
         }));
     });
@@ -73,11 +75,12 @@ var buildTask = function(name, watchPath) {
 module.exports = function(options) {
     var name = options.compiler.toLowerCase();
     var dir = config.assetsDir + name;
-    var src = utilities.buildGulpSrc(options.src, dir, options.search);
     var watchPath = dir + '/' + options.search;
 
-    config.compile[name] = config.compile[name] || [];
-    config.compile[name].push({ src: src, options: options });
+    config.saveTask('compile' + name, {
+        src: utilities.buildGulpSrc(options.src, dir, options.search),
+        options: options
+    });
 
     return buildTask(name, watchPath);
 };

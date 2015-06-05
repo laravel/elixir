@@ -13,10 +13,10 @@ var config = {
     sourcemaps:   ! util.env.production,
     autoprefix:   true,
     tasks:        [],
+    collections:  [],
     watchers:     { default: {} },
     duplicate:    [],
     concatenate:  { css: [], js: [] },
-    compile:      {},
     babelOptions: {
         stage: 2,
         compact: false
