@@ -48,11 +48,16 @@ var buildTask = function(src, buildDir) {
 
         // To start, we'll clear out the build directory,
         // so that we can start from scratch.
-        var oldManifest = JSON.parse(fs.readFileSync(buildDir + '/rev-manifest.json'));
-        
-        for(var key in oldManifest) {
-            del.sync(buildDir + '/' + oldManifest[key], { force: true });
-        }
+        fs.stat(buildDir + '/rev-manifest.json', function(err, stat){
+            if(err == null){
+                var oldManifest = JSON.parse(fs.readFileSync(buildDir + '/rev-manifest.json'));
+                
+                for(var key in oldManifest) {
+                    del.sync(buildDir + '/' + oldManifest[key], { force: true });
+                }    
+            }
+            
+        });
 
         return gulp.src(src, { base: './' + publicDir })
             .pipe(gulp.dest(buildDir))
