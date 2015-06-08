@@ -57,7 +57,10 @@ var buildTask = function(name, watchPath) {
             utilities.logTask("Running " + options.compiler, data.src);
 
             return triggerCompiler(data.src, options)
-                .pipe(plugins.if(config.autoprefix, plugins.autoprefixer()))
+                .pipe(plugins.if(
+                    config.autoprefix,
+                    plugins.autoprefixer(config.autoprefixerOptions)
+                ))
                 .pipe(plugins.concat(destination.name || 'app.css'))
                 .pipe(plugins.if(config.production, plugins.minifyCss()))
                 .pipe(plugins.if(config.sourcemaps, plugins.sourcemaps.write('.')))

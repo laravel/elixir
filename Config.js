@@ -17,6 +17,10 @@ var config = {
     babelOptions: {
         stage: 2,
         compact: false
+    },
+    autoprefixerOptions: {
+        browsers: ['last 2 versions'],
+        cascade: false
     }
 };
 
