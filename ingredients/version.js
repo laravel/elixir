@@ -44,20 +44,19 @@ var buildTask = function(src, buildDir) {
 
     gulp.task('version', function() {
         var files = vinylPaths();
+        var manifest = buildDir + '/rev-manifest.json';
 
         utilities.logTask("Versioning", src);
 
-        // To start, we'll clear out the build directory,
-        // so that we can start from scratch.
-        fs.stat(buildDir + '/rev-manifest.json', function(err, stat){
-            if(err == null){
-                var oldManifest = JSON.parse(fs.readFileSync(buildDir + '/rev-manifest.json'));
-                
-                for(var key in oldManifest) {
+        fs.stat(manifest, function(err, stat) {
+            if (err == null) {
+                var oldManifest = JSON.parse(fs.readFileSync(manifest));
+
+                for (var key in oldManifest) {
                     del.sync(buildDir + '/' + oldManifest[key], { force: true });
-                }    
+                }
             }
-            
+
         });
 
         return gulp.src(src, { base: './' + publicDir })
