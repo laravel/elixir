@@ -1,6 +1,8 @@
 var gulp         = require('gulp');
 var gulpIf       = require('gulp-if');
 var babelify     = require('babelify');
+var watchify     = require('watchify');
+var gutil        = require('gulp-util');
 var uglify       = require('gulp-uglify');
 var buffer       = require('vinyl-buffer');
 var browserify   = require('browserify');
@@ -12,6 +14,7 @@ var merge        = require('merge-stream');
 var utilities    = require('./commands/Utilities');
 var Notification = require('./commands/Notification');
 
+var bundle;
 
 /**
  * Calculate the correct save destination.
@@ -27,28 +30,65 @@ var getDestination = function(output) {
     }
 };
 
+
+/**
+ * Get a standard Browserify stream.
+ *
+ * @param {string|array} src
+ * @param {object}       options
+ */
+var browserifyStream = function(src, options) {
+    return browserify(src, options);
+};
+
+
+/**
+ * Get a Browserify stream, wrapped in Watchify.
+ *
+ * @param {string|array} src
+ * @param {object}       options
+ */
+var watchifyStream = function(src, options) {
+    var browserify = watchify(browserifyStream(src, options));
+
+    browserify.on('log', gutil.log);
+    browserify.on('update', function() {
+        bundle(browserify);
+    });
+
+    return browserify;
+}
+
+
 /**
  * Build the Gulp task.
  */
 var buildTask = function() {
     gulp.task('browserify', function() {
         var dataSet = elixir.config.collections.browserify;
+        var stream = elixir.config.watchify
+            ? watchifyStream
+            : browserifyStream;
 
         return merge.apply(this, dataSet.map(function(data) {
             utilities.logTask('Running Browserify', data.src);
 
-            return browserify(data.src, data.options)
-                .transform(babelify, { stage: 0 })
-                .transform(partialify)
-                .bundle()
-                .on('error', function(e) {
-                    new Notification().error(e, 'Browserify Failed!');
-                    this.emit('end');
-                })
-                .pipe(source(data.destination.fileName))
-                .pipe(buffer())
-                .pipe(gulpIf(elixir.config.production, uglify()))
-                .pipe(gulp.dest(data.destination.dir));
+            bundle = function(stream) {
+                return stream
+                    .transform(babelify, { stage: 0 })
+                    .transform(partialify)
+                    .bundle()
+                    .on('error', function(e) {
+                        new Notification().error(e, 'Browserify Failed!');
+                        this.emit('end');
+                    })
+                    .pipe(source(data.destination.fileName))
+                    .pipe(buffer())
+                    .pipe(gulpIf(elixir.config.production, uglify()))
+                    .pipe(gulp.dest(data.destination.dir));
+            }
+
+            return bundle(stream(data.src, data.options));
         }));
     });
 };
@@ -78,6 +118,8 @@ elixir.extend('browserify', function(src, output, baseDir, options) {
 
     buildTask();
 
-    return this.registerWatcher('browserify', baseDir + search)
-               .queueTask('browserify');
+    return this
+        // Watchify will handle the "watching."
+        .registerWatcher('browserify', function() {})
+        .queueTask('browserify');
 });
