@@ -1,6 +1,6 @@
 {
   "name": "laravel-elixir",
-  "version": "2.3.6",
+  "version": "2.3.9",
   "description": "Laravel Elixir Core",
   "main": "index.js",
   "scripts": {

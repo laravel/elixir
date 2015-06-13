@@ -2,6 +2,7 @@ var gulp      = require('gulp');
 var babel     = require('gulp-babel');
 var utilities = require('./Utilities');
 var merge     = require('merge-stream');
+var Notification = require('./Notification');
 var plugins   = require('gulp-load-plugins')();
 var config    = require('laravel-elixir').config;
 
@@ -37,6 +38,13 @@ var mergeFiles = function (request) {
         .pipe(plugins.if(config.sourcemaps, plugins.sourcemaps.init()))
         .pipe(plugins.concat(request.concatFileName))
         .pipe(plugins.if(shouldCompile(), babel(request.babel)))
+            .on('error', function(e) {
+                new Notification().error(
+                    e, 'Babel Compilation Failed!'
+                );
+
+                this.emit('end');
+            })
         .pipe(plugins.if(config.production, request.minifier.call(this)))
         .pipe(plugins.if(config.sourcemaps, plugins.sourcemaps.write('.')))
         .pipe(gulp.dest(request.outputDir));
