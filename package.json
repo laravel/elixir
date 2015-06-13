@@ -54,7 +54,8 @@
     "underscore": "^1.7.0",
     "vinyl-buffer": "^1.0.0",
     "vinyl-paths": "^1.0.0",
-    "vinyl-source-stream": "^1.1.0"
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^3.2.2"
   },
   "devDependencies": {
     "gulp": "^3.8.8"
