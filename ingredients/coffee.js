@@ -1,6 +1,7 @@
 var gulp         = require('gulp');
 var elixir       = require('laravel-elixir');
 var config       = elixir.config;
+var merge        = require('merge-stream');
 var plugins      = require('gulp-load-plugins')();
 var utilities    = require('./commands/Utilities');
 var Notification = require('./commands/Notification');
@@ -8,29 +9,27 @@ var Notification = require('./commands/Notification');
 
 /**
  * Build the CoffeeScript Gulp task.
- *
- * @param  {string|array} src
- * @param  {string}       output
- * @param  {array|null}   options
  */
-var buildTask = function(src, output, options) {
+var buildTask = function() {
     gulp.task('coffee', function() {
-        var destination = utilities.parse(output);
+        var dataSet = elixir.config.collections.coffee;
 
-        utilities.logTask("Running CoffeeScript", src);
+        return merge.apply(this, dataSet.map(function(data) {
+            utilities.logTask("Running CoffeeScript", data.src);
 
-        return gulp.src(src)
-            .pipe(plugins.if(config.sourcemaps, plugins.sourcemaps.init()))
-            .pipe(plugins.coffee(options).on('error', function(e) {
-                new Notification().error(e, 'CoffeeScript Compilation Failed!');
+            return gulp.src(data.src)
+                .pipe(plugins.if(config.sourcemaps, plugins.sourcemaps.init()))
+                .pipe(plugins.coffee(data.options).on('error', function(e) {
+                    new Notification().error(e, 'CoffeeScript Compilation Failed!');
 
-                this.emit('end');
-            }))
-            .pipe(plugins.concat(destination.name || 'app.js'))
-            .pipe(plugins.if(config.production, plugins.uglify()))
-            .pipe(plugins.if(config.sourcemaps, plugins.sourcemaps.write('.')))
-            .pipe(gulp.dest(destination.baseDir))
-            .pipe(new Notification().message('CoffeeScript Compiled!'));
+                    this.emit('end');
+                }))
+                .pipe(plugins.concat(data.output.name || 'app.js'))
+                .pipe(plugins.if(config.production, plugins.uglify()))
+                .pipe(plugins.if(config.sourcemaps, plugins.sourcemaps.write('.')))
+                .pipe(gulp.dest(data.output.baseDir));
+        }))
+        .pipe(new Notification().message('CoffeeScript Compiled!'));
     });
 };
 
@@ -48,10 +47,13 @@ var buildTask = function(src, output, options) {
 elixir.extend('coffee', function(src, output, options) {
     var coffeeDir = this.assetsDir + 'coffee/';
 
-    src = utilities.buildGulpSrc(src, coffeeDir, '**/*.coffee');
-    output = output || config.jsOutput;
+    elixir.config.saveTask('coffee', {
+        src: utilities.buildGulpSrc(src, coffeeDir, '**/*.coffee'),
+        output: utilities.parse(output || config.jsOutput),
+        options: options || {}
+    });
 
-    buildTask(src, output, options);
+    buildTask();
 
     return this.registerWatcher('coffee', coffeeDir + '/**/*.coffee')
                .queueTask('coffee');
