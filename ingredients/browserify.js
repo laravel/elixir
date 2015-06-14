@@ -38,7 +38,12 @@ var getDestination = function(output) {
  * @param {object}       options
  */
 var browserifyStream = function(src, options) {
-    return browserify(src, options);
+    var stream = browserify(src, options);
+
+    stream.transform(babelify, { stage: 0 });
+    stream.transform(partialify);
+
+    return stream;
 };
 
 
@@ -75,8 +80,6 @@ var buildTask = function() {
 
             bundle = function(stream) {
                 return stream
-                    .transform(babelify, { stage: 0 })
-                    .transform(partialify)
                     .bundle()
                     .on('error', function(e) {
                         new Notification().error(e, 'Browserify Failed!');
