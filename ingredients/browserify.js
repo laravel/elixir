@@ -27,7 +27,7 @@ var getDestination = function(output) {
     return {
         fileName: parsed.name || 'bundle.js',
         dir: parsed.baseDir
-    }
+    };
 };
 
 
@@ -76,7 +76,6 @@ var buildTask = function() {
             : browserifyStream;
 
         return merge.apply(this, dataSet.map(function(data) {
-
             bundle = function(stream, data) {
                 utilities.logTask('Running Browserify', data.src);
                 return stream
@@ -89,10 +88,10 @@ var buildTask = function() {
                     .pipe(buffer())
                     .pipe(gulpIf(elixir.config.production, uglify()))
                     .pipe(gulp.dest(data.destination.dir));
-            }
+            };
 
-             return bundle(stream(data), data);
-        }));;
+            return bundle(stream(data), data);
+        }));
     });
 };
 
