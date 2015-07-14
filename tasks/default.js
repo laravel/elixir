@@ -1,6 +1,8 @@
-var gulp       = require('gulp');
-var config     = require('laravel-elixir').config;
+var gulp = require('gulp');
+var _ = require('underscore');
+var Elixir = require('../index');
 var inSequence = require('run-sequence');
+
 
 /*
  |----------------------------------------------------------------
@@ -14,5 +16,5 @@ var inSequence = require('run-sequence');
  */
 
 gulp.task('default', function() {
-    inSequence.apply(this, config.tasks);
+    inSequence.apply(this, _.pluck(Elixir.tasks, 'name'));
 });
