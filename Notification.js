@@ -25,7 +25,8 @@ var n = Notification.prototype;
 n.message = function(message) {
     return notify({
         title: this.title,
-        message: message
+        message: message,
+        onLast: true
     });
 };
 
@@ -40,7 +41,8 @@ n.error = function(e, message) {
     notify.onError({
         title: this.title,
         message: message + ': <%= error.message %>',
-        icon: __dirname + './icons/fail.png'
+        icon: __dirname + './icons/fail.png',
+        onLast: true
     })(e);
 
     // We'll spit out the error, just in
@@ -74,7 +76,8 @@ n.forFailedTests = function(e, framework) {
     return notify.onError({
         title: 'Red!',
         message: 'Your ' + framework + ' tests failed!',
-        icon: __dirname + './icons/fail.png'
+        icon: __dirname + './icons/fail.png',
+        onLast: true
     })(e);
 };
 
