@@ -2,7 +2,7 @@ var fs = require('fs');
 var del = require('del');
 var gulp = require('gulp');
 var rev = require('gulp-rev');
-var Elixir = require('../index');
+var Elixir = require('laravel-elixir');
 var vinylPaths = require('vinyl-paths');
 var parsePath  = require('parse-filepath');
 

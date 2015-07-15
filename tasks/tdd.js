@@ -1,5 +1,5 @@
 var gulp = require('gulp');
-var Elixir = require('../index');
+var Elixir = require('laravel-elixir');
 
 /*
  |----------------------------------------------------------------

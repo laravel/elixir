@@ -1,6 +1,6 @@
 var gulp = require('gulp');
-var Elixir = require('../index');
 var shell = require('gulp-shell');
+var Elixir = require('laravel-elixir');
 
 Elixir.extend('speak', function(message) {
     // new Elixir.Task('speak')

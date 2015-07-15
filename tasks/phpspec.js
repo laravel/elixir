@@ -1,4 +1,4 @@
-var Elixir = require('../index');
+var Elixir = require('laravel-elixir');
 var runTests = require('./shared/Tests');
 
 var config = Elixir.config;

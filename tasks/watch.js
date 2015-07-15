@@ -1,6 +1,6 @@
 var gulp = require('gulp');
 var _ = require('underscore');
-var Elixir = require('../index');
+var Elixir = require('laravel-elixir');
 
 
 gulp.task('watch', function() {

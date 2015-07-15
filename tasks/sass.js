@@ -1,6 +1,6 @@
 var gulp    = require('gulp');
-var Elixir  = require('../index');
 var compile = require('./shared/Css');
+var Elixir = require('laravel-elixir');
 
 var config = Elixir.config;
 
