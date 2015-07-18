@@ -6,6 +6,8 @@ var Elixir = require('laravel-elixir');
 gulp.task('watch', function() {
     var tasks = _.sortBy(Elixir.tasks, 'name');
 
+    // Browserify uses a special watcher, so we'll
+    // hook into that option, only for gulp watch.
     if (_.contains(_.pluck(tasks, 'name'), 'browserify')) {
         Elixir.config.js.browserify.watchify = true;
 
