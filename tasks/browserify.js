@@ -88,8 +88,11 @@ var prepGulpPaths = function(src, baseDir, output) {
 var browserifyStream = function(data) { // just use two arguments
     var stream = browserify(data.src, data.options);
 
-    stream.transform(babelify, config.js.babel.options);
-    stream.transform(partialify);
+    Elixir.config.js.browserify.transformers.forEach(function(transformer) {
+        stream.transform(
+            require(transformer.name), transformer.options || {}
+        )
+    });
 
     return stream;
 };

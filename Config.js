@@ -74,7 +74,21 @@ var config = {
         },
 
         browserify: {
-            options: {}
+            options: {},
+
+            transformers: [
+                {
+                    name: 'babelify',
+                    options: {
+                        stage: 2,
+                        compact: false
+                    }
+                },
+                {
+                    name: 'partialify',
+                    options: {}
+                }
+            ]
         },
 
         coffee: {
