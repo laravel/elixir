@@ -29,7 +29,7 @@ var gulpTask = function(src, output, options) {
             pluginOptions: options || config.css.sass.pluginOptions
         });
     })
-    .watch(config.css.sass.path+'/**/*.+(sass|scss)');
+    .watch(config.get('assets.css.sass.folder') + '/**/*.+(sass|scss)');
 };
 
 

@@ -28,7 +28,8 @@ Elixir.extend('less', function(src, output, options) {
             task: this,
             pluginOptions: options || config.css.less.pluginOptions
         });
-    });
+    })
+    .watch(config.get('assets.css.less.folder') + '/**/*.less');
 });
 
 

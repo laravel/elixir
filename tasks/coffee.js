@@ -39,7 +39,7 @@ Elixir.extend('coffee', function(src, output, options) {
             .pipe(new Elixir.Notification('CoffeeScript Compiled!'))
         );
     })
-    .watch(config.js.coffee.path+'/**/*.coffee');
+    .watch(config.get('assets.js.coffee.folder') + '/**/*.coffee')
 });
 
 
