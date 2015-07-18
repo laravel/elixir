@@ -75,7 +75,7 @@ var prepGulpPaths = function(src, baseDir, output) {
 
     return new Elixir.GulpPaths()
         .src(src, baseDir)
-        .output(output || config.get('public.js.outputPath'), 'bundle.js');
+        .output(output || config.get('public.js.outputFolder'), 'bundle.js');
 };
 
 
