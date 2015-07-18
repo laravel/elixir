@@ -68,5 +68,5 @@ var gulpTask = function(paths) {
 var prepGulpPaths = function(src, baseDir, output) {
     return new Elixir.GulpPaths()
         .src(src, baseDir || config.get('assets.css.folder'))
-        .output(output || config.get('public.css.outputPath'), 'all.css');
+        .output(output || config.get('public.css.outputFolder'), 'all.css');
 };
