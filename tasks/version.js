@@ -70,6 +70,12 @@ var prepGulpPaths = function(src, buildPath) {
 };
 
 
+/**
+ * Empty all relevant files from the build directory.
+ *
+ * @param  {string} buildPath
+ * @param  {string} manifest
+ */
 var emptyBuildPathFiles = function(buildPath, manifest) {
     fs.stat(manifest, function(err, stat) {
         if (! err) {
