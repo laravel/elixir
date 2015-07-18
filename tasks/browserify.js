@@ -71,7 +71,7 @@ Elixir.extend('browserify', function(src, output, baseDir, options) {
  * @param  {string|null}  output
  */
 var prepGulpPaths = function(src, baseDir, output) {
-    baseDir = baseDir || Elixir.config.js.path;
+    baseDir = baseDir || config.get('assets.js.folder');
 
     return new Elixir.GulpPaths()
         .src(src, baseDir)
