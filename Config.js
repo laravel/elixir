@@ -1,6 +1,7 @@
 var p = require('path');
 var gutils = require('gulp-util');
 
+
 /*
  |----------------------------------------------------------------
  | Master Configuration
@@ -346,7 +347,8 @@ config.get = function(path) {
 
     // If the path begins with "assets" or "public," then
     // we can assume that the user wants to prefix the
-    // a base path to the given option they request.
+    // given base url to their config path. Useful!
+
     if (segments[0] == 'assets' || segments[0] == 'public') {
         basePath = config[segments.shift()+'Path'];
     }
