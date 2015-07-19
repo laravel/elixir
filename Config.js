@@ -48,7 +48,7 @@ var config = {
             folder: 'sass',
 
             pluginOptions: {
-                outputStyle: !! gutils.env.production
+                outputStyle: gutils.env.production
                     ? 'compressed'
                     : 'nested'
             }
