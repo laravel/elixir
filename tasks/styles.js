@@ -4,6 +4,7 @@ var Elixir = require('laravel-elixir');
 var $ = Elixir.Plugins;
 var config = Elixir.config;
 
+
 /*
  |----------------------------------------------------------------
  | CSS File Concatenation

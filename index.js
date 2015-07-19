@@ -13,7 +13,7 @@ var Elixir = function(recipe) {
     // We'll start by loading all of the available tasks.
     require('require-dir')('./tasks');
 
-    // The user may then choose the tasks they want.
+    // The user may then choose which tasks they want.
     recipe(Elixir.mixins);
 
     // Now that the user has requested their desired tasks

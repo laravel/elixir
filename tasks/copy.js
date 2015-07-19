@@ -10,7 +10,8 @@ var $ = Elixir.Plugins;
  |----------------------------------------------------------------
  |
  | This task offers a simple way to copy files from one place to
- | another. That's it. Not any more complicated than that!
+ | another. No more complicated than that! You may either set
+ | a single file or alternatively you can copy a full dir.
  |
  */
 

@@ -4,7 +4,7 @@ var Elixir = require('laravel-elixir');
 
 /*
  |----------------------------------------------------------------
- | Mixing Custom Gulp Tasks
+ | Custom Gulp Tasks
  |----------------------------------------------------------------
  |
  | Sometimes, you'll want to hook your custom Gulp tasks into

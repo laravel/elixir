@@ -38,7 +38,7 @@ Elixir.extend('sass', function() {
 });
 
 
-// Deprecated. Only present for backward compatibility.
+// Deprecated. Only for backward compatibility.
 Elixir.extend('rubySass', function() {
     gulpTask.apply(this, arguments);
 });
