@@ -18,35 +18,138 @@ var gutils = require('gulp-util');
 
 var config = {
 
+    /*
+     |----------------------------------------------------------------
+     | Tasks
+     |----------------------------------------------------------------
+     |
+     | The tasks array stores all tasks that should be executed each
+     | time you trigger Gulp from the command line. Generally you
+     | won't need to modify this but it's an option if needed.
+     |
+     */
     tasks: [],
 
-    assetsPath: 'resources/assets',
-
-    publicPath: 'public',
-
-    appPath: 'app',
-
+    /*
+     |----------------------------------------------------------------
+     | Production Mode
+     |----------------------------------------------------------------
+     |
+     | Elixir will trigger certain actions, dependent upon this flag.
+     | You may "turn on" this mode by triggering "gulp --production".
+     | This will enable such things, like CSS and JS minification.
+     |
+     */
     production: !! gutils.env.production,
 
+    /*
+     |----------------------------------------------------------------
+     | Assets Path
+     |----------------------------------------------------------------
+     |
+     | This assets path property is prefixed to all relevant assets
+     | in your application. For example, "resources/assets/sass"
+     | or "resources/assets/coffee." Change this if you must.
+     |
+     */
+    assetsPath: 'resources/assets',
+
+    /*
+     |----------------------------------------------------------------
+     | Public Path
+     |----------------------------------------------------------------
+     |
+     | Much like assets path, this public path property is prefixed to
+     | any paths in your application, that point to the public dir.
+     | It's useful, when a server requires a unique public path.
+     |
+     */
+    publicPath: 'public',
+
+    /*
+     |----------------------------------------------------------------
+     | App Path
+     |----------------------------------------------------------------
+     |
+     | The app path, you guessed it, specifies the path to the app
+     | folder in your project. If using Laravel, then you won't
+     | need to modify this path. Otherwise modify as needed.
+     |
+     */
+    appPath: 'app',
+
+    /*
+     |----------------------------------------------------------------
+     | Sourcemaps
+     |----------------------------------------------------------------
+     |
+     | A sourcemap is a JSON mapping, which declares a relationship
+     | between a minified file and its original source location.
+     | Quite useful for debugging, it's turned on by default.
+     |
+     */
     sourcemaps: true,
 
     css: {
+
+        /*
+         |----------------------------------------------------------------
+         | CSS Source Folder
+         |----------------------------------------------------------------
+         |
+         | This property declares the root folder for all vanilla CSS
+         | files. Note that this is the folder name, not the path.
+         | We'll stick with a basic "css" name, which makes sense.
+         |
+         */
         folder: 'css',
 
+        /*
+         |----------------------------------------------------------------
+         | CSS Output Folder
+         |----------------------------------------------------------------
+         |
+         | Generally, your source files will be stored outside of your
+         | public directory, and then compiled/merged as necessary.
+         | This property represents the public specific folder.
+         |
+         */
         outputFolder: 'css',
 
+        /*
+         |----------------------------------------------------------------
+         | CSS3 Autoprefixing
+         |----------------------------------------------------------------
+         |
+         | When working with any form of CSS, Elixir automatically runs
+         | your file through a CSS autoprefixer, which automatically
+         | adds or removes vendor-specific CSS3 prefixes. Useful!
+         |
+         */
         autoprefix: {
             enabled: true,
 
+            // https://www.npmjs.com/package/gulp-autoprefixer#api
             options:  {
                 browsers: ['last 2 versions'],
                 cascade: false
             }
         },
 
+        /*
+         |----------------------------------------------------------------
+         | Sass Compilation
+         |----------------------------------------------------------------
+         |
+         | Gone are the days of researching how to call Sass on a given
+         | folder. Simply run `mix.sass('file.scss')` and you're all
+         | set. This object sets the folder name and plugin opts.
+         |
+         */
         sass: {
             folder: 'sass',
 
+            // https://github.com/sass/node-sass#options
             pluginOptions: {
                 outputStyle: gutils.env.production
                     ? 'compressed'
@@ -54,63 +157,157 @@ var config = {
             }
         },
 
+        /*
+         |----------------------------------------------------------------
+         | Less Compilation
+         |----------------------------------------------------------------
+         |
+         | Gone are the days of researching how to call Less on a given
+         | folder. Simply run `mix.less('file.less')` and you're all
+         | set. This object sets the folder name and plugin opts.
+         |
+         */
         less: {
             folder: 'less',
 
+            // https://github.com/plus3network/gulp-less#options
             pluginOptions: {}
         }
     },
 
     js: {
+
+        /*
+         |----------------------------------------------------------------
+         | JavaScript Source Folder
+         |----------------------------------------------------------------
+         |
+         | Much like the CSS folder option above, this property sets the
+         | name of the folder, not the full path, for your JavaScript
+         | source files. It then gets affixed to the "assetsPath".
+         |
+         */
         folder: 'js',
 
+        /*
+         |----------------------------------------------------------------
+         | JavaScript Output Folder
+         |----------------------------------------------------------------
+         |
+         | Once your vanilla JavaScript files have been compiled/merged,
+         | they will be saved to your public directory. This property
+         | represents the name of the folder within that location.
+         |
+         */
         outputFolder: 'js',
 
+        /*
+         |----------------------------------------------------------------
+         | Babel Compilation
+         |----------------------------------------------------------------
+         |
+         | Think of Babel as a compiler for next-generation JavaScript.
+         | If you'd like to make use of ES6 - or even ES7 features -
+         | in new apps, we make it a cinch right from the get go.
+         |
+         */
         babel: {
+            // https://www.npmjs.com/package/gulp-babel#babel-options
             options: {
                 stage: 2,
                 compact: false
             }
         },
 
+        /*
+         |----------------------------------------------------------------
+         | Browserify Compilation
+         |----------------------------------------------------------------
+         |
+         | Browserify allows you to pull in Node modules in the browser!
+         | Generally a pain to get up and running, Elixir offers many
+         | sensible defaults to get you up to speed super quickly.
+         |
+         */
         browserify: {
+            // https://www.npmjs.com/package/browserify#usage
             options: {},
 
             transformers: [
                 {
                     name: 'babelify',
+
+                    // https://www.npmjs.com/package/gulp-babel#babel-options
                     options: {
                         stage: 2,
                         compact: false
                     }
                 },
+
                 {
                     name: 'partialify',
+
+                    // https://www.npmjs.com/package/partialify
                     options: {}
                 }
             ]
         },
 
+        /*
+         |----------------------------------------------------------------
+         | CoffeeScript Compilation
+         |----------------------------------------------------------------
+         |
+         | If you prefer CoffeeScript compilation, this object stores
+         | the defaults for the Coffee folder name - not the path.
+         | When used, this value will be affixed to assetsPath.
+         |
+         */
         coffee: {
             folder: 'coffee',
 
+            // https://github.com/wearefractal/gulp-coffee#options
             options: {}
         }
     },
 
     testing: {
+
+        /*
+         |----------------------------------------------------------------
+         | PHPUnit Autotesting
+         |----------------------------------------------------------------
+         |
+         | Want to automatically trigger your PHPUnit tests. Not a prob!
+         | This object stores the defaults for the path to your tests
+         | folder, as well as any "gulp-phpunit" specific options.
+         |
+         */
         phpUnit: {
             path: 'tests',
 
+            // https://www.npmjs.com/package/gulp-phpunit#api
             options: {
                 debug: true,
                 notify: true
             }
         },
 
+
+        /*
+         |----------------------------------------------------------------
+         | PHPSpec Autotesting
+         |----------------------------------------------------------------
+         |
+         | Want to automatically trigger your PHPSpec tests. Not a prob!
+         | This object stores the defaults for the path to your specs
+         | folder, as well as any "gulp-phpspec" specific options.
+         |
+         */
         phpSpec: {
             path: 'spec',
 
+            // https://www.npmjs.com/package/gulp-phpspec#api
             options: {
                 verbose: 'v',
                 notify: true
@@ -118,6 +315,16 @@ var config = {
         }
     },
 
+    /*
+     |----------------------------------------------------------------
+     | File Versioning
+     |----------------------------------------------------------------
+     |
+     | If you use aggressive assets caching on your server, then you
+     | will need a way to cachebust, right? No querystring needed
+     | this time. Here you may set the default "build" folder.
+     |
+     */
     versioning: {
         buildFolder: 'build'
     }
