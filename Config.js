@@ -356,7 +356,7 @@ var config = {
  * Fetch a config item, using a string dot-notation.
  *
  * @param  {string} path
- * @return {mixed}
+ * @return {string}
  */
 config.get = function(path) {
     var basePath;
