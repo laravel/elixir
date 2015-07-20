@@ -29,6 +29,7 @@ var config = {
      | won't need to modify this but it's an option if needed.
      |
      */
+
     tasks: [],
 
     /*
@@ -41,6 +42,7 @@ var config = {
      | This will enable such things, like CSS and JS minification.
      |
      */
+
     production: !! gutils.env.production,
 
     /*
@@ -53,6 +55,7 @@ var config = {
      | or "resources/assets/coffee." Change this if you must.
      |
      */
+
     assetsPath: 'resources/assets',
 
     /*
@@ -65,6 +68,7 @@ var config = {
      | It's useful, when a server requires a unique public path.
      |
      */
+
     publicPath: 'public',
 
     /*
@@ -77,6 +81,7 @@ var config = {
      | need to modify this path. Otherwise modify as needed.
      |
      */
+
     appPath: 'app',
 
     /*
@@ -89,6 +94,7 @@ var config = {
      | Quite useful for debugging, it's turned on by default.
      |
      */
+
     sourcemaps: true,
 
     css: {
@@ -100,9 +106,10 @@ var config = {
          |
          | This property declares the root folder for all vanilla CSS
          | files. Note that this is the folder name, not the path.
-         | We'll stick with a basic "css" name, which makes sense.
+         | We'll stick with a general "css" name - makes sense.
          |
          */
+
         folder: 'css',
 
         /*
@@ -115,6 +122,7 @@ var config = {
          | This property represents the public specific folder.
          |
          */
+
         outputFolder: 'css',
 
         /*
@@ -127,6 +135,7 @@ var config = {
          | adds or removes vendor-specific CSS3 prefixes. Useful!
          |
          */
+
         autoprefix: {
             enabled: true,
 
@@ -147,6 +156,7 @@ var config = {
          | set. This object sets the folder name and plugin opts.
          |
          */
+
         sass: {
             folder: 'sass',
 
@@ -168,6 +178,7 @@ var config = {
          | set. This object sets the folder name and plugin opts.
          |
          */
+
         less: {
             folder: 'less',
 
@@ -188,6 +199,7 @@ var config = {
          | source files. It then gets affixed to the "assetsPath".
          |
          */
+
         folder: 'js',
 
         /*
@@ -200,6 +212,7 @@ var config = {
          | represents the name of the folder within that location.
          |
          */
+
         outputFolder: 'js',
 
         /*
@@ -212,6 +225,7 @@ var config = {
          | in new apps, we make it a cinch right from the get go.
          |
          */
+
         babel: {
             // https://www.npmjs.com/package/gulp-babel#babel-options
             options: {
@@ -230,6 +244,7 @@ var config = {
          | sensible defaults to get you up to speed super quickly.
          |
          */
+
         browserify: {
             // https://www.npmjs.com/package/browserify#usage
             options: {},
@@ -264,6 +279,7 @@ var config = {
          | When used, this value will be affixed to assetsPath.
          |
          */
+
         coffee: {
             folder: 'coffee',
 
@@ -284,6 +300,7 @@ var config = {
          | folder, as well as any "gulp-phpunit" specific options.
          |
          */
+
         phpUnit: {
             path: 'tests',
 
@@ -305,6 +322,7 @@ var config = {
          | folder, as well as any "gulp-phpspec" specific options.
          |
          */
+
         phpSpec: {
             path: 'spec',
 
@@ -326,6 +344,7 @@ var config = {
      | this time. Here you may set the default "build" folder.
      |
      */
+
     versioning: {
         buildFolder: 'build'
     }
