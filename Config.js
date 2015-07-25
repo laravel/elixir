@@ -266,7 +266,14 @@ var config = {
                     // https://www.npmjs.com/package/partialify
                     options: {}
                 }
-            ]
+            ],
+
+            watchify: {
+                enabled: false,
+
+                // https://www.npmjs.com/package/watchify#usage
+                options: {}
+            }
         },
 
         /*

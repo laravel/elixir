@@ -102,11 +102,13 @@ var browserifyStream = function(data) { // just use two arguments
 /**
  * Get a Browserify stream, wrapped in Watchify.
  *
- * @param {string|array} src
- * @param {object}       options // TODO Fix this
+ * @param {object} data
  */
 var watchifyStream = function(data) {
-    var browserify = watchify(browserifyStream(data));
+    var browserify = watchify(
+        browserifyStream(data),
+        config.js.browserify.watchify.options
+    );
 
     browserify.on('log', gutil.log);
     browserify.on('update', function() {
