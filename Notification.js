@@ -26,6 +26,7 @@ n.message = function(message) {
     return notify({
         title: this.title,
         message: message,
+        icon: __dirname + '/icons/laravel.png',
         onLast: true
     });
 };
@@ -41,7 +42,7 @@ n.error = function(e, message) {
     notify.onError({
         title: this.title,
         message: message + ': <%= error.message %>',
-        icon: __dirname + './icons/fail.png',
+        icon: __dirname + '/icons/fail.png',
         onLast: true
     })(e);
 
@@ -60,7 +61,7 @@ n.forPassedTests = function(framework) {
     return notify({
         title: 'Green!',
         message: 'Your ' + framework + ' tests passed!',
-        icon: __dirname + './icons/pass.png',
+        icon: __dirname + '/icons/pass.png',
         onLast: true
     });
 };
@@ -76,7 +77,7 @@ n.forFailedTests = function(e, framework) {
     return notify.onError({
         title: 'Red!',
         message: 'Your ' + framework + ' tests failed!',
-        icon: __dirname + './icons/fail.png',
+        icon: __dirname + '/icons/fail.png',
         onLast: true
     })(e);
 };
