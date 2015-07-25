@@ -10,6 +10,7 @@ var source = require('vinyl-source-stream');
 
 var bundle;
 var $ = Elixir.Plugins;
+var config = Elixir.config;
 
 
 /*
@@ -27,7 +28,7 @@ Elixir.extend('browserify', function(src, output, baseDir, options) {
     var paths = prepGulpPaths(src, baseDir, output);
 
     new Elixir.Task('browserify', function() {
-        var stream = Elixir.config.js.browserify.watchify
+        var stream = config.js.browserify.watchify
             ? watchifyStream
             : browserifyStream;
 
@@ -44,7 +45,7 @@ Elixir.extend('browserify', function(src, output, baseDir, options) {
                 })
                 .pipe(source(paths.output.name))
                 .pipe(buffer())
-                .pipe($.if(Elixir.config.production, $.uglify()))
+                .pipe($.if(config.production, $.uglify()))
                 .pipe(gulp.dest(paths.output.baseDir))
                 .pipe(new Elixir.Notification('Browserify Compiled!'))
             );
@@ -88,7 +89,7 @@ var prepGulpPaths = function(src, baseDir, output) {
 var browserifyStream = function(data) { // just use two arguments
     var stream = browserify(data.src, data.options);
 
-    Elixir.config.js.browserify.transformers.forEach(function(transformer) {
+    config.js.browserify.transformers.forEach(function(transformer) {
         stream.transform(
             require(transformer.name), transformer.options || {}
         )
