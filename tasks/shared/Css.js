@@ -14,7 +14,7 @@ module.exports = function(options) {
         gulp
         .src(options.src.path)
         .pipe($.if(config.sourcemaps, $.sourcemaps.init()))
-        .pipe(options.compiler())
+        .pipe(options.compiler(options.pluginOptions))
         .on('error', function(e) {
             new Elixir.Notification().error(e, name + ' Compilation Failed');
 
