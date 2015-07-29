@@ -19,7 +19,7 @@ Elixir.extend('phpSpec', function(src, options) {
     runTests({
         name: 'phpSpec',
         src: src || (config.testing.phpSpec.path + '/**/*Spec.php'),
-        plugin: Elixir.plugins.phpspec,
+        plugin: Elixir.Plugins.phpspec,
         pluginOptions: options || config.testing.phpSpec.options
     });
 });
