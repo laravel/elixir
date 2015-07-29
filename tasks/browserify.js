@@ -32,7 +32,7 @@ Elixir.extend('browserify', function(src, output, baseDir, options) {
             ? watchifyStream
             : browserifyStream;
 
-        bundle = function(stream) {
+        bundle = function(stream, paths) {
             this.log(paths.src, paths.output);
 
             return (
@@ -53,9 +53,10 @@ Elixir.extend('browserify', function(src, output, baseDir, options) {
 
         return bundle(
             stream({
-                src: paths.src.path,
+                paths: paths,
                 options: options || config.js.browserify.options
-            })
+            }),
+            paths
         );
     })
     // We'll add this task to be watched, but Watchify
@@ -87,7 +88,7 @@ var prepGulpPaths = function(src, baseDir, output) {
  * @param {object}       options
  */
 var browserifyStream = function(data) { // just use two arguments
-    var stream = browserify(data.src, data.options);
+    var stream = browserify(data.paths.src.path, data.options);
 
     config.js.browserify.transformers.forEach(function(transformer) {
         stream.transform(
@@ -112,7 +113,7 @@ var watchifyStream = function(data) {
 
     browserify.on('log', gutil.log);
     browserify.on('update', function() {
-        bundle(browserify);
+        bundle(browserify, data.paths);
     });
 
     return browserify;
