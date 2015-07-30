@@ -7,7 +7,7 @@ var Elixir = require('laravel-elixir');
 
 describe('Sass Task', function() {
 
-    it('compiles a single Sass file', done => {
+    it('compiles Sass files to the public/css directory', done => {
         Elixir(mix => mix.sass('app.scss'));
 
         runGulp(() => {
@@ -29,18 +29,7 @@ describe('Sass Task', function() {
     });
 
 
-    it('compiles an array of Sass files', done => {
-        Elixir(mix => mix.sass(['app.scss', 'another.scss']));
-
-        runGulp(() => {
-            shouldExist('./public/css/app.css');
-
-            done();
-        });
-    });
-
-
-    it('saves to a custom directory and file name', done => {
+    it('compiles to a custom directory and file name', done => {
         Elixir(mix => mix.sass(['app.scss', 'another.scss'], './public/styles/done.css'));
 
         runGulp(() => {
