@@ -1,7 +1,7 @@
 var gulp = require('gulp');
 var _ = require('underscore');
 var Elixir = require('laravel-elixir');
-
+var batch = require('gulp-batch');
 
 /*
  |----------------------------------------------------------------
@@ -18,26 +18,37 @@ gulp.task('watch', function() {
 
     // Browserify uses a special watcher, so we'll
     // hook into that option, only for gulp watch.
-
     if (_.contains(_.pluck(tasks, 'name'), 'browserify')) {
-    Elixir.config.js.browserify.watchify.enabled = true;
+        Elixir.config.js.browserify.watchify.enabled = true;
 
         gulp.start('browserify');
     }
 
+    // Collect watchers from all tasks with the same into one array
+    var mergedTasks = {};
     tasks
-        .filter(function(task, index) {
-            if ( ! task.watch || (task.category != 'default')) {
-                return false;
-            }
-
-            if (index > 0) {
-                return task.name !== tasks[index - 1].name;
-            }
-
-            return true;
-        })
         .forEach(function(task) {
-            gulp.watch(task.watchers, [task.name]);
+            if (task.name in mergedTasks) {
+                mergedTasks[task.name].watchers = _.union(mergedTasks[task.name].watchers, task.watchers);
+            } else {
+                mergedTasks[task.name] = {
+                    name: task.name,
+                    watchers: Array.isArray(task.watchers) ? task.watchers : [task.watchers]
+                };
+            }
+        });
+
+
+    _.sortBy(mergedTasks, 'name')
+        .forEach(function(task) {
+            // Skip adding watcher for task with empty watchers array
+            // (it happens when Elixir task is defined without .watch() method call)
+            if (task.watchers.length > 0) {
+                //gulp.watch(task.watchers, [task.name]);
+                gulp.watch(task.watchers, batch(Elixir.config.batchOptions, function(events) {
+                    events
+                        .on('end', gulp.start(task.name));
+                }));
+            }
         });
 });
