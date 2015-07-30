@@ -31,6 +31,10 @@ gulp.task('watch', function() {
                 return false;
             }
 
+            if (index > 0) {
+                return task.watchers !== tasks[index -1].watchers;
+            }
+
             return true;
         })
         .forEach(function(task) {
