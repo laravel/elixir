@@ -19,9 +19,21 @@ var GulpPaths = function() {};
  * @param {string}       prefix
  */
 GulpPaths.prototype.src = function(src, prefix) {
+    var self = this;
+
     src = this.prefix(src, prefix);
 
     if (Array.isArray(src)) {
+        // If any item in the src array is a folder
+        // then we will fetch all of the files.
+        src = src.map(function(path) {
+            if (self.parse(path).isDir) {
+                path += '/**/*';
+            }
+
+            return path;
+        });
+
         this.src = { path: src, baseDir: prefix };
     } else {
         this.src = this.parse(src);
