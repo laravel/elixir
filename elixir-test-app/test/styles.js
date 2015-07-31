@@ -27,6 +27,21 @@ describe('Styles Task', function() {
         });
     });
 
+    it('applies a custom base directory', function(done) {
+        Elixir(mix => {
+            // We'll copy files over to a custom directory to test this.
+            mix.copy('./resources/assets/css', './resources/assets/styles');
+
+            mix.styles(['one.css', 'two.css'], null, './resources/assets/styles');
+        });
+
+        runGulp(() => {
+            shouldExist('public/css/all.css');
+
+            done();
+        });
+    });
+
 });
 
 
@@ -40,5 +55,6 @@ var runGulp = assertions => {
         assertions();
 
         remove.sync('./public/css');
+        remove.sync('./resources/assets/styles');
     });
 };
