@@ -39,6 +39,12 @@ describe('Gulp Paths', function() {
             paths.prefix(['one/path', 'second/path'], 'some/prefix')
         ).to.eql(['some/prefix/one/path', 'some/prefix/second/path']);
 
+        // For any path beginning with a period, it's assumed that the
+        // user wants to ignore the prefix, and begin with the project
+        // root.
+        expect(
+            paths.prefix('./resources/custom/file.scss', 'some/prefix')
+        ).to.equal('./resources/custom/file.scss');
     });
 
     it('changes an extension', () => {
