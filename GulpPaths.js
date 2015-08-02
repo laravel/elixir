@@ -101,7 +101,7 @@ GulpPaths.prototype.prefix = function(path, prefix) {
         // Given any path that begins with a period, we
         // can safely assume that the user wants to
         // skip the prefix and begin at the root.
-        if (path.indexOf('.') == 0) {
+        if (path.indexOf('./') == 0) {
             return path;
         }
 
