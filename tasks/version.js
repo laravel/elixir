@@ -65,7 +65,7 @@ var prepGulpPaths = function(src, buildPath) {
     src = Array.isArray(src) ? src : [src];
 
     return new Elixir.GulpPaths()
-        .src(src)
+        .src(src, config.publicPath)
         .output(buildPath || config.get('public.versioning.buildFolder'));
 };
 
