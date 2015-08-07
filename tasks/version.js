@@ -6,8 +6,8 @@ var rev = require('gulp-rev');
 var Elixir = require('laravel-elixir');
 var vinylPaths = require('vinyl-paths');
 var parsePath  = require('parse-filepath');
-
 var publicPath  = Elixir.config.publicPath;
+var revReplace = require('gulp-rev-replace');
 
 
 /*
@@ -32,11 +32,16 @@ Elixir.extend('version', function(src, buildPath) {
 
         emptyBuildPathFiles(paths.output.baseDir, manifest);
 
+        // We need to remove the publicPath from the output base to get the
+        // correct prefix path.
+        var filePathPrefix = paths.output.baseDir.replace(publicPath, '') + '/';
+
         return (
             gulp.src(paths.src.path, { base: './' + publicPath })
             .pipe(gulp.dest(paths.output.baseDir))
             .pipe(files)
             .pipe(rev())
+            .pipe(revReplace({prefix: filePathPrefix}))
             .pipe(gulp.dest(paths.output.baseDir))
             .pipe(rev.manifest())
             .pipe(gulp.dest(paths.output.baseDir))
