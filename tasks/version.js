@@ -1,12 +1,13 @@
 var fs = require('fs');
 var del = require('del');
+var glob = require("glob");
 var gulp = require('gulp');
 var rev = require('gulp-rev');
 var Elixir = require('laravel-elixir');
 var vinylPaths = require('vinyl-paths');
 var parsePath  = require('parse-filepath');
-
 var publicPath  = Elixir.config.publicPath;
+var revReplace = require('gulp-rev-replace');
 
 
 /*
@@ -31,11 +32,16 @@ Elixir.extend('version', function(src, buildPath) {
 
         emptyBuildPathFiles(paths.output.baseDir, manifest);
 
+        // We need to remove the publicPath from the output base to get the
+        // correct prefix path.
+        var filePathPrefix = paths.output.baseDir.replace(publicPath, '') + '/';
+
         return (
             gulp.src(paths.src.path, { base: './' + publicPath })
             .pipe(gulp.dest(paths.output.baseDir))
             .pipe(files)
             .pipe(rev())
+            .pipe(revReplace({prefix: filePathPrefix}))
             .pipe(gulp.dest(paths.output.baseDir))
             .pipe(rev.manifest())
             .pipe(gulp.dest(paths.output.baseDir))
@@ -97,23 +103,30 @@ var emptyBuildPathFiles = function(buildPath, manifest) {
  * @return {object}
  */
 var copyMaps = function(src, buildPath) {
-    // We'll first get any files from the src
-    // array that have companion .map files.
-    var mappings = [];
-
     src.forEach(function(file) {
-        var map = file + '.map';
+        // We'll first get any files from the src
+        // array that have companion .map files.
+        glob(file, {}, function(err, files) {
+            if (err === null) {
+                // Here we will store the mappings.
+                var mappings = [];
 
-        if (fs.existsSync(map)) {
-            mappings.push(map);
-        }
-    });
+                // Loop over each file found by glob
+                // and check if a map for that file exists.
+                files.forEach(function(file) {
+                    var map = file + '.map';
+                    if (fs.existsSync(map)) {
+                        mappings.push(map);
+                    }
+                });
 
-    // And then we'll loop over this mapping array
-    // and copy each over to the build directory.
-    mappings.forEach(function(mapping) {
-        var map = mapping.replace(publicPath, buildPath);
-
-        gulp.src(mapping).pipe(gulp.dest(parsePath(map).dirname));
+                // And then we'll loop over this mapping array
+                // and copy each over to the build directory.
+                mappings.forEach(function(mapping) {
+                    var map = mapping.replace(publicPath, buildPath);
+                    gulp.src(mapping).pipe(gulp.dest(parsePath(map).dirname));
+                });
+            }
+        });
     });
 };
