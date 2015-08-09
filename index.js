@@ -13,8 +13,6 @@ var Elixir = function(recipe) {
     // We'll start by loading all of the available tasks.
     require('require-dir')('./tasks');
 
-    // Next, we'll reset all tasks. This is mostly for tests.
-    Elixir.tasks = Elixir.config.tasks = [];
 
     // The user may then choose which tasks they want.
     recipe(Elixir.mixins);
