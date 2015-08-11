@@ -45,20 +45,6 @@ var config = {
 
     production: !! gutils.env.production,
 
-      /*
-     |----------------------------------------------------------------
-     | OS Notifications
-     |----------------------------------------------------------------
-     |
-     | From time to time, you'll notice helpful OS notifications
-     | after running Elixir. While many developers appreciate
-     | these popups, certainly, feel free to disable them.
-     |
-     |
-     */
-
-    notifications: true,
-
     /*
      |----------------------------------------------------------------
      | Assets Path

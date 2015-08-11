@@ -1,5 +1,4 @@
 var notify = require('gulp-notify');
-var config = require('laravel-elixir').config;
 
 
 /**
@@ -24,8 +23,6 @@ var n = Notification.prototype;
  * @param {string} message
  */
 n.message = function(message) {
-    if ( ! config.notifications) return;
-
     return notify({
         title: this.title,
         message: message,
@@ -42,8 +39,6 @@ n.message = function(message) {
  * @param {string} message
  */
 n.error = function(e, message) {
-    if ( ! config.notifications) return;
-
     notify.onError({
         title: this.title,
         message: message + ': <%= error.message %>',
@@ -63,8 +58,6 @@ n.error = function(e, message) {
  * @param {string} framework
  */
 n.forPassedTests = function(framework) {
-    if ( ! config.notifications) return;
-
     return notify({
         title: 'Green!',
         message: 'Your ' + framework + ' tests passed!',
@@ -81,8 +74,6 @@ n.forPassedTests = function(framework) {
  * @param {string} framework
  */
 n.forFailedTests = function(e, framework) {
-    if ( ! config.notifications) return;
-
     return notify.onError({
         title: 'Red!',
         message: 'Your ' + framework + ' tests failed!',
