@@ -24,10 +24,10 @@ var Elixir = function(recipe) {
 
 
 Elixir.mixins       = {};
+Elixir.config       = config = require('./Config');
 Elixir.Log          = require('./Logger');
 Elixir.Notification = require('./Notification');
 Elixir.GulpPaths    = require('./GulpPaths');
-Elixir.config       = config = require('./Config');
 Elixir.Task         = require('./Task')(Elixir);
 Elixir.tasks        = config.tasks;
 Elixir.Plugins      = require('gulp-load-plugins')();
