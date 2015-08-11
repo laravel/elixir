@@ -1,6 +1,6 @@
 var fs = require('fs');
 var del = require('del');
-var glob = require("glob");
+var glob = require('glob');
 var gulp = require('gulp');
 var rev = require('gulp-rev');
 var Elixir = require('laravel-elixir');
