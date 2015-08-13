@@ -20,7 +20,7 @@ gulp.task('watch', function() {
     // hook into that option, only for gulp watch.
 
     if (_.contains(_.pluck(tasks, 'name'), 'browserify')) {
-    Elixir.config.js.browserify.watchify.enabled = true;
+        Elixir.config.js.browserify.watchify.enabled = true;
 
         gulp.start('browserify');
     }
