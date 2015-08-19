@@ -99,23 +99,17 @@ var config = {
 
     /*
      |----------------------------------------------------------------
-     | File system events batching options for watch task
+     | File System Event Batching
      |----------------------------------------------------------------
      |
-     | Imagine case when when gulp task A updates multiple files in some folder F.
-     | If there is another task B which observes changes in folder F,
-     | watch will call task B as many times, as many files was changed.
-     | This is definitely a problem for some tasks where multiple instances can't run in parallel
-     | because they generate and delete files after themselves.
-     | Good example of such command is an Elixir version command.
-     | To solve this issue we should batch consecutive file system update events
-     | which came during the config.batch.timeout period and call functions only once.
-     |
-     | For more information about options see https://github.com/floatdrop/gulp-batch#batchoptions-callback-errorhandler
+     | You likely won't need to modify this object. That said, should
+     | you need to, these settings are exclusive to the watch task.
+     | They set the limit and timeout for running batch-updates.
      |
      */
 
     batchOptions: {
+        // https://github.com/floatdrop/gulp-batch#batchoptions-callback-errorhandler
         limit: undefined,
         timeout: 1000
     },

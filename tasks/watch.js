@@ -27,13 +27,13 @@ gulp.task('watch', function() {
 
     tasks.forEach(function(task) {
         if (task.name in mergedTasks) {
-            mergedTasks[task.name].watchers = _.union(mergedTasks[task.name].watchers, task.watchers);
-        } else {
-            mergedTasks[task.name] = {
-                name: task.name,
-                watchers: Array.isArray(task.watchers) ? task.watchers : [task.watchers]
-            };
+            return mergedTasks[task.name].watchers = _.union(mergedTasks[task.name].watchers, task.watchers);
         }
+
+        mergedTasks[task.name] = {
+            name: task.name,
+            watchers: Array.isArray(task.watchers) ? task.watchers : [task.watchers]
+        };
     });
 
     _.sortBy(mergedTasks, 'name').forEach(function(task) {
