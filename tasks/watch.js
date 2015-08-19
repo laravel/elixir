@@ -13,13 +13,12 @@ var Elixir = require('laravel-elixir');
  | command. This way, you can auto-compile on each save!
  |
  */
+
 gulp.task('watch', function() {
     var tasks = _.sortBy(Elixir.tasks, 'name');
     var mergedTasks = {};
 
-    // Browserify uses a special watcher, so we'll
-    // hook into that option, only for gulp watch.
-    if (_.contains(_.pluck(tasks, 'name'), 'browserify')) {
+    if (isWatchingBrowserify(tasks)) {
         Elixir.config.js.browserify.watchify.enabled = true;
 
         gulp.start('browserify');
@@ -44,3 +43,14 @@ gulp.task('watch', function() {
         }
     });
 });
+
+
+/**
+ * Determine if Browserify is included in the list.
+ *
+ * @param  {object} tasks
+ * @return {Boolean}
+ */
+var isWatchingBrowserify = function(tasks) {
+    return _.contains(_.pluck(tasks, 'name'), 'browserify');
+};
