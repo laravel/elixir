@@ -44,7 +44,7 @@ GulpPaths.prototype.src = function(src, prefix) {
     }
 
     return this;
-}
+};
 
 
 /**
@@ -74,7 +74,7 @@ GulpPaths.prototype.output = function(output, defaultName) {
     }
 
     return this;
-}
+};
 
 
 /**

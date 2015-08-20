@@ -93,7 +93,7 @@ var browserifyStream = function(data) { // just use two arguments
     config.js.browserify.transformers.forEach(function(transformer) {
         stream.transform(
             require(transformer.name), transformer.options || {}
-        )
+        );
     });
 
     return stream;

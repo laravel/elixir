@@ -22,7 +22,7 @@ Logger.heading = function(heading) {
     );
 
     return Logger;
-}
+};
 
 
 /**

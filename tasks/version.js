@@ -56,7 +56,7 @@ Elixir.extend('version', function(src, buildPath) {
             })
         );
     })
-    .watch(paths.src.path)
+    .watch(paths.src.path);
 });
 
 

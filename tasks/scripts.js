@@ -44,7 +44,7 @@ Elixir.extend('babel', function(scripts, output, baseDir, options) {
     new Elixir.Task('babel', function() {
         var babelOptions = options || config.js.babel.options;
 
-        return gulpTask.call(this, paths, babelOptions)
+        return gulpTask.call(this, paths, babelOptions);
     })
     .watch(paths.src.path)
     .ignore(paths.output.path);
