@@ -1,7 +1,7 @@
 var gulp = require('gulp');
 var Elixir = require('../../index');
 
-var notify = new Elixir.Notification;
+var notify = new Elixir.Notification();
 
 
 module.exports = function(options) {

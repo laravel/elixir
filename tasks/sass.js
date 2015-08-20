@@ -55,4 +55,4 @@ var prepGulpPaths = function(src, output) {
     return new Elixir.GulpPaths()
         .src(src, config.get('assets.css.sass.folder'))
         .output(output || config.get('public.css.outputFolder'), 'app.css');
-}
+};
