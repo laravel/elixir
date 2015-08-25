@@ -331,7 +331,8 @@ var config = {
             // https://www.npmjs.com/package/gulp-phpunit#api
             options: {
                 debug: true,
-                notify: true
+                notify: true,
+                configurationFile: 'phpunit.xml'
             }
         },
 
