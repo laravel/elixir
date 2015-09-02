@@ -7,6 +7,10 @@ var Elixir = require('laravel-elixir');
 
 describe('Copy Task', function() {
 
+    beforeEach(() => {
+        Elixir.tasks = Elixir.config.tasks = [];
+    });
+
     it('copies a file to a new location', function(done) {
         Elixir(mix => mix.copy('copy/foo/foo.txt', 'copy-dest'));
 
