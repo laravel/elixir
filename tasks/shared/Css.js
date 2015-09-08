@@ -22,7 +22,7 @@ module.exports = function(options) {
         })
         .pipe($.if(config.css.autoprefix.enabled, $.autoprefixer(config.css.autoprefix.options)))
         .pipe($.concat(options.output.name))
-        .pipe($.if(config.production, $.minifyCss()))
+        .pipe($.if(config.production, $.minifyCss(config.css.minifyCss.pluginOptions)))
         .pipe($.if(config.sourcemaps, $.sourcemaps.write('.')))
         .pipe(gulp.dest(options.output.baseDir))
         .pipe(new Elixir.Notification(name + ' Compiled!'))
