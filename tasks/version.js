@@ -106,27 +106,21 @@ var copyMaps = function(src, buildPath) {
     src.forEach(function(file) {
         // We'll first get any files from the src
         // array that have companion .map files.
-        glob(file, {}, function(err, files) {
-            if (err === null) {
-                // Here we will store the mappings.
-                var mappings = [];
 
-                // Loop over each file found by glob
-                // and check if a map for that file exists.
-                files.forEach(function(file) {
-                    var map = file + '.map';
-                    if (fs.existsSync(map)) {
-                        mappings.push(map);
-                    }
-                });
+        glob(file, {}, function(error, files) {
+            if (error) return;
 
-                // And then we'll loop over this mapping array
-                // and copy each over to the build directory.
-                mappings.forEach(function(mapping) {
-                    var map = mapping.replace(publicPath, buildPath);
-                    gulp.src(mapping).pipe(gulp.dest(parsePath(map).dirname));
+            files
+                .filter(function(file) {
+                    return fs.existsSync(file + '.map');
+                })
+                .forEach(function(file) {
+                    // We will loop over this files array, and
+                    // copy each map to the build directory.
+                    var map = file.replace(publicPath, buildPath);
+
+                    gulp.src(file + '.map').pipe(gulp.dest(parsePath(map).dirname));
                 });
-            }
         });
     });
 };
