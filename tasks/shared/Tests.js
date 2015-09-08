@@ -21,5 +21,6 @@ module.exports = function(options) {
         );
     })
     .watch(options.src, 'tdd')
-    .watch(Elixir.config.appPath + '/**/*.php', 'tdd');
+    .watch(Elixir.config.appPath + '/**/*.php', 'tdd')
+    .watch('./resources/views/**/*.php', 'tdd')
 };
