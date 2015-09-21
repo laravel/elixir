@@ -266,6 +266,8 @@ var config = {
             // https://www.npmjs.com/package/browserify#usage
             options: {},
 
+            plugins: [],
+
             transformers: [
                 {
                     name: 'babelify',
