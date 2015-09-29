@@ -66,6 +66,10 @@ var gulpTask = function(paths, babel) {
         .pipe($.if(config.sourcemaps, $.sourcemaps.init()))
         .pipe($.concat(paths.output.name))
         .pipe($.if(babel, $.babel(babel)))
+        .on('error', function(e) {
+            new Elixir.Notification().error(e, 'Babel Compilation Failed!');
+            this.emit('end');
+        })
         .pipe($.if(config.production, $.uglify()))
         .pipe($.if(config.sourcemaps, $.sourcemaps.write('.')))
         .pipe(gulp.dest(paths.output.baseDir))
