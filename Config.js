@@ -376,7 +376,19 @@ var config = {
         buildFolder: 'build'
     },
 
+    /*
+     |----------------------------------------------------------------
+     | Browsersync
+     |----------------------------------------------------------------
+     |
+     | Want to have your browser refresh instantly upon changing a bit
+     | of Sass or modifying a view? With Elixir, it has never been
+     | easier. This contains default options for the extension.
+     |
+     */
+
     browserSync: {
+        // http://www.browsersync.io/docs/options/
         proxy: 'homestead.app',
         reloadOnRestart : true,
         notify: true,
