@@ -96,6 +96,12 @@ var browserifyStream = function(data) { // just use two arguments
         );
     });
 
+    config.js.browserify.plugins.forEach(function(plugin) {
+        stream.plugin(
+            require(plugin.name), plugin.options || {}
+        );
+    });
+
     return stream;
 };
 
