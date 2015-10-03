@@ -374,7 +374,13 @@ var config = {
 
     versioning: {
         buildFolder: 'build'
-    }
+    },
+
+    browserSync: {
+        proxy: 'homestead.app',
+        reloadOnRestart : true,
+        notify: true,
+    },
 
 };
 
