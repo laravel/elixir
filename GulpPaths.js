@@ -105,7 +105,14 @@ GulpPaths.prototype.prefix = function(path, prefix) {
             return path;
         }
 
-        return p.join(prefix, path)
+        // If path starts with "!" we need to negate him
+        if (path.indexOf('!') == 0) {
+            path = '!' + p.join(prefix, path.substring(1));
+        } else {
+            path = p.join(prefix, path);
+        }
+
+        return path.replace(/\/\//g, '/')
             .replace(/\/\//g, '/')
             .replace(p.join(prefix, prefix), prefix);
     };
