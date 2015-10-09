@@ -28,7 +28,7 @@ Elixir.extend('coffee', function(src, output, options) {
             .pipe($.if(config.sourcemaps, $.sourcemaps.init()))
             .pipe($.coffee(options || config.js.coffee.options)
                 .on('error', function(e) {
-                    new Elixir.Notification('CoffeeScript Compilation Failed!');
+                    new Elixir.Notification().error(e, 'CoffeeScript Compilation Failed!');
 
                     this.emit('end');
                 }))
