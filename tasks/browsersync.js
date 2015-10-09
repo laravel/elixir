@@ -23,8 +23,12 @@ Elixir.extend('browserSync', function (options) {
             config.appPath + '/**/*.php',
             config.get('public.css.outputFolder') + '/**/*.css',
             config.get('public.js.outputFolder') + '/**/*.js',
+            config.get('public.versioning.buildFolder') + '/rev-manifest.json',
             'resources/views/**/*.php'
-        ]
+        ],
+        watchOptions: {
+            usePolling: true
+        }
     }, options);
 
     // Browsersync will only run during `gulp watch`.
