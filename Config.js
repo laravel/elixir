@@ -95,7 +95,7 @@ var config = {
      |
      */
 
-    sourcemaps: true,
+    sourcemaps: ! gutils.env.production,
 
     /*
      |----------------------------------------------------------------
