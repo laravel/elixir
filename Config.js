@@ -168,6 +168,9 @@ var config = {
          | CSS3 Minification
          |----------------------------------------------------------------
          |
+         | When running Gulp with the production flag, any CSS will
+         | automatically be minified. This offers the benefit of
+         | reduced file sizes. Adjust any plugin option here.
          |
          */
 
