@@ -1,11 +1,9 @@
 var gulp = require('gulp');
 var gutil = require('gulp-util');
-var babelify = require('babelify');
 var watchify = require('watchify');
 var buffer = require('vinyl-buffer');
 var Elixir = require('laravel-elixir');
 var browserify = require('browserify');
-var partialify = require('partialify');
 var source = require('vinyl-source-stream');
 
 var bundle;
