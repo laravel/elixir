@@ -43,7 +43,9 @@ Elixir.extend('browserify', function(src, output, baseDir, options) {
                 })
                 .pipe(source(paths.output.name))
                 .pipe(buffer())
+                .pipe($.if(config.sourcemaps, $.sourcemaps.init()))
                 .pipe($.if(config.production, $.uglify()))
+                .pipe($.if(config.sourcemaps, $.sourcemaps.write('.')))
                 .pipe(gulp.dest(paths.output.baseDir))
                 .pipe(new Elixir.Notification('Browserify Compiled!'))
             );
