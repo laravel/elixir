@@ -287,6 +287,8 @@ var config = {
 
             plugins: [],
 
+            externals: [],
+
             transformers: [
                 {
                     name: 'babelify',

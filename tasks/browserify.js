@@ -102,6 +102,10 @@ var browserifyStream = function(data) { // just use two arguments
         );
     });
 
+    config.js.browserify.externals.forEach(function(external) {
+        stream.external(external);
+    });
+
     return stream;
 };
 
