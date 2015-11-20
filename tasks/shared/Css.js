@@ -21,7 +21,7 @@ module.exports = function(options) {
             this.emit('end');
         })
         .pipe($.if(config.css.autoprefix.enabled, $.autoprefixer(config.css.autoprefix.options)))
-        .pipe($.concat(options.output.name))
+        .pipe($.concatCss(options.output.name, {rebaseUrls: false, inlineImports: false}))
         .pipe($.if(config.production, $.minifyCss(config.css.minifyCss.pluginOptions)))
         .pipe($.if(config.sourcemaps, $.sourcemaps.write('.')))
         .pipe(gulp.dest(options.output.baseDir))
