@@ -265,8 +265,7 @@ var config = {
         babel: {
             // https://www.npmjs.com/package/gulp-babel#babel-options
             options: {
-                stage: 2,
-                compact: false
+                presets: ['es2015']
             }
         },
 
@@ -295,8 +294,7 @@ var config = {
 
                     // https://www.npmjs.com/package/gulp-babel#babel-options
                     options: {
-                        stage: 2,
-                        compact: false
+                        presets: ['es2015']
                     }
                 },
 
