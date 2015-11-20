@@ -303,13 +303,6 @@ var config = {
 
                     // https://www.npmjs.com/package/partialify
                     options: {}
-                },
-
-                {
-                    name: 'vueify',
-
-                    // https://github.com/vuejs/vueify#usage
-                    options: {}
                 }
             ],
 

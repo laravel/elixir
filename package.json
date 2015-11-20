@@ -60,7 +60,6 @@
     "vinyl-buffer": "^1.0.0",
     "vinyl-paths": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
-    "vueify": "^5.0.1",
     "watchify": "^3.2.3"
   },
   "devDependencies": {
