@@ -21,6 +21,16 @@ describe('Sass Task', function() {
         });
     });
 
+    it('creates sourcemaps for compiled Sass files', done => {
+        Elixir(mix => mix.sass('app.scss'));
+
+        runGulp(() => {
+            shouldExist('./public/css/app.css.map');
+
+            done();
+        });
+    });
+
 
     it('compiles to the source file name, if a single file is given', done => {
         Elixir(mix => mix.sass('another.scss'));
