@@ -50,7 +50,7 @@ var gulpTask = function(paths) {
         gulp
         .src(paths.src.path)
         .pipe($.if(config.sourcemaps, $.sourcemaps.init()))
-        .pipe($.concatCss(paths.output.name, {rebaseUrls: false, inlineImports: false}))
+        .pipe($.concat(paths.output.name))
         .pipe($.if(config.production, $.minifyCss(config.css.minifyCss.pluginOptions)))
         .pipe($.if(config.sourcemaps, $.sourcemaps.write('.')))
         .pipe(gulp.dest(paths.output.baseDir))
