@@ -1,6 +1,6 @@
 {
   "name": "laravel-elixir",
-  "version": "4.0.1",
+  "version": "4.0.2",
   "description": "Laravel Elixir Core",
   "main": "index.js",
   "scripts": {
@@ -32,7 +32,6 @@
     "gulp-batch": "^1.0.5",
     "gulp-coffee": "^2.3.1",
     "gulp-concat": "^2.6.0",
-    "gulp-concat-css": "^2.2.0",
     "gulp-if": "^1.2.5",
     "gulp-less": "^3.0.3",
     "gulp-load-plugins": "^1.0.0-rc.1",
