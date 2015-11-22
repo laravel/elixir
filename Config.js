@@ -265,7 +265,7 @@ var config = {
         babel: {
             // https://www.npmjs.com/package/gulp-babel#babel-options
             options: {
-                presets: ['es2015']
+                presets: ['es2015', 'react']
             }
         },
 
@@ -294,7 +294,7 @@ var config = {
 
                     // https://www.npmjs.com/package/gulp-babel#babel-options
                     options: {
-                        presets: ['es2015']
+                        presets: ['es2015', 'react']
                     }
                 },
 
