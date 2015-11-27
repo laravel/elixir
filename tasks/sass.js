@@ -17,9 +17,9 @@ var config = Elixir.config;
  */
 
 var gulpTask = function(src, output, options) {
-    new Elixir.Task('sass', function() {
-        var paths = prepGulpPaths(src, output);
+    var paths = prepGulpPaths(src, output);
 
+    new Elixir.Task('sass', function() {
         return compile({
             name: 'Sass',
             compiler: require('gulp-sass'),
@@ -29,7 +29,8 @@ var gulpTask = function(src, output, options) {
             pluginOptions: options || config.css.sass.pluginOptions
         });
     })
-    .watch(config.get('assets.css.sass.folder') + '/**/*.+(sass|scss)');
+    .watch(paths.src.path)
+    .ignore(paths.output.path);
 };
 
 
