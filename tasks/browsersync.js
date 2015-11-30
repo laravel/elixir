@@ -28,6 +28,14 @@ Elixir.extend('browserSync', function (options) {
         ],
         watchOptions: {
             usePolling: true
+        },
+        snippetOptions: {
+            rule: {
+                match: /(<\/body>|<\/pre>)/i,
+                fn: function (snippet, match) {
+                    return snippet + match;
+                }
+            }
         }
     }, options);
 
