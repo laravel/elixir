@@ -70,7 +70,7 @@ var gulpTask = function(paths, babel) {
             new Elixir.Notification().error(e, 'Babel Compilation Failed!');
             this.emit('end');
         })
-        .pipe($.if(config.production, $.uglify()))
+        .pipe($.if(config.production, $.uglify({compress: { drop_console: true }})))
         .pipe($.if(config.sourcemaps, $.sourcemaps.write('.')))
         .pipe(gulp.dest(paths.output.baseDir))
         .pipe(new Elixir.Notification('Scripts Merged!'))
