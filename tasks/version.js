@@ -9,7 +9,6 @@ var parsePath  = require('parse-filepath');
 var publicPath  = Elixir.config.publicPath;
 var revReplace = require('gulp-rev-replace');
 
-
 /*
  |----------------------------------------------------------------
  | Versioning / Cache Busting
@@ -59,13 +58,12 @@ Elixir.extend('version', function(src, buildPath) {
     .watch(paths.src.path);
 });
 
-
 /**
  * Prep the Gulp src and output paths.
  *
- * @param  {string|array} src
+ * @param  {string|Array} src
  * @param  {string|null}  buildPath
- * @return {object}
+ * @return {GulpPaths}
  */
 var prepGulpPaths = function(src, buildPath) {
     src = Array.isArray(src) ? src : [src];
@@ -75,12 +73,11 @@ var prepGulpPaths = function(src, buildPath) {
         .output(buildPath || config.get('public.versioning.buildFolder'));
 };
 
-
 /**
  * Empty all relevant files from the build directory.
  *
- * @param  {string} buildPath
- * @param  {string} manifest
+ * @param {string} buildPath
+ * @param {string} manifest
  */
 var emptyBuildPathFiles = function(buildPath, manifest) {
     fs.stat(manifest, function(err, stat) {
@@ -94,13 +91,11 @@ var emptyBuildPathFiles = function(buildPath, manifest) {
     });
 };
 
-
 /**
  * Copy source maps to the build directory.
  *
- * @param  {string} src
- * @param  {string} buildPath
- * @return {object}
+ * @param {string} src
+ * @param {string} buildPath
  */
 var copyMaps = function(src, buildPath) {
     src.forEach(function(file) {

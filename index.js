@@ -3,7 +3,6 @@ var gulp = require('gulp');
 var _ = require('underscore');
 var gutils = require('gulp-util');
 
-
 /**
  * Elixir is a wrapper around Gulp.
  *
@@ -21,7 +20,6 @@ var Elixir = function(recipe) {
     createGulpTasks.call(Elixir);
 };
 
-
 Elixir.mixins       = {};
 Elixir.Log          = require('./Logger');
 Elixir.Notification = require('./Notification');
@@ -30,7 +28,6 @@ Elixir.config       = config = require('./Config');
 Elixir.Task         = require('./Task')(Elixir);
 Elixir.tasks        = config.tasks;
 Elixir.Plugins      = require('gulp-load-plugins')();
-
 
 /**
  * Register a new task with Elixir.
@@ -45,7 +42,6 @@ Elixir.extend = function(name, callback) {
         return this.mixins;
     }.bind(this);
 };
-
 
 /**
  * Allow for config overrides, via an elixir.json file.
@@ -65,7 +61,6 @@ Elixir.setDefaultsFrom = function(file) {
         _.deepExtend(Elixir.config, overrides);
     }
 }('elixir.json');
-
 
 /**
  * Create the actual Gulp tasks dynamically,

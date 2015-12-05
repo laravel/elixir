@@ -2,7 +2,6 @@ var _ = require('underscore');
 
 var id = 0, Elixir;
 
-
 /**
  * Create a new Task instance.
  *
@@ -19,18 +18,17 @@ var Task = function(name, description) {
     }
 };
 
-
 /**
  * Fetch the task(s) with the given name.
  *
- * @param {string} name
+ * @param  {string} name
+ * @return {Task}
  */
 Task.find = function(name) {
     var tasks = _.where(Elixir.tasks, { name: name });
 
     return tasks[Elixir.config.activeTasks[name]];
 };
-
 
 /**
  * Describe the task. This is the Gulp definition.
@@ -46,9 +44,10 @@ Task.prototype.describe = function(definition) {
     return this;
 };
 
-
 /**
  * Set the task to be called, when firing `Gulp`.
+ *
+ * @return {Task}
  */
 Task.prototype.register = function() {
     Elixir.tasks.push(this);
@@ -59,12 +58,12 @@ Task.prototype.register = function() {
     return this;
 };
 
-
 /**
  * Set a path regex to watch for changes.
  *
- * @param {string}      regex
- * @param {string|null} category
+ * @param  {string}      regex
+ * @param  {string|null} category
+ * @return {Task}
  */
 Task.prototype.watch = function(regex, category) {
     if (regex) {
@@ -76,18 +75,17 @@ Task.prototype.watch = function(regex, category) {
     return this;
 };
 
-
 /**
  * Exclude the given path from the watcher.
  *
- * @param {string} path
+ * @param  {string} path
+ * @return {Task}
  */
 Task.prototype.ignore = function(path) {
     this.watchers.push(('!./' + path).replace('././', './'));
 
     return this;
 };
-
 
 /**
  * Execute the task definition.
@@ -96,11 +94,10 @@ Task.prototype.run = function() {
     return this.definition();
 };
 
-
 /**
  * Log the task input and output.
  *
- * @param {string|array} src
+ * @param {string|Array} src
  * @param {string|null}  output
  */
 Task.prototype.log = function(src, output) {
@@ -116,7 +113,6 @@ Task.prototype.log = function(src, output) {
             .files(output.path ? output.path : output);
     }
 };
-
 
 module.exports = function(elixir) {
     // Make Elixir available throughout this file.

@@ -1,6 +1,5 @@
 var notify = require('gulp-notify');
 
-
 /**
  * Create a new Notification instance.
  */
@@ -16,7 +15,6 @@ var Notification = function() {
 
 var n = Notification.prototype;
 
-
 /**
  * Display a notification.
  *
@@ -30,7 +28,6 @@ n.message = function(message) {
         onLast: true
     });
 };
-
 
 /**
  * Display an error notification.
@@ -51,7 +48,6 @@ n.error = function(e, message) {
     console.log(e);
 };
 
-
 /**
  * Display a notification for passed tests.
  *
@@ -65,7 +61,6 @@ n.forPassedTests = function(framework) {
         onLast: true
     });
 };
-
 
 /**
  * Display a notification for failed tests.
@@ -81,6 +76,5 @@ n.forFailedTests = function(e, framework) {
         onLast: true
     })(e);
 };
-
 
 module.exports = Notification;

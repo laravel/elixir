@@ -4,7 +4,6 @@ var Elixir = require('laravel-elixir');
 var $ = Elixir.Plugins;
 var config = Elixir.config;
 
-
 /*
  |----------------------------------------------------------------
  | JavaScript File Concatenation
@@ -26,7 +25,6 @@ Elixir.extend('scripts', function(scripts, output, baseDir) {
     .ignore(paths.output.path);
 });
 
-
 Elixir.extend('scriptsIn', function(baseDir, output) {
     var paths = prepGulpPaths('**/*.js', baseDir, output);
 
@@ -36,7 +34,6 @@ Elixir.extend('scriptsIn', function(baseDir, output) {
     .watch(paths.src.path)
     .ignore(paths.output.path);
 });
-
 
 Elixir.extend('babel', function(scripts, output, baseDir, options) {
     var paths = prepGulpPaths(scripts, baseDir, output);
@@ -50,11 +47,10 @@ Elixir.extend('babel', function(scripts, output, baseDir, options) {
     .ignore(paths.output.path);
 });
 
-
 /**
  * Trigger the Gulp task logic.
  *
- * @param {object}      paths
+ * @param {GulpPaths}   paths
  * @param {object|null} babel
  */
 var gulpTask = function(paths, babel) {
@@ -77,13 +73,13 @@ var gulpTask = function(paths, babel) {
     );
 };
 
-
 /**
  * Prep the Gulp src and output paths.
  *
- * @param {string|array} src
- * @param {string|null}  baseDir
- * @param {string|null}  output
+ * @param  {string|Array} src
+ * @param  {string|null}  baseDir
+ * @param  {string|null}  output
+ * @return {GulpPaths}
  */
 var prepGulpPaths = function(src, baseDir, output) {
     return new Elixir.GulpPaths()

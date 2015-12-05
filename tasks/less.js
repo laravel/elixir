@@ -4,7 +4,6 @@ var Elixir = require('laravel-elixir');
 
 var config = Elixir.config;
 
-
 /*
  |----------------------------------------------------------------
  | Less Compilation Task
@@ -33,13 +32,12 @@ Elixir.extend('less', function(src, output, options) {
     .ignore(paths.output.path);
 });
 
-
 /**
  * Prep the Gulp src and output paths.
  *
- * @param  {string|array} src
+ * @param  {string|Array} src
  * @param  {string|null}  output
- * @return {object}
+ * @return {GulpPaths}
  */
 var prepGulpPaths = function(src, output) {
     return new Elixir.GulpPaths()

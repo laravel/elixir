@@ -10,7 +10,6 @@ var bundle;
 var $ = Elixir.Plugins;
 var config = Elixir.config;
 
-
 /*
  |----------------------------------------------------------------
  | Browserify Task
@@ -64,30 +63,26 @@ Elixir.extend('browserify', function(src, output, baseDir, options) {
     .watch();
 });
 
-
 /**
  * Prep the Gulp src and output paths.
  *
- * @param  {string|array} src
- * @param  {string}       baseDir
+ * @param  {string|Array} src
+ * @param  {string|null}  baseDir
  * @param  {string|null}  output
+ * @return {GulpPaths}
  */
 var prepGulpPaths = function(src, baseDir, output) {
-    baseDir = baseDir || config.get('assets.js.folder');
-
     return new Elixir.GulpPaths()
-        .src(src, baseDir)
+        .src(src, baseDir || config.get('assets.js.folder'))
         .output(output || config.get('public.js.outputFolder'), 'bundle.js');
 };
-
 
 /**
  * Get a standard Browserify stream.
  *
- * @param {string|array} src
- * @param {object}       options
+ * @param {object} data
  */
-var browserifyStream = function(data) { // just use two arguments
+var browserifyStream = function(data) {
     var stream = browserify(data.paths.src.path, data.options);
 
     config.js.browserify.transformers.forEach(function(transformer) {
@@ -108,7 +103,6 @@ var browserifyStream = function(data) { // just use two arguments
 
     return stream;
 };
-
 
 /**
  * Get a Browserify stream, wrapped in Watchify.

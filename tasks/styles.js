@@ -4,7 +4,6 @@ var Elixir = require('laravel-elixir');
 var $ = Elixir.Plugins;
 var config = Elixir.config;
 
-
 /*
  |----------------------------------------------------------------
  | CSS File Concatenation
@@ -26,7 +25,6 @@ Elixir.extend('styles', function(styles, output, baseDir) {
     .ignore(paths.output.path);
 });
 
-
 Elixir.extend('stylesIn', function(baseDir, output) {
     var paths = prepGulpPaths('**/*.css', baseDir, output);
 
@@ -37,11 +35,10 @@ Elixir.extend('stylesIn', function(baseDir, output) {
     .ignore(paths.output.path);
 });
 
-
 /**
  * Trigger the Gulp task logic.
  *
- * @param {object} paths
+ * @param {GulpPaths} paths
  */
 var gulpTask = function(paths) {
     this.log(paths.src, paths.output);
@@ -58,13 +55,13 @@ var gulpTask = function(paths) {
     );
 };
 
-
 /**
  * Prep the Gulp src and output paths.
  *
- * @param  {string|array} src
+ * @param  {string|Array} src
+ * @param  {string|null}  baseDir
  * @param  {string|null}  output
- * @return {object}
+ * @return {GulpPaths}
  */
 var prepGulpPaths = function(src, baseDir, output) {
     return new Elixir.GulpPaths()
