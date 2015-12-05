@@ -17,9 +17,9 @@ var config = Elixir.config;
  */
 
 Elixir.extend('less', function(src, output, options) {
-    new Elixir.Task('less', function() {
-        var paths = prepGulpPaths(src, output);
+    var paths = prepGulpPaths(src, output);
 
+    new Elixir.Task('less', function() {
         return compile({
             name: 'Less',
             compiler: require('gulp-less'),
@@ -29,7 +29,8 @@ Elixir.extend('less', function(src, output, options) {
             pluginOptions: options || config.css.less.pluginOptions
         });
     })
-    .watch(config.get('assets.css.less.folder') + '/**/*.less');
+    .watch(paths.src.path)
+    .ignore(paths.output.path);
 });
 
 
