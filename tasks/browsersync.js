@@ -24,7 +24,7 @@ Elixir.extend('browserSync', function (options) {
             config.get('public.css.outputFolder') + '/**/*.css',
             config.get('public.js.outputFolder') + '/**/*.js',
             config.get('public.versioning.buildFolder') + '/rev-manifest.json',
-            'resources/views/**/*.php'
+            config.viewPath +'/**/*.php'
         ],
         watchOptions: {
             usePolling: true
