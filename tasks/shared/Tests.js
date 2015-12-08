@@ -3,7 +3,6 @@ var Elixir = require('../../index');
 
 var notify = new Elixir.Notification();
 
-
 module.exports = function(options) {
     new Elixir.Task(options.name, function() {
         this.log(options.src);

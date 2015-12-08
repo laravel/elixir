@@ -3,7 +3,6 @@ var Elixir = require('laravel-elixir');
 
 var $ = Elixir.Plugins;
 
-
 /*
  |----------------------------------------------------------------
  | Copying

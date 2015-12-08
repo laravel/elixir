@@ -3,7 +3,6 @@ var _ = require('underscore');
 var Elixir = require('laravel-elixir');
 var inSequence = require('run-sequence');
 
-
 /*
  |----------------------------------------------------------------
  | Default Task

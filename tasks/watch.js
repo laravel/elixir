@@ -44,12 +44,11 @@ gulp.task('watch', function() {
     });
 });
 
-
 /**
  * Determine if Browserify is included in the list.
  *
  * @param  {object} tasks
- * @return {Boolean}
+ * @return {boolean}
  */
 var isWatchingBrowserify = function(tasks) {
     return _.contains(_.pluck(tasks, 'name'), 'browserify');

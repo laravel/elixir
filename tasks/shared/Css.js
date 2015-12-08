@@ -4,7 +4,6 @@ var Elixir = require('../../index');
 var $ = Elixir.Plugins;
 var config = Elixir.config;
 
-
 module.exports = function(options) {
     var name = options.name;
 

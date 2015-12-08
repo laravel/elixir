@@ -1,7 +1,6 @@
 var p = require('path');
 var gutils = require('gulp-util');
 
-
 /*
  |----------------------------------------------------------------
  | Master Configuration
@@ -410,11 +409,10 @@ var config = {
         // http://www.browsersync.io/docs/options/
         proxy: 'homestead.app',
         reloadOnRestart : true,
-        notify: true,
-    },
+        notify: true
+    }
 
 };
-
 
 /**
  * Fetch a config item, using a string dot-notation.

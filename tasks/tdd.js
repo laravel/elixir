@@ -1,7 +1,6 @@
 var gulp = require('gulp');
 var Elixir = require('laravel-elixir');
 
-
 /*
  |----------------------------------------------------------------
  | TDD Watcher

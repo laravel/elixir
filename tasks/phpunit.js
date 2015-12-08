@@ -3,7 +3,6 @@ var runTests = require('./shared/Tests');
 
 var config = Elixir.config;
 
-
 /*
  |----------------------------------------------------------------
  | PHPUnit Testing

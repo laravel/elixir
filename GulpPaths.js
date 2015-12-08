@@ -2,21 +2,17 @@ var p = require('path');
 var gutils = require('gulp-util');
 var parsePath = require('parse-filepath');
 
-
 /**
  * Create a new GulpPaths constructor.
- *
- * @param {string|array} path
- * @param {string}       defaultName
  */
 var GulpPaths = function() {};
-
 
 /**
  * Set the Gulp src file(s) and path prefix.
  *
- * @param {string|array} src
- * @param {string}       prefix
+ * @param  {string|Array} src
+ * @param  {string|null}  prefix
+ * @return {GulpPaths}
  */
 GulpPaths.prototype.src = function(src, prefix) {
     var self = this;
@@ -46,12 +42,12 @@ GulpPaths.prototype.src = function(src, prefix) {
     return this;
 };
 
-
 /**
  * Set the Gulp output path.
  *
- * @param {string} src
- * @param {string} prefix
+ * @param  {string}      output
+ * @param  {string|null} defaultName
+ * @return {GulpPaths}
  */
 GulpPaths.prototype.output = function(output, defaultName) {
     this.output = this.parse(output);
@@ -76,23 +72,23 @@ GulpPaths.prototype.output = function(output, defaultName) {
     return this;
 };
 
-
 /**
  * Change the file extension for a path.
  *
- * @param {string} path
- * @param {string} newExtension
+ * @param  {string} path
+ * @param  {string} newExtension
+ * @return {string}
  */
 GulpPaths.prototype.changeExtension = function(path, newExtension) {
     return gutils.replaceExtension(path, newExtension);
 };
 
-
 /**
  * Apply a path prefix to the path(s).
  *
- * @param  {string} prefix
- * @return {string|array}
+ * @param  {string|Array} path
+ * @param  {string|null}  prefix
+ * @return {string|Array}
  */
 GulpPaths.prototype.prefix = function(path, prefix) {
     if ( ! prefix) return path;
@@ -124,7 +120,6 @@ GulpPaths.prototype.prefix = function(path, prefix) {
     return prefixOne(path);
 };
 
-
 /**
  * Parse the given file path.
  *
@@ -144,6 +139,5 @@ GulpPaths.prototype.parse = function(path) {
                         : p.join(segments.dirname, segments.basename)
     };
 };
-
 
 module.exports = GulpPaths;
