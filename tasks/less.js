@@ -28,7 +28,7 @@ Elixir.extend('less', function(src, output, options) {
             pluginOptions: options || config.css.less.pluginOptions
         });
     })
-    .watch(paths.src.path)
+    .watch(paths.src.baseDir + '/**/*.less')
     .ignore(paths.output.path);
 });
 
