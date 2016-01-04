@@ -21,7 +21,7 @@ Elixir.extend('exec', function(command, watcher) {
         return (
             gulp
             .src('')
-            .pipe(Elixir.Plugins.shell(command));
+            .pipe(Elixir.Plugins.shell(command))
         );
     });
 
