@@ -173,7 +173,7 @@ var config = {
          |
          */
 
-        minifyCss: {
+        cssnano: {
             // http://cssnano.co/options
             pluginOptions: {}
         },
