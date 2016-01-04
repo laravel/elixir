@@ -48,7 +48,7 @@ var gulpTask = function(paths) {
         .src(paths.src.path)
         .pipe($.if(config.sourcemaps, $.sourcemaps.init()))
         .pipe($.concat(paths.output.name))
-        .pipe($.if(config.production, $.minifyCss(config.css.minifyCss.pluginOptions)))
+        .pipe($.if(config.production, $.cssnano(config.css.cssnano.pluginOptions)))
         .pipe($.if(config.sourcemaps, $.sourcemaps.write('.')))
         .pipe(gulp.dest(paths.output.baseDir))
         .pipe(new Elixir.Notification('Stylesheets Merged!'))
