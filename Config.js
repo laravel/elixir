@@ -16,6 +16,7 @@ var gutils = require('gulp-util');
  |
  */
 
+var production = gutils.env.production || process.env.NODE_ENV === 'production';
 var config = {
 
     /*
@@ -42,7 +43,7 @@ var config = {
      |
      */
 
-    production: !! gutils.env.production,
+    production: production,
 
     /*
      |----------------------------------------------------------------
@@ -194,7 +195,7 @@ var config = {
 
             // https://github.com/sass/node-sass#options
             pluginOptions: {
-                outputStyle: gutils.env.production
+                outputStyle: production
                     ? 'compressed'
                     : 'nested',
                 precision: 10
