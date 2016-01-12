@@ -1,6 +1,8 @@
 var p = require('path');
 var gutils = require('gulp-util');
 
+var production = gutils.env.production || process.env.NODE_ENV === 'production';
+
 /*
  |----------------------------------------------------------------
  | Master Configuration
@@ -16,7 +18,6 @@ var gutils = require('gulp-util');
  |
  */
 
-var production = gutils.env.production || process.env.NODE_ENV === 'production';
 var config = {
 
     /*
