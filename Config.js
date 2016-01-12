@@ -90,8 +90,9 @@ var config = {
      | View Path
      |----------------------------------------------------------------
      |
-     | The view path points to where your blade templates will be within
-     | your application's file structure
+     | Very likely, you will never need/want to modify this property.
+     | However, for the instances where your app's views directory
+     | is located in a different spot, please modify as needed.
      |
      */
 
