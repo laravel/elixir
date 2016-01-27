@@ -11,7 +11,7 @@ If you've ever been confused about how to get started with Gulp and asset compil
 
 Documentation for Elixir can be found on the [Laravel website](http://laravel.com/docs/elixir).
 
-### License
+## License
 
 Laravel Elixir is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
 
