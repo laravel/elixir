@@ -190,7 +190,9 @@ var config = {
 
         cssnano: {
             // http://cssnano.co/options
-            pluginOptions: {}
+            pluginOptions: {
+                safe: true
+            }
         },
 
         /*
