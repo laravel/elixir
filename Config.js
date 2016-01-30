@@ -191,8 +191,7 @@ var config = {
         cssnano: {
             // http://cssnano.co/options
             pluginOptions: {
-                discardUnused: false, // unsafe, see http://mxs.is/googmr
-                zindex: false // unsafe, see http://mxs.is/googmq
+                safe: true
             }
         },
 
