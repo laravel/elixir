@@ -285,6 +285,25 @@ var config = {
 
         /*
          |----------------------------------------------------------------
+         | UglifyJS Parser/Compressor/Beautifier
+         |----------------------------------------------------------------
+         |
+         | UglifyJS is a JavaScript parser/compressor/beautifier.
+         | It'll minify your JavaScript with ease and has an option to
+         | mangle your code.
+         |
+         */
+
+        uglify: {
+            options: {
+                compress: {
+                    drop_console: true
+                }
+            }
+        },
+
+        /*
+         |----------------------------------------------------------------
          | Browserify Compilation
          |----------------------------------------------------------------
          |
