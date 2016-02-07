@@ -388,20 +388,14 @@ var config = {
          | PHPSpec Autotesting
          |----------------------------------------------------------------
          |
-         | Want to automatically trigger your PHPSpec tests. Not a prob!
-         | This object stores the defaults for the path to your specs
-         | folder, as well as any "gulp-phpspec" specific options.
+         | Want to automatically trigger your PHPSpec tests. Not a problem.
+         | This object stores your default PHPSpec directory path. For a
+         | custom command, you may use the second arg to mix.phpSpec.
          |
          */
 
         phpSpec: {
-            path: 'spec',
-
-            // https://www.npmjs.com/package/gulp-phpspec#api
-            options: {
-                verbose: 'v',
-                notify: true
-            }
+            path: 'spec'
         }
     },
 
