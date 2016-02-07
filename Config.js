@@ -373,23 +373,15 @@ var config = {
          | PHPUnit Autotesting
          |----------------------------------------------------------------
          |
-         | Want to automatically trigger your PHPUnit tests. Not a prob!
-         | This object stores the defaults for the path to your tests
-         | folder, as well as any "gulp-phpunit" specific options.
+         | Want to automatically trigger your PHPUnit tests. Not a problem.
+         | This object stores your default PHPUnit directory path. For a
+         | custom command, you may use the second arg to mix.phpUnit.
          |
          */
 
         phpUnit: {
-            path: 'tests',
-
-            // https://www.npmjs.com/package/gulp-phpunit#api
-            options: {
-                debug: true,
-                notify: true,
-                configurationFile: 'phpunit.xml'
-            }
+            path: 'tests'
         },
-
 
         /*
          |----------------------------------------------------------------
