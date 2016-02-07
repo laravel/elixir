@@ -2,7 +2,8 @@ var gulp   = require('gulp');
 var Elixir = require('laravel-elixir');
 
 var config = Elixir.config;
-var notify = new Elixir.Notification();
+var runTests = require('./shared/Tests.js');
+
 
 /*
  |----------------------------------------------------------------
@@ -16,24 +17,10 @@ var notify = new Elixir.Notification();
  */
 
 Elixir.extend('phpUnit', function(src, command) {
-    src = src || (config.testing.phpUnit.path + '/**/*Test.php');
-    command = command || 'vendor/bin/phpunit --verbose';
-
-    new Elixir.Task('phpUnit', function(error) {
-        Elixir.Log.heading('Triggering PHPUnit: ' + command);
-
-        return (
-            gulp
-            .src('')
-            .pipe(Elixir.Plugins.shell(command))
-            .on('error', function(e) {
-                notify.forFailedTests(e, 'PHPUnit');
-
-                this.emit('end');
-            })
-            .pipe(notify.forPassedTests('PHPUnit'))
-        );
-    })
-    .watch(src);
+    runTests(
+        'PHPUnit',
+        src || (config.testing.phpUnit.path + '/**/*Test.php'),
+        command || 'vendor/bin/phpunit --verbose'
+    );
 });
 

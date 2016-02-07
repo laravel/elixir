@@ -2,11 +2,12 @@ var gulp   = require('gulp');
 var Elixir = require('laravel-elixir');
 
 var config = Elixir.config;
-var notify = new Elixir.Notification();
+var runTests = require('./shared/Tests.js');
+
 
 /*
  |----------------------------------------------------------------
- | PHPUnit Testing
+ | PHPSpec Testing
  |----------------------------------------------------------------
  |
  | This task will trigger your entire PHPUnit test suite and it
@@ -16,24 +17,10 @@ var notify = new Elixir.Notification();
  */
 
 Elixir.extend('phpSpec', function(src, command) {
-    src = src || (config.testing.phpSpec.path + '/**/*Spec.php'),
-    command = command || 'vendor/bin/phpspec run';
-
-    new Elixir.Task('phpSpec', function(error) {
-        Elixir.Log.heading('Triggering PHPSpec: ' + command);
-
-        return (
-            gulp
-            .src('')
-            .pipe(Elixir.Plugins.shell(command))
-            .on('error', function(e) {
-                notify.forFailedTests(e, 'PHPSpec');
-
-                this.emit('end');
-            })
-            .pipe(notify.forPassedTests('PHPSpec'))
-        );
-    })
-    .watch(src);
+    runTests(
+        'PHPSpec',
+        src || (config.testing.phpSpec.path + '/**/*Spec.php'),
+        command || 'vendor/bin/phpspec run'
+    );
 });
 

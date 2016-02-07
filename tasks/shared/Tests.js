@@ -3,23 +3,24 @@ var Elixir = require('../../index');
 
 var notify = new Elixir.Notification();
 
-module.exports = function(options) {
-    new Elixir.Task(options.name, function() {
-        this.log(options.src);
+module.exports = function(name, src, command) {
+    new Elixir.Task(name, function(error) {
+        Elixir.Log.heading('Triggering ' + name + ': ' + command);
 
         return (
             gulp
-            .src(options.src)
-            .pipe(options.plugin('', options.pluginOptions))
+            .src('')
+            .pipe(Elixir.Plugins.shell(command))
             .on('error', function(e) {
-                notify.forFailedTests(e, options.name);
+                notify.forFailedTests(e, name);
 
                 this.emit('end');
             })
-            .pipe(notify.forPassedTests(options.name))
+            .pipe(notify.forPassedTests(name))
         );
     })
-    .watch(options.src, 'tdd')
+    .watch(src)
     .watch(Elixir.config.appPath + '/**/*.php', 'tdd')
-    .watch(Elixir.config.viewPath +'/**/*.php', 'tdd')
+    .watch(Elixir.config.viewPath +'/**/*.php', 'tdd');
 };
+
