@@ -66,6 +66,12 @@ Logger.files = function(files, checkForFiles) {
  * @return {boolean}
  */
 var assertFileExists = function(file) {
+    // If this file begins with a !, then the user
+    // intends to exclude it from their src set.
+    if (file.indexOf('!') == 0) {
+        file = file.slice(1);
+    }
+    
     return file.match(/\*/) || fs.existsSync(file);
 };
 
