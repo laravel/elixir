@@ -315,7 +315,10 @@ var config = {
 
         browserify: {
             // https://www.npmjs.com/package/browserify#usage
-            options: {},
+            options: {
+                cache: {},
+                packageCache: {}
+            },
 
             plugins: [],
 
