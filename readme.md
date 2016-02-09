@@ -17,6 +17,13 @@ Laravel Elixir is open-sourced software licensed under the [MIT license](http://
 
 ## Changelog
 
+### 5.0.0
+
+- Added support for overriding the default Uglify configuration.
+- Fixed an issue where passing a negated path (to ignore a file) causes an assertion here.
+- In order to allow Watchify to use the Browserify cache for fast rebuilds, default `cache` and `packageCache` configuration options have been added.
+- **Breaking:** Removed `gulp-phpunit` and `gulp-phpspec`, in favor of piping to a simple shell script. If you are running `mix.phpUnit()` or `mix.phpSpec()`, please note [the argument adjustment](https://github.com/laravel/elixir/commit/5fa4b861a6950479300d5d8883b4ee93760e566a): `mix.phpUnit(src, command)` and `mix.phpSpec(src, command)`, respectively.
+
 ### 4.2.1
 
 - Remove all unsafe optimizations performed by the [cssnano](http://cssnano.co/options/) plugin. You may re-enable these by updating your config: `Elixir.config.css.cssnano.pluginOptions.safe = false`.
