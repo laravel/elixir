@@ -5,7 +5,7 @@ var should = require('chai').should();
 var Elixir = require('laravel-elixir');
 
 
-describe('Coffee Task', function() {
+describe('Combine Task', function() {
 
     beforeEach(() => {
         Elixir.tasks = Elixir.config.tasks = [];
