@@ -33,7 +33,7 @@ Elixir.extend('version', function(src, buildPath) {
 
         // We need to remove the publicPath from the output base to get the
         // correct prefix path.
-        var filePathPrefix = paths.output.baseDir.replace(publicPath, '') + '/';
+        var filePathPrefix = paths.output.baseDir.replace(publicPath, '').replace('\\','/') + '/';
 
         return (
             gulp.src(paths.src.path, { base: './' + publicPath })
