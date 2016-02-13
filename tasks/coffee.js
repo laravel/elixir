@@ -32,7 +32,7 @@ Elixir.extend('coffee', function(src, output, options) {
                     this.emit('end');
                 }))
             .pipe($.concat(paths.output.name))
-            .pipe($.if(config.production, $.uglify()))
+            .pipe($.if(config.production, $.uglify(config.js.uglify.options)))
             .pipe($.if(config.sourcemaps, $.sourcemaps.write('.')))
             .pipe(gulp.dest(paths.output.baseDir))
             .pipe(new Elixir.Notification('CoffeeScript Compiled!'))
