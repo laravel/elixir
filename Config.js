@@ -191,6 +191,7 @@ var config = {
         cssnano: {
             // http://cssnano.co/options
             pluginOptions: {
+                discardComments: { removeAll: true },
                 autoprefixer: false,
                 safe: true
             }
