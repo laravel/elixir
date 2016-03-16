@@ -39,8 +39,8 @@ var config = {
      |----------------------------------------------------------------
      |
      | Elixir will trigger certain actions, dependent upon this flag.
-     | You may "turn on" this mode by triggering "gulp --production".
-     | This will enable such things, like CSS and JS minification.
+     | You may enable this mode by triggering "gulp --production",
+     | enabling things like CSS and JS minification. EasyPeasy!
      |
      */
 
