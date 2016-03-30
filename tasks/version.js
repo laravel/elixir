@@ -48,7 +48,9 @@ Elixir.extend('version', function(src, buildPath) {
                 // We'll get rid of the duplicated file that
                 // usually gets put in the "build" folder,
                 // alongside the suffixed version.
-                del(files.paths, { force: true });
+                del(files.paths.filter(function(file) {
+                    return fs.lstatSync(file).isFile();
+                }), { force: true });
 
                 // We'll also copy over relevant sourcemap files.
                 copyMaps(paths.src.path, paths.output.baseDir);
@@ -67,10 +69,21 @@ Elixir.extend('version', function(src, buildPath) {
  */
 var prepGulpPaths = function(src, buildPath) {
     src = Array.isArray(src) ? src : [src];
+    buildPath = buildPath || Elixir.config.get('public.versioning.buildFolder')
 
-    return new Elixir.GulpPaths()
+    var paths = new Elixir.GulpPaths()
         .src(src, Elixir.config.publicPath)
-        .output(buildPath || Elixir.config.get('public.versioning.buildFolder'));
+        .output(buildPath);
+
+    // We've no interested in tracking the
+    // build directory, so we'll always
+    // exclude it from the src set.
+    paths.src.path = paths.src.path.concat([
+        '!'+buildPath,
+        '!'+buildPath+'/**'
+    ]);
+
+    return paths;
 };
 
 /**
