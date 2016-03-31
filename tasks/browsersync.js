@@ -1,8 +1,9 @@
 var gulp = require('gulp');
-var _ = require('underscore');
-var gutils = require('gulp-util');
 var Elixir = require('laravel-elixir');
-var browserSync = require('browser-sync').create();
+
+var _;
+var gutils;
+var browserSync;
 
 var config = Elixir.config;
 
@@ -18,6 +19,8 @@ var config = Elixir.config;
  */
 
 Elixir.extend('browserSync', function (options) {
+    loadPlugins();
+
     options = _.extend(config.browserSync, {
         files: [
             config.appPath + '/**/*.php',
@@ -46,3 +49,13 @@ Elixir.extend('browserSync', function (options) {
 
     new Elixir.Task('browserSync', function () {}).watch();
 });
+
+
+/**
+ * Load the required Gulp plugins on demand.
+ */
+var loadPlugins = function () {
+    _ = require('underscore');
+    gutils = require('gulp-util');
+    browserSync = require('browser-sync').create();
+};

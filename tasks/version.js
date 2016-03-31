@@ -1,13 +1,14 @@
-var fs = require('fs');
-var del = require('del');
-var glob = require('glob');
-var gulp = require('gulp');
-var rev = require('gulp-rev');
 var Elixir = require('laravel-elixir');
-var vinylPaths = require('vinyl-paths');
-var parsePath  = require('parse-filepath');
 var publicPath  = Elixir.config.publicPath;
-var revReplace = require('gulp-rev-replace');
+
+var fs;
+var del;
+var glob;
+var gulp;
+var rev;
+var vinylPaths;
+var parsePath;
+var revReplace;
 
 /*
  |----------------------------------------------------------------
@@ -22,6 +23,8 @@ var revReplace = require('gulp-rev-replace');
 
 Elixir.extend('version', function(src, buildPath) {
     var paths = prepGulpPaths(src, buildPath);
+
+    loadPlugins();
 
     new Elixir.Task('version', function() {
         var files = vinylPaths();
@@ -131,4 +134,19 @@ var copyMaps = function(src, buildPath) {
                 });
         });
     });
+};
+
+
+/**
+ * Load the required Gulp plugins on demand.
+ */
+var loadPlugins = function () {
+    fs = require('fs');
+    del = require('del');
+    glob = require('glob');
+    gulp = require('gulp');
+    rev = require('gulp-rev');
+    vinylPaths = require('vinyl-paths');
+    parsePath  = require('parse-filepath');
+    revReplace = require('gulp-rev-replace');
 };

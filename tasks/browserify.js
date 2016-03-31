@@ -1,14 +1,14 @@
 var gulp = require('gulp');
-var gutil = require('gulp-util');
-var watchify = require('watchify');
-var buffer = require('vinyl-buffer');
 var Elixir = require('laravel-elixir');
-var browserify = require('browserify');
-var source = require('vinyl-source-stream');
-
-var bundle;
 var $ = Elixir.Plugins;
 var config = Elixir.config;
+
+var gutil;
+var buffer;
+var source;
+var browserify;
+var watchify;
+var bundle;
 
 /*
  |----------------------------------------------------------------
@@ -23,6 +23,8 @@ var config = Elixir.config;
 
 Elixir.extend('browserify', function(src, output, baseDir, options) {
     var paths = prepGulpPaths(src, baseDir, output);
+
+    loadPlugins();
 
     new Elixir.Task('browserify', function() {
         var stream = config.js.browserify.watchify.enabled
@@ -121,4 +123,16 @@ var watchifyStream = function(data) {
     });
 
     return browserify;
+};
+
+
+/**
+ * Load the required Gulp plugins on demand.
+ */
+var loadPlugins = function () {
+    browserify = require('browserify');
+    watchify = require('watchify');
+    gutil = require('gulp-util');
+    buffer = require('vinyl-buffer');
+    source = require('vinyl-source-stream');
 };
