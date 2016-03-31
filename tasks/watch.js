@@ -17,6 +17,9 @@ var Elixir = require('laravel-elixir');
 gulp.task('watch', function() {
     var tasks = _.sortBy(Elixir.tasks, 'name');
     var mergedTasks = {};
+    var options = {
+        interval: 1000
+    };
 
     if (isWatchingBrowserify(tasks)) {
         Elixir.config.js.browserify.watchify.enabled = true;
@@ -37,7 +40,7 @@ gulp.task('watch', function() {
 
     _.sortBy(mergedTasks, 'name').forEach(function(task) {
         if (task.watchers.length > 0) {
-            gulp.watch(task.watchers, batch(Elixir.config.batchOptions, function(events) {
+            gulp.watch(task.watchers, options, batch(Elixir.config.batchOptions, function(events) {
                 events.on('end', gulp.start(task.name));
             }));
         }
