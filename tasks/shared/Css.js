@@ -26,7 +26,7 @@ module.exports = function(options) {
         })
         .pipe($.if(config.css.autoprefix.enabled, $.autoprefixer(config.css.autoprefix.options)))
         .pipe($.concat(options.output.name))
-        .pipe($.if(config.production, minify))
+        .pipe($.if(config.production, minify()))
         .pipe($.if(config.sourcemaps, $.sourcemaps.write('.')))
         .pipe(gulp.dest(options.output.baseDir))
         .pipe(new Elixir.Notification(name + ' Compiled!'))
@@ -36,14 +36,12 @@ module.exports = function(options) {
 
 /**
  * Prepare the minifier instance.
- *
- * @param  {object} buff
- * @param  {string} filename
- * @return {CleanCSS}
  */
-var minify = map(function (buff, filename) {
-    return new CleanCSS(config.css.minifier.pluginOptions).minify(buff.toString()).styles;
-});
+var minify = function () {
+    return map(function (buff, filename) {
+        return new CleanCSS(config.css.minifier.pluginOptions).minify(buff.toString()).styles;
+    });
+};
 
 
 /**
