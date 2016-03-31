@@ -188,13 +188,9 @@ var config = {
          |
          */
 
-        cssnano: {
-            // http://cssnano.co/options
-            pluginOptions: {
-                discardComments: { removeAll: true },
-                autoprefixer: false,
-                safe: true
-            }
+        minifier: {
+            // https://github.com/jakubpawlowicz/clean-css#how-to-use-clean-css-api
+            pluginOptions: {}
         },
 
         /*
