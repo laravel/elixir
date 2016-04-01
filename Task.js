@@ -28,7 +28,7 @@ var Task = function(name, description) {
  * @return {Task}
  */
 Task.find = function(name) {
-    return Elixir.tasks.find(name);
+    return Elixir.tasks.byName(name)[0];
 };
 
 /**
