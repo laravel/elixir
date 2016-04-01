@@ -87,6 +87,19 @@ var config = {
 
     /*
      |----------------------------------------------------------------
+     | Notifications
+     |----------------------------------------------------------------
+     |
+     | As a convenience, Elixir will, when available, automatically
+     | display OS notifications upon the completion of any task.
+     | But of course you're free to disable this, if needed.
+     |
+     */
+
+    notifications: true,
+
+    /*
+     |----------------------------------------------------------------
      | Sourcemaps
      |----------------------------------------------------------------
      |

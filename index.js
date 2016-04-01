@@ -20,12 +20,14 @@ var Elixir = function(recipe) {
 
 Elixir.mixins       = {};
 Elixir.Log          = require('./Logger');
-Elixir.Notification = require('./Notification');
 Elixir.GulpPaths    = require('./GulpPaths');
 Elixir.config       = require('./Config');
 Elixir.Plugins      = require('gulp-load-plugins')();
 Elixir.Task         = require('./Task')(Elixir);
 Elixir.tasks        = new (require('./TaskCollection'))();
+
+Elixir.Notification = require('./Notification');
+process.env.DISABLE_NOTIFIER = Elixir.config.notifications;
 
 /**
  * Register a new task with Elixir.
