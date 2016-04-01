@@ -7,15 +7,15 @@ var _ = require('underscore');
  * @param {Function} recipe
  */
 var Elixir = function(recipe) {
-    // We'll start by loading all of the available tasks.
     require('require-dir')('./tasks');
 
-    // The user may then choose which tasks they want.
+    // Load the user's Gulpfile recipe.
     recipe(Elixir.mixins);
 
-    // Now that the user has requested their desired tasks
-    // from the Gulpfile, we'll initialize everything!
-    createGulpTasks.call(Elixir);
+    // And initialize their chosen tasks.
+    Elixir.tasks.forEach(function(task) {
+        task.toGulp();
+    });
 };
 
 Elixir.mixins       = {};
@@ -60,15 +60,5 @@ Elixir.setDefaultsFrom = function(file) {
     }
 }('elixir.json');
 
-
-/**
- * Create the actual Gulp tasks dynamically,
- * based upon the chosen Elixir mixins.
- */
-var createGulpTasks = function() {
-    Elixir.tasks.forEach(function(task) {
-        task.toGulp();
-    });
-};
 
 module.exports = Elixir;
