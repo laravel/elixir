@@ -1,6 +1,8 @@
+var gulp = require('gulp');
 var _ = require('underscore');
+var gutils = require('gulp-util');
 
-var id = 0, Elixir;
+var Elixir;
 
 /**
  * Create a new Task instance.
@@ -9,9 +11,9 @@ var id = 0, Elixir;
  * @param {Function} description
  */
 var Task = function(name, description) {
-    this.id = id++;
     this.name = name;
     this.watchers = [];
+    this.isComplete = false;
 
     if (description) {
         this.describe(description);
@@ -21,13 +23,12 @@ var Task = function(name, description) {
 /**
  * Fetch the task(s) with the given name.
  *
+ * @deprecated
  * @param  {string} name
  * @return {Task}
  */
 Task.find = function(name) {
-    var tasks = _.where(Elixir.tasks, { name: name });
-
-    return tasks[Elixir.config.activeTasks[name]];
+    return Elixir.tasks.find(name);
 };
 
 /**
@@ -39,9 +40,7 @@ Task.find = function(name) {
 Task.prototype.describe = function(definition) {
     this.definition = definition;
 
-    this.register();
-
-    return this;
+    return this.register();
 };
 
 /**
@@ -51,9 +50,6 @@ Task.prototype.describe = function(definition) {
  */
 Task.prototype.register = function() {
     Elixir.tasks.push(this);
-
-    Elixir.config.activeTasks = Elixir.config.activeTasks || {};
-    Elixir.config.activeTasks[this.name] = 0;
 
     return this;
 };
@@ -67,12 +63,19 @@ Task.prototype.register = function() {
  */
 Task.prototype.watch = function(regex, category) {
     if (regex) {
-        this.watchers.push(regex);
+        this.watchers = this.watchers.concat(regex);
     }
 
     this.category = category || 'default';
 
     return this;
+};
+
+/**
+ * Determine if the task has any watchers.
+ */
+Task.prototype.hasWatchers = function () {
+    return this.watchers.length > 0;
 };
 
 /**
@@ -91,6 +94,8 @@ Task.prototype.ignore = function(path) {
  * Execute the task definition.
  */
 Task.prototype.run = function() {
+    this.isComplete = true;
+
     return this.definition();
 };
 
@@ -112,6 +117,41 @@ Task.prototype.log = function(src, output) {
             .heading('Saving To...')
             .files(output.path ? output.path : output);
     }
+};
+
+/**
+ * Translate the task instance to a registered Gulp task.
+ */
+Task.prototype.toGulp = function () {
+    var name = this.name;
+
+    // If we've already created a Gulp task,
+    // we can exit early. Nothing to do.
+    if (_.has(gulp.tasks, name)) {
+        return;
+    }
+
+    gulp.task(name, function () {
+        if (shouldRunAllTasksWithName(name)) {
+            return Elixir.tasks.byName(name)
+                .forEach(function(task) {
+                    task.run();
+                });
+        }
+
+        // Otherwise, we can run the current task.
+        return Elixir.tasks.findIncompleteByName(name)[0].run();
+    }.bind(this));
+};
+
+/**
+ * See if we should run all mixins for the given task name.
+ *
+ * @param  {string} name
+ * @return {boolean}
+ */
+var shouldRunAllTasksWithName = function(name) {
+    return _.intersection(gutils.env._, [name, 'watch', 'tdd']).length;
 };
 
 module.exports = function(elixir) {

@@ -15,32 +15,13 @@ var Elixir = require('laravel-elixir');
  */
 
 gulp.task('watch', function() {
-    var tasks = _.sortBy(Elixir.tasks, 'name');
-    var mergedTasks = {};
-    var options = {
-        interval: 1000
-    };
+    initBrowserify();
 
-    if (isWatchingBrowserify(tasks)) {
-        Elixir.config.js.browserify.watchify.enabled = true;
+    Elixir.tasks.forEach(function(task) {
+        var batchOptions = Elixir.config.batchOptions;
 
-        gulp.start('browserify');
-    }
-
-    tasks.forEach(function(task) {
-        if (task.name in mergedTasks) {
-            return mergedTasks[task.name].watchers = _.union(mergedTasks[task.name].watchers, task.watchers);
-        }
-
-        mergedTasks[task.name] = {
-            name: task.name,
-            watchers: Array.isArray(task.watchers) ? task.watchers : [task.watchers]
-        };
-    });
-
-    _.sortBy(mergedTasks, 'name').forEach(function(task) {
-        if (task.watchers.length > 0) {
-            gulp.watch(task.watchers, options, batch(Elixir.config.batchOptions, function(events) {
+        if (task.hasWatchers()) {
+            gulp.watch(task.watchers, { interval: 1000 }, batch(batchOptions, function(events) {
                 events.on('end', gulp.start(task.name));
             }));
         }
@@ -49,10 +30,11 @@ gulp.task('watch', function() {
 
 /**
  * Determine if Browserify is included in the list.
- *
- * @param  {object} tasks
- * @return {boolean}
  */
-var isWatchingBrowserify = function(tasks) {
-    return _.contains(_.pluck(tasks, 'name'), 'browserify');
+var initBrowserify = function() {
+    if (Elixir.tasks.has('browserify')) {
+        Elixir.config.js.browserify.watchify.enabled = true;
+
+        gulp.start('browserify');
+    }
 };
