@@ -172,7 +172,7 @@ var config = {
 
             // https://www.npmjs.com/package/gulp-autoprefixer#api
             options:  {
-                browsers: ['last 2 versions'],
+                browsers: ['> 1%'],
                 cascade: false
             }
         },
