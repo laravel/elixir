@@ -1,6 +1,7 @@
 var gulp = require('gulp');
-var batch = require('gulp-batch');
 var Elixir = require('laravel-elixir');
+
+var batch = Elixir.Plugins.batch;
 
 /*
  |----------------------------------------------------------------
