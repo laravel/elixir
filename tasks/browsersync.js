@@ -21,7 +21,7 @@ var config = Elixir.config;
 Elixir.extend('browserSync', function (options) {
     loadPlugins();
 
-    options = _.extend(config.browserSync, {
+    options = _.extend({
         files: [
             config.appPath + '/**/*.php',
             config.get('public.css.outputFolder') + '/**/*.css',
@@ -40,7 +40,7 @@ Elixir.extend('browserSync', function (options) {
                 }
             }
         }
-    }, options);
+    }, config.browserSync, options);
 
     // Browsersync will only run during `gulp watch`.
     if (gutils.env._.indexOf('watch') > -1) {
