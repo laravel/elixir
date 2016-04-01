@@ -1,5 +1,4 @@
 var gulp = require('gulp');
-var _ = require('underscore');
 var batch = require('gulp-batch');
 var Elixir = require('laravel-elixir');
 
