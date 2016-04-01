@@ -4,6 +4,9 @@ var Elixir = require('laravel-elixir');
 var $ = Elixir.Plugins;
 var config = Elixir.config;
 
+var CleanCSS;
+var map;
+
 /*
  |----------------------------------------------------------------
  | CSS File Concatenation
@@ -17,6 +20,8 @@ var config = Elixir.config;
 
 Elixir.extend('styles', function(styles, output, baseDir) {
     var paths = prepGulpPaths(styles, baseDir, output);
+
+    loadPlugins();
 
     new Elixir.Task('styles', function() {
         return gulpTask.call(this, paths);
@@ -48,11 +53,28 @@ var gulpTask = function(paths) {
         .src(paths.src.path)
         .pipe($.if(config.sourcemaps, $.sourcemaps.init()))
         .pipe($.concat(paths.output.name))
-        .pipe($.if(config.production, $.cssnano(config.css.cssnano.pluginOptions)))
+        .pipe($.if(config.production, minify()))
         .pipe($.if(config.sourcemaps, $.sourcemaps.write('.')))
         .pipe(gulp.dest(paths.output.baseDir))
         .pipe(new Elixir.Notification('Stylesheets Merged!'))
     );
+};
+
+/**
+ * Prepare the minifier instance.
+ */
+var minify = function () {
+    return map(function (buff, filename) {
+        return new CleanCSS(config.css.minifier.pluginOptions).minify(buff.toString()).styles;
+    });
+};
+
+/**
+ * Load the required Gulp plugins on demand.
+ */
+var loadPlugins = function () {
+    CleanCSS = require('clean-css');
+    map = require('vinyl-map');
 };
 
 /**
