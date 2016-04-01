@@ -8,7 +8,7 @@ var Elixir = require('laravel-elixir');
 describe('Coffee Task', function() {
 
     beforeEach(() => {
-        Elixir.tasks = Elixir.config.tasks = [];
+        Elixir.tasks.empty();
     });
 
     it('compiles CoffeeScript files to the public/js directory', done => {

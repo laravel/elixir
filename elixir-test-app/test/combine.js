@@ -8,7 +8,7 @@ var Elixir = require('laravel-elixir');
 describe('Combine Task', function() {
 
     beforeEach(() => {
-        Elixir.tasks = Elixir.config.tasks = [];
+        Elixir.tasks.empty();
     });
 
     it('combines a given array of files.', done => {

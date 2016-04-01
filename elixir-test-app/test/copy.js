@@ -8,7 +8,7 @@ var Elixir = require('laravel-elixir');
 describe('Copy Task', function() {
 
     beforeEach(() => {
-        Elixir.tasks = Elixir.config.tasks = [];
+        Elixir.tasks.empty();
     });
 
     it('copies a file to a new location', function(done) {

@@ -7,7 +7,7 @@ var Elixir = require('laravel-elixir');
 describe('Scripts Task', function() {
 
     beforeEach(() => {
-        Elixir.tasks = Elixir.config.tasks = [];
+        Elixir.tasks.empty();
     });
 
     it('merges scripts together', function(done) {

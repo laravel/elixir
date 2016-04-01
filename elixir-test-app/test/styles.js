@@ -8,7 +8,7 @@ var Elixir = require('laravel-elixir');
 describe('Styles Task', function() {
 
     beforeEach(() => {
-        Elixir.tasks = Elixir.config.tasks = [];
+        Elixir.tasks.empty();
     });
 
     it('merges stylesheets together', function(done) {

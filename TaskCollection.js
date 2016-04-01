@@ -88,5 +88,12 @@ TaskCollection.prototype.findIncompleteByName = function (name) {
     });
 };
 
+/**
+ * Empty out all tasks.
+ */
+TaskCollection.prototype.empty = function () {
+    this.tasks = [];
+};
+
 
 module.exports = TaskCollection;

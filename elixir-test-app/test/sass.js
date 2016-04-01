@@ -8,7 +8,7 @@ var Elixir = require('laravel-elixir');
 describe('Sass Task', function() {
 
     beforeEach(() => {
-        Elixir.tasks = Elixir.config.tasks = [];
+        Elixir.tasks.empty();
     });
 
     it('compiles Sass files to the public/css directory', done => {
