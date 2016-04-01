@@ -141,7 +141,7 @@ Task.prototype.toGulp = function () {
 
         // Otherwise, we can run the current task.
         return Elixir.tasks.findIncompleteByName(name)[0].run();
-    }.bind(this));
+    });
 };
 
 /**
