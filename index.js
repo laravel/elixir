@@ -22,7 +22,7 @@ Elixir.mixins       = {};
 Elixir.Log          = require('./Logger');
 Elixir.Notification = require('./Notification');
 Elixir.GulpPaths    = require('./GulpPaths');
-Elixir.config       = config = require('./Config');
+Elixir.config       = require('./Config');
 Elixir.Plugins      = require('gulp-load-plugins')();
 Elixir.Task         = require('./Task')(Elixir);
 Elixir.tasks        = new (require('./TaskCollection'))();
