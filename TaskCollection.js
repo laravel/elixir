@@ -1,17 +1,10 @@
 var _ = require('underscore');
-var Elixir;
-
 
 /**
  * Create a new TaskCollection instance.
- *
- * @param {array}  tasks
- * @param {Elixir} elixir
  */
-var TaskCollection = function(tasks, elixir) {
-    this.tasks = tasks;
-
-    Elixir = elixir;
+var TaskCollection = function() {
+    this.tasks = [];
 };
 
 /**

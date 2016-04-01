@@ -22,19 +22,6 @@ var config = {
 
     /*
      |----------------------------------------------------------------
-     | Tasks
-     |----------------------------------------------------------------
-     |
-     | The tasks array stores all tasks that should be executed each
-     | time you trigger Gulp from the command line. Generally you
-     | won't need to modify this but it's an option if needed.
-     |
-     */
-
-    tasks: [],
-
-    /*
-     |----------------------------------------------------------------
      | Production Mode
      |----------------------------------------------------------------
      |
