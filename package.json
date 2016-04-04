@@ -2,9 +2,9 @@
   "name": "laravel-elixir",
   "version": "5.0.0",
   "description": "Laravel Elixir Core",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "compile": "babel --presets=es2015 -d dist/ src/"
   },
   "repository": {
     "type": "git",
@@ -16,7 +16,7 @@
     "gulp"
   ],
   "author": {
-    "name": "Taylor Otwell, Jeffrey Way"
+    "name": "Jeffrey Way"
   },
   "license": "MIT",
   "homepage": "https://github.com/laravel/elixir",
@@ -63,8 +63,9 @@
     "watchify": "^3.2.3"
   },
   "devDependencies": {
-    "gulp": "^3.8.8",
+    "babel-cli": "^6.6.5",
     "chai": "^3.2.0",
+    "gulp": "^3.8.8",
     "mocha": "^2.2.5",
     "rimraf": "^2.4.2"
   }
