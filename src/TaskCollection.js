@@ -5,8 +5,8 @@ export default class TaskCollection {
     /**
      * Create a new TaskCollection instance.
      */
-    constructor() {
-        this.tasks = [];
+    constructor(tasks = []) {
+        this.tasks = tasks;
     }
 
     /**

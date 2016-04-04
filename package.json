@@ -4,7 +4,8 @@
   "description": "Laravel Elixir Core",
   "main": "dist/index.js",
   "scripts": {
-    "compile": "babel --presets=es2015 -d dist/ src/"
+    "compile": "babel --presets=es2015 -d dist/ src/",
+    "test": "cd elixir-test-app && mocha --compilers js:babel-core/register"
   },
   "repository": {
     "type": "git",
