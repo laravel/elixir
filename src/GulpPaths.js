@@ -47,13 +47,9 @@ export default class GulpPaths {
     output(output, defaultName) {
         this.output = this.parse(output);
 
-        // If the user didn't provide a path AND file name
-        // then we'll do our best to choose a default.
         if ( ! this.output.name && defaultName) {
-            // We'll check to see if the provided src is not
-            // an array. If so, we'll use that single file
-            // name as the output name. But we must also
-            // change the extension (.sass -> .css).
+            // See if we can use the name of the input file for the output name,
+            // just as long as we substitute the ext name (.sass => .css).
             if ( ! Array.isArray(this.src.path) && this.src.name.indexOf('*') == -1) {
                 defaultName = this.changeExtension(
                     this.src.name,
@@ -96,7 +92,8 @@ export default class GulpPaths {
                 return path;
             }
 
-            // If path starts with "!" we need to negate him
+            // If the provided path starts with a bang, then
+            // it should be excluded from the src set.
             if (path.indexOf('!') == 0) {
                 path = '!' + p.join(prefix, path.substring(1));
             } else {

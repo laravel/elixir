@@ -31,7 +31,6 @@ Elixir.extend('combine', function(src, output, baseDir) {
     .ignore(paths.output.path);
 });
 
-
 /**
  * Prep the Gulp src and output paths.
  *

@@ -456,9 +456,7 @@ config.get = function(path) {
         basePath = config[segments.shift()+'Path'];
     }
 
-    segments.forEach(segment => {
-        current = current[segment];
-    });
+    segments.forEach(segment => current = current[segment]);
 
     return p.join(basePath, current);
 };

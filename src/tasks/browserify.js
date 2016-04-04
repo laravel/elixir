@@ -38,7 +38,9 @@ Elixir.extend('browserify', function(src, output, baseDir, options) {
                 stream
                 .bundle()
                 .on('error', function(e) {
-                    new Elixir.Notification().error(e, 'Browserify Failed!');
+                    new Elixir.Notification().error(
+                        e, 'Browserify Failed!'
+                    );
 
                     this.emit('end');
                 })
@@ -60,9 +62,7 @@ Elixir.extend('browserify', function(src, output, baseDir, options) {
             paths
         );
     })
-    // We'll add this task to be watched, but Watchify
-    // will handle the process, to speed things up.
-    .watch();
+    .watch(); // Register a watcher, but Watchify will do the workload.
 });
 
 /**

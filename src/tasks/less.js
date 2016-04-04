@@ -1,8 +1,6 @@
 import Elixir from 'laravel-elixir';
 import compile from './shared/Css';
 
-const config = Elixir.config;
-
 /*
  |----------------------------------------------------------------
  | Less Compilation Task
@@ -24,7 +22,7 @@ Elixir.extend('less', function(src, output, options) {
             src: paths.src,
             output: paths.output,
             task: this,
-            pluginOptions: options || config.css.less.pluginOptions
+            pluginOptions: options || Elixir.config.css.less.pluginOptions
         });
     })
     .watch(paths.src.baseDir + '/**/*.less')
@@ -40,6 +38,6 @@ Elixir.extend('less', function(src, output, options) {
  */
 const prepGulpPaths = function(src, output) {
     return new Elixir.GulpPaths()
-        .src(src, config.get('assets.css.less.folder'))
-        .output(output || config.get('public.css.outputFolder'), 'app.css');
+        .src(src, Elixir.config.get('assets.css.less.folder'))
+        .output(output || Elixir.config.get('public.css.outputFolder'), 'app.css');
 };

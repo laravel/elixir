@@ -1,59 +1,63 @@
 import fs from 'fs';
 import gutil from 'gulp-util';
 
-const Logger = function() {};
+export default class Logger {
 
-/**
- * Log a heading to the console.
- *
- * @param  {string} heading
- * @return {Logger}
- */
-Logger.heading = function(heading) {
-    console.log(''); // line break
+    /**
+     * Log a heading to the console.
+     *
+     * @param  {string} heading
+     * @return {Logger}
+     */
+    static heading(heading) {
+        console.log(''); // line break
 
-    console.log(
-        gutil.colors.black(gutil.colors.bgGreen(heading))
-    );
+        console.log(
+            gutil.colors.black(gutil.colors.bgGreen(heading))
+        );
 
-    return Logger;
-};
+        return Logger;
+    };
 
-/**
- * Log a general message to the console.
- *
- * @param  {string} message
- * @return {Logger}
- */
-Logger.message = function(message) {
-    console.log(message);
+    /**
+     * Log a general message to the console.
+     *
+     * @param  {string} message
+     * @return {Logger}
+     */
+    static message(message) {
+        console.log(message);
 
-    return Logger;
-};
+        return Logger;
+    };
 
-/**
- * Log a set of files to the console.
- *
- * @param  {string|Array} files
- * @param  {boolean}      checkForFiles
- * @return {Logger}
- */
-Logger.files = function(files, checkForFiles) {
-    files = Array.isArray(files) ? files : [files];
-    var spacer = '   - ';
+    /**
+     * Log a set of files to the console.
+     *
+     * @param  {string|Array} files
+     * @param  {boolean}      checkForFiles
+     * @return {Logger}
+     */
+    static files(files, checkForFiles) {
+        files = Array.isArray(files) ? files : [files];
+        var spacer = '   - ';
 
-    files.forEach(file => {
-        if ( ! checkForFiles || assertFileExists(file)) {
-            console.log(spacer + file);
-        } else {
-            console.log(spacer + gutil.colors.bgRed(file) + ' <-- Not Found');
-        }
-    });
+        files.forEach(file => {
+            if ( ! checkForFiles || assertFileExists(file)) {
+                console.log(spacer + file);
+            } else {
+                console.log(
+                    spacer + gutil.colors.bgRed(file) + ' <-- Not Found'
+                );
+            }
+        });
 
-    console.log(); // For a line break.
+        console.log(); // For a line break.
 
-    return Logger;
-};
+        return Logger;
+    };
+
+}
 
 /**
  * Assert that the given file exists.
@@ -72,4 +76,3 @@ let assertFileExists = function(file) {
     return file.match(/\*/) || fs.existsSync(file);
 };
 
-export default Logger;
