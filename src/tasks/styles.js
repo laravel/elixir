@@ -3,7 +3,6 @@ import Elixir from 'laravel-elixir';
 
 const $ = Elixir.Plugins;
 const config = Elixir.config;
-
 let CleanCSS;
 let map;
 
@@ -19,7 +18,7 @@ let map;
  */
 
 Elixir.extend('styles', function(styles, output, baseDir) {
-    var paths = prepGulpPaths(styles, baseDir, output);
+    const paths = prepGulpPaths(styles, baseDir, output);
 
     loadPlugins();
 
@@ -32,7 +31,7 @@ Elixir.extend('styles', function(styles, output, baseDir) {
 
 
 Elixir.extend('stylesIn', function(baseDir, output) {
-    var paths = prepGulpPaths('**/*.css', baseDir, output);
+    const paths = prepGulpPaths('**/*.css', baseDir, output);
 
     new Elixir.Task('stylesIn', function() {
         return gulpTask.call(this, paths);
@@ -40,7 +39,6 @@ Elixir.extend('stylesIn', function(baseDir, output) {
     .watch(paths.src.path)
     .ignore(paths.output.path);
 });
-
 
 /**
  * Trigger the Gulp task logic.

@@ -134,7 +134,6 @@ const copyMaps = function(src, buildPath) {
     });
 };
 
-
 /**
  * Load the required Gulp plugins on demand.
  */

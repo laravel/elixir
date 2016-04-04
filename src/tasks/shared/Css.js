@@ -3,12 +3,10 @@ import Elixir from '../../index';
 
 const $ = Elixir.Plugins;
 const config = Elixir.config;
-
 let map;
 let CleanCSS;
 
-
-module.exports = function(options) {
+export default function(options) {
     const name = options.name;
 
     loadPlugins();
@@ -34,16 +32,16 @@ module.exports = function(options) {
     );
 };
 
-
 /**
  * Prepare the minifier instance.
  */
 const minify = function () {
     return map(function (buff, filename) {
-        return new CleanCSS(config.css.minifier.pluginOptions).minify(buff.toString()).styles;
+        return new CleanCSS(config.css.minifier.pluginOptions)
+            .minify(buff.toString())
+            .styles;
     });
 };
-
 
 /**
  * Load the required Gulp plugins on demand.

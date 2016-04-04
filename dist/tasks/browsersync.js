@@ -1,9 +1,5 @@
 'use strict';
 
-var _gulp = require('gulp');
-
-var _gulp2 = _interopRequireDefault(_gulp);
-
 var _laravelElixir = require('laravel-elixir');
 
 var _laravelElixir2 = _interopRequireDefault(_laravelElixir);
@@ -11,7 +7,6 @@ var _laravelElixir2 = _interopRequireDefault(_laravelElixir);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var config = _laravelElixir2.default.config;
-
 var _ = void 0;
 var gutils = void 0;
 var browserSync = void 0;

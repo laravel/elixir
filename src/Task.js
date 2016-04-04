@@ -23,6 +23,17 @@ class Task {
     }
 
     /**
+     * Fetch the task(s) with the given name.
+     *
+     * @deprecated
+     * @param  {string} name
+     * @return {Task}
+     */
+    static find(name) {
+        return Elixir.tasks.byName(name)[0];
+    }
+
+    /**
      * Describe the task. This is the Gulp definition.
      *
      * @param  {Function} definition
@@ -133,18 +144,6 @@ class Task {
         });
     }
 }
-
-/**
- * Fetch the task(s) with the given name.
- *
- * @deprecated
- * @param  {string} name
- * @return {Task}
- */
-Task.find = function(name) {
-    return Elixir.tasks.byName(name)[0];
-};
-
 
 /**
  * See if we should run all mixins for the given task name.

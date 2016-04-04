@@ -1,7 +1,6 @@
 import gulp from 'gulp';
 import Elixir from 'laravel-elixir';
 
-
 /*
  |----------------------------------------------------------------
  | Shell Commands

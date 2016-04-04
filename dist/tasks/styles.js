@@ -12,7 +12,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var $ = _laravelElixir2.default.Plugins;
 var config = _laravelElixir2.default.config;
-
 var CleanCSS = void 0;
 var map = void 0;
 

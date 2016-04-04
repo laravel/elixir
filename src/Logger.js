@@ -1,10 +1,6 @@
 import fs from 'fs';
-import path from 'path';
 import gutil from 'gulp-util';
 
-/**
- * Create a new Logger constructor.
- */
 const Logger = function() {};
 
 /**

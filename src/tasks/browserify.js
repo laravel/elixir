@@ -3,14 +3,12 @@ import Elixir from 'laravel-elixir';
 
 const $ = Elixir.Plugins;
 const config = Elixir.config;
-
 let gutil;
 let buffer;
 let source;
 let browserify;
 let watchify;
 let bundle;
-
 
 /*
  |----------------------------------------------------------------

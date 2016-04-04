@@ -1,7 +1,8 @@
 import p from 'path';
 import gutils from 'gulp-util';
 
-const production = gutils.env.production || process.env.NODE_ENV === 'production';
+const production = gutils.env.production ||
+                   process.env.NODE_ENV === 'production';
 
 /*
  |----------------------------------------------------------------

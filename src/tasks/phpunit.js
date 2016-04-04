@@ -3,7 +3,6 @@ import runTests from './shared/Tests';
 
 const config = Elixir.config;
 
-
 /*
  |----------------------------------------------------------------
  | PHPUnit Testing

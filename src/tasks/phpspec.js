@@ -3,7 +3,6 @@ import runTests from './shared/Tests.js';
 
 const config = Elixir.config;
 
-
 /*
  |----------------------------------------------------------------
  | PHPSpec Testing

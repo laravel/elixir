@@ -3,8 +3,7 @@ import Elixir from '../../index';
 
 const notify = new Elixir.Notification();
 
-
-module.exports = function(name, src, command) {
+export default function(name, src, command) {
     new Elixir.Task(name, function(error) {
         Elixir.Log.heading('Triggering ' + name + ': ' + command);
 

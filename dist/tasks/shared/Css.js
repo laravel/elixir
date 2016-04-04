@@ -1,22 +1,10 @@
 'use strict';
 
-var _gulp = require('gulp');
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
 
-var _gulp2 = _interopRequireDefault(_gulp);
-
-var _index = require('../../index');
-
-var _index2 = _interopRequireDefault(_index);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var $ = _index2.default.Plugins;
-var config = _index2.default.config;
-
-var map = void 0;
-var CleanCSS = void 0;
-
-module.exports = function (options) {
+exports.default = function (options) {
     var name = options.name;
 
     loadPlugins();
@@ -29,6 +17,23 @@ module.exports = function (options) {
         this.emit('end');
     }).pipe($.if(config.css.autoprefix.enabled, $.autoprefixer(config.css.autoprefix.options))).pipe($.concat(options.output.name)).pipe($.if(config.production, minify())).pipe($.if(config.sourcemaps, $.sourcemaps.write('.'))).pipe(_gulp2.default.dest(options.output.baseDir)).pipe(new _index2.default.Notification(name + ' Compiled!'));
 };
+
+var _gulp = require('gulp');
+
+var _gulp2 = _interopRequireDefault(_gulp);
+
+var _index = require('../../index');
+
+var _index2 = _interopRequireDefault(_index);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var $ = _index2.default.Plugins;
+var config = _index2.default.config;
+var map = void 0;
+var CleanCSS = void 0;
+
+;
 
 /**
  * Prepare the minifier instance.

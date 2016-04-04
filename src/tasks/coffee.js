@@ -4,7 +4,6 @@ import Elixir from 'laravel-elixir';
 const $ = Elixir.Plugins;
 const config = Elixir.config;
 
-
 /*
  |----------------------------------------------------------------
  | CoffeeScript Compilation
@@ -42,7 +41,6 @@ Elixir.extend('coffee', function(src, output, options) {
     .watch(paths.src.path)
     .ignore(paths.output.path);
 });
-
 
 /**
  * Prep the Gulp src and output paths.

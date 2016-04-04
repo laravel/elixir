@@ -14,11 +14,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-/**
- * Create a new TaskCollection instance.
- */
-
 var TaskCollection = function () {
+
+    /**
+     * Create a new TaskCollection instance.
+     */
+
     function TaskCollection() {
         _classCallCheck(this, TaskCollection);
 
@@ -92,7 +93,7 @@ var TaskCollection = function () {
         /**
          * Find all tasks having the given params.
          *
-         * @param  {object} terms
+         * @param  {object} params
          * @return {array}
          */
 

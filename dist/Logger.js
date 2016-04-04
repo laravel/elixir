@@ -8,19 +8,12 @@ var _fs = require('fs');
 
 var _fs2 = _interopRequireDefault(_fs);
 
-var _path = require('path');
-
-var _path2 = _interopRequireDefault(_path);
-
 var _gulpUtil = require('gulp-util');
 
 var _gulpUtil2 = _interopRequireDefault(_gulpUtil);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-/**
- * Create a new Logger constructor.
- */
 var Logger = function Logger() {};
 
 /**

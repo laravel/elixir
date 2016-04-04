@@ -1,9 +1,10 @@
 import _ from 'underscore';
 
-/**
- * Create a new TaskCollection instance.
- */
 export default class TaskCollection {
+
+    /**
+     * Create a new TaskCollection instance.
+     */
     constructor() {
         this.tasks = [];
     }
@@ -59,7 +60,7 @@ export default class TaskCollection {
     /**
      * Find all tasks having the given params.
      *
-     * @param  {object} terms
+     * @param  {object} params
      * @return {array}
      */
     where(params) {

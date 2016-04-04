@@ -3,7 +3,6 @@ import Elixir from 'laravel-elixir';
 
 const $ = Elixir.Plugins;
 
-
 /*
  |----------------------------------------------------------------
  | Copying

@@ -11,7 +11,6 @@ var _laravelElixir2 = _interopRequireDefault(_laravelElixir);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var $ = _laravelElixir2.default.Plugins;
-var config = _laravelElixir2.default.config;
 
 /*
  |----------------------------------------------------------------

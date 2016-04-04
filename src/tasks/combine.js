@@ -2,8 +2,6 @@ import gulp from 'gulp';
 import Elixir from 'laravel-elixir';
 
 const $ = Elixir.Plugins;
-const config = Elixir.config;
-
 
 /*
  |----------------------------------------------------------------

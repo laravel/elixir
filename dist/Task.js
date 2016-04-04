@@ -53,15 +53,24 @@ var Task = function () {
     }
 
     /**
-     * Describe the task. This is the Gulp definition.
+     * Fetch the task(s) with the given name.
      *
-     * @param  {Function} definition
+     * @deprecated
+     * @param  {string} name
      * @return {Task}
      */
 
 
     _createClass(Task, [{
         key: 'describe',
+
+
+        /**
+         * Describe the task. This is the Gulp definition.
+         *
+         * @param  {Function} definition
+         * @return {Task}
+         */
         value: function describe(definition) {
             this.definition = definition;
 
@@ -184,23 +193,15 @@ var Task = function () {
                 return Elixir.tasks.findIncompleteByName(name)[0].run();
             });
         }
+    }], [{
+        key: 'find',
+        value: function find(name) {
+            return Elixir.tasks.byName(name)[0];
+        }
     }]);
 
     return Task;
 }();
-
-/**
- * Fetch the task(s) with the given name.
- *
- * @deprecated
- * @param  {string} name
- * @return {Task}
- */
-
-
-Task.find = function (name) {
-    return Elixir.tasks.byName(name)[0];
-};
 
 /**
  * See if we should run all mixins for the given task name.
@@ -208,6 +209,8 @@ Task.find = function (name) {
  * @param  {string} name
  * @return {boolean}
  */
+
+
 var shouldRunAllTasksWithName = function shouldRunAllTasksWithName(name) {
     return _underscore2.default.intersection(_gulpUtil2.default.env._, [name, 'watch', 'tdd']).length;
 };

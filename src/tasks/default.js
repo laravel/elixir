@@ -2,7 +2,6 @@ import gulp from 'gulp';
 import Elixir from 'laravel-elixir';
 import inSequence from 'run-sequence';
 
-
 /*
  |----------------------------------------------------------------
  | Default Task

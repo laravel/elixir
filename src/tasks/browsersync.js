@@ -1,12 +1,9 @@
-import gulp from 'gulp';
 import Elixir from 'laravel-elixir';
 
 const config = Elixir.config;
-
 let _;
 let gutils;
 let browserSync;
-
 
 /*
  |----------------------------------------------------------------
@@ -50,7 +47,6 @@ Elixir.extend('browserSync', function (options) {
 
     new Elixir.Task('browserSync', function () {}).watch();
 });
-
 
 /**
  * Load the required Gulp plugins on demand.
