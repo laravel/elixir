@@ -7,12 +7,16 @@ import _ from 'underscore';
  * @param {Function} recipe
  */
 const Elixir = function(recipe) {
+    // Perform any last-minute initializations.
+    init();
+
+    // Load all of Elixir's task definitions.
     require('require-dir')('./tasks');
 
     // Load the user's Gulpfile recipe.
     recipe(Elixir.mixins);
 
-    // And initialize their chosen tasks.
+    // And run their chosen tasks.
     Elixir.tasks.forEach(task => task.toGulp());
 };
 
@@ -24,8 +28,16 @@ Elixir.Plugins      = require('gulp-load-plugins')();
 Elixir.Task         = require('./Task').default(Elixir);
 Elixir.tasks        = new (require('./TaskCollection').default)();
 
-Elixir.Notification = require('./Notification').default;
-process.env.DISABLE_NOTIFIER = Elixir.config.notifications;
+/**
+ * Perform any last-minute initializations.
+ */
+const init = function () {
+    if (! Elixir.config.notifications) {
+        process.env.DISABLE_NOTIFIER = true;
+    }
+
+    Elixir.Notification = require('./Notification').default;
+};
 
 /**
  * Register a new task with Elixir.
