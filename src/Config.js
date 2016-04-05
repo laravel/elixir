@@ -347,24 +347,6 @@ const config = {
                 // https://www.npmjs.com/package/watchify#usage
                 options: {}
             }
-        },
-
-        /*
-         |----------------------------------------------------------------
-         | CoffeeScript Compilation
-         |----------------------------------------------------------------
-         |
-         | If you prefer CoffeeScript compilation, this object stores
-         | the defaults for the Coffee folder name - not the path.
-         | When used, this value will be affixed to assetsPath.
-         |
-         */
-
-        coffee: {
-            folder: 'coffee',
-
-            // https://github.com/wearefractal/gulp-coffee#options
-            options: {}
         }
     },
 
