@@ -75,4 +75,3 @@ let assertFileExists = function(file) {
 
     return file.match(/\*/) || fs.existsSync(file);
 };
-

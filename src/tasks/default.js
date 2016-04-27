@@ -14,8 +14,8 @@ import inSequence from 'run-sequence';
  */
 
 gulp.task('default', function() {
-    let tasks = Elixir.tasks.names();
-    
+    const tasks = Elixir.tasks.names();
+
     if (tasks.length) {
         inSequence.apply(this, tasks);
     }

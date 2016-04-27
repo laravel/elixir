@@ -124,7 +124,7 @@ class Task {
     /**
      * Translate the task instance to a registered Gulp task.
      */
-    toGulp () {
+    toGulp() {
         const name = this.name;
 
         // If we've already created a Gulp task,
@@ -151,7 +151,7 @@ class Task {
  * @param  {string} name
  * @return {boolean}
  */
-let shouldRunAllTasksWithName = function(name) {
+const shouldRunAllTasksWithName = function(name) {
     return _.intersection(gutils.env._, [name, 'watch', 'tdd']).length;
 };
 
