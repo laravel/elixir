@@ -33,6 +33,8 @@ Elixir.extend('styles', function(styles, output, baseDir) {
 Elixir.extend('stylesIn', function(baseDir, output) {
     const paths = prepGulpPaths('**/*.css', baseDir, output);
 
+    loadPlugins();
+
     new Elixir.Task('stylesIn', function() {
         return gulpTask.call(this, paths);
     })
