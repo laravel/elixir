@@ -12,4 +12,4 @@ Documentation for Elixir can be found on the [Laravel website](http://laravel.co
 
 ## License
 
-Laravel Elixir is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+Laravel Elixir is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
