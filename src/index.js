@@ -21,6 +21,7 @@ const Elixir = function(recipe) {
     Elixir.tasks.forEach(task => task.toGulp());
 };
 
+
 Elixir.mixins       = {};
 Elixir.isWatching   = () => gutils.env._indexOf('watch') > -1;
 Elixir.Log          = require('./Logger').default;
@@ -30,16 +31,6 @@ Elixir.Plugins      = require('gulp-load-plugins')();
 Elixir.Task         = require('./Task').default(Elixir);
 Elixir.tasks        = new (require('./TaskCollection').default)();
 
-/**
- * Perform any last-minute initializations.
- */
-const init = function () {
-    if (! Elixir.config.notifications) {
-        process.env.DISABLE_NOTIFIER = true;
-    }
-
-    Elixir.Notification = require('./Notification').default;
-};
 
 /**
  * Register a new task with Elixir.
@@ -54,6 +45,7 @@ Elixir.extend = function(name, callback) {
         return this.mixins;
     }.bind(this);
 };
+
 
 /**
  * Allow for config overrides, via an elixir.json file.
@@ -73,5 +65,17 @@ Elixir.setDefaultsFrom = function(file) {
         _.deepExtend(Elixir.config, overrides);
     }
 }('elixir.json');
+
+
+/**
+ * Perform any last-minute initializations.
+ */
+function init() {
+    if (! Elixir.config.notifications) {
+        process.env.DISABLE_NOTIFIER = true;
+    }
+
+    Elixir.Notification = require('./Notification').default;
+};
 
 module.exports = Elixir;
