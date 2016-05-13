@@ -32,6 +32,11 @@ Elixir.Task         = require('./Task').default(Elixir);
 Elixir.tasks        = new (require('./TaskCollection').default)();
 
 
+Elixir.hooks   = { before: [], watch: [] };
+Elixir.onWatch = func => Elixir.hooks.watch.push(func);
+Elixir.before  = func => Elixir.hooks.before.push(func);
+
+
 /**
  * Register a new task with Elixir.
  *
