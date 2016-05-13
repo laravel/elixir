@@ -12,10 +12,8 @@ import Elixir from 'laravel-elixir';
  |
  */
 
-Elixir.extend('task', function(name, watcher) {
+Elixir.extend('task', (name, watcher) => {
     const task = new Elixir.Task('task', () => gulp.start(name));
 
-    if (watcher) {
-        task.watch(watcher);
-    }
+    watcher && task.watch(watcher);
 });
