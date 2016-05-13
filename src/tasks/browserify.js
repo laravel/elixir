@@ -1,7 +1,5 @@
-import gulp from 'gulp';
 import Elixir from 'laravel-elixir';
 
-const $ = Elixir.Plugins;
 const config = Elixir.config;
 let gutil;
 let buffer;
@@ -26,7 +24,7 @@ Elixir.extend('browserify', function(src, output, baseDir, options) {
 
     loadPlugins();
 
-    new Elixir.Task('browserify', function() {
+    new Elixir.Task('browserify', function(gulp, $) {
         const stream = config.js.browserify.watchify.enabled
             ? watchifyStream
             : browserifyStream;

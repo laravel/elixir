@@ -1,4 +1,3 @@
-import gulp from 'gulp';
 import Elixir from 'laravel-elixir';
 
 /*
@@ -13,7 +12,7 @@ import Elixir from 'laravel-elixir';
  */
 
 Elixir.extend('exec', function(command, watcher) {
-    const task = new Elixir.Task('exec', function() {
+    const task = new Elixir.Task('exec', function(gulp, $) {
         Elixir.Log
             .heading('Triggering Command...')
             .message(command);
@@ -21,7 +20,7 @@ Elixir.extend('exec', function(command, watcher) {
         return (
             gulp
             .src('')
-            .pipe(Elixir.Plugins.shell(command))
+            .pipe($.shell(command))
         );
     });
 

@@ -98,7 +98,7 @@ class Task {
     run() {
         this.isComplete = true;
 
-        return this.definition();
+        return this.definition(gulp, Elixir.Plugins);
     }
 
     /**
