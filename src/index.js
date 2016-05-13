@@ -1,5 +1,6 @@
 import fs from 'fs';
 import _ from 'underscore';
+import gutils from 'gulp-util';
 
 /**
  * Elixir is a wrapper around Gulp.
@@ -21,6 +22,7 @@ const Elixir = function(recipe) {
 };
 
 Elixir.mixins       = {};
+Elixir.isWatching   = () => gutils.env._indexOf('watch') > -1;
 Elixir.Log          = require('./Logger').default;
 Elixir.GulpPaths    = require('./GulpPaths').default;
 Elixir.config       = require('./Config').default;
