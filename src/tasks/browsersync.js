@@ -41,7 +41,7 @@ Elixir.extend('browserSync', function (options) {
     }, config.browserSync, options);
 
     // Browsersync will only run during `gulp watch`.
-    if (gutils.env._.indexOf('watch') > -1) {
+    if (Elixir.isWatching()) {
         browserSync.init(options);
     }
 

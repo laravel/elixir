@@ -23,7 +23,7 @@ const Elixir = function(recipe) {
 
 
 Elixir.mixins       = {};
-Elixir.isWatching   = () => gutils.env._indexOf('watch') > -1;
+Elixir.isWatching   = () => gutils.env._.indexOf('watch') > -1;
 Elixir.Log          = require('./Logger').default;
 Elixir.GulpPaths    = require('./GulpPaths').default;
 Elixir.config       = require('./Config').default;
