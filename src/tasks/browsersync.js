@@ -2,7 +2,6 @@ import Elixir from 'laravel-elixir';
 
 const config = Elixir.config;
 let _;
-let gutils;
 let browserSync;
 
 /*
@@ -53,6 +52,5 @@ Elixir.extend('browserSync', function (options) {
  */
 const loadPlugins = function () {
     _ = require('underscore');
-    gutils = require('gulp-util');
     browserSync = require('browser-sync').create();
 };
