@@ -14,7 +14,7 @@ const batch = Elixir.Plugins.batch;
  |
  */
 
-gulp.task('watch', function() {
+gulp.task('watch', () => {
     initBrowserify();
 
     Elixir.tasks.forEach(task => {
@@ -31,7 +31,7 @@ gulp.task('watch', function() {
 /**
  * Determine if Browserify is included in the list.
  */
-const initBrowserify = function() {
+function initBrowserify() {
     if (Elixir.tasks.has('browserify')) {
         Elixir.config.js.browserify.watchify.enabled = true;
 
