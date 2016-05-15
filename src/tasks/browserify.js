@@ -63,6 +63,7 @@ Elixir.extend('browserify', function(src, output, baseDir, options) {
     .watch(); // Register a watcher, but Watchify will do the workload.
 });
 
+
 /**
  * Prep the Gulp src and output paths.
  *
@@ -76,6 +77,7 @@ const prepGulpPaths = function(src, baseDir, output) {
         .src(src, baseDir || config.get('assets.js.folder'))
         .output(output || config.get('public.js.outputFolder'), 'bundle.js');
 };
+
 
 /**
  * Get a standard Browserify stream.
@@ -103,6 +105,7 @@ const browserifyStream = function(data) {
 
     return stream;
 };
+
 
 /**
  * Get a Browserify stream, wrapped in Watchify.

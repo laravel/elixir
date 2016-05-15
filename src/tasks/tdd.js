@@ -16,6 +16,6 @@ gulp.task('tdd', function() {
     new Elixir.Log.message('Watching for tests...');
 
     Elixir.tasks
-        .filter(task => task.category == 'tdd')
+        .filter(task  => task.category == 'tdd')
         .forEach(task => gulp.watch(task.watchers, [task.name]));
 });

@@ -13,18 +13,11 @@ import Elixir from 'laravel-elixir';
 
 Elixir.extend('exec', function(command, watcher) {
     const task = new Elixir.Task('exec', function(gulp, $) {
-        Elixir.Log
-            .heading('Triggering Command...')
-            .message(command);
+        Elixir.Log.heading('Triggering Command...')
+                  .message(command);
 
-        return (
-            gulp
-            .src('')
-            .pipe($.shell(command))
-        );
+        return gulp.src('').pipe($.shell(command));
     });
 
-    if (watcher) {
-        task.watch(watcher);
-    }
+    watcher && task.watch(watcher);
 });

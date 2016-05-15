@@ -1,7 +1,6 @@
 import _ from 'underscore';
 
 export default class TaskCollection {
-
     /**
      * Create a new TaskCollection instance.
      */

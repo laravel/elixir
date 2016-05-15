@@ -5,7 +5,6 @@ import gutils from 'gulp-util';
 let Elixir;
 
 class Task {
-
     /**
      * Create a new Task instance.
      *
@@ -145,6 +144,7 @@ class Task {
     }
 }
 
+
 /**
  * See if we should run all mixins for the given task name.
  *
@@ -154,6 +154,7 @@ class Task {
 const shouldRunAllTasksWithName = function(name) {
     return _.intersection(gutils.env._, [name, 'watch', 'tdd']).length;
 };
+
 
 export default function(elixir) {
     // Make Elixir available throughout this file.

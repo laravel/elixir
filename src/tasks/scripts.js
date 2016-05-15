@@ -41,13 +41,14 @@ Elixir.extend('babel', function(scripts, output, baseDir, options) {
     const paths = prepGulpPaths(scripts, baseDir, output);
 
     new Elixir.Task('babel', function() {
-        const babelOptions = options || config.js.babel.options;
-
-        return gulpTask.call(this, paths, babelOptions);
+        return gulpTask.call(
+            this, paths, options || config.js.babel.options
+        );
     })
     .watch(paths.src.path)
     .ignore(paths.output.path);
 });
+
 
 /**
  * Trigger the Gulp task logic.
@@ -66,6 +67,7 @@ const gulpTask = function(paths, babel) {
         .pipe($.if(babel, $.babel(babel)))
         .on('error', function(e) {
             new Elixir.Notification().error(e, 'Babel Compilation Failed!');
+
             this.emit('end');
         })
         .pipe($.if(config.production, $.uglify(config.js.uglify.options)))
@@ -74,6 +76,7 @@ const gulpTask = function(paths, babel) {
         .pipe(new Elixir.Notification('Scripts Merged!'))
     );
 };
+
 
 /**
  * Prep the Gulp src and output paths.

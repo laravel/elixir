@@ -42,6 +42,7 @@ Elixir.extend('stylesIn', function(baseDir, output) {
     .ignore(paths.output.path);
 });
 
+
 /**
  * Trigger the Gulp task logic.
  *
@@ -62,6 +63,7 @@ const gulpTask = function(paths) {
     );
 };
 
+
 /**
  * Prepare the minifier instance.
  */
@@ -73,6 +75,7 @@ const minify = function () {
     });
 };
 
+
 /**
  * Load the required Gulp plugins on demand.
  */
@@ -80,6 +83,7 @@ const loadPlugins = function () {
     CleanCSS = require('clean-css');
     map = require('vinyl-map');
 };
+
 
 /**
  * Prep the Gulp src and output paths.

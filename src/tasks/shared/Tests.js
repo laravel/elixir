@@ -1,16 +1,15 @@
-import gulp from 'gulp';
 import Elixir from '../../index';
 
-const notify = new Elixir.Notification();
-
 export default function(name, src, command) {
-    new Elixir.Task(name, function(error) {
-        Elixir.Log.heading('Triggering ' + name + ': ' + command);
+    const notify = new Elixir.Notification();
+
+    new Elixir.Task(name, function(gulp, $) {
+        Elixir.Log.heading(`Triggering ${name}: ${command}`);
 
         return (
             gulp
             .src('')
-            .pipe(Elixir.Plugins.shell(command))
+            .pipe($.shell(command))
             .on('error', function(e) {
                 notify.forFailedTests(e, name);
 
@@ -21,5 +20,5 @@ export default function(name, src, command) {
     })
     .watch(src)
     .watch(Elixir.config.appPath + '/**/*.php', 'tdd')
-    .watch(Elixir.config.viewPath +'/**/*.php', 'tdd');
+    .watch(Elixir.config.viewPath + '/**/*.php', 'tdd');
 };

@@ -2,7 +2,6 @@ import fs from 'fs';
 import gutil from 'gulp-util';
 
 export default class Logger {
-
     /**
      * Log a heading to the console.
      *
@@ -58,6 +57,7 @@ export default class Logger {
     };
 
 }
+
 
 /**
  * Assert that the given file exists.

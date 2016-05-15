@@ -1,7 +1,6 @@
 import notify from 'gulp-notify';
 
 export default class Notification  {
-
     /**
      * Create a new Notification instance.
      */

@@ -3,7 +3,6 @@ import gutils from 'gulp-util';
 import parsePath from 'parse-filepath';
 
 export default class GulpPaths {
-
     /**
      * Set the Gulp src file(s) and path prefix.
      *

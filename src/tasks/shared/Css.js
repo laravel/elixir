@@ -32,6 +32,7 @@ export default function(options) {
     );
 };
 
+
 /**
  * Prepare the minifier instance.
  */
@@ -42,6 +43,7 @@ const minify = function () {
             .styles;
     });
 };
+
 
 /**
  * Load the required Gulp plugins on demand.
