@@ -23,7 +23,7 @@ Elixir.extend('version', function(src, buildPath) {
 
     loadPlugins();
 
-    new Elixir.Task('version', function(gulp) {
+    new Elixir.Task('version', function($, config) {
         const files = vinylPaths();
         const manifest = paths.output.baseDir + '/rev-manifest.json';
 

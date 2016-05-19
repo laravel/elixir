@@ -1,7 +1,5 @@
 import runTests from './shared/Tests.js';
 
-const config = Elixir.config;
-
 /*
  |----------------------------------------------------------------
  | PHPSpec Testing
@@ -16,7 +14,7 @@ const config = Elixir.config;
 Elixir.extend('phpSpec', function(src, command) {
     runTests(
         'PHPSpec',
-        src || (config.testing.phpSpec.path + '/**/*Spec.php'),
+        src || (Elixir.config.testing.phpSpec.path + '/**/*Spec.php'),
         command || 'vendor/bin/phpspec run'
     );
 });

@@ -1,7 +1,5 @@
 import runTests from './shared/Tests';
 
-const config = Elixir.config;
-
 /*
  |----------------------------------------------------------------
  | PHPUnit Testing
@@ -16,7 +14,7 @@ const config = Elixir.config;
 Elixir.extend('phpUnit', function(src, command) {
     runTests(
         'PHPUnit',
-        src || (config.testing.phpUnit.path + '/**/*Test.php'),
+        src || (Elixir.config.testing.phpUnit.path + '/**/*Test.php'),
         command || 'vendor/bin/phpunit --verbose'
     );
 });

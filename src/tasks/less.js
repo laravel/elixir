@@ -14,14 +14,14 @@ import compile from './shared/Css';
 Elixir.extend('less', function(src, output, options) {
     const paths = prepGulpPaths(src, output);
 
-    new Elixir.Task('less', function() {
+    new Elixir.Task('less', function($, config) {
         return compile({
             name: 'Less',
-            compiler: require('gulp-less'),
+            compiler: $.less,
             src: paths.src,
             output: paths.output,
             task: this,
-            pluginOptions: options || Elixir.config.css.less.pluginOptions
+            pluginOptions: options || config.css.less.pluginOptions
         });
     })
     .watch(paths.src.baseDir + '/**/*.less')

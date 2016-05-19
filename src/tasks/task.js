@@ -10,7 +10,7 @@
  */
 
 Elixir.extend('task', (name, watcher) => {
-    const task = new Elixir.Task('task', gulp => gulp.start(name));
+    const task = new Elixir.Task('task', () => gulp.start(name));
 
     watcher && task.watch(watcher);
 });

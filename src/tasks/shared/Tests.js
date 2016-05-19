@@ -1,7 +1,7 @@
 export default function(name, src, command) {
     const notify = new Elixir.Notification();
 
-    new Elixir.Task(name, function(gulp, $) {
+    new Elixir.Task(name, function($) {
         Elixir.Log.heading(`Triggering ${name}: ${command}`);
 
         return (

@@ -1,7 +1,5 @@
 import compile from './shared/Css';
 
-const config = Elixir.config;
-
 /*
  |----------------------------------------------------------------
  | Sass Compilation Task
@@ -16,10 +14,10 @@ const config = Elixir.config;
 const gulpTask = function(src, output, options) {
     const paths = prepGulpPaths(src, output);
 
-    new Elixir.Task('sass', function() {
+    new Elixir.Task('sass', function($, config) {
         return compile({
             name: 'Sass',
-            compiler: require('gulp-sass'),
+            compiler: $.sass,
             src: paths.src,
             output: paths.output,
             task: this,
@@ -45,6 +43,6 @@ Elixir.extend('sass', function() {
  */
 const prepGulpPaths = function(src, output) {
     return new Elixir.GulpPaths()
-        .src(src, config.get('assets.css.sass.folder'))
-        .output(output || config.get('public.css.outputFolder'), 'app.css');
+        .src(src, Elixir.config.get('assets.css.sass.folder'))
+        .output(output || Elixir.config.get('public.css.outputFolder'), 'app.css');
 };

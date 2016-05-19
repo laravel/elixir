@@ -12,7 +12,7 @@
 Elixir.extend('copy', function(src, output) {
     const paths = new Elixir.GulpPaths().src(src).output(output);
 
-    new Elixir.Task('copy', function(gulp, $) {
+    new Elixir.Task('copy', function($) {
         this.log(paths.src, paths.output);
 
         return (

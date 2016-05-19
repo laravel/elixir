@@ -12,7 +12,7 @@
 Elixir.extend('combine', function(src, output, baseDir) {
     const paths = prepGulpPaths(src, baseDir, output);
 
-    new Elixir.Task('combine', function(gulp, $) {
+    new Elixir.Task('combine', function($) {
         this.log(paths.src, paths.output);
 
         return (
