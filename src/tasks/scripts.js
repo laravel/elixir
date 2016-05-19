@@ -47,7 +47,6 @@ function gulpTask(paths, options) {
     return (
         gulp
         .src(paths.src.path)
-        .pipe($.concat(paths.output.name))
         .pipe(webpack(options, paths.output.name))
         .on('error', function(e) {
             new Elixir.Notification().error(e, 'Webpack Compilation Failed!');
