@@ -53,15 +53,13 @@ function gulpTask(paths, options) {
         gulp
         .src(paths.src.path)
         .pipe($.concat(paths.output.name))
-        .pipe(webpack(options))
+        .pipe(webpack(options, paths.output.name))
         .on('error', function(e) {
             new Elixir.Notification().error(e, 'Webpack Compilation Failed!');
 
             this.emit('end');
         })
-        .pipe($.rename(paths.output.name))
         .pipe($.if(config.production, $.uglify(config.js.uglify.options)))
-        .pipe($.if(config.sourcemaps, $.sourcemaps.write('.')))
         .pipe(gulp.dest(paths.output.baseDir))
         .pipe(new Elixir.Notification('Scripts Merged and Compiled!'))
     );
@@ -87,11 +85,16 @@ function prepGulpPaths(src, baseDir, output) {
  * Fetch the appropriate Webpack configuration.
  *
  * @param  {object|null} options
+ * @param  {string}      outputFile
  * @return {object}
  */
-function webpack(options) {
+function webpack(options, outputFile) {
     return gulpWebpack(options || {
         watch: Elixir.isWatching(),
+        devtool: config.sourcemaps ? 'source-map' : '',
+        output: {
+            filename: outputFile
+        },
         module: {
             loaders: [
                 { test: /\.js$/, loader: 'buble' }
