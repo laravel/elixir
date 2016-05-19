@@ -3,7 +3,7 @@ import Elixir from 'laravel-elixir';
 
 let $ = Elixir.Plugins;
 let config = Elixir.config;
-let gulpRollup, commonjs, buble;
+let gulpWebpack, buble;
 
 /*
  |----------------------------------------------------------------
@@ -21,11 +21,11 @@ Elixir.extend('scripts', function(scripts, output, baseDir, options) {
 
     let paths = prepGulpPaths(scripts, baseDir, output);
 
+    this.onWatch(() => gulp.start('scripts'));
+
     new Elixir.Task('scripts', function() {
         return gulpTask.call(this, paths, options);
-    })
-    .watch(paths.src.baseDir + '/**/*.+(js|jsx|vue)')
-    .ignore(paths.output.path);
+    });
 });
 
 
@@ -52,13 +52,14 @@ function gulpTask(paths, options) {
     return (
         gulp
         .src(paths.src.path)
-        .pipe(rollup(options))
+        .pipe($.concat(paths.output.name))
+        .pipe(webpack(options))
         .on('error', function(e) {
-            new Elixir.Notification().error(e, 'Rollup Compilation Failed!');
+            new Elixir.Notification().error(e, 'Webpack Compilation Failed!');
 
             this.emit('end');
         })
-        .pipe($.concat(paths.output.name))
+        .pipe($.rename(paths.output.name))
         .pipe($.if(config.production, $.uglify(config.js.uglify.options)))
         .pipe($.if(config.sourcemaps, $.sourcemaps.write('.')))
         .pipe(gulp.dest(paths.output.baseDir))
@@ -83,19 +84,20 @@ function prepGulpPaths(src, baseDir, output) {
 
 
 /**
- * Prepare the Rollup stream with config.
+ * Fetch the appropriate Webpack configuration.
  *
  * @param  {object|null} options
- * @return {mixed}
+ * @return {object}
  */
-function rollup(options)
-{
-    return gulpRollup(options || {
-        plugins: [commonjs(), buble()],
-        format: 'iife',
-        moduleName: 'ElixirBundle',
-        sourceMap: config.sourcemaps
-    });
+function webpack(options) {
+    return gulpWebpack(options || {
+        watch: Elixir.isWatching(),
+        module: {
+            loaders: [
+                { test: /\.js$/, loader: 'buble' }
+            ]
+        }
+    }, require('webpack'));
 }
 
 
@@ -104,7 +106,6 @@ function rollup(options)
  */
 function loadPlugins()
 {
-    gulpRollup = require('gulp-rollup');
-    commonjs = require('rollup-plugin-commonjs');
-    buble = require('rollup-plugin-buble');
+    gulpWebpack = require('webpack-stream');
+    buble = require('buble-loader');
 }

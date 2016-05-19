@@ -25,6 +25,7 @@
   "dependencies": {
     "browser-sync": "^2.12.3",
     "buble": "^0.8.4",
+    "buble-loader": "^0.2.1",
     "clean-css": "^3.4.12",
     "del": "^2.2.0",
     "glob": "^7.0.3",
@@ -38,7 +39,6 @@
     "gulp-rename": "^1.2.2",
     "gulp-rev": "^7.0.0",
     "gulp-rev-replace": "^0.4.3",
-    "gulp-rollup": "^1.9.0",
     "gulp-sass": "^2.3.1",
     "gulp-shell": "^0.5.2",
     "gulp-sourcemaps": "^1.6.0",
@@ -48,13 +48,13 @@
     "parse-filepath": "^1.0.1",
     "path": "^0.12.7",
     "require-dir": "^0.3.0",
-    "rollup-plugin-buble": "^0.8.0",
-    "rollup-plugin-commonjs": "^2.2.1",
     "run-sequence": "^1.1.5",
     "underscore": "^1.8.3",
     "underscore-deep-extend": "1.0.4",
     "vinyl-map": "^1.0.1",
-    "vinyl-paths": "^2.1.0"
+    "vinyl-paths": "^2.1.0",
+    "webpack": "^2.1.0-beta.7",
+    "webpack-stream": "^3.2.0"
   },
   "devDependencies": {
     "babel-cli": "^6.7.7",
