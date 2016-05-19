@@ -21,8 +21,6 @@ Elixir.extend('scripts', function(scripts, output, baseDir, options) {
 
     let paths = prepGulpPaths(scripts, baseDir, output);
 
-    this.onWatch(() => gulp.start('scripts'));
-
     new Elixir.Task('scripts', function() {
         return gulpTask.call(this, paths, options);
     });
