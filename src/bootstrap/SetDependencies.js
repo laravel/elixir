@@ -6,5 +6,5 @@ Elixir.Log          = require('../Logger').default;
 Elixir.GulpPaths    = require('../GulpPaths').default;
 Elixir.config       = require('../Config').default;
 Elixir.Plugins      = require('gulp-load-plugins')();
-Elixir.Task         = require('../Task').default(Elixir);
+Elixir.Task         = require('../Task').default;
 Elixir.tasks        = new (require('../TaskCollection').default)();

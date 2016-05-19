@@ -1,9 +1,7 @@
 import _ from 'underscore';
 import gutils from 'gulp-util';
 
-let Elixir;
-
-class Task {
+export default class Task {
     /**
      * Create a new Task instance.
      *
@@ -152,12 +150,4 @@ class Task {
  */
 const shouldRunAllTasksWithName = function(name) {
     return _.intersection(gutils.env._, [name, 'watch', 'tdd']).length;
-};
-
-
-export default function(elixir) {
-    // Make Elixir available throughout this file.
-    Elixir = elixir;
-
-    return Task;
 };
