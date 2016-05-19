@@ -1,4 +1,3 @@
-import Elixir from 'laravel-elixir';
 import compile from './shared/Css';
 
 /*

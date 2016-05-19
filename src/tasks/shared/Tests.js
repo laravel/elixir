@@ -1,5 +1,3 @@
-import Elixir from '../../index';
-
 export default function(name, src, command) {
     const notify = new Elixir.Notification();
 

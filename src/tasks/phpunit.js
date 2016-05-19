@@ -1,4 +1,3 @@
-import Elixir from 'laravel-elixir';
 import runTests from './shared/Tests';
 
 const config = Elixir.config;

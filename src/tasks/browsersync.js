@@ -1,5 +1,3 @@
-import Elixir from 'laravel-elixir';
-
 let _;
 let browserSync;
 

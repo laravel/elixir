@@ -1,4 +1,3 @@
-import gulp from 'gulp';
 import _ from 'underscore';
 import gutils from 'gulp-util';
 

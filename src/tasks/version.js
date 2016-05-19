@@ -1,5 +1,3 @@
-import Elixir from 'laravel-elixir';
-
 let publicPath  = Elixir.config.publicPath;
 let fs;
 let del;

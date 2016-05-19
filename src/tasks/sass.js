@@ -1,5 +1,4 @@
 import compile from './shared/Css';
-import Elixir from 'laravel-elixir';
 
 const config = Elixir.config;
 

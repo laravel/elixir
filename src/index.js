@@ -1,3 +1,5 @@
+GLOBAL.gulp = require('gulp');
+
 /**
  * Elixir is a wrapper around Gulp.
  *

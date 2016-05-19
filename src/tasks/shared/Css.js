@@ -1,6 +1,3 @@
-import gulp from 'gulp';
-import Elixir from '../../index';
-
 const $ = Elixir.Plugins;
 const config = Elixir.config;
 let map;

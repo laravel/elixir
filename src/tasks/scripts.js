@@ -1,6 +1,3 @@
-import gulp from 'gulp';
-import Elixir from 'laravel-elixir';
-
 let $ = Elixir.Plugins;
 let config = Elixir.config;
 let gulpWebpack, buble;

@@ -1,6 +1,3 @@
-import gulp from 'gulp';
-import Elixir from 'laravel-elixir';
-
 const batch = Elixir.Plugins.batch;
 
 /*
