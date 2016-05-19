@@ -94,9 +94,7 @@ function webpack(options, outputFile) {
             filename: outputFile
         },
         module: {
-            loaders: [
-                { test: /\.js$/, loader: 'buble' }
-            ]
+            loaders: config.js.webpack.loaders
         }
     }, require('webpack'));
 }
