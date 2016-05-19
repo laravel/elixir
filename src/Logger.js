@@ -9,13 +9,10 @@ export default class Logger {
      * @return {Logger}
      */
     static heading(heading) {
-        console.log(''); // line break
-
-        console.log(
+        // First message call for line break.
+        return Logger.message('').message(
             gutil.colors.black(gutil.colors.bgGreen(heading))
         );
-
-        return Logger;
     };
 
     /**
@@ -25,10 +22,24 @@ export default class Logger {
      * @return {Logger}
      */
     static message(message) {
+        if (Logger.shouldBeMuted()) {
+            return Logger;
+        }
+
         console.log(message);
 
         return Logger;
     };
+
+    static error(message) {
+        console.log(''); // line break
+
+        console.log(
+            gutil.colors.bgRed(message)
+        );
+
+        process.exit(1);
+    }
 
     /**
      * Log a set of files to the console.
@@ -41,20 +52,31 @@ export default class Logger {
         files = Array.isArray(files) ? files : [files];
         var spacer = '   - ';
 
+        if (Logger.shouldBeMuted()) {
+            return Logger;
+        }
+
         files.forEach(file => {
             if ( ! checkForFiles || assertFileExists(file)) {
-                console.log(spacer + file);
+                Logger.message(spacer + file);
             } else {
-                console.log(
+                Logger.message(
                     spacer + gutil.colors.bgRed(file) + ' <-- Not Found'
                 );
             }
         });
 
-        console.log(); // For a line break.
-
-        return Logger;
+        return Logger.message(''); // Line break.
     };
+
+    /**
+     * Determine if we're in test-mode.
+     *
+     * @return {boolean}
+     */
+    static shouldBeMuted() {
+        return process.argv[1].indexOf('bin/_mocha') > -1;
+    }
 
 }
 
