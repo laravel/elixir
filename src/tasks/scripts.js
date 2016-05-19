@@ -1,12 +1,13 @@
 import gulp from 'gulp';
 import Elixir from 'laravel-elixir';
 
-const $ = Elixir.Plugins;
-const config = Elixir.config;
+let $ = Elixir.Plugins;
+let config = Elixir.config;
+let gulpRollup, commonjs, buble;
 
 /*
  |----------------------------------------------------------------
- | JavaScript File Concatenation
+ | JavaScript File Concatenation and Compilation
  |----------------------------------------------------------------
  |
  | This task will concatenate and minify your JavaScript files
@@ -15,35 +16,24 @@ const config = Elixir.config;
  |
  */
 
-Elixir.extend('scripts', function(scripts, output, baseDir) {
-    const paths = prepGulpPaths(scripts, baseDir, output);
+Elixir.extend('scripts', function(scripts, output, baseDir, options) {
+    loadPlugins();
+
+    let paths = prepGulpPaths(scripts, baseDir, output);
 
     new Elixir.Task('scripts', function() {
-        return gulpTask.call(this, paths);
+        return gulpTask.call(this, paths, options);
     })
-    .watch(paths.src.path)
+    .watch(paths.src.baseDir + '/**/*.+(js|jsx|vue)')
     .ignore(paths.output.path);
 });
 
 
 Elixir.extend('scriptsIn', function(baseDir, output) {
-    const paths = prepGulpPaths('**/*.js', baseDir, output);
+    let paths = prepGulpPaths('**/*.js', baseDir, output);
 
     new Elixir.Task('scriptsIn', function() {
         return gulpTask.call(this, paths);
-    })
-    .watch(paths.src.path)
-    .ignore(paths.output.path);
-});
-
-
-Elixir.extend('babel', function(scripts, output, baseDir, options) {
-    const paths = prepGulpPaths(scripts, baseDir, output);
-
-    new Elixir.Task('babel', function() {
-        return gulpTask.call(
-            this, paths, options || config.js.babel.options
-        );
     })
     .watch(paths.src.path)
     .ignore(paths.output.path);
@@ -54,26 +44,25 @@ Elixir.extend('babel', function(scripts, output, baseDir, options) {
  * Trigger the Gulp task logic.
  *
  * @param {GulpPaths}   paths
- * @param {object|null} babel
+ * @param {object|null} options
  */
-const gulpTask = function(paths, babel) {
+function gulpTask(paths, options) {
     this.log(paths.src, paths.output);
 
     return (
         gulp
         .src(paths.src.path)
-        .pipe($.if(config.sourcemaps, $.sourcemaps.init()))
-        .pipe($.concat(paths.output.name))
-        .pipe($.if(babel, $.babel(babel)))
+        .pipe(rollup(options))
         .on('error', function(e) {
-            new Elixir.Notification().error(e, 'Babel Compilation Failed!');
+            new Elixir.Notification().error(e, 'Rollup Compilation Failed!');
 
             this.emit('end');
         })
+        .pipe($.concat(paths.output.name))
         .pipe($.if(config.production, $.uglify(config.js.uglify.options)))
         .pipe($.if(config.sourcemaps, $.sourcemaps.write('.')))
         .pipe(gulp.dest(paths.output.baseDir))
-        .pipe(new Elixir.Notification('Scripts Merged!'))
+        .pipe(new Elixir.Notification('Scripts Merged and Compiled!'))
     );
 };
 
@@ -86,8 +75,36 @@ const gulpTask = function(paths, babel) {
  * @param  {string|null}  output
  * @return {GulpPaths}
  */
-const prepGulpPaths = function(src, baseDir, output) {
+function prepGulpPaths(src, baseDir, output) {
     return new Elixir.GulpPaths()
         .src(src, baseDir || config.get('assets.js.folder'))
         .output(output || config.get('public.js.outputFolder'), 'all.js');
-};
+}
+
+
+/**
+ * Prepare the Rollup stream with config.
+ *
+ * @param  {object|null} options
+ * @return {mixed}
+ */
+function rollup(options)
+{
+    return gulpRollup(options || {
+        plugins: [commonjs(), buble()],
+        format: 'iife',
+        moduleName: 'ElixirBundle',
+        sourceMap: config.sourcemaps
+    });
+}
+
+
+/**
+ * Lazy-load the required Gulp plugins on demand.
+ */
+function loadPlugins()
+{
+    gulpRollup = require('gulp-rollup');
+    commonjs = require('rollup-plugin-commonjs');
+    buble = require('rollup-plugin-buble');
+}

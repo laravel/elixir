@@ -266,24 +266,6 @@ const config = {
 
         /*
          |----------------------------------------------------------------
-         | Babel Compilation
-         |----------------------------------------------------------------
-         |
-         | Think of Babel as a compiler for next-generation JavaScript.
-         | If you'd like to make use of ES6 - or even ES7 features -
-         | in new apps, we make it a cinch right from the get go.
-         |
-         */
-
-        babel: {
-            // https://www.npmjs.com/package/gulp-babel#babel-options
-            options: {
-                presets: ['es2015', 'react']
-            }
-        },
-
-        /*
-         |----------------------------------------------------------------
          | UglifyJS Parser/Compressor/Beautifier
          |----------------------------------------------------------------
          |
@@ -299,7 +281,8 @@ const config = {
                     drop_console: true
                 }
             }
-        },
+        }
+    },
 
     testing: {
 
