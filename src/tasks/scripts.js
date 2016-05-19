@@ -1,3 +1,5 @@
+import {extend} from 'underscore';
+
 let $ = Elixir.Plugins;
 let config = Elixir.config;
 let gulpWebpack, buble;
@@ -83,7 +85,7 @@ function prepGulpPaths(src, baseDir, output) {
  * @return {object}
  */
 function webpack(options, outputFile) {
-    return gulpWebpack(options || {
+    return gulpWebpack(extend({
         watch: Elixir.isWatching(),
         devtool: config.sourcemaps ? 'source-map' : '',
         output: {
@@ -92,7 +94,7 @@ function webpack(options, outputFile) {
         module: {
             loaders: config.js.webpack.loaders
         }
-    }, require('webpack'));
+    }, options), require('webpack'));
 }
 
 
