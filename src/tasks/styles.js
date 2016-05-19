@@ -1,7 +1,5 @@
 const $ = Elixir.Plugins;
 const config = Elixir.config;
-let CleanCSS;
-let map;
 
 /*
  |----------------------------------------------------------------
@@ -17,8 +15,6 @@ let map;
 Elixir.extend('styles', function(styles, output, baseDir) {
     const paths = prepGulpPaths(styles, baseDir, output);
 
-    loadPlugins();
-
     new Elixir.Task('styles', function() {
         return gulpTask.call(this, paths);
     })
@@ -29,8 +25,6 @@ Elixir.extend('styles', function(styles, output, baseDir) {
 
 Elixir.extend('stylesIn', function(baseDir, output) {
     const paths = prepGulpPaths('**/*.css', baseDir, output);
-
-    loadPlugins();
 
     new Elixir.Task('stylesIn', function() {
         return gulpTask.call(this, paths);
@@ -53,32 +47,11 @@ const gulpTask = function(paths) {
         .src(paths.src.path)
         .pipe($.if(config.sourcemaps, $.sourcemaps.init()))
         .pipe($.concat(paths.output.name))
-        .pipe($.if(config.production, minify()))
+        .pipe($.if(config.production, require('./shared/CssMinifier')()))
         .pipe($.if(config.sourcemaps, $.sourcemaps.write('.')))
         .pipe(gulp.dest(paths.output.baseDir))
         .pipe(new Elixir.Notification('Stylesheets Merged!'))
     );
-};
-
-
-/**
- * Prepare the minifier instance.
- */
-const minify = function () {
-    return map((buff, filename) => {
-        return new CleanCSS(config.css.minifier.pluginOptions)
-            .minify(buff.toString())
-            .styles;
-    });
-};
-
-
-/**
- * Load the required Gulp plugins on demand.
- */
-const loadPlugins = function () {
-    CleanCSS = require('clean-css');
-    map = require('vinyl-map');
 };
 
 
