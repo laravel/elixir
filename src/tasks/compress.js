@@ -44,7 +44,7 @@ const prepGulpPaths = function(src, baseDir, output) {
     // no explicit output name, we'll need you to
     // be more specific.
     if (Array.isArray(src) && ! output) {
-        Elixir.Log.error(
+        Elixir.fail(
             'Please provide an output path ' +
             'for your mix.compress(src, output) call.'
         );
@@ -83,7 +83,7 @@ function minify(output) {
         );
     }
 
-    Elixir.Log.error(
+    Elixir.fail(
         'Hmm, not sure how to compress this type of file. ' +
         'Stick with CSS or JavaScript files!'
     );

@@ -11,8 +11,7 @@
 
 Elixir.extend('exec', function(command, watcher) {
     const task = new Elixir.Task('exec', function($) {
-        Elixir.Log.heading('Triggering Command...')
-                  .message(command);
+        Elixir.log.status('Triggering Command...', command)
 
         return gulp.src('').pipe($.shell(command));
     });

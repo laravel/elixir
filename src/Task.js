@@ -104,16 +104,19 @@ export default class Task {
      * @param {string|null}  output
      */
     log(src, output) {
-        var task = this.name.substr(0,1).toUpperCase() + this.name.substr(1);
+        let task = this.name.substr(0,1).toUpperCase() + this.name.substr(1);
 
-        Elixir.Log
-           .heading("Fetching " + task + " Source Files...")
-           .files(src.path ? src.path : src, true);
+        Elixir.log.files(
+            `Fetching ${task} Source Files...`,
+            src.path ? src.path : src
+        );
 
         if (output) {
-            Elixir.Log
-                .heading('Saving To...')
-                .files(output.path ? output.path : output);
+            Elixir.log.files(
+                'Saving To...',
+                output.path ? output.path : output,
+                false
+            );
         }
     }
 

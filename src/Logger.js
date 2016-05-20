@@ -6,11 +6,10 @@ export default class Logger {
      * Log a heading to the console.
      *
      * @param  {string} heading
-     * @return {Logger}
+     * @return {this}
      */
-    static heading(heading) {
-        // First message call for line break.
-        return Logger.message('').message(
+    heading(heading) {
+        return this.break().message(
             gutil.colors.black(gutil.colors.bgGreen(heading))
         );
     };
@@ -19,45 +18,66 @@ export default class Logger {
      * Log a general message to the console.
      *
      * @param  {string} message
-     * @return {Logger}
+     * @return {this}
      */
-    static message(message) {
-        if (Logger.shouldBeMuted()) {
-            return Logger;
+    message(message) {
+        if (this.shouldBeMuted()) {
+            return this;
         }
 
         console.log(message);
 
-        return Logger;
+        return this;
     };
 
-    static error(message) {
-        console.log(''); // line break
+    /**
+     * Log a heading and message to the console.
+     *
+     * @param  {string}      heading
+     * @param  {string|null} message
+     * @return {this}
+     */
+    status(heading, message) {
+        this.heading(heading);
 
-        console.log(
+        message && this.message(message);
+
+        return this;
+    }
+
+    /**
+     * Log an error message to the console.
+     *
+     * @param {string} message
+     */
+    error(message) {
+        this.break().message(
             gutil.colors.bgRed(message)
         );
 
-        process.exit(1);
+        return this;
     }
 
     /**
      * Log a set of files to the console.
      *
+     * @param  {string}       message
      * @param  {string|Array} files
      * @param  {boolean}      checkForFiles
-     * @return {Logger}
+     * @return {this}
      */
-    static files(files, checkForFiles) {
+    files(message, files, checkForFiles = true) {
+        if (this.shouldBeMuted()) return this;
+
+        this.heading(message);
+
         files = Array.isArray(files) ? files : [files];
 
-        if (Logger.shouldBeMuted()) {
-            return Logger;
-        }
+        files.forEach(
+            file => this.file(file, checkForFiles)
+        );
 
-        files.forEach(file => Logger.file(file, checkForFiles));
-
-        return Logger.message(''); // Line break.
+        return this.break();
     };
 
     /**
@@ -67,16 +87,26 @@ export default class Logger {
      * @param  {boolean} checkForFiles
      * @return {mixed}
      */
-    static file(file, checkForFiles) {
+    file(file, checkForFiles) {
         var spacer = '   - ';
 
         if ( ! checkForFiles || assertFileExists(file)) {
-            return Logger.message(spacer + file);
+            return this.message(spacer + file);
         }
 
-        Logger.message(
+        this.message(
             spacer + gutil.colors.bgRed(file) + ' <-- Not Found'
         );
+    }
+
+    /**
+     * Add a line break to the console output.
+     * @return {this}
+     */
+    break() {
+        console.log(''); // line break
+
+        return this;
     }
 
     /**
@@ -84,7 +114,7 @@ export default class Logger {
      *
      * @return {boolean}
      */
-    static shouldBeMuted() {
+    shouldBeMuted() {
         return process.argv[1].indexOf('bin/_mocha') > -1;
     }
 
@@ -97,7 +127,7 @@ export default class Logger {
  * @param  {string} file
  * @return {boolean}
  */
-let assertFileExists = function(file) {
+function assertFileExists(file) {
     // If this file begins with a !, then the
     // user intends to exclude it from the
     // src set; we're free to ignore it.

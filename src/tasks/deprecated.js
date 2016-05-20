@@ -3,7 +3,7 @@
  */
 Elixir.extend('babel', function(scripts, output, baseDir, options) {
     new Elixir.Task('babel', function() {
-        Elixir.Log
+        Elixir.log
             .heading('Compatibility Alert!')
             .heading(
                 "'mix.babel()' was removed in Laravel Elixir 6.0. " +
@@ -18,7 +18,7 @@ Elixir.extend('babel', function(scripts, output, baseDir, options) {
  */
 Elixir.extend('browserify', function(scripts, output, baseDir, options) {
     new Elixir.Task('browserify', function() {
-        Elixir.Log
+        Elixir.log
             .heading('Compatibility Alert!')
             .heading(
                 `'mix.browserify()' was extracted to its own extension in
