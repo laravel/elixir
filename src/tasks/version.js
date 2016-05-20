@@ -4,7 +4,6 @@ let del;
 let glob;
 let rev;
 let vinylPaths;
-let parsePath;
 let revReplace;
 
 /*
@@ -129,7 +128,7 @@ const copyMaps = function(src, buildPath) {
                     // copy each map to the build directory.
                     const map = file.replace(publicPath, buildPath);
 
-                    gulp.src(`${file}.map`).pipe(gulp.dest(parsePath(map).dirname));
+                    gulp.src(`${file}.map`).pipe(gulp.dest(parse(map).dirname));
                 });
         });
     });
@@ -146,5 +145,4 @@ const loadPlugins = function () {
     rev = require('gulp-rev');
     revReplace = require('gulp-rev-replace');
     vinylPaths = require('vinyl-paths');
-    parsePath  = require('parse-filepath');
 };

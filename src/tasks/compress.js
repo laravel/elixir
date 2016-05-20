@@ -1,5 +1,3 @@
-import filePath from 'parse-filepath';
-
 /*
  |----------------------------------------------------------------
  | Asset Compression
@@ -53,7 +51,7 @@ const prepGulpPaths = function(src, baseDir, output) {
     // If the user provided no output path at all, we
     // will do our best to provide a sensible default.
     if (! output) {
-         let segments = filePath(src);
+         let segments = parse(src);
 
         output = segments.path.replace(
             segments.ext, `.min${segments.ext}`
@@ -62,7 +60,7 @@ const prepGulpPaths = function(src, baseDir, output) {
 
     return new Elixir.GulpPaths()
         .src(src, baseDir)
-        .output(output, filePath(Array.isArray(src) ? src[0] : src).base)
+        .output(output, parse(Array.isArray(src) ? src[0] : src).base)
 };
 
 

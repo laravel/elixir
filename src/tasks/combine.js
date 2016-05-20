@@ -1,5 +1,3 @@
-import filePath from 'parse-filepath';
-
 /*
  |----------------------------------------------------------------
  | File Concatenation
@@ -12,7 +10,7 @@ import filePath from 'parse-filepath';
  */
 
 Elixir.extend('combine', function(src, output, baseDir) {
-    const paths = prepGulpPaths(src, baseDir, output);
+    let paths = prepGulpPaths(src, baseDir, output);
 
     new Elixir.Task('combine', function($) {
         this.log(paths.src, paths.output);
@@ -37,16 +35,15 @@ Elixir.extend('combine', function(src, output, baseDir) {
  * @param  {string|null}  output
  * @return {GulpPaths}
  */
-const prepGulpPaths = function(src, baseDir, output) {
-    if ( ! output || ! filePath(output).ext) {
+function prepGulpPaths(src, baseDir, output) {
+    if ( ! output || ! parse(output).ext) {
         Elixir.fail(
             "Please update your Gulpfile, and add a full output path as the " +
             "second argument to your mix.combine() call. " +
             "\n\nMaybe: mix.combine('" + JSON.stringify(src) + "', " +
-            "'./public/js/combined" + filePath(src[0]).ext + "')"
+            "'./public/js/combined" + parse(src[0]).ext + "')"
         );
     }
-
 
     return new Elixir.GulpPaths()
         .src(src, baseDir)

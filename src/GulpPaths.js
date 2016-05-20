@@ -1,6 +1,5 @@
 import p from 'path';
 import gutils from 'gulp-util';
-import parsePath from 'parse-filepath';
 
 export default class GulpPaths {
     /**
@@ -118,7 +117,7 @@ export default class GulpPaths {
      * @return {object}
      */
     parse(path) {
-        let segments = parsePath(path);
+        let segments = parse(path);
 
         return {
             path      : path,

@@ -1,4 +1,5 @@
 GLOBAL.gulp = require('gulp');
+GLOBAL.parse = require('parse-filepath');
 
 /**
  * Elixir is a wrapper around Gulp.
