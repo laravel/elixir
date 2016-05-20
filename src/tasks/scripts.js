@@ -34,9 +34,7 @@ Elixir.extend('scriptsIn', function(baseDir, output) {
 
     new Elixir.Task('scriptsIn', function() {
         return gulpTask.call(this, paths);
-    })
-    .watch(paths.src.path)
-    .ignore(paths.output.path);
+    });
 });
 
 
