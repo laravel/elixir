@@ -1,8 +1,9 @@
+import fs from 'fs';
 import {extend} from 'underscore';
 
 let $ = Elixir.Plugins;
 let config = Elixir.config;
-let gulpWebpack, buble;
+let gulpWebpack, webpackConfig, buble;
 
 /*
  |----------------------------------------------------------------
@@ -27,6 +28,8 @@ Elixir.extend('scripts', function(scripts, output, baseDir, options) {
 
 
 Elixir.extend('scriptsIn', function(baseDir, output) {
+    loadPlugins();
+
     let paths = prepGulpPaths('**/*.js', baseDir, output);
 
     new Elixir.Task('scriptsIn', function() {
@@ -94,7 +97,7 @@ function webpack(options, outputFile) {
         module: {
             loaders: config.js.webpack.loaders
         }
-    }, options), require('webpack'));
+    }, webpackConfig, options), require('webpack'));
 }
 
 
@@ -105,4 +108,8 @@ function loadPlugins()
 {
     gulpWebpack = require('webpack-stream');
     buble = require('buble-loader');
+
+    if (fs.existsSync('webpack.config.js')) {
+        webpackConfig = require(process.cwd()+'/webpack.config.js');
+    }
 }
