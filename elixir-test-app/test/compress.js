@@ -8,6 +8,7 @@ var Elixir = require('laravel-elixir');
 describe('Compress Task', function() {
 
     beforeEach(() => {
+        Elixir.config.production = true;
         Elixir.tasks.empty();
     });
 
@@ -56,17 +57,6 @@ describe('Compress Task', function() {
 
     it('can output to any directory', done => {
         Elixir(mix => mix.compress('./compress/file.js', './public'));
-
-
-        runGulp(() => {
-            shouldExist('./public/file.js');
-
-            done();
-        });
-    });
-
-    it('can output an array of source files to any directory', done => {
-        Elixir(mix => mix.compress(['./compress/file.js'], './public'));
 
 
         runGulp(() => {
