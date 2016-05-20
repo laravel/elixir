@@ -3,7 +3,7 @@ import {extend} from 'underscore';
 
 let $ = Elixir.Plugins;
 let config = Elixir.config;
-let gulpWebpack, webpackConfig, buble;
+let gulpWebpack, webpackConfig;
 
 /*
  |----------------------------------------------------------------
@@ -107,7 +107,6 @@ function webpack(options, outputFile) {
 function loadPlugins()
 {
     gulpWebpack = require('webpack-stream');
-    buble = require('buble-loader');
 
     if (fs.existsSync('webpack.config.js')) {
         webpackConfig = require(process.cwd()+'/webpack.config.js');
