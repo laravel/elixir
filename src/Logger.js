@@ -50,24 +50,34 @@ export default class Logger {
      */
     static files(files, checkForFiles) {
         files = Array.isArray(files) ? files : [files];
-        var spacer = '   - ';
 
         if (Logger.shouldBeMuted()) {
             return Logger;
         }
 
-        files.forEach(file => {
-            if ( ! checkForFiles || assertFileExists(file)) {
-                Logger.message(spacer + file);
-            } else {
-                Logger.message(
-                    spacer + gutil.colors.bgRed(file) + ' <-- Not Found'
-                );
-            }
-        });
+        files.forEach(file => Logger.file(file, checkForFiles));
 
         return Logger.message(''); // Line break.
     };
+
+    /**
+     * Log the existence of a file to the console.
+     *
+     * @param  {string}  file
+     * @param  {boolean} checkForFiles
+     * @return {mixed}
+     */
+    static file(file, checkForFiles) {
+        var spacer = '   - ';
+
+        if ( ! checkForFiles || assertFileExists(file)) {
+            return Logger.message(spacer + file);
+        }
+
+        Logger.message(
+            spacer + gutil.colors.bgRed(file) + ' <-- Not Found'
+        );
+    }
 
     /**
      * Determine if we're in test-mode.
