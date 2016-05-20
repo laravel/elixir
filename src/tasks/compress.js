@@ -41,16 +41,17 @@ const prepGulpPaths = function(src, baseDir, output) {
     // If you gave us an array of source files, and
     // no explicit output name, we'll need you to
     // be more specific.
-    if (Array.isArray(src) && ! output) {
+    if (Array.isArray(src) && (! output || ! parse(output).ext)) {
         Elixir.fail(
-            'Please provide an output path ' +
-            'for your mix.compress(src, output) call.'
+            'Please provide a full output path for your ' +
+            'mix.compress(src, output) call.'
         );
     }
 
-    // If the user provided no output path at all, we
-    // will do our best to provide a sensible default.
-    if (! output) {
+    // If the user is compressing a single file, and
+    // didn't provide an output path, we will just
+    // tack .min onto the file.
+    if (! Array.isArray(src) && ! output) {
          let segments = parse(src);
 
         output = segments.path.replace(
