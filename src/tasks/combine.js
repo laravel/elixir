@@ -1,3 +1,5 @@
+import combine from './shared/Combine';
+
 /*
  |----------------------------------------------------------------
  | File Concatenation
@@ -22,22 +24,7 @@ Elixir.extend('compress', task);
  * @param  {string|null}  baseDir
  */
 function task(src, output, baseDir) {
-    let paths = prepGulpPaths(src, baseDir, output);
-
-    new Elixir.Task('combine', function($, config) {
-        this.log(paths.src, paths.output);
-
-        return (
-            gulp
-            .src(paths.src.path)
-            .pipe($.concat(paths.output.name))
-            .pipe($.if(config.production, minify(paths.output)))
-            .pipe(gulp.dest(paths.output.baseDir))
-            .pipe(new Elixir.Notification('Assets Combined!'))
-        );
-    })
-    .watch(paths.src.path)
-    .ignore(paths.output.path);
+    combine('combine', getPaths(src, baseDir, output));
 }
 
 
@@ -49,7 +36,7 @@ function task(src, output, baseDir) {
  * @param  {string|null}  output
  * @return {GulpPaths}
  */
-function prepGulpPaths(src, baseDir, output) {
+function getPaths(src, baseDir, output) {
     // If you gave us an array of src files, but no
     // explicit output name, we need more specifics.
     if (Array.isArray(src) && (! output || ! parse(output).ext)) {
@@ -76,27 +63,3 @@ function prepGulpPaths(src, baseDir, output) {
         .src(src, baseDir)
         .output(output);
 };
-
-
-/**
- * Retrieve the proper minifier.
- *
- * @param  {object} output
- * @return {stream}
- */
-function minify(output) {
-    if (output.extension == '.css') {
-        return require('./shared/CssMinifier').default();
-    }
-
-    if (output.extension == '.js') {
-        return Elixir.Plugins.uglify(
-            Elixir.config.js.uglify.options
-        );
-    }
-
-    Elixir.fail(
-        'Hmm, not sure how to compress this type of file. ' +
-        'Stick with CSS or JavaScript files!'
-    );
-}
