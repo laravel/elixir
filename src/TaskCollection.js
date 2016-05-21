@@ -1,6 +1,6 @@
 import _ from 'underscore';
 
-export default class TaskCollection {
+class TaskCollection {
     /**
      * Create a new TaskCollection instance.
      */
@@ -96,3 +96,7 @@ export default class TaskCollection {
         this.tasks = [];
     }
 }
+
+
+export default TaskCollection;
+

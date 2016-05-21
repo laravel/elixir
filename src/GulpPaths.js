@@ -1,7 +1,7 @@
 import p from 'path';
 import gutils from 'gulp-util';
 
-export default class GulpPaths {
+class GulpPaths {
     /**
      * Set the Gulp src file(s) and path prefix.
      *
@@ -130,3 +130,6 @@ export default class GulpPaths {
         };
     }
 }
+
+
+export default GulpPaths;

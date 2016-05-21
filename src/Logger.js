@@ -1,7 +1,7 @@
 import fs from 'fs';
 import gutil from 'gulp-util';
 
-export default class Logger {
+class Logger {
     /**
      * Log a heading to the console.
      *
@@ -117,7 +117,6 @@ export default class Logger {
     shouldBeMuted() {
         return process.argv[1].indexOf('bin/_mocha') > -1;
     }
-
 }
 
 
@@ -137,3 +136,6 @@ function assertFileExists(file) {
 
     return file.match(/\*/) || fs.existsSync(file);
 };
+
+
+export default Logger;

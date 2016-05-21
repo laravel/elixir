@@ -1,6 +1,7 @@
 GLOBAL.gulp = require('gulp');
 GLOBAL.parse = require('parse-filepath');
 
+
 /**
  * Elixir is a wrapper around Gulp.
  *
@@ -41,5 +42,6 @@ function init() {
 
     Elixir.Notification = require('./Notification').default;
 };
+
 
 module.exports = Elixir;

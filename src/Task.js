@@ -1,7 +1,7 @@
 import _ from 'underscore';
 import gutils from 'gulp-util';
 
-export default class Task {
+class Task {
     /**
      * Create a new Task instance.
      *
@@ -154,3 +154,7 @@ export default class Task {
 const shouldRunAllTasksWithName = function(name) {
     return _.intersection(gutils.env._, [name, 'watch', 'tdd']).length;
 };
+
+
+export default Task;
+

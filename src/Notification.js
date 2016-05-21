@@ -1,6 +1,6 @@
 import notify from 'gulp-notify';
 
-export default class Notification  {
+class Notification  {
     /**
      * Create a new Notification instance.
      */
@@ -76,3 +76,6 @@ export default class Notification  {
         })(e);
     }
 }
+
+
+export default Notification;
