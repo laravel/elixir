@@ -1,12 +1,77 @@
 import gutils from 'gulp-util';
 
-Elixir.mixins       = {};
-Elixir.isWatching   = () => gutils.env._.indexOf('watch') > -1;
+/**
+ * This object stores all of the various Elixir tasks.
+ *
+ * @type {Object}
+ */
+Elixir.mixins = {};
+
+
+/**
+ * Determine if Elixir is in "production" mode.
+ */
 Elixir.inProduction = gutils.env.production || process.env.NODE_ENV === 'production';
-Elixir.log          = new (require('../Logger').default)();
-Elixir.fail         = message => Elixir.log.error(message) && process.exit(1);
-Elixir.GulpPaths    = require('../GulpPaths').default;
-Elixir.config       = require('../Config').default;
-Elixir.Plugins      = require('gulp-load-plugins')();
-Elixir.Task         = require('../Task').default;
-Elixir.tasks        = new (require('../TaskCollection').default)();
+
+
+/**
+ * Determine if 'gulp watch' is being run.
+ */
+Elixir.isWatching = () => gutils.env._.indexOf('watch') > -1;
+
+
+/**
+ * A logger singleton for use in various tasks.
+ *
+ * @type {Logger}
+ */
+Elixir.log = new (require('../Logger').default)();
+
+
+/**
+ * Exit Elixir with the given error message.
+ *
+ * @param  {string} message
+ */
+Elixir.fail = message => Elixir.log.error(message) && process.exit(1);
+
+
+/**
+ * This class determines the proper src and
+ * output paths for any given task.
+ *
+ * @type {GulpPaths}
+ */
+Elixir.GulpPaths = require('../GulpPaths').default;
+
+
+/**
+ * The main Elixir configuration object.
+ *
+ * @type {object}
+ */
+Elixir.config = require('../Config').default;
+
+
+/**
+ * Easily access all Gulp-specific plugins.
+ *
+ * @type {object}
+ */
+Elixir.Plugins = require('gulp-load-plugins')();
+
+
+/**
+ * Each Gulp task is stored as a Task instance.
+ *
+ * @type {Task}
+ */
+Elixir.Task = require('../Task').default;
+
+
+/**
+ * The main collection of Elixir tasks.
+ *
+ * @type {TaskCollection}
+ */
+Elixir.tasks = new (require('../TaskCollection').default)();
