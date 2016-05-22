@@ -10,25 +10,6 @@ class Compiler {
         this.options = options;
     }
 
-
-    /**
-     * Compile the Less.
-     */
-    compile() {
-        return Elixir.Plugins[this.task.name](this.getOptions());
-    }
-
-
-    /**
-     * Get the plugin options.
-     *
-     * @return {object}
-     */
-    getOptions() {
-        return this.options || Elixir.config.css[this.task.name].pluginOptions;
-    }
-
-
     /**
      * Initialize the sourcemaps.
      */

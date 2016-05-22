@@ -28,6 +28,16 @@ class CssCompiler extends Compiler {
 
 
     /**
+     * Compile the Less.
+     */
+    compile() {
+        return Elixir.Plugins[this.task.name](
+            this.options || Elixir.config.css[this.task.name].pluginOptions
+        );
+    }
+
+
+    /**
      * Apply CSS auto-prefixing.
      */
     autoPrefix() {
