@@ -26,8 +26,6 @@ Elixir.extend('version', function(src, buildPath) {
         const files = vinylPaths();
         const manifest = paths.output.baseDir + '/rev-manifest.json';
 
-        this.log(paths.src, paths.output);
-
         emptyBuildPathFiles(paths.output.baseDir, manifest);
 
         // We need to remove the publicPath from the output base to get the
@@ -57,7 +55,7 @@ Elixir.extend('version', function(src, buildPath) {
                 copyMaps(paths.src.path, paths.output.baseDir);
             })
         );
-    })
+    }, paths)
     .watch(paths.src.path);
 });
 

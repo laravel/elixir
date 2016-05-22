@@ -1,7 +1,7 @@
 /**
  * Deprecated.
  */
-Elixir.extend('babel', function(scripts, output, baseDir, options) {
+Elixir.extend('babel', function() {
     new Elixir.Task('babel', function() {
         Elixir.log
             .heading('Compatibility Alert!')
@@ -16,7 +16,7 @@ Elixir.extend('babel', function(scripts, output, baseDir, options) {
 /**
  * Deprecated.
  */
-Elixir.extend('browserify', function(scripts, output, baseDir, options) {
+Elixir.extend('browserify', function() {
     new Elixir.Task('browserify', function() {
         Elixir.log
             .heading('Compatibility Alert!')

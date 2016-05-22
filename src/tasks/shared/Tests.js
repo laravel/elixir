@@ -1,5 +1,5 @@
 export default function(name, src, command) {
-    const notify = new Elixir.Notification();
+    let notify = new Elixir.Notification();
 
     new Elixir.Task(name, function($) {
         Elixir.log.status(`Triggering ${name}: ${command}`);
