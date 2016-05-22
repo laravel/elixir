@@ -58,7 +58,9 @@ class Compiler {
      * @param {object} e
      */
     onError(e) {
-        new Elixir.Notification().error(e, `${this.task.ucName()} Compilation Failed!`);
+        new Elixir.Notification().error(
+            e, `${this.task.ucName()} Compilation Failed!`
+        );
 
         this.emit('end');
     }
