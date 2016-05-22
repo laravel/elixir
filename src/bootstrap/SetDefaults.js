@@ -6,7 +6,7 @@ import _ from 'underscore';
  *
  * @param {string} file
  */
-Elixir.setDefaultsFrom = file => {
+Elixir.setDefaultsFrom = function (file) {
     let overrides;
 
     if (fs.existsSync(file)) {
