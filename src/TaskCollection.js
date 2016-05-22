@@ -8,6 +8,7 @@ class TaskCollection {
         this.tasks = tasks;
     }
 
+
     /**
      * Fetch the underlying array of tasks.
      *
@@ -16,6 +17,7 @@ class TaskCollection {
     all() {
         return this.tasks;
     }
+
 
     /**
      * Check if the collection has a task with the given name.
@@ -27,6 +29,7 @@ class TaskCollection {
         return _.contains(this.names(), taskName);
     }
 
+
     /**
      * Add a new task to the collection.
      *
@@ -36,6 +39,7 @@ class TaskCollection {
     push(task) {
         this.tasks.push(task);
     }
+
 
     /**
      * Filter through the tasks.
@@ -47,6 +51,7 @@ class TaskCollection {
         this.tasks.forEach(callable);
     }
 
+
     /**
      * Pluck all task names from the collection.
      *
@@ -55,6 +60,7 @@ class TaskCollection {
     names() {
         return _.pluck(this.tasks, 'name');
     }
+
 
     /**
      * Find all tasks having the given params.
@@ -66,6 +72,7 @@ class TaskCollection {
         return _.where(this.tasks, params);
     }
 
+
     /**
      * Find all tasks with the given name.
      *
@@ -75,6 +82,7 @@ class TaskCollection {
     byName(name) {
         return this.where({ name: name });
     }
+
 
     /**
      * Find all tasks with the given name.
@@ -89,6 +97,7 @@ class TaskCollection {
         });
     }
 
+
     /**
      * Empty out all tasks.
      */
@@ -99,4 +108,3 @@ class TaskCollection {
 
 
 export default TaskCollection;
-

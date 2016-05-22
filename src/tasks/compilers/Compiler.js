@@ -10,12 +10,14 @@ class Compiler {
         this.options = options;
     }
 
+
     /**
      * Compile the Less.
      */
     compile() {
         return Elixir.Plugins[this.task.name](this.getOptions());
     }
+
 
     /**
      * Get the plugin options.
@@ -25,6 +27,7 @@ class Compiler {
     getOptions() {
         return this.options || Elixir.config.css[this.task.name].pluginOptions;
     }
+
 
     /**
      * Initialize the sourcemaps.
@@ -37,6 +40,7 @@ class Compiler {
         return map(function () {});
     }
 
+
     /**
      * Write to the sourcemaps file.
      */
@@ -48,12 +52,14 @@ class Compiler {
         return map(function () {});
     }
 
+
     /**
      * Apply concatenation to the incoming stream.
      */
     concat() {
         return Elixir.Plugins.concat(this.task.output.name);
     }
+
 
     /**
      * Set the destination path for the compiler.
@@ -63,6 +69,7 @@ class Compiler {
     saveAs(gulp) {
         return gulp.dest(this.task.output.baseDir);
     }
+
 
     /**
      * Handle a compilation error.
@@ -74,6 +81,7 @@ class Compiler {
 
         this.emit('end');
     }
+
 
     /**
      * Handle successful compilation.

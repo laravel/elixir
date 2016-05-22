@@ -35,6 +35,7 @@ class GulpPaths {
         return this;
     }
 
+
     /**
      * Set the Gulp output path.
      *
@@ -61,6 +62,7 @@ class GulpPaths {
         return this;
     }
 
+
     /**
      * Change the file extension for a path.
      *
@@ -71,6 +73,7 @@ class GulpPaths {
     changeExtension(path, newExtension) {
         return gutils.replaceExtension(path, newExtension);
     }
+
 
     /**
      * Apply a path prefix to the path(s).
@@ -109,6 +112,7 @@ class GulpPaths {
 
         return prefixOne(path);
     }
+
 
     /**
      * Parse the given file path.

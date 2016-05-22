@@ -14,6 +14,7 @@ class Logger {
         );
     };
 
+
     /**
      * Log a general message to the console.
      *
@@ -30,6 +31,7 @@ class Logger {
         return this;
     };
 
+
     /**
      * Log a heading and message to the console.
      *
@@ -45,6 +47,7 @@ class Logger {
         return this;
     }
 
+
     /**
      * Log an error message to the console.
      *
@@ -57,6 +60,7 @@ class Logger {
 
         return this;
     }
+
 
     /**
      * Log a set of files to the console.
@@ -80,6 +84,7 @@ class Logger {
         return this.break();
     };
 
+
     /**
      * Log the existence of a file to the console.
      *
@@ -99,6 +104,7 @@ class Logger {
         );
     }
 
+
     /**
      * Add a line break to the console output.
      * @return {this}
@@ -108,6 +114,7 @@ class Logger {
 
         return this;
     }
+
 
     /**
      * Determine if we're in test-mode.

@@ -26,6 +26,7 @@ class CssCompiler extends Compiler {
         );
     }
 
+
     /**
      * Apply CSS auto-prefixing.
      */
@@ -38,6 +39,7 @@ class CssCompiler extends Compiler {
 
         return map(function () {});
     }
+
 
     /**
      * Minify the compiled output.

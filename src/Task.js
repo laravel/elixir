@@ -26,12 +26,14 @@ class Task {
         }
     }
 
+
     /**
      * Get the "ucwords" version of the task name.
      */
     ucName() {
         return this.name.substr(0,1).toUpperCase() + this.name.substr(1);
     }
+
 
     /**
      * Fetch the task(s) with the given name.
@@ -43,6 +45,7 @@ class Task {
     static find(name) {
         return Elixir.tasks.byName(name)[0];
     }
+
 
     /**
      * Describe the task. This is the Gulp definition.
@@ -56,6 +59,7 @@ class Task {
         return this.register();
     }
 
+
     /**
      * Set the task to be called, when firing `Gulp`.
      *
@@ -66,6 +70,7 @@ class Task {
 
         return this;
     }
+
 
     /**
      * Set a path regex to watch for changes.
@@ -84,12 +89,14 @@ class Task {
         return this;
     }
 
+
     /**
      * Determine if the task has any watchers.
      */
     hasWatchers () {
         return this.watchers.length > 0;
     }
+
 
     /**
      * Exclude the given path from the watcher.
@@ -102,6 +109,7 @@ class Task {
 
         return this;
     }
+
 
     /**
      * Execute the task definition.
@@ -117,6 +125,7 @@ class Task {
 
         return this.definition(Elixir.Plugins, Elixir.config);
     }
+
 
     /**
      * Log the task input and output.
@@ -137,6 +146,7 @@ class Task {
             );
         }
     }
+
 
     /**
      * Translate the task instance to a registered Gulp task.

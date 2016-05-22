@@ -14,6 +14,7 @@ class Notification  {
         }
     }
 
+
     /**
      * Display a notification.
      *
@@ -27,6 +28,7 @@ class Notification  {
             onLast: true
         });
     }
+
 
     /**
      * Display an error notification.
@@ -47,6 +49,7 @@ class Notification  {
         console.log(e);
     }
 
+
     /**
      * Display a notification for passed tests.
      *
@@ -60,6 +63,7 @@ class Notification  {
             onLast: true
         });
     }
+
 
     /**
      * Display a notification for failed tests.

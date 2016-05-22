@@ -18,6 +18,7 @@ class JavaScriptCompiler extends Compiler {
         }
     }
 
+
     /**
      * Retrieve the full Gulp task.
      *
@@ -37,6 +38,7 @@ class JavaScriptCompiler extends Compiler {
         );
     }
 
+
     /**
      * Run the files through Webpack.
      */
@@ -52,6 +54,7 @@ class JavaScriptCompiler extends Compiler {
             }
         }, this.webpackConfig, this.options), require('webpack'));
     }
+
 
     /**
      * Uglify the code.
