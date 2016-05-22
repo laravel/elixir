@@ -1,4 +1,9 @@
+let CleanCSS, map;
+
 export default function (name, paths) {
+    CleanCSS = require('clean-css');
+    map = require('vinyl-map');
+
     new Elixir.Task(name, function ($, config) {
         this.log(paths.src, paths.output);
 
@@ -26,7 +31,13 @@ export default function (name, paths) {
  */
 function minify(output) {
     if (output.extension == '.css') {
-        return require('./CssMinifier').default();
+        return map(function (buff, filename) {
+            return new CleanCSS(
+                Elixir.config.css.minifier.pluginOptions
+            )
+            .minify(buff.toString())
+            .styles;
+        });
     }
 
     if (output.extension == '.js') {

@@ -1,4 +1,4 @@
-import compile from './shared/Css';
+import Compiler from '../Compiler';
 
 /*
  |----------------------------------------------------------------
@@ -12,20 +12,11 @@ import compile from './shared/Css';
  */
 
 Elixir.extend('less', function(src, output, options) {
-    const paths = prepGulpPaths(src, output);
+    let paths = getPaths(src, output);
 
-    new Elixir.Task('less', function($, config) {
-        return compile({
-            name: 'Less',
-            compiler: $.less,
-            src: paths.src,
-            output: paths.output,
-            task: this,
-            pluginOptions: options || config.css.less.pluginOptions
-        });
-    })
-    .watch(paths.src.baseDir + '/**/*.less')
-    .ignore(paths.output.path);
+    new Elixir.Task('less', new Compiler(options), paths)
+        .watch(paths.src.baseDir + '/**/*.less')
+        .ignore(paths.output.path);
 });
 
 
@@ -36,7 +27,7 @@ Elixir.extend('less', function(src, output, options) {
  * @param  {string|null}  output
  * @return {GulpPaths}
  */
-const prepGulpPaths = function(src, output) {
+function getPaths(src, output) {
     return new Elixir.GulpPaths()
         .src(src, Elixir.config.get('assets.css.less.folder'))
         .output(output || Elixir.config.get('public.css.outputFolder'), 'app.css');

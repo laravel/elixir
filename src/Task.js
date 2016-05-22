@@ -1,17 +1,25 @@
 import _ from 'underscore';
 import gutils from 'gulp-util';
+import Compiler from './Compiler';
 
 class Task {
     /**
      * Create a new Task instance.
      *
-     * @param {string}   name
-     * @param {Function} description
+     * @param {string}    name
+     * @param {Function}  description
+     * @param {GulpPaths} paths
      */
-    constructor(name, description) {
+    constructor(name, description, paths) {
         this.name = name;
         this.watchers = [];
         this.isComplete = false;
+
+        if (paths) {
+            this.paths = paths;
+            this.src = this.paths.src;
+            this.output = this.paths.output;
+        }
 
         if (description) {
             this.describe(description);
@@ -94,27 +102,30 @@ class Task {
     run() {
         this.isComplete = true;
 
+        if (this.definition instanceof Compiler) {
+            return this.definition.toGulp(this);
+        }
+
         return this.definition(Elixir.Plugins, Elixir.config);
     }
 
     /**
      * Log the task input and output.
-     *
-     * @param {string|Array} src
-     * @param {string|null}  output
      */
-    log(src, output) {
+    log() {
         let task = this.name.substr(0,1).toUpperCase() + this.name.substr(1);
 
-        Elixir.log.files(
-            `Fetching ${task} Source Files...`,
-            src.path ? src.path : src
-        );
+        if (this.src) {
+            Elixir.log.files(
+                `Fetching ${task} Source Files...`,
+                this.src.path ? this.src.path : this.src
+            );
+        }
 
-        if (output) {
+        if (this.output) {
             Elixir.log.files(
                 'Saving To...',
-                output.path ? output.path : output,
+                this.output.path ? this.output.path : this.output,
                 false
             );
         }
