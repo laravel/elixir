@@ -60,7 +60,7 @@ class JavaScriptCompiler extends Compiler {
      * Uglify the code.
      */
     minify() {
-        if (Elixir.config.production) {
+        if (Elixir.inProduction) {
             return Elixir.Plugins.uglify(
                 Elixir.config.js.uglify.options
             );

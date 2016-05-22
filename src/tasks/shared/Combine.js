@@ -12,7 +12,7 @@ export default function (name, paths) {
             .src(paths.src.path)
             .pipe($.if(config.sourcemaps, $.sourcemaps.init()))
             .pipe($.concat(paths.output.name))
-            .pipe($.if(config.production, minify(paths.output)))
+            .pipe($.if(Elixir.inProduction, minify(paths.output)))
             .pipe($.if(config.sourcemaps, $.sourcemaps.write('.')))
             .pipe(gulp.dest(paths.output.baseDir))
             .pipe(new Elixir.Notification('Assets Combined!'))

@@ -2,6 +2,7 @@ import gutils from 'gulp-util';
 
 Elixir.mixins       = {};
 Elixir.isWatching   = () => gutils.env._.indexOf('watch') > -1;
+Elixir.inProduction = gutils.env.production || process.env.NODE_ENV === 'production';
 Elixir.log          = new (require('../Logger').default)();
 Elixir.fail         = message => Elixir.log.error(message) && process.exit(1);
 Elixir.GulpPaths    = require('../GulpPaths').default;

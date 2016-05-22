@@ -1,8 +1,4 @@
 import p from 'path';
-import gutils from 'gulp-util';
-
-const production = gutils.env.production ||
-                   process.env.NODE_ENV === 'production';
 
 /*
  |----------------------------------------------------------------
@@ -32,7 +28,7 @@ const config = {
      |
      */
 
-    production,
+    production: Elixir.inProduction,
 
     /*
      |----------------------------------------------------------------
@@ -110,7 +106,7 @@ const config = {
      |
      */
 
-    sourcemaps: ! gutils.env.production,
+    sourcemaps: ! Elixir.inProduction,
 
     /*
      |----------------------------------------------------------------
@@ -210,9 +206,7 @@ const config = {
 
             // https://github.com/sass/node-sass#options
             pluginOptions: {
-                outputStyle: production
-                    ? 'compressed'
-                    : 'nested',
+                outputStyle: Elixir.inProduction ? 'compressed' : 'nested',
                 precision: 10
             }
         },

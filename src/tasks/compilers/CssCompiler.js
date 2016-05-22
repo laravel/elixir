@@ -46,7 +46,7 @@ class CssCompiler extends Compiler {
      */
     minify() {
         return map(function(buff, filename) {
-            if (Elixir.config.production) {
+            if (Elixir.inProduction) {
                 let options = Elixir.config.css.minifier.pluginOptions;
 
                 return new CleanCSS(options).minify(buff.toString()).styles;
