@@ -1,9 +1,4 @@
-import fs from 'fs';
-import {extend} from 'underscore';
-
-let $ = Elixir.Plugins;
-let config = Elixir.config;
-let gulpWebpack, webpackConfig;
+import Compiler from './compilers/JavaScriptCompiler';
 
 /*
  |----------------------------------------------------------------
@@ -17,50 +12,17 @@ let gulpWebpack, webpackConfig;
  */
 
 Elixir.extend('scripts', function(scripts, output, baseDir, options) {
-    loadPlugins();
-
     let paths = prepGulpPaths(scripts, baseDir, output);
 
-    new Elixir.Task('scripts', function() {
-        return gulpTask.call(this, paths, options);
-    });
+    new Elixir.Task('scripts', new Compiler(options), paths);
 });
 
 
 Elixir.extend('scriptsIn', function(baseDir, output) {
-    loadPlugins();
-
     let paths = prepGulpPaths('**/*.js', baseDir, output);
 
-    new Elixir.Task('scriptsIn', function() {
-        return gulpTask.call(this, paths);
-    });
+    new Elixir.Task('scriptsIn', new Compiler(options, paths));
 });
-
-
-/**
- * Trigger the Gulp task logic.
- *
- * @param {GulpPaths}   paths
- * @param {object|null} options
- */
-function gulpTask(paths, options) {
-    this.log(paths.src, paths.output);
-
-    return (
-        gulp
-        .src(paths.src.path)
-        .pipe(webpack(options, paths.output.name))
-        .on('error', function(e) {
-            new Elixir.Notification().error(e, 'Webpack Compilation Failed!');
-
-            this.emit('end');
-        })
-        .pipe($.if(config.production, $.uglify(config.js.uglify.options)))
-        .pipe(gulp.dest(paths.output.baseDir))
-        .pipe(new Elixir.Notification('Scripts Merged and Compiled!'))
-    );
-};
 
 
 /**
@@ -73,40 +35,6 @@ function gulpTask(paths, options) {
  */
 function prepGulpPaths(src, baseDir, output) {
     return new Elixir.GulpPaths()
-        .src(src, baseDir || config.get('assets.js.folder'))
-        .output(output || config.get('public.js.outputFolder'), 'all.js');
-}
-
-
-/**
- * Fetch the appropriate Webpack configuration.
- *
- * @param  {object|null} options
- * @param  {string}      outputFile
- * @return {object}
- */
-function webpack(options, outputFile) {
-    return gulpWebpack(extend({
-        watch: Elixir.isWatching(),
-        devtool: config.sourcemaps ? 'source-map' : '',
-        output: {
-            filename: outputFile
-        },
-        module: {
-            loaders: config.js.webpack.loaders
-        }
-    }, webpackConfig, options), require('webpack'));
-}
-
-
-/**
- * Lazy-load the required Gulp plugins on demand.
- */
-function loadPlugins()
-{
-    gulpWebpack = require('webpack-stream');
-
-    if (fs.existsSync('webpack.config.js')) {
-        webpackConfig = require(process.cwd()+'/webpack.config.js');
-    }
+        .src(src, baseDir || Elixir.config.get('assets.js.folder'))
+        .output(output || Elixir.config.get('public.js.outputFolder'), 'all.js');
 }

@@ -1,6 +1,6 @@
 import _ from 'underscore';
 import gutils from 'gulp-util';
-import Compiler from './Compiler';
+import Compiler from './tasks/compilers/Compiler';
 
 class Task {
     /**
@@ -24,6 +24,13 @@ class Task {
         if (description) {
             this.describe(description);
         }
+    }
+
+    /**
+     * Get the "ucwords" version of the task name.
+     */
+    ucName() {
+        return this.name.substr(0,1).toUpperCase() + this.name.substr(1);
     }
 
     /**
@@ -102,6 +109,8 @@ class Task {
     run() {
         this.isComplete = true;
 
+        this.log();
+
         if (this.definition instanceof Compiler) {
             return this.definition.toGulp(this);
         }
@@ -113,11 +122,9 @@ class Task {
      * Log the task input and output.
      */
     log() {
-        let task = this.name.substr(0,1).toUpperCase() + this.name.substr(1);
-
         if (this.src) {
             Elixir.log.files(
-                `Fetching ${task} Source Files...`,
+                `Fetching ${this.ucName()} Source Files...`,
                 this.src.path ? this.src.path : this.src
             );
         }
@@ -168,4 +175,3 @@ const shouldRunAllTasksWithName = function(name) {
 
 
 export default Task;
-

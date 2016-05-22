@@ -1,5 +1,4 @@
 import map from 'vinyl-map';
-import CleanCSS from 'clean-css';
 
 class Compiler {
     /**
@@ -12,46 +11,9 @@ class Compiler {
     }
 
     /**
-     * Retrieve the full Gulp task.
-     */
-    toGulp(task) {
-        this.task = task;
-
-        return (
-            gulp
-            .src(task.src.path)
-            .pipe(this.initSourceMaps())
-            .pipe(this.compile())
-            .on('error', this.onError)
-            .pipe(this.autoPrefix())
-            .pipe(this.concat())
-            .pipe(this.minify())
-            .pipe(this.writeSourceMaps())
-            .pipe(this.saveAs(gulp))
-            .pipe(this.onSuccess())
-        );
-    }
-
-    /**
-     * Get the "ucwords" task name.
-     */
-    name() {
-        return this.task.name.substr(0,1).toUpperCase() + this.task.name.substr(1);
-    }
-
-    /**
      * Compile the Less.
      */
     compile() {
-        this.task.log();
-
-        return this.plugin();
-    }
-
-    /**
-     * Run the plugin.
-     */
-    plugin() {
         return Elixir.Plugins[this.task.name](this.getOptions());
     }
 
@@ -87,32 +49,6 @@ class Compiler {
     }
 
     /**
-     * Apply CSS auto-prefixing.
-     */
-    autoPrefix() {
-        if (Elixir.config.css.autoprefix.enabled) {
-            return Elixir.Plugins.autoprefixer(
-                Elixir.config.css.autoprefix.options
-            )
-        }
-
-        return map(function () {});
-    }
-
-    /**
-     * Minify the compiled output.
-     */
-    minify() {
-        return map(function(buff, filename) {
-            if (Elixir.config.production) {
-                let options = Elixir.config.css.minifier.pluginOptions;
-
-                return new CleanCSS(options).minify(buff.toString()).styles;
-            }
-        });
-    }
-
-    /**
      * Apply concatenation to the incoming stream.
      */
     concat() {
@@ -143,7 +79,7 @@ class Compiler {
      * Handle successful compilation.
      */
     onSuccess() {
-        return new Elixir.Notification(`${this.name()} Compiled!`);
+        return new Elixir.Notification(`${this.task.ucName()} Compiled!`);
     }
 }
 

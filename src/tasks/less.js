@@ -1,4 +1,4 @@
-import Compiler from '../Compiler';
+import Compiler from './compilers/CssCompiler';
 
 /*
  |----------------------------------------------------------------
