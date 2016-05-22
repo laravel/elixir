@@ -26,7 +26,6 @@ GLOBAL.Elixir = recipe => {
     './bootstrap/SetDependencies',
     './bootstrap/EnableExtension',
     './bootstrap/SetHooks',
-    './bootstrap/ConfigureWebpack',
     './bootstrap/SetDefaults'
 ]
 .forEach(bootstrapper => require(bootstrapper));
