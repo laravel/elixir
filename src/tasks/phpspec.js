@@ -1,4 +1,4 @@
-import runTests from './shared/Tests.js';
+import Compiler from './compilers/TestingCompiler';
 
 /*
  |----------------------------------------------------------------
@@ -12,9 +12,5 @@ import runTests from './shared/Tests.js';
  */
 
 Elixir.extend('phpSpec', function(src, command) {
-    runTests(
-        'PHPSpec',
-        src || (Elixir.config.testing.phpSpec.path + '/**/*Spec.php'),
-        command || 'vendor/bin/phpspec run'
-    );
+    new Elixir.Task('phpSpec', new Compiler(src, command));
 });

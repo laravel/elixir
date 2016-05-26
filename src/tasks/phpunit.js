@@ -1,4 +1,4 @@
-import runTests from './shared/Tests';
+import Compiler from './compilers/TestingCompiler';
 
 /*
  |----------------------------------------------------------------
@@ -12,9 +12,5 @@ import runTests from './shared/Tests';
  */
 
 Elixir.extend('phpUnit', function(src, command) {
-    runTests(
-        'PHPUnit',
-        src || (Elixir.config.testing.phpUnit.path + '/**/*Test.php'),
-        command || 'vendor/bin/phpunit --verbose'
-    );
+    new Elixir.Task('phpUnit', new Compiler(src, command));
 });
