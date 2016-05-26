@@ -1,14 +1,13 @@
-import Compiler from './Compiler';
-
-class TestingCompiler extends Compiler {
+class TestingTask extends Elixir.Task {
     /**
-     * Create a new TestingCompiler instance.
+     * Create a new TestingTask instance.
      *
+     * @param  {string}      name
      * @param  {string|null} src
      * @param  {string|null} command
      */
-    constructor(src, command) {
-        super();
+    constructor(name, src, command) {
+        super(name);
 
         this.src = src;
         this.command = command;
@@ -16,14 +15,10 @@ class TestingCompiler extends Compiler {
 
 
     /**
-     * Retrieve the full Gulp task.
-     *
-     * @param {Task} task
+     * Build up the Gulp task.
      */
-    toGulp(task) {
-        this.task = task;
-
-        this.addWatchers();
+    gulpTask() {
+        this.registerWatchers();
 
         return (
             gulp
@@ -38,8 +33,8 @@ class TestingCompiler extends Compiler {
     /**
      * Register file watchers.
      */
-    addWatchers() {
-        this.task.watch(this.src || this.pluginConfig('path') + this.pluginConfig('search'))
+    registerWatchers() {
+        this.watch(this.src || this.pluginConfig('path') + this.pluginConfig('search'))
             .watch(Elixir.config.appPath + '/**/*.php', 'tdd')
             .watch(Elixir.config.viewPath + '/**/*.php', 'tdd');
     }
@@ -51,7 +46,7 @@ class TestingCompiler extends Compiler {
     runTests() {
         let command = this.command || this.pluginConfig('command');
 
-        Elixir.log.status(`Running ${this.task.ucName()} (${command})`);
+        this.log(`Running ${this.ucName()} (${command})`);
 
         return Elixir.Plugins.shell(command);
     }
@@ -61,7 +56,7 @@ class TestingCompiler extends Compiler {
      * Handle any errors.
      */
     onError() {
-        let task = this.task.name;
+        let task = this.name;
 
         return function (e) {
             new Elixir.Notification().forFailedTests(e, task);
@@ -75,7 +70,7 @@ class TestingCompiler extends Compiler {
      * Handle a "green" test suite.
      */
     onSuccess() {
-        return new Elixir.Notification().forPassedTests(this.task.name);
+        return new Elixir.Notification().forPassedTests(this.name);
     }
 
 
@@ -85,9 +80,9 @@ class TestingCompiler extends Compiler {
      * @param {string} prop
      */
     pluginConfig(prop) {
-        return Elixir.config.testing[this.task.name][prop];
+        return Elixir.config.testing[this.name][prop];
     }
 }
 
 
-export default TestingCompiler;
+export default TestingTask;

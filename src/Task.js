@@ -21,7 +21,12 @@ class Task {
             this.output = this.paths.output;
         }
 
-        if (description) {
+        // If the user opted for a subclass that contains
+        // a "gulpTask" method, we will then defer to
+        // that for all Gulp-specific logic.
+        if (typeof this.gulpTask == 'function') {
+            this.describe(this.gulpTask);
+        } else if (description) {
             this.describe(description);
         }
     }
@@ -119,18 +124,20 @@ class Task {
 
         this.log();
 
-        if (this.definition instanceof Compiler) {
-            return this.definition.toGulp(this);
-        }
-
         return this.definition(Elixir.Plugins, Elixir.config);
     }
 
 
     /**
      * Log the task input and output.
+     *
+     * @param {string|null} message
      */
-    log() {
+    log(message) {
+        if (message) {
+            return Elixir.log.status(message);
+        }
+
         if (this.src) {
             Elixir.log.files(
                 `Fetching ${this.ucName()} Source Files...`,

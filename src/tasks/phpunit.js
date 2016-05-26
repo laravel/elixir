@@ -1,5 +1,4 @@
-import Compiler from './compilers/TestingCompiler';
-
+import TestingTask from '../TestingTask';
 /*
  |----------------------------------------------------------------
  | PHPUnit Testing
@@ -12,5 +11,5 @@ import Compiler from './compilers/TestingCompiler';
  */
 
 Elixir.extend('phpUnit', function(src, command) {
-    new Elixir.Task('phpUnit', new Compiler(src, command));
+    new TestingTask('phpUnit', src, command);
 });
