@@ -1,9 +1,9 @@
 class CombineTask extends Elixir.Task {
     /**
-     * Create a new TestingTask instance.
+     * Create a new CombineTask instance.
      *
-     * @param {string}      name
-     * @param {GulpPaths}   paths
+     * @param {string} name
+     * @param {GulpPaths} paths
      */
     constructor(name, paths) {
         super(name, null, paths);

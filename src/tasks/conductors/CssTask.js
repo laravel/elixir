@@ -1,6 +1,6 @@
 class CssTask extends Elixir.Task {
     /**
-     * Create a new TestingTask instance.
+     * Create a new CssTask instance.
      *
      * @param {string}      name
      * @param {GulpPaths}   paths
