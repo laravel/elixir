@@ -17,10 +17,10 @@ gulp.task('watch', () => {
     gulp.start('default');
 
     Elixir.tasks.forEach(task => {
-        const batchOptions = Elixir.config.batchOptions;
+        let batchOptions = Elixir.config.batchOptions;
 
         if (task.hasWatchers()) {
-            gulp.watch(task.watchers, { interval: 1000 }, batch(batchOptions, (events) => {
+            gulp.watch(task.watchers, { interval: 1000 }, batch(batchOptions, events => {
                 events.on('end', gulp.start(task.name));
             }));
         }
