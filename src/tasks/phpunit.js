@@ -1,4 +1,4 @@
-import TestingTask from '../TestingTask';
+import TestingTask from './conductors/TestingTask';
 /*
  |----------------------------------------------------------------
  | PHPUnit Testing

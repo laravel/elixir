@@ -1,4 +1,4 @@
-import combine from './shared/Combine';
+import CombineTask from './conductors/CombineTask';
 
 /*
  |----------------------------------------------------------------
@@ -12,11 +12,12 @@ import combine from './shared/Combine';
  */
 
 Elixir.extend('styles', function(styles, output, baseDir) {
-    combine('styles', getPaths(styles, baseDir, output))
+    new CombineTask('styles', getPaths(styles, baseDir, output));
 });
 
+
 Elixir.extend('stylesIn', function(baseDir, output) {
-    combine('stylesIn', getPaths('**/*.css', baseDir, output));
+    new CombineTask('stylesIn', getPaths('**/*.css', baseDir, output));
 });
 
 

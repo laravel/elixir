@@ -18,8 +18,6 @@ class TestingTask extends Elixir.Task {
      * Build up the Gulp task.
      */
     gulpTask() {
-        this.registerWatchers();
-
         return (
             gulp
             .src('')

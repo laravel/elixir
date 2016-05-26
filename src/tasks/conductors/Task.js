@@ -1,6 +1,7 @@
 import _ from 'underscore';
 import gutils from 'gulp-util';
-import Compiler from './tasks/compilers/Compiler';
+import map from 'vinyl-map';
+import minifier from '../utilities/minifier';
 
 class Task {
     /**
@@ -98,7 +99,7 @@ class Task {
     /**
      * Determine if the task has any watchers.
      */
-    hasWatchers () {
+    hasWatchers() {
         return this.watchers.length > 0;
     }
 
@@ -124,7 +125,107 @@ class Task {
 
         this.log();
 
+        if (typeof this.registerWatchers == 'function') {
+            this.registerWatchers();
+        }
+
         return this.definition(Elixir.Plugins, Elixir.config);
+    }
+
+
+    /**
+     * Initialize the sourcemaps.
+     */
+    initSourceMaps() {
+        if (Elixir.config.sourcemaps) {
+            return Elixir.Plugins.sourcemaps.init();
+        }
+
+        return map(function () {});
+    }
+
+
+    /**
+     * Write to the sourcemaps file.
+     */
+    writeSourceMaps() {
+        if (Elixir.config.sourcemaps) {
+            return Elixir.Plugins.sourcemaps.write('.');
+        }
+
+        return map(function () {});
+    }
+
+
+    /**
+     * Apply CSS auto-prefixing.
+     */
+    autoPrefix() {
+        if (Elixir.config.css.autoprefix.enabled) {
+            return Elixir.Plugins.autoprefixer(
+                Elixir.config.css.autoprefix.options
+            )
+        }
+
+        return map(function () {});
+    }
+
+
+    /**
+     * Minify the relevant CSS or JS files.
+     */
+    minify() {
+        if (! Elixir.inProduction) {
+            return map(function () {});
+        }
+
+        return minifier(this.output);
+    }
+
+
+    /**
+     * Apply concatenation to the incoming stream.
+     */
+    concat() {
+        return Elixir.Plugins.concat(this.output.name);
+    }
+
+
+    /**
+     * Set the destination path.
+     *
+     * @param {object} gulp
+     */
+    saveAs(gulp) {
+        return gulp.dest(this.output.baseDir);
+    }
+
+
+    /**
+     * Handle successful compilation.
+     *
+     * @param {string|null} message
+     */
+    onSuccess(message) {
+        message = message || `${this.ucName()} Compiled!`;
+
+        return new Elixir.Notification(message);
+    }
+
+
+    /**
+     * Handle a compilation error.
+     */
+    onError(e) {
+        let task = this.ucName();
+
+        return function (e) {
+            new Elixir.Notification().error(
+                e, `${task} Compilation Failed!`
+            );
+
+            this.emit('end');
+        };
     }
 
 

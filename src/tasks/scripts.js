@@ -1,4 +1,4 @@
-import Compiler from './compilers/JavaScriptCompiler';
+import JavaScriptTask from './conductors/CombineTask';
 
 /*
  |----------------------------------------------------------------
@@ -12,16 +12,16 @@ import Compiler from './compilers/JavaScriptCompiler';
  */
 
 Elixir.extend('scripts', function(scripts, output, baseDir, options) {
-    let paths = prepGulpPaths(scripts, baseDir, output);
-
-    new Elixir.Task('scripts', new Compiler(options), paths);
+    new JavaScriptTask(
+        'scripts', getPaths(scripts, baseDir, output), options
+    );
 });
 
 
 Elixir.extend('scriptsIn', function(baseDir, output) {
-    let paths = prepGulpPaths('**/*.js', baseDir, output);
-
-    new Elixir.Task('scriptsIn', new Compiler(options, paths));
+    new JavaScriptTask(
+        'scriptsIn', getPaths('**/*.js', baseDir, output), options
+    );
 });
 
 
@@ -33,7 +33,7 @@ Elixir.extend('scriptsIn', function(baseDir, output) {
  * @param  {string|null}  output
  * @return {GulpPaths}
  */
-function prepGulpPaths(src, baseDir, output) {
+function getPaths(src, baseDir, output) {
     return new Elixir.GulpPaths()
         .src(src, baseDir || Elixir.config.get('assets.js.folder'))
         .output(output || Elixir.config.get('public.js.outputFolder'), 'all.js');

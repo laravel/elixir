@@ -1,17 +1,19 @@
 import fs from 'fs';
-import map from 'vinyl-map';
 import {extend} from 'underscore';
-import Compiler from './Compiler';
 import gulpWebpack from 'webpack-stream';
 
-class JavaScriptCompiler extends Compiler {
+class JavaScriptTask extends Elixir.Task {
     /**
-     * Create a new compiler instance.
+     * Create a new JavaScriptTask instance.
      *
+     * @param  {string}      name
+     * @param  {GulpPaths}   paths
      * @param  {object|null} options
      */
-    constructor(options) {
-        super(options);
+    constructor(name, paths, options) {
+        super(name, null, paths);
+
+        this.options = options;
 
         if (fs.existsSync('webpack.config.js')) {
             this.webpackConfig = require(process.cwd()+'/webpack.config.js');
@@ -20,16 +22,12 @@ class JavaScriptCompiler extends Compiler {
 
 
     /**
-     * Retrieve the full Gulp task.
-     *
-     * @param {Task} task
+     * Build up the Gulp task.
      */
-    toGulp(task) {
-        this.task = task;
-
+    gulpTask() {
         return (
             gulp
-            .src(task.src.path)
+            .src(this.src.path)
             .pipe(this.webpack())
             .on('error', this.onError)
             .pipe(this.minify())
@@ -47,28 +45,14 @@ class JavaScriptCompiler extends Compiler {
             watch: Elixir.isWatching(),
             devtool: Elixir.config.sourcemaps ? 'source-map' : '',
             output: {
-                filename: this.task.output.name
+                filename: this.output.name
             },
             module: {
                 loaders: Elixir.config.js.webpack.loaders
             }
         }, this.webpackConfig, this.options), require('webpack'));
     }
-
-
-    /**
-     * Uglify the code.
-     */
-    minify() {
-        if (Elixir.inProduction) {
-            return Elixir.Plugins.uglify(
-                Elixir.config.js.uglify.options
-            );
-        }
-
-        return map(function () {});
-    }
 }
 
 
-export default JavaScriptCompiler;
+export default JavaScriptTask;

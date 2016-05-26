@@ -204,6 +204,8 @@ const config = {
         sass: {
             folder: 'sass',
 
+            search: '/**/*.+(sass|scss)',
+
             // https://github.com/sass/node-sass#options
             pluginOptions: {
                 outputStyle: Elixir.inProduction ? 'compressed' : 'nested',
@@ -224,6 +226,8 @@ const config = {
 
         less: {
             folder: 'less',
+
+            search: '/**/*.less',
 
             // https://github.com/plus3network/gulp-less#options
             pluginOptions: {}

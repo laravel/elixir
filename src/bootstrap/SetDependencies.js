@@ -66,7 +66,7 @@ Elixir.Plugins = require('gulp-load-plugins')();
  *
  * @type {Task}
  */
-Elixir.Task = require('../Task').default;
+Elixir.Task = require('../tasks/conductors/Task').default;
 
 
 /**

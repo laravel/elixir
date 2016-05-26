@@ -1,4 +1,4 @@
-import combine from './shared/Combine';
+import CombineTask from './conductors/CombineTask';
 
 /*
  |----------------------------------------------------------------
@@ -24,7 +24,7 @@ Elixir.extend('compress', task);
  * @param  {string|null}  baseDir
  */
 function task(src, output, baseDir) {
-    combine('combine', getPaths(src, baseDir, output));
+    new CombineTask('combine', getPaths(src, baseDir, output));
 }
 
 

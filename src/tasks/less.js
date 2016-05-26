@@ -1,4 +1,4 @@
-import Compiler from './compilers/CssCompiler';
+import CssTask from './conductors/CssTask';
 
 /*
  |----------------------------------------------------------------
@@ -12,11 +12,7 @@ import Compiler from './compilers/CssCompiler';
  */
 
 Elixir.extend('less', function(src, output, options) {
-    let paths = getPaths(src, output);
-
-    new Elixir.Task('less', new Compiler(options), paths)
-        .watch(paths.src.baseDir + '/**/*.less')
-        .ignore(paths.output.path);
+    new CssTask('less', getPaths(src, output), options);
 });
 
 
