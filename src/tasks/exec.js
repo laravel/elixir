@@ -1,3 +1,5 @@
+import {exec} from 'child_process';
+
 /*
  |----------------------------------------------------------------
  | Shell Commands
@@ -10,10 +12,15 @@
  */
 
 Elixir.extend('exec', function(command, watcher) {
-    let task = new Elixir.Task('exec', function($) {
-        Elixir.log.status('Triggering Command...', command)
+    let task = new Elixir.Task('exec', function() {
+        this.log(`Executing Command: ${command}`);
 
-        return gulp.src('').pipe($.shell(command));
+        exec(command, (err, stdout, stderr) => {
+            console.log(stdout);
+            console.log(stderr);
+
+            this.cb();
+        });
     });
 
     watcher && task.watch(watcher);

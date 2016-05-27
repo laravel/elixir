@@ -256,7 +256,9 @@ class Task {
             return;
         }
 
-        gulp.task(name, function () {
+        gulp.task(name, cb => {
+            this.cb = cb;
+
             if (shouldRunAllTasksWithName(name)) {
                 return Elixir.tasks.byName(name)
                     .forEach(task => task.run());
