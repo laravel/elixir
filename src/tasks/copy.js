@@ -17,7 +17,7 @@ Elixir.extend('copy', function(src, output) {
             gulp
             .src(paths.src.path, { dot: true })
             .pipe($.if(! paths.output.isDir, $.rename(paths.output.name)))
-            .pipe(gulp.dest(paths.output.baseDir))
+            .pipe(this.saveAs(gulp))
         );
     }, paths)
     .watch(paths.src.path)
