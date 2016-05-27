@@ -45,8 +45,18 @@ class TaskCollection {
      * Filter through the tasks.
      *
      * @param  {function} callable
-     * @return {void}
+     * @return {array}
      */
+    filter(callable) {
+        return this.tasks.filter(callable);
+    } 
+     
+    /**
+     * forEach through the tasks.
+     *
+     * @param  {function} callable
+     * @return {void}
+     */ 
     forEach(callable) {
         this.tasks.forEach(callable);
     }
