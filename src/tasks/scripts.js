@@ -1,4 +1,4 @@
-import JavaScriptTask from './conductors/CombineTask';
+import JavaScriptTask from './conductors/JavaScriptTask';
 
 /*
  |----------------------------------------------------------------
