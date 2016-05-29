@@ -29,7 +29,7 @@ class JavaScriptTask extends Elixir.Task {
             gulp
             .src(this.src.path)
             .pipe(this.webpack())
-            .on('error', this.onError)
+            .on('error', this.onError())
             .pipe(this.minify())
             .pipe(this.saveAs(gulp))
             .pipe(this.onSuccess())
