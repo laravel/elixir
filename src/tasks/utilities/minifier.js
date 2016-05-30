@@ -1,3 +1,4 @@
+import map from 'vinyl-map';
 import CleanCSS from 'clean-css';
 
 
