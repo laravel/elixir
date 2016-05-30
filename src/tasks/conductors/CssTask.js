@@ -22,7 +22,7 @@ class CssTask extends Elixir.Task {
             .src(this.src.path)
             .pipe(this.initSourceMaps())
             .pipe(this.compile())
-            .on('error', this.onError)
+            .on('error', this.onError())
             .pipe(this.autoPrefix())
             .pipe(this.concat())
             .pipe(this.minify())
