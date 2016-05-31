@@ -28,3 +28,19 @@ Elixir.extend('browserify', function() {
             );
     })
 });
+
+
+/**
+ * Deprecated.
+ */
+Elixir.extend('coffee', function() {
+    new Elixir.Task('coffee', function() {
+        Elixir.log
+            .heading('Compatibility Alert!')
+            .heading(
+                `'mix.coffee()' was extracted to its own extension in
+                Laravel Elixir 6.0. If your app requires CoffeeScript support,
+                install 'laravel-elixir-coffeescript', like this: http://bit.ly/24hNNFh`.replace(/\s{2,}/g, "\n")
+            );
+    })
+});
