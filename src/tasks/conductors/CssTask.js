@@ -46,7 +46,10 @@ class CssTask extends Elixir.Task {
      * Compile the CSS.
      */
     compile() {
-        return Elixir.Plugins[this.name](
+        let plugin = Elixir.Plugins[this.name] ||
+                     Elixir.config.css[this.name].plugin;
+
+        return plugin(
             this.options || Elixir.config.css[this.name].pluginOptions
         );
     }
