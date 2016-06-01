@@ -1,4 +1,5 @@
 import {exec} from 'child_process';
+import Q from 'q';
 
 /*
  |----------------------------------------------------------------
@@ -13,14 +14,18 @@ import {exec} from 'child_process';
 
 Elixir.extend('exec', function(command, watcher) {
     let task = new Elixir.Task('exec', function() {
+        let deferred = Q.defer();
+
         this.log(`Executing Command: ${command}`);
 
         exec(command, (err, stdout, stderr) => {
             console.log(stdout);
             console.log(stderr);
 
-            this.cb();
+            deferred.resolve();
         });
+
+        return deferred.promise;
     });
 
     watcher && task.watch(watcher);
