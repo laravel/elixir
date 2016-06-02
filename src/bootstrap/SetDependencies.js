@@ -33,7 +33,7 @@ Elixir.log = new (require('../Logger').default)();
  *
  * @param  {string} message
  */
-Elixir.fail = message => Elixir.log.error(message) && process.exit(1);
+Elixir.fail = message => this.log.error(message) && process.exit(1);
 
 
 /**

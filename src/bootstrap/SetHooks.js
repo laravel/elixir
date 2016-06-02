@@ -11,7 +11,7 @@ Elixir.hooks = { before: [], watch: [] };
  *
  * @param {function} handler
  */
-Elixir.onWatch = handler => Elixir.hooks.watch.push(handler);
+Elixir.onWatch = handler => this.hooks.watch.push(handler);
 
 
 /**
@@ -19,4 +19,4 @@ Elixir.onWatch = handler => Elixir.hooks.watch.push(handler);
  *
  * @param {function} handler
  */
-Elixir.before = handler => Elixir.hooks.before.push(handler);
+Elixir.before = handler => this.hooks.before.push(handler);

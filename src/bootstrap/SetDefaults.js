@@ -16,6 +16,6 @@ Elixir.setDefaultsFrom = function (file) {
             deepExtend: require('underscore-deep-extend')(_)
         });
 
-        _.deepExtend(Elixir.config, overrides);
+        _.deepExtend(this.config, overrides);
     }
 }('elixir.json');
