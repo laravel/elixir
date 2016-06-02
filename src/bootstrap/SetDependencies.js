@@ -42,7 +42,7 @@ Elixir.fail = message => this.log.error(message) && process.exit(1);
  *
  * @type {GulpPaths}
  */
-Elixir.GulpPaths = require('../GulpPaths').default;
+Elixir.GulpPaths = require('../tasks/GulpPaths').default;
 
 
 /**
@@ -66,7 +66,7 @@ Elixir.Plugins = require('gulp-load-plugins')();
  *
  * @type {Task}
  */
-Elixir.Task = require('../tasks/conductors/Task').default;
+Elixir.Task = require('../tasks/Task').default;
 
 
 /**
@@ -74,4 +74,4 @@ Elixir.Task = require('../tasks/conductors/Task').default;
  *
  * @type {TaskCollection}
  */
-Elixir.tasks = new (require('../TaskCollection').default)();
+Elixir.tasks = new (require('../tasks/TaskCollection').default)();
