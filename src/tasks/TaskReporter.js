@@ -2,30 +2,16 @@ import fs from 'fs';
 import gutil from 'gulp-util';
 import Table from 'cli-table';
 
-class TaskStats {
+class TaskReporter {
     /**
      * Render a single task.
      *
-     * @param {Task} task
+     * @param {Task|null} task
      */
-    renderTask(task) {
+    report(task) {
         let table = this.makeTable();
 
-        this.addRow(table, task);
-
-        Elixir.log.message(table.toString());
-    }
-
-
-    /**
-     * Render all tasks.
-     */
-    renderAllTasks() {
-        let table = this.makeTable();
-
-        Elixir.tasks.forEach(
-            task => this.addRow(table, task)
-        );
+        this.addRows(table, task ? [task] : Elixir.tasks);
 
         Elixir.log.message(table.toString());
     }
@@ -47,22 +33,23 @@ class TaskStats {
 
 
     /**
-     * Add a row to the table.
+     * Add any number of rows to the table.
      *
      * @param {Table} table
-     * @param {Task}  task
+     * @param {array} tasks
      */
-    addRow(table, task) {
-        let row = [`mix.${task.name}()`];
+    addRows(table, tasks) {
+        tasks.forEach(task => {
+            let row = [`mix.${task.name}()`];
 
-        if (task.src && task.output) {
-            row.push(
-                this.getFormattedSrc(task),
-                task.output.path || task.output
-            );
-        }
+            if (task.src && task.output) {
+                row.push(
+                    this.src(task), task.output.path || task.output
+                );
+            }
 
-        table.push(row);
+            table.push(row);
+        });
     }
 
 
@@ -72,22 +59,23 @@ class TaskStats {
      * @param  {Task} task
      * @return {string}
      */
-    getFormattedSrc(task) {
+    src(task) {
         let src = task.src.path || task.src;
 
         src = Array.isArray(src) ? src : [src];
 
-        return src.map(file => this.format(file)).join('\n');
+        return src.map(file => this.colorize(file)).join('\n');
     }
 
 
     /**
-     * Log the existence of a file to the console.
+     * Get a colorized version of the file path,
+     * based upon its existence.
      *
      * @param  {string}  file
      * @return {mixed}
      */
-    format(file) {
+    colorize(file) {
         if (fileExists(file)) {
             return gutil.colors.green(file);
         }
@@ -113,4 +101,4 @@ function fileExists(file) {
 };
 
 
-export default TaskStats;
+export default TaskReporter;

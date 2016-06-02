@@ -1,12 +1,12 @@
 import gutil from 'gulp-util';
-import TaskStats from './tasks/TaskStats';
+import TaskReporter from './tasks/TaskReporter';
 
 class Logger {
     /**
      * Create a new Logger instance.
      */
     constructor() {
-        this.stats = new TaskStats();
+        this.reporter = new TaskReporter();
     }
 
 
@@ -24,20 +24,20 @@ class Logger {
 
 
     /**
-     * Log the stats for a single tasks.
+     * Report the stats for the given task.
      *
      * @param {Task} task
      */
     task(task) {
-        this.stats.renderTask(task);
+        this.reporter.report(task);
     }
 
 
     /**
-     * Log the stats for all triggered tasks.
+     * Report the stats for all registered tasks.
      */
     tasks() {
-        this.stats.renderAllTasks();
+        this.reporter.report();
     }
 
 
