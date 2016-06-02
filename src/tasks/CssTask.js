@@ -47,6 +47,8 @@ class CssTask extends Elixir.Task {
      * Compile the CSS.
      */
     compile() {
+        this.recordStep('Compiling ' + this.ucName());
+
         let plugin = Elixir.Plugins[this.name] ||
                      Elixir.config.css[this.name].plugin;
 

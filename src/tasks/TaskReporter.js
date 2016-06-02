@@ -3,6 +3,7 @@ import gutil from 'gulp-util';
 import Table from 'cli-table';
 
 class TaskReporter {
+
     /**
      * Render a single task.
      *
@@ -24,10 +25,10 @@ class TaskReporter {
         return new Table({
             head: [
                 'Task',
-                "Source Files",
-                "Destination"
-            ],
-            colWidths: [20, 40, 30]
+                'Operations',
+                'Source Files',
+                'Destination'
+            ]
         });
     }
 
@@ -40,11 +41,13 @@ class TaskReporter {
      */
     addRows(table, tasks) {
         tasks.forEach(task => {
-            let row = [`mix.${task.name}()`];
+            let row = [`mix.${task.name}()`, task.summary()];
 
             if (task.src && task.output) {
                 row.push(
-                    this.src(task), task.output.path || task.output
+                    this.src(task),
+                    task.output.path || task.output
+
                 );
             }
 
@@ -73,7 +76,7 @@ class TaskReporter {
      * based upon its existence.
      *
      * @param  {string}  file
-     * @return {mixed}
+     * @return {string}
      */
     colorize(file) {
         if (fileExists(file)) {
@@ -98,7 +101,7 @@ function fileExists(file) {
     if (file.indexOf('!') == 0) return true;
 
     return file.match(/\*/) || fs.existsSync(file);
-};
+}
 
 
 export default TaskReporter;

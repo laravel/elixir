@@ -42,6 +42,8 @@ class JavaScriptTask extends Elixir.Task {
      * Run the files through Webpack.
      */
     webpack() {
+        this.recordStep('Running Webpack');
+
         return gulpWebpack(extend({
             watch: Elixir.isWatching(),
             devtool: Elixir.config.sourcemaps ? 'source-map' : '',

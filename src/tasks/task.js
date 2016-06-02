@@ -4,6 +4,7 @@ import map from 'vinyl-map';
 import minifier from './utilities/minifier';
 
 class Task {
+
     /**
      * Create a new Task instance.
      *
@@ -15,6 +16,7 @@ class Task {
         this.name = name;
         this.watchers = [];
         this.isComplete = false;
+        this.steps = [];
 
         if (paths) {
             this.paths = paths;
@@ -109,15 +111,27 @@ class Task {
      * Execute the task definition.
      */
     run() {
-        this.isComplete = true;
-
-        this.log();
-
         if (typeof this.registerWatchers == 'function') {
             this.registerWatchers();
         }
 
-        return this.definition(Elixir.Plugins, Elixir.config);
+        let definition = this.definition(Elixir.Plugins, Elixir.config);
+
+        this.isComplete = true;
+
+        this.log();
+
+        return definition;
+    }
+
+
+    /**
+     * An ordered list of the actions that occurred for the task.
+     *
+     * @returns {string}
+     */
+    summary() {
+        return this.steps.map((step, index) => `${++index}. ${step}`).join('\n');
     }
 
 
@@ -138,6 +152,8 @@ class Task {
      */
     writeSourceMaps() {
         if (Elixir.config.sourcemaps) {
+            this.recordStep('Writing Source Maps');
+
             return Elixir.Plugins.sourcemaps.write('.');
         }
 
@@ -150,6 +166,8 @@ class Task {
      */
     autoPrefix() {
         if (Elixir.config.css.autoprefix.enabled) {
+            this.recordStep('Autoprefixing CSS');
+
             return Elixir.Plugins.autoprefixer(
                 Elixir.config.css.autoprefix.options
             )
@@ -167,6 +185,8 @@ class Task {
             return map(function () {});
         }
 
+        this.recordStep('Applying Minification');
+
         return minifier(this.output);
     }
 
@@ -175,6 +195,8 @@ class Task {
      * Apply concatenation to the incoming stream.
      */
     concat() {
+        this.recordStep('Concatenating Files');
+
         return Elixir.Plugins.concat(this.output.name);
     }
 
@@ -185,6 +207,8 @@ class Task {
      * @param {object} gulp
      */
     saveAs(gulp) {
+        this.recordStep('Saving to Destination');
+
         return gulp.dest(this.output.baseDir);
     }
 
@@ -232,6 +256,16 @@ class Task {
         if (! Elixir.isRunningAllTasks) {
             Elixir.log.task(this);
         }
+    }
+
+
+    /**
+     * Record a step to the summary list.
+     *
+     * @param {string} message
+     */
+    recordStep(message) {
+        this.steps.push(message);
     }
 
 
