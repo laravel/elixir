@@ -139,11 +139,11 @@ class Task {
      * Initialize the sourcemaps.
      */
     initSourceMaps() {
-        if (Elixir.config.sourcemaps) {
-            return Elixir.Plugins.sourcemaps.init();
+        if (! Elixir.config.sourcemaps) {
+            return map(function () {});
         }
 
-        return map(function () {});
+        return Elixir.Plugins.sourcemaps.init();
     }
 
 
@@ -151,13 +151,14 @@ class Task {
      * Write to the sourcemaps file.
      */
     writeSourceMaps() {
-        if (Elixir.config.sourcemaps) {
-            this.recordStep('Writing Source Maps');
-
-            return Elixir.Plugins.sourcemaps.write('.');
+        if (! Elixir.config.sourcemaps) {
+            return map(function () {});
         }
 
-        return map(function () {});
+        this.recordStep('Writing Source Maps');
+
+        return Elixir.Plugins.sourcemaps.write('.');
+
     }
 
 
@@ -165,15 +166,15 @@ class Task {
      * Apply CSS auto-prefixing.
      */
     autoPrefix() {
-        if (Elixir.config.css.autoprefix.enabled) {
-            this.recordStep('Autoprefixing CSS');
-
-            return Elixir.Plugins.autoprefixer(
-                Elixir.config.css.autoprefix.options
-            )
+        if (! Elixir.config.css.autoprefix.enabled) {
+            return map(function () {});
         }
 
-        return map(function () {});
+        this.recordStep('Autoprefixing CSS');
+
+        return Elixir.Plugins.autoprefixer(
+            Elixir.config.css.autoprefix.options
+        );
     }
 
 
