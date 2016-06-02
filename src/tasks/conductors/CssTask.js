@@ -26,6 +26,7 @@ class CssTask extends Elixir.Task {
             .pipe(this.autoPrefix())
             .pipe(this.concat())
             .pipe(this.minify())
+            .on('error', this.onError())
             .pipe(this.writeSourceMaps())
             .pipe(this.saveAs(gulp))
             .pipe(this.onSuccess())

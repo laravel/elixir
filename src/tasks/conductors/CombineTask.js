@@ -20,6 +20,7 @@ class CombineTask extends Elixir.Task {
             .pipe(this.initSourceMaps())
             .pipe(this.concat())
             .pipe(this.minify())
+            .on('error', this.onError())
             .pipe(this.writeSourceMaps())
             .pipe(this.saveAs(gulp))
             .pipe(this.onSuccess('Assets Combined!'))
