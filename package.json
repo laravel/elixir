@@ -27,6 +27,7 @@
     "buble": "^0.8.4",
     "buble-loader": "^0.2.1",
     "clean-css": "^3.4.12",
+    "cli-table": "^0.3.1",
     "del": "^2.2.0",
     "glob": "^7.0.3",
     "gulp-autoprefixer": "^3.1.0",

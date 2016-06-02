@@ -50,6 +50,10 @@ class JavaScriptTask extends Elixir.Task {
             },
             module: {
                 loaders: Elixir.config.js.webpack.loaders
+            },
+            stats: {
+                assets: false,
+                version: false
             }
         }, this.webpackConfig, this.options), require('webpack'));
     }

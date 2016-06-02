@@ -21,6 +21,8 @@ class Notification {
      * @param {string} message
      */
     message(message) {
+        notify.logLevel(0);
+
         return notify({
             title: this.title,
             message: message,

@@ -1,7 +1,15 @@
-import fs from 'fs';
 import gutil from 'gulp-util';
+import TaskStats from './TaskStats';
 
 class Logger {
+    /**
+     * Create a new Logger instance.
+     */
+    constructor() {
+        this.stats = new TaskStats();
+    }
+
+
     /**
      * Log a heading to the console.
      *
@@ -13,6 +21,24 @@ class Logger {
             gutil.colors.black(gutil.colors.bgGreen(heading))
         );
     };
+
+
+    /**
+     * Log the stats for a single tasks.
+     *
+     * @param {Task} task
+     */
+    task(task) {
+        this.stats.renderTask(task);
+    }
+
+
+    /**
+     * Log the stats for all triggered tasks.
+     */
+    tasks() {
+        this.stats.renderAllTasks();
+    }
 
 
     /**
@@ -63,50 +89,8 @@ class Logger {
 
 
     /**
-     * Log a set of files to the console.
-     *
-     * @param  {string}       message
-     * @param  {string|Array} files
-     * @param  {boolean}      checkForFiles
-     * @return {this}
-     */
-    files(message, files, checkForFiles = true) {
-        if (this.shouldBeMuted()) return this;
-
-        this.heading(message);
-
-        files = Array.isArray(files) ? files : [files];
-
-        files.forEach(
-            file => this.file(file, checkForFiles)
-        );
-
-        return this.break();
-    };
-
-
-    /**
-     * Log the existence of a file to the console.
-     *
-     * @param  {string}  file
-     * @param  {boolean} checkForFiles
-     * @return {mixed}
-     */
-    file(file, checkForFiles) {
-        var spacer = '   - ';
-
-        if ( ! checkForFiles || assertFileExists(file)) {
-            return this.message(spacer + file);
-        }
-
-        this.message(
-            spacer + gutil.colors.bgRed(file) + ' <-- Not Found'
-        );
-    }
-
-
-    /**
      * Add a line break to the console output.
+     *
      * @return {this}
      */
     break() {
@@ -125,24 +109,6 @@ class Logger {
         return process.argv[1].indexOf('bin/_mocha') > -1;
     }
 }
-
-
-/**
- * Assert that the given file exists.
- *
- * @param  {string} file
- * @return {boolean}
- */
-function assertFileExists(file) {
-    // If this file begins with a !, then the
-    // user intends to exclude it from the
-    // src set; we're free to ignore it.
-    if (file.indexOf('!') == 0) {
-        return true;
-    }
-
-    return file.match(/\*/) || fs.existsSync(file);
-};
 
 
 export default Logger;

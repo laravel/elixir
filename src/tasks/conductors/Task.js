@@ -2,6 +2,7 @@ import _ from 'underscore';
 import gutils from 'gulp-util';
 import map from 'vinyl-map';
 import minifier from '../utilities/minifier';
+import TaskMetaTable from '../../TaskMetaTable';
 
 class Task {
     /**
@@ -227,19 +228,10 @@ class Task {
             return Elixir.log.status(message);
         }
 
-        if (this.src) {
-            Elixir.log.files(
-                `Fetching ${this.ucName()} Source Files...`,
-                this.src.path ? this.src.path : this.src
-            );
-        }
-
-        if (this.output) {
-            Elixir.log.files(
-                'Saving To...',
-                this.output.path ? this.output.path : this.output,
-                false
-            );
+        // As long as we're not triggering the entire
+        // suite, we can log the stats for this task.
+        if (! Elixir.isRunningAllTasks) {
+            Elixir.log.task(this);
         }
     }
 
