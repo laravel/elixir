@@ -31,6 +31,7 @@ class JavaScriptTask extends Elixir.Task {
             .pipe(this.webpack())
             .on('error', this.onError())
             .pipe(this.minify())
+            .on('error', this.onError())
             .pipe(this.saveAs(gulp))
             .pipe(this.onSuccess())
         );
