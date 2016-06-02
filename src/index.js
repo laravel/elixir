@@ -12,7 +12,7 @@ GLOBAL.Elixir = recipe => {
     init();
 
     // 2. Load all available Elixir tasks.
-    require('require-dir')('./tasks');
+    require('require-dir')('./tasks/recipes');
 
     // 3. Process the user's Gulpfile recipe.
     recipe(Elixir.mixins);

@@ -1,5 +1,5 @@
 import gutil from 'gulp-util';
-import TaskStats from './TaskStats';
+import TaskStats from './tasks/TaskStats';
 
 class Logger {
     /**

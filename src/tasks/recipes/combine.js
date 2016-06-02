@@ -1,4 +1,4 @@
-import CombineTask from './conductors/CombineTask';
+import CombineTask from '../CombineTask';
 
 /*
  |----------------------------------------------------------------

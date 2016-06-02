@@ -1,4 +1,4 @@
-import TestingTask from './conductors/TestingTask';
+import TestingTask from '../TestingTask';
 
 /*
  |----------------------------------------------------------------

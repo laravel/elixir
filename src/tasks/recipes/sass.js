@@ -1,4 +1,4 @@
-import CssTask from './conductors/CssTask';
+import CssTask from '../CssTask';
 
 /*
  |----------------------------------------------------------------
