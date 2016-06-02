@@ -2,7 +2,6 @@ import _ from 'underscore';
 import gutils from 'gulp-util';
 import map from 'vinyl-map';
 import minifier from '../utilities/minifier';
-import TaskMetaTable from '../../TaskMetaTable';
 
 class Task {
     /**
