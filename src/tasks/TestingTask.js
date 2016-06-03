@@ -44,7 +44,7 @@ class TestingTask extends Elixir.Task {
     runTests() {
         let command = this.command || this.pluginConfig('command');
 
-        this.log(`Running ${this.ucName()} (${command})`);
+        this.recordStep('Executing ' + this.ucName());
 
         return Elixir.Plugins.shell(command);
     }
