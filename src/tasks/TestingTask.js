@@ -58,7 +58,7 @@ class TestingTask extends Elixir.Task {
         let task = this.name;
 
         return function (e) {
-            new Elixir.Notification().forFailedTests(e, task);
+            Elixir.Notification.forFailedTests(e, task);
 
             this.emit('end');
         };
@@ -69,7 +69,7 @@ class TestingTask extends Elixir.Task {
      * Handle a "green" test suite.
      */
     onSuccess() {
-        return new Elixir.Notification().forPassedTests(this.name);
+        return Elixir.Notification.forPassedTests(this.name);
     }
 
 

@@ -58,11 +58,11 @@ class Notification {
      *
      * @param {string} framework
      */
-    forPassedTests(framework) {
+    static forPassedTests(framework) {
         return notify({
             title: 'Green!',
-            message: 'Your ' + framework + ' tests passed!',
-            icon: __dirname + '/../icons/pass.png',
+            message: `Your ${framework} tests passed!`,
+            icon: `${__dirname}/../icons/pass.png`,
             onLast: true
         });
     }
@@ -74,11 +74,11 @@ class Notification {
      * @param {object} e
      * @param {string} framework
      */
-    forFailedTests(e, framework) {
+    static forFailedTests(e, framework) {
         return notify.onError({
             title: 'Red!',
-            message: 'Your ' + framework + ' tests failed!',
-            icon: __dirname + '/../icons/fail.png',
+            message: `Your ${framework} tests failed!`,
+            icon: `${__dirname}/../icons/fail.png`,
             onLast: true
         })(e);
     }
