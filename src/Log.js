@@ -112,4 +112,4 @@ class Log {
 }
 
 
-export default Logger;
+export default Log;
