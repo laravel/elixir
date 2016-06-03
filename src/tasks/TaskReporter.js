@@ -25,7 +25,7 @@ class TaskReporter {
         return new Table({
             head: [
                 'Task',
-                'Operations',
+                'Summary',
                 'Source Files',
                 'Destination'
             ]
