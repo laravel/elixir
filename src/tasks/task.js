@@ -7,14 +7,18 @@ class Task {
      * Create a new Task instance.
      *
      * @param {string}    name
-     * @param {Function}  description
+     * @param {Function}  gulpTask
      * @param {GulpPaths} paths
      */
-    constructor(name, description, paths) {
+    constructor(name, gulpTask, paths) {
         this.name = name;
         this.watchers = [];
         this.isComplete = false;
         this.steps = [];
+
+        if (! this.gulpTask) {
+            this.gulpTask = gulpTask;
+        }
 
         if (paths) {
             this.paths = paths;
@@ -22,31 +26,7 @@ class Task {
             this.output = this.paths.output;
         }
 
-        this.describe(this.gulpTask || description);
-    }
-
-
-    /**
-     * Get the "ucwords" version of the task name.
-     *
-     * @return {string}
-     */
-    ucName() {
-        return this.name.substr(0,1).toUpperCase() +
-               this.name.substr(1);
-    }
-
-
-    /**
-     * Describe the task. This is the Gulp definition.
-     *
-     * @param  {Function} definition
-     * @return {Task}
-     */
-    describe(definition) {
-        this.definition = definition;
-
-        return this.register();
+        this.register();
     }
 
 
@@ -59,6 +39,17 @@ class Task {
         Elixir.tasks.push(this);
 
         return this;
+    }
+
+
+    /**
+     * Get the "ucwords" version of the task name.
+     *
+     * @return {string}
+     */
+    ucName() {
+        return this.name.substr(0,1).toUpperCase() +
+            this.name.substr(1);
     }
 
 
@@ -104,20 +95,20 @@ class Task {
 
 
     /**
-     * Execute the task definition.
+     * Execute the task.
      *
      * @return {function}
      */
     run() {
         this.registerWatchers && this.registerWatchers();
 
-        let definition = this.definition(Elixir.Plugins, Elixir.config);
+        let stream = this.gulpTask(Elixir.Plugins, Elixir.config);
 
         this.isComplete = true;
 
         this.log();
 
-        return definition;
+        return stream;
     }
 
 
