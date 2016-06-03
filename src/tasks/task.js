@@ -27,7 +27,7 @@ class Task {
         // If the user opted for a subclass that contains
         // a "gulpTask" method, we will then defer to
         // that for all Gulp-specific logic.
-        if (typeof this.gulpTask == 'function') {
+        if (this.gulpTask) {
             this.describe(this.gulpTask);
         } else if (description) {
             this.describe(description);
@@ -111,9 +111,7 @@ class Task {
      * Execute the task definition.
      */
     run() {
-        if (typeof this.registerWatchers == 'function') {
-            this.registerWatchers();
-        }
+        this.registerWatchers && this.registerWatchers();
 
         let definition = this.definition(Elixir.Plugins, Elixir.config);
 
