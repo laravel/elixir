@@ -24,22 +24,18 @@ class Task {
             this.output = this.paths.output;
         }
 
-        // If the user opted for a subclass that contains
-        // a "gulpTask" method, we will then defer to
-        // that for all Gulp-specific logic.
-        if (this.gulpTask) {
-            this.describe(this.gulpTask);
-        } else if (description) {
-            this.describe(description);
-        }
+        this.describe(this.gulpTask || description);
     }
 
 
     /**
      * Get the "ucwords" version of the task name.
+     *
+     * @return {string}
      */
     ucName() {
-        return this.name.substr(0,1).toUpperCase() + this.name.substr(1);
+        return this.name.substr(0,1).toUpperCase() +
+               this.name.substr(1);
     }
 
 
@@ -71,16 +67,16 @@ class Task {
     /**
      * Set a path regex to watch for changes.
      *
-     * @param  {string}      regex
-     * @param  {string|null} category
+     * @param  {string} regex
+     * @param  {string} category
      * @return {Task}
      */
-    watch(regex, category) {
+    watch(regex, category = 'default') {
         if (regex) {
             this.watchers = this.watchers.concat(regex);
         }
 
-        this.category = category || 'default';
+        this.category = category;
 
         return this;
     }
@@ -88,6 +84,8 @@ class Task {
 
     /**
      * Determine if the task has any watchers.
+     *
+     * @return {Boolean}
      */
     hasWatchers() {
         return this.watchers.length > 0;
@@ -109,6 +107,8 @@ class Task {
 
     /**
      * Execute the task definition.
+     *
+     * @return {function}
      */
     run() {
         this.registerWatchers && this.registerWatchers();
@@ -126,10 +126,12 @@ class Task {
     /**
      * An ordered list of the actions that occurred for the task.
      *
-     * @returns {string}
+     * @return {string}
      */
     summary() {
-        return this.steps.map((step, index) => `${++index}. ${step}`).join('\n');
+        return this.steps.map(
+            (step, index) => `${++index}. ${step}`
+        ).join('\n');
     }
 
 
@@ -138,7 +140,7 @@ class Task {
      */
     initSourceMaps() {
         if (! Elixir.config.sourcemaps) {
-            return map(function () {});
+            return this.stream();
         }
 
         return Elixir.Plugins.sourcemaps.init();
@@ -150,7 +152,7 @@ class Task {
      */
     writeSourceMaps() {
         if (! Elixir.config.sourcemaps) {
-            return map(function () {});
+            return this.stream();
         }
 
         this.recordStep('Writing Source Maps');
@@ -165,7 +167,7 @@ class Task {
      */
     autoPrefix() {
         if (! Elixir.config.css.autoprefix.enabled) {
-            return map(function () {});
+            return this.stream();
         }
 
         this.recordStep('Autoprefixing CSS');
@@ -181,7 +183,7 @@ class Task {
      */
     minify() {
         if (! Elixir.inProduction) {
-            return map(function () {});
+            return this.stream();
         }
 
         this.recordStep('Applying Minification');
@@ -217,7 +219,7 @@ class Task {
      *
      * @param {string|null} message
      */
-    onSuccess(message) {
+    onSuccess(message = null) {
         message = message || `${this.ucName()} Compiled!`;
 
         return new Elixir.Notification(message);
@@ -226,8 +228,10 @@ class Task {
 
     /**
      * Handle a compilation error.
+     *
+     * @return {function}
      */
-    onError(e) {
+    onError() {
         let task = this.ucName();
 
         return function (e) {
@@ -245,7 +249,7 @@ class Task {
      *
      * @param {string|null} message
      */
-    log(message) {
+    log(message = null) {
         if (message) {
             return Elixir.log.status(message);
         }
@@ -272,23 +276,28 @@ class Task {
      * Translate the task instance to a registered Gulp task.
      */
     toGulp() {
-        const name = this.name;
+        let name = this.name;
 
-        // If we've already created a Gulp task,
-        // we can exit early. Nothing to do.
-        if (_.has(gulp.tasks, name)) {
-            return;
-        }
+        if (_.has(gulp.tasks, name)) return;
 
         gulp.task(name, () => {
             if (shouldRunAllTasksWithName(name)) {
-                return Elixir.tasks.byName(name)
+                return Elixir.tasks
+                    .byName(name)
                     .forEach(task => task.run());
             }
 
             // Otherwise, we can run the current task.
             return Elixir.tasks.findIncompleteByName(name)[0].run();
         });
+    }
+
+
+    /**
+     * Get a generic stream to return.
+     */
+    stream() {
+        return map(function () {});
     }
 }
 
@@ -299,9 +308,9 @@ class Task {
  * @param  {string} name
  * @return {boolean}
  */
-const shouldRunAllTasksWithName = function(name) {
+function shouldRunAllTasksWithName(name) {
     return _.intersection(gutils.env._, [name, 'watch', 'tdd']).length;
-};
+}
 
 
 export default Task;
