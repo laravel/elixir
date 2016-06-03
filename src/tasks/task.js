@@ -1,5 +1,3 @@
-import _ from 'underscore';
-import gutils from 'gulp-util';
 import map from 'vinyl-map';
 import minifier from './utilities/minifier';
 
@@ -273,43 +271,11 @@ class Task {
 
 
     /**
-     * Translate the task instance to a registered Gulp task.
-     */
-    toGulp() {
-        let name = this.name;
-
-        if (_.has(gulp.tasks, name)) return;
-
-        gulp.task(name, () => {
-            if (shouldRunAllTasksWithName(name)) {
-                return Elixir.tasks
-                    .byName(name)
-                    .forEach(task => task.run());
-            }
-
-            // Otherwise, we can run the current task.
-            return Elixir.tasks.findIncompleteByName(name)[0].run();
-        });
-    }
-
-
-    /**
      * Get a generic stream to return.
      */
     stream() {
         return map(function () {});
     }
-}
-
-
-/**
- * See if we should run all mixins for the given task name.
- *
- * @param  {string} name
- * @return {boolean}
- */
-function shouldRunAllTasksWithName(name) {
-    return _.intersection(gutils.env._, [name, 'watch', 'tdd']).length;
 }
 
 

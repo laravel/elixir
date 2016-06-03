@@ -2,6 +2,9 @@ GLOBAL.gulp = require('gulp');
 GLOBAL.parse = require('parse-filepath');
 
 
+let GulpBuilder = require('./tasks/GulpBuilder').default;
+
+
 /**
  * Elixir is a wrapper around Gulp.
  *
@@ -18,7 +21,9 @@ GLOBAL.Elixir = recipe => {
     recipe(Elixir.mixins);
 
     // 4. Generate the necessary Gulp tasks.
-    Elixir.tasks.forEach(task => task.toGulp());
+    Elixir.tasks.forEach(
+        task => GulpBuilder.fromElixirTask(task)
+    );
 };
 
 
