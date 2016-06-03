@@ -1,8 +1,8 @@
 import gutil from 'gulp-util';
 import TaskReporter from './tasks/TaskReporter';
 
-class Logger {
-    
+class Log {
+
     /**
      * Create a new Logger instance.
      */

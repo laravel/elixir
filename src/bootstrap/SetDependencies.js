@@ -25,7 +25,7 @@ Elixir.isWatching = () => gutils.env._.indexOf('watch') > -1;
  *
  * @type {Logger}
  */
-Elixir.log = new (require('../Logger').default)();
+Elixir.log = new (require('../Log').default)();
 
 
 /**
