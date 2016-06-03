@@ -1,4 +1,5 @@
 class CssTask extends Elixir.Task {
+    
     /**
      * Create a new CssTask instance.
      *

@@ -2,6 +2,7 @@ import p from 'path';
 import gutils from 'gulp-util';
 
 class GulpPaths {
+    
     /**
      * Set the Gulp src file(s) and path prefix.
      *

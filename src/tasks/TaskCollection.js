@@ -1,6 +1,7 @@
 import _ from 'underscore';
 
 class TaskCollection {
+    
     /**
      * Create a new TaskCollection instance.
      */

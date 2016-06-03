@@ -3,6 +3,7 @@ import {extend} from 'underscore';
 import gulpWebpack from 'webpack-stream';
 
 class JavaScriptTask extends Elixir.Task {
+    
     /**
      * Create a new JavaScriptTask instance.
      *

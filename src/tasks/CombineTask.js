@@ -1,4 +1,5 @@
 class CombineTask extends Elixir.Task {
+    
     /**
      * Create a new CombineTask instance.
      *

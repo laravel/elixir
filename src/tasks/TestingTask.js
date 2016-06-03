@@ -1,4 +1,5 @@
 class TestingTask extends Elixir.Task {
+    
     /**
      * Create a new TestingTask instance.
      *
