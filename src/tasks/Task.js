@@ -118,9 +118,15 @@ class Task {
      * @return {string}
      */
     summary() {
-        return this.steps.map(
+        let summary = this.steps.map(
             (step, index) => `${++index}. ${step}`
         ).join('\n');
+
+        // Now that the summary has been prepared, we'll
+        // clear out the steps for the next run-through.
+        this.steps = [];
+
+        return summary;
     }
 
 
