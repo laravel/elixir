@@ -57,6 +57,22 @@ class CssTask extends Elixir.Task {
             this.options || Elixir.config.css[this.name].pluginOptions
         );
     }
+    
+
+    /**
+     * Apply CSS auto-prefixing.
+     */
+    autoPrefix() {
+        if (! Elixir.config.css.autoprefix.enabled) {
+            return this.stream();
+        }
+
+        this.recordStep('Autoprefixing CSS');
+
+        return Elixir.Plugins.autoprefixer(
+            Elixir.config.css.autoprefix.options
+        );
+    }
 }
 
 
