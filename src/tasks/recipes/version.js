@@ -5,6 +5,7 @@ let glob;
 let rev;
 let vinylPaths;
 let revReplace;
+let task;
 
 /*
  |----------------------------------------------------------------
@@ -25,6 +26,10 @@ Elixir.extend('version', function(src, buildPath) {
     new Elixir.Task('version', function($, config) {
         const files = vinylPaths();
         const manifest = paths.output.baseDir + '/rev-manifest.json';
+
+        task = this;
+
+        this.recordStep('Versioning');
 
         emptyBuildPathFiles(paths.output.baseDir, manifest);
 
@@ -93,6 +98,8 @@ const prepGulpPaths = function(src, buildPath) {
  * @param {string} manifest
  */
 const emptyBuildPathFiles = function(buildPath, manifest) {
+    task.recordStep('Emptying "build" Directory');
+
     fs.stat(manifest, (err, stat) => {
         if (! err) {
             manifest = JSON.parse(fs.readFileSync(manifest));
@@ -112,6 +119,8 @@ const emptyBuildPathFiles = function(buildPath, manifest) {
  * @param {string} buildPath
  */
 const copyMaps = function(src, buildPath) {
+    task.recordStep('Copying Source Maps');
+
     src.forEach(file => {
         // We'll first get any files from the src
         // array that have companion .map files.
