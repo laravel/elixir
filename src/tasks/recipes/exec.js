@@ -16,7 +16,7 @@ Elixir.extend('exec', function(command, watcher) {
     let task = new Elixir.Task('exec', function() {
         let deferred = Q.defer();
 
-        this.log(`Executing Command: ${command}`);
+        this.recordStep('Executing Command');
 
         exec(command, (err, stdout, stderr) => {
             console.log(stdout);
