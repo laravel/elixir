@@ -158,22 +158,6 @@ class Task {
 
 
     /**
-     * Apply CSS auto-prefixing.
-     */
-    autoPrefix() {
-        if (! Elixir.config.css.autoprefix.enabled) {
-            return this.stream();
-        }
-
-        this.recordStep('Autoprefixing CSS');
-
-        return Elixir.Plugins.autoprefixer(
-            Elixir.config.css.autoprefix.options
-        );
-    }
-
-
-    /**
      * Minify the relevant CSS or JS files.
      */
     minify() {
