@@ -10,7 +10,7 @@
  */
 
 gulp.task('tdd', function() {
-    new Elixir.log.message('Watching for tests...');
+    Elixir.log.message('Watching for tests...');
 
     Elixir.tasks
         .filter(task  => task.category == 'tdd')
