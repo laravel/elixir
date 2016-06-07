@@ -304,7 +304,7 @@ const config = {
         phpUnit: {
             path: 'tests',
             search: '/**/*Test.php',
-            command: 'vendor/bin/phpunit --verbose'
+            command: p.normalize('vendor/bin/phpunit') + ' --verbose'
         },
 
         /*
@@ -321,7 +321,7 @@ const config = {
         phpSpec: {
             path: 'spec',
             search: '/**/*Spec.php',
-            command: 'vendor/bin/phpspec run'
+            command: p.normalize('vendor/bin/phpspec') + ' run'
         }
     },
 
