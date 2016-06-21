@@ -30,6 +30,8 @@ class VersionTask extends Elixir.Task {
 
     /**
      * Build the Gulp task.
+     *
+     * @param {Elixir.Plugins} $
      */
     gulpTask($) {
         this.recordStep('Versioning');
