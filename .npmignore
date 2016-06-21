@@ -1,2 +1,7 @@
 src/
 elixir-test-app/
+.idea/
+*.log
+todo.txt
+*.sublime-*
+
