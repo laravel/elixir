@@ -38,6 +38,8 @@ class Task {
     register() {
         Elixir.tasks.push(this);
 
+        this.registerWatchers && this.registerWatchers();
+
         return this;
     }
 
@@ -100,8 +102,6 @@ class Task {
      * @return {function}
      */
     run() {
-        this.registerWatchers && this.registerWatchers();
-
         let stream = this.gulpTask(Elixir.Plugins, Elixir.config);
 
         this.isComplete = true;
