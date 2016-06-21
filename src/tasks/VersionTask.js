@@ -1,7 +1,6 @@
 let fs = require('fs');
 let del = require('del');
 let glob = require('glob');
-let vinylPaths = require('vinyl-paths');
 
 class VersionTask extends Elixir.Task {
 
@@ -33,8 +32,6 @@ class VersionTask extends Elixir.Task {
      * Build the Gulp task.
      */
     gulpTask($) {
-        let files = vinylPaths();
-
         this.recordStep('Versioning');
 
         this.deleteManifestFiles();
@@ -42,7 +39,6 @@ class VersionTask extends Elixir.Task {
         return (
             gulp
             .src(this.src.path, { base: `./${this.publicPath}` })
-            .pipe(files)
             .pipe($.rev())
             .pipe(this.updateVersionedPathInFiles($))
             .pipe(gulp.dest(this.buildPath))
