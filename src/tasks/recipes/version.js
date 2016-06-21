@@ -27,13 +27,7 @@ function getPaths(src, buildPath) {
     src = Array.isArray(src) ? src : [src];
     buildPath = buildPath || Elixir.config.get('public.versioning.buildFolder')
 
-    let paths = new Elixir.GulpPaths()
+    return new Elixir.GulpPaths()
         .src(src, Elixir.config.publicPath)
         .output(buildPath);
-
-    // We've no interested in tracking the builder directory,
-    // so we will always exclude it from the src set.
-    paths.src.path = paths.src.path.concat(['!'+buildPath, '!'+buildPath+'/**']);
-
-    return paths;
 };

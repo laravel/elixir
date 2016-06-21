@@ -16,6 +16,16 @@ class VersionTask extends Elixir.Task {
 
         this.publicPath = Elixir.config.publicPath;
         this.buildPath = this.output.baseDir;
+
+        if (this.src.baseDir == this.buildPath) {
+            if (this.src.path.find(path => /\*/.test(path))) {
+                Elixir.fail(
+                    'Because you\'ve overridden the "mix.version()" build path ' +
+                    'to be the same as your source path, you cannot pass a ' +
+                    'regular expression. Please use full file paths instead.'
+                );
+            }
+        }
     }
 
 
@@ -32,14 +42,13 @@ class VersionTask extends Elixir.Task {
         return (
             gulp
             .src(this.src.path, { base: `./${this.publicPath}` })
-            .pipe(gulp.dest(this.buildPath))
             .pipe(files)
             .pipe($.rev())
             .pipe(this.updateVersionedPathInFiles($))
             .pipe(gulp.dest(this.buildPath))
             .pipe($.rev.manifest())
             .pipe(this.saveAs(gulp))
-            .on('end', this.onComplete(files))
+            .on('end', this.copyMaps.bind(this))
         );
     }
 
@@ -60,6 +69,8 @@ class VersionTask extends Elixir.Task {
     updateVersionedPathInFiles($) {
         let buildFolder = this.buildPath.replace(this.publicPath, '').replace('\\', '/');
 
+        this.recordStep('Rewriting File Paths');
+
         return $.revReplace({ prefix: buildFolder });
     }
 
@@ -70,17 +81,13 @@ class VersionTask extends Elixir.Task {
     deleteManifestFiles() {
         let manifest = `${this.buildPath}/rev-manifest.json`;
 
-        this.recordStep('Emptying "build" Directory');
+        if (! fs.existsSync(manifest)) return;
 
-        fs.stat(manifest, (err, stat) => {
-            if (err) return;
+        manifest = JSON.parse(fs.readFileSync(manifest));
 
-            manifest = JSON.parse(fs.readFileSync(manifest));
-
-            for (let key in manifest) {
-                del.sync(`${this.buildPath}/${manifest[key]}`, { force: true });
-            }
-        });
+        for (let key in manifest) {
+            del.sync(`${this.buildPath}/${manifest[key]}`, { force: true });
+        }
     }
 
 
@@ -111,27 +118,6 @@ class VersionTask extends Elixir.Task {
 
         fs.createReadStream(`${srcMap}.map`)
           .pipe(fs.createWriteStream(`${destMap}.map`));
-    }
-
-
-    /**
-     * Called once versioning has completed.
-     *
-     * @param  mixed files
-     * @return {function}
-     */
-    onComplete(files) {
-        return () => {
-            // The actual file will be copied over to the build
-            // folder, but we only care about the versioned one.
-            // So we can safely delete it.
-            del(files.paths.filter(
-                file => fs.lstatSync(file).isFile()
-            ), { force: true });
-
-            // We'll also copy over any relevant source maps.
-            this.copyMaps();
-        };
     }
 
 }
