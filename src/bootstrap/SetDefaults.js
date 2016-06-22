@@ -18,4 +18,6 @@ Elixir.setDefaultsFrom = function (file) {
 
         _.deepExtend(this.config, overrides);
     }
-}('elixir.json');
+};
+
+Elixir.setDefaultsFrom('elixir.json');
