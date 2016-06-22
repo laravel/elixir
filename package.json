@@ -24,7 +24,7 @@
   "homepage": "https://github.com/laravel/elixir",
   "dependencies": {
     "browser-sync": "^2.12.3",
-    "buble": "^0.8.4",
+    "buble": "^0.7.0",
     "buble-loader": "^0.2.1",
     "clean-css": "^3.4.12",
     "cli-table": "^0.3.1",
