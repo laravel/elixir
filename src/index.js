@@ -1,5 +1,5 @@
-GLOBAL.gulp = require('gulp');
-GLOBAL.parse = require('parse-filepath');
+global.gulp = require('gulp');
+global.parse = require('parse-filepath');
 
 
 let GulpBuilder = require('./tasks/GulpBuilder').default;
@@ -10,7 +10,7 @@ let GulpBuilder = require('./tasks/GulpBuilder').default;
  *
  * @param {Function} recipe
  */
-GLOBAL.Elixir = recipe => {
+global.Elixir = recipe => {
     // 1. Perform any last-minute initialization.
     init();
 
