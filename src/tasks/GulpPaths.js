@@ -1,8 +1,9 @@
 import p from 'path';
+import fs from 'fs';
 import gutils from 'gulp-util';
 
 class GulpPaths {
-    
+
     /**
      * Set the Gulp src file(s) and path prefix.
      *
@@ -123,6 +124,17 @@ class GulpPaths {
      */
     parse(path) {
         let segments = parse(path);
+
+        // If there's a dot in the src file path, the parser
+        // will think the user is referencing a file, rather
+        // than a directory. So we'll check for that.
+       try {
+            if (path.indexOf('.') > -1 && fs.statSync(path).isDirectory()) {
+                segments.extname = '';
+                segments.dirname = segments.name;
+                segments.basename = segments.extname.replace('.', '');
+            }
+        } catch (e) {}
 
         return {
             path      : path,

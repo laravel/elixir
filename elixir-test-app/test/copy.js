@@ -42,6 +42,17 @@ describe('Copy Task', function() {
         });
     });
 
+
+    it('copies a folder with a period in its name to a new location', function(done) {
+        Elixir(mix => mix.copy('copy/foo.bar', 'copy-dest'));
+
+        runGulp(() => {
+            shouldExist('copy-dest/baz.txt');
+
+            done();
+        });
+    });
+
 });
 
 
