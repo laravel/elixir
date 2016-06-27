@@ -13,12 +13,10 @@ import inSequence from 'run-sequence';
 
 gulp.task('all', function (callback) {
     Elixir.isRunningAllTasks = true;
-
-    let tasks = Elixir.tasks.names().concat(callback);
-
+    
     Elixir.hooks.before.forEach(hook => hook());
 
-    tasks.length && inSequence.apply(this, tasks);
+    inSequence.apply(this, Elixir.tasks.names().concat(callback));
 });
 
 
