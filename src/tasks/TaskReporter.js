@@ -27,8 +27,7 @@ class TaskReporter {
                 'Task',
                 'Summary',
                 'Source Files',
-                'Destination',
-                'File Watchers'
+                'Destination'
             ]
         });
     }
@@ -47,8 +46,7 @@ class TaskReporter {
             if (task.src && task.output) {
                 row.push(
                     this.src(task),
-                    task.output.path || task.output,
-                    task.watchers.join('\n')
+                    task.output.path || task.output
                 );
             }
 
