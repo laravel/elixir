@@ -18,7 +18,7 @@ Elixir.extend('scripts', function(scripts, output, baseDir, options) {
 });
 
 
-Elixir.extend('scriptsIn', function(baseDir, output) {
+Elixir.extend('scriptsIn', function(baseDir, output, options) {
     new JavaScriptTask(
         'scriptsIn', getPaths('**/*.js', baseDir, output), options
     );
