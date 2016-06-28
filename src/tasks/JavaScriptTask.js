@@ -54,6 +54,7 @@ class JavaScriptTask extends Elixir.Task {
             module: {
                 loaders: Elixir.config.js.webpack.loaders
             },
+            babel: Elixir.config.js.webpack.babel,
             stats: {
                 assets: false,
                 version: false

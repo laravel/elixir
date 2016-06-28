@@ -277,7 +277,11 @@ const config = {
         webpack: {
             loaders: [
                 { test: /\.js$/, loader: 'buble' }
-            ]
+            ],
+
+            babel: {
+                presets: []
+            }
         },
 
         /*
