@@ -48,6 +48,14 @@ class GulpPaths {
     output(output, defaultName) {
         this.output = this.parse(output);
 
+        // If we've parsed the output path to be a file,
+        // but the src path is a directory, that makes
+        //  no sense. Output *must* be a directory.
+        if (this.src.isDir && ! this.output.isDir) {
+            this.output.isDir = true;
+            this.output.baseDir = this.output.path;
+        }
+
         if ( ! this.output.name && defaultName) {
             // See if we can use the name of the input file for the output name,
             // just as long as we substitute the ext name (.sass => .css).
