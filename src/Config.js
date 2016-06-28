@@ -94,6 +94,18 @@ const config = {
      */
 
     notifications: true,
+    
+    /*
+     |----------------------------------------------------------------
+     | Log Muted
+     |----------------------------------------------------------------
+     |
+     | As a convenience, Elixir will, when available, automatically
+     | display OS log upon the completion of any task.
+     | But of course you're free to disable this, if needed.
+     |
+     */
+    muted: process.argv[1].indexOf('bin/_mocha') > -1,
 
     /*
      |----------------------------------------------------------------

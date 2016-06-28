@@ -107,7 +107,7 @@ class Log {
      * @return {boolean}
      */
     shouldBeMuted() {
-        return process.argv[1].indexOf('bin/_mocha') > -1;
+        return Elixir.config.muted;
     }
 }
 
