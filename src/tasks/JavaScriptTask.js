@@ -44,6 +44,8 @@ class JavaScriptTask extends Elixir.Task {
      */
     webpack() {
         this.recordStep('Running Webpack');
+        this.recordStep('Transforming ES2015 to ES5');
+        this.recordStep('Writing Source Maps');
 
         return gulpWebpack(extend({
             watch: Elixir.isWatching(),

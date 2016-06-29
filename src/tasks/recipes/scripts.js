@@ -1,4 +1,4 @@
-import JavaScriptTask from '../JavaScriptTask';
+import CombineTask from '../CombineTask';
 
 /*
  |----------------------------------------------------------------
@@ -12,14 +12,14 @@ import JavaScriptTask from '../JavaScriptTask';
  */
 
 Elixir.extend('scripts', function(scripts, output, baseDir, options) {
-    new JavaScriptTask(
+    new CombineTask(
         'scripts', getPaths(scripts, baseDir, output), options
     );
 });
 
 
 Elixir.extend('scriptsIn', function(baseDir, output, options) {
-    new JavaScriptTask(
+    new CombineTask(
         'scriptsIn', getPaths('**/*.js', baseDir, output), options
     );
 });
