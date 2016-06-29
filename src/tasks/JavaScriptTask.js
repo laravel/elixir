@@ -3,7 +3,7 @@ import {extend} from 'underscore';
 import gulpWebpack from 'webpack-stream';
 
 class JavaScriptTask extends Elixir.Task {
-    
+
     /**
      * Create a new JavaScriptTask instance.
      *
@@ -54,7 +54,7 @@ class JavaScriptTask extends Elixir.Task {
             module: {
                 loaders: Elixir.config.js.webpack.loaders
             },
-            babel: Elixir.config.js.webpack.babel,
+            babel: Elixir.config.js.webpack.babel || {},
             stats: {
                 assets: false,
                 version: false

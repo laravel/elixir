@@ -94,7 +94,7 @@ const config = {
      */
 
     notifications: true,
-    
+
     /*
      |----------------------------------------------------------------
      | Log Muted
@@ -277,11 +277,7 @@ const config = {
         webpack: {
             loaders: [
                 { test: /\.js$/, loader: 'buble' }
-            ],
-
-            babel: {
-                presets: []
-            }
+            ]
         },
 
         /*
