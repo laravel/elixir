@@ -43,7 +43,6 @@ class JavaScriptTask extends Elixir.Task {
      * Run the files through Webpack.
      */
     webpack() {
-        this.recordStep('Running Webpack');
         this.recordStep('Transforming ES2015 to ES5');
         this.recordStep('Writing Source Maps');
 
