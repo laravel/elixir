@@ -132,13 +132,15 @@ class Task {
 
     /**
      * Initialize the sourcemaps.
+     *
+     * @param {object} options
      */
-    initSourceMaps() {
+    initSourceMaps(options = {}) {
         if (! Elixir.config.sourcemaps) {
             return this.stream();
         }
 
-        return Elixir.Plugins.sourcemaps.init();
+        return Elixir.Plugins.sourcemaps.init(options);
     }
 
 
