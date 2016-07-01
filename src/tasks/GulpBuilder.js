@@ -32,6 +32,8 @@ class GulpBuilder {
 
         if (has(gulp.tasks, name)) return;
 
+        this.task.loadDependencies && this.task.loadDependencies();
+
         gulp.task(name, () => {
             if (this.shouldRunAllTasksNamed(name)) {
                 return Elixir.tasks
