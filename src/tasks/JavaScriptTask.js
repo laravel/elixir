@@ -49,7 +49,7 @@ class JavaScriptTask extends Elixir.Task {
 
         return gulpWebpack(extend({
             watch: Elixir.isWatching(),
-            devtool: Elixir.config.sourcemaps ? 'source-map' : '',
+            devtool: Elixir.config.sourcemaps ? 'eval-cheap-module-source-map' : '',
             output: {
                 filename: this.output.name
             },
