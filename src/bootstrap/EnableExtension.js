@@ -16,3 +16,21 @@ Elixir.extend = function (name, callback) {
         return this.mixins;
     }.bind(this);
 };
+
+
+/**
+ * Register an external dependency install instruction.
+ *
+ * @param  {string} name
+ * @param  {string} command
+ */
+Elixir.registerInstallInstruction = function (name, command) {
+    Elixir.extend(name, function () {
+        new Elixir.Task(name, function() {
+            Elixir.log
+                .error('Installation Required')
+                .error(`To use "mix.${name}()", please run the following command, and then trigger gulp again.`)
+                .command(command);
+        });
+    });
+};

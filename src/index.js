@@ -1,7 +1,6 @@
 global.gulp = require('gulp');
 global.parse = require('parse-filepath');
 
-
 let GulpBuilder = require('./tasks/GulpBuilder').default;
 
 
@@ -15,7 +14,7 @@ global.Elixir = recipe => {
     init();
 
     // 2. Load all available Elixir tasks.
-    require('require-dir')('./tasks/recipes');
+    require('./bootstrap/LoadExtensions');
 
     // 3. Process the user's Gulpfile recipe.
     recipe(Elixir.mixins);

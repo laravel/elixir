@@ -88,6 +88,30 @@ class Log {
         return this;
     }
 
+    /**
+     * Format a console command that should be run.
+     *
+     * @param  {string} command
+     * @return {this}
+     */
+    command(command) {
+        this.divider().message(command).divider();
+
+        return this;
+    }
+
+
+    /**
+     * Print a long divider to the console.
+     *
+     * @return {this}
+     */
+    divider() {
+        this.message('=======================================================');
+
+        return this;
+    }
+
 
     /**
      * Add a line break to the console output.
