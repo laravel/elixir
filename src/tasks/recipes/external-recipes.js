@@ -1,3 +1,4 @@
 Elixir.registerInstallInstruction('rollup', 'npm install laravel-elixir-rollup-official --save-dev');
 Elixir.registerInstallInstruction('coffee', 'npm install laravel-elixir-coffeescript --save-dev');
 Elixir.registerInstallInstruction('browserify', 'npm install laravel-elixir-browserify-official --save-dev');
+Elixir.registerInstallInstruction('webpack', 'npm install laravel-elixir-webpack-official --save-dev');

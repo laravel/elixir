@@ -274,12 +274,6 @@ const config = {
 
         outputFolder: 'js',
 
-        webpack: {
-            loaders: [
-                { test: /\.js$/, loader: 'buble' }
-            ]
-        },
-
         /*
          |----------------------------------------------------------------
          | UglifyJS Parser/Compressor/Beautifier

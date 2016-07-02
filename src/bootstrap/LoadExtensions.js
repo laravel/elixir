@@ -6,6 +6,7 @@ function loadOfficialExtensions() {
     loadExtension('laravel-elixir-rollup-official');
     loadExtension('laravel-elixir-coffeescript');
     loadExtension('laravel-elixir-browserify-official');
+    loadExtension('laravel-elixir-webpack-official');
 
     require('require-dir')('../tasks/recipes');
 };
