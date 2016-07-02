@@ -31,6 +31,8 @@ Elixir.registerInstallInstruction = function (name, command) {
                 .error('Installation Required')
                 .error(`To use "mix.${name}()", please run the following command, and then trigger gulp again.`)
                 .command(command);
+
+            process.exit(1);
         });
     });
 };
