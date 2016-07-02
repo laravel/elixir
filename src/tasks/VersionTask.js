@@ -1,6 +1,4 @@
-let fs = require('fs');
-let del = require('del');
-let glob = require('glob');
+let fs, del, glob;
 
 class VersionTask extends Elixir.Task {
 
@@ -25,6 +23,16 @@ class VersionTask extends Elixir.Task {
                 );
             }
         }
+    }
+
+
+    /**
+     * Lazy load dependencies.
+     */
+    loadDependencies() {
+        fs = require('fs');
+        del = require('del');
+        glob = require('glob');
     }
 
 
