@@ -220,7 +220,7 @@ class Task {
                 e, `${task} Compilation Failed!`
             );
 
-            this.emit('end');
+            Elixir.isWatching() ? this.emit('end') : process.exit(1);
         };
     }
 
