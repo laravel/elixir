@@ -23,6 +23,8 @@ global.Elixir = recipe => {
     Elixir.tasks.forEach(
         task => GulpBuilder.fromElixirTask(task)
     );
+
+    Elixir.hooks.ready.forEach(hook => hook());
 };
 
 
