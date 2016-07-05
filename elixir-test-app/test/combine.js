@@ -1,15 +1,6 @@
-var fs     = require('fs');
-var gulp   = require('gulp');
-var remove = require('rimraf');
-var should = require('chai').should();
-var Elixir = require('laravel-elixir');
-
-
 describe('Combine Task', function() {
 
-    beforeEach(() => {
-        Elixir.tasks.empty();
-    });
+    beforeEach( () => Elixir.tasks.empty());
 
     it('combines a given array of files.', done => {
         Elixir(mix => mix.combine([
@@ -18,10 +9,11 @@ describe('Combine Task', function() {
         ], './public/js/combined.js'));
 
         runGulp(() => {
-            shouldExist('./public/js/combined.js');
-
-            fs.readFileSync('./public/js/combined.js', { encoding: 'utf8' })
-                .should.equal('var somelib;\nvar anotherlib;');
+            shouldExist('./public/js/combined.js',
+`var somelib;
+var anotherlib;
+//# sourceMappingURL=combined.js.map
+`);
 
             done();
         });
@@ -34,27 +26,13 @@ describe('Combine Task', function() {
         ], './public/js/combined.js', 'resources/assets'));
 
         runGulp(() => {
-            shouldExist('./public/js/combined.js');
-
-            fs.readFileSync('./public/js/combined.js', { encoding: 'utf8' })
-                .should.equal('var somelib;\nvar anotherlib;');
+            shouldExist('./public/js/combined.js',
+`var somelib;
+var anotherlib;
+//# sourceMappingURL=combined.js.map
+`);
 
             done();
         });
     });
-
 });
-
-
-var shouldExist = (file) => {
-    return fs.existsSync(file).should.be.true;
-};
-
-
-var runGulp = assertions => {
-    gulp.start('default', () => {
-        assertions();
-
-        remove.sync('./public');
-    });
-};

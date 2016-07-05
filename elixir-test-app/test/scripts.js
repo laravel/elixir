@@ -1,14 +1,6 @@
-var fs     = require('fs');
-var gulp   = require('gulp');
-var remove = require('rimraf');
-var Elixir = require('laravel-elixir');
-
-
 describe('Scripts Task', function() {
 
-    beforeEach(() => {
-        Elixir.tasks.empty();
-    });
+    beforeEach( () => Elixir.tasks.empty());
 
     it('merges scripts together', function(done) {
         Elixir(mix => mix.scripts(['lib1.js', 'lib2.js']));
@@ -44,20 +36,4 @@ describe('Scripts Task', function() {
             done();
         });
     });
-
 });
-
-
-var shouldExist = (file) => {
-    return fs.existsSync(file).should.be.true;
-};
-
-
-var runGulp = assertions => {
-    gulp.start('default', () => {
-        assertions();
-
-        remove.sync('./public/js');
-        remove.sync('./resources/assets/scripts');
-    });
-};

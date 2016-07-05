@@ -37,9 +37,9 @@ function task(src, output, baseDir) {
  * @return {GulpPaths}
  */
 function getPaths(src, baseDir, output) {
-    // If you gave us an array of src files, but no
-    // explicit output name, we need more specifics.
-    if (Array.isArray(src) && (! output || ! parse(output).ext)) {
+    let defaultName;
+
+    if (unknownOutputPath(src, output)) {
         Elixir.fail(
             "Please update your Gulpfile, and add a full output path as the " +
             "second argument to your mix.combine() call. " +
@@ -48,18 +48,46 @@ function getPaths(src, baseDir, output) {
         );
     }
 
-    // If the user is compressing a single file, and
-    // didn't provide an output path, we will just
-    // tack .min onto the file.
-    if (! Array.isArray(src) && ! output) {
-         let segments = parse(src);
+    if (typeof src == 'string') {
+        let srcSegments = parse(src);
 
-        output = segments.path.replace(
-            segments.ext, `.min${segments.ext}`
-        );
+        if (! output) {
+            // If we have no output at all, then we'll
+            // use a src.min.extension convention.
+            output = srcSegments.path.replace(
+                srcSegments.ext, `.min${srcSegments.ext}`
+            );
+        }
+
+        if (onlyAnOutputDirectoryWasProvided(output)) {
+            defaultName = srcSegments.basename;
+        }
     }
 
     return new Elixir.GulpPaths()
         .src(src, baseDir)
-        .output(output);
+        .output(output, defaultName);
 };
+
+
+/**
+ * Determine if we're unable to decipher the output path.
+ *
+ * @param  {mixed} src
+ * @param  {mixed} output
+ * @return {boolean}
+ */
+function unknownOutputPath(src, output) {
+    return Array.isArray(src) && (! output || ! parse(output).ext)
+}
+
+
+/**
+ * Determine if a directory was provided as the output path.
+ *
+ * @param  {mixed} output
+ * @return {boolean}
+ */
+function onlyAnOutputDirectoryWasProvided(output) {
+    return output && (! parse(output).extname);
+}

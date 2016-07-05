@@ -1,22 +1,20 @@
-var fs     = require('fs');
-var gulp   = require('gulp');
-var remove = require('rimraf');
-var should = require('chai').should();
-var Elixir = require('laravel-elixir');
-
-
 describe('Compress Task', function() {
 
     beforeEach(() => {
-        Elixir.config.production = true;
+        Elixir.inProduction = true;
         Elixir.tasks.empty();
     });
+
+    after( () => Elixir.inProduction = false);
 
     it('compresses a single JavaScript file', done => {
         Elixir(mix => mix.compress('./compress/file.js'));
 
         runGulp(() => {
-            shouldExist('./compress/file.min.js', 'var foo,bar;');
+            shouldExist('./compress/file.min.js',
+`var foo,bar;
+//# sourceMappingURL=file.min.js.map
+`);
 
             done();
         });
@@ -26,7 +24,10 @@ describe('Compress Task', function() {
         Elixir(mix => mix.compress('./compress/file.css'));
 
         runGulp(() => {
-            shouldExist('./compress/file.min.css', '.one,.two{color:red}');
+            shouldExist('./compress/file.min.css',
+`.one,.two{color:red}
+/*# sourceMappingURL=file.min.css.map */
+`);
 
             done();
         });
@@ -49,7 +50,10 @@ describe('Compress Task', function() {
         ], './compress/all.js'));
 
         runGulp(() => {
-            shouldExist('./compress/all.js', 'var foo,bar,baz;');
+            shouldExist('./compress/all.js',
+`var foo,bar,baz;
+//# sourceMappingURL=all.js.map
+`);
 
             done();
         });
@@ -58,7 +62,6 @@ describe('Compress Task', function() {
     it('can output to any directory', done => {
         Elixir(mix => mix.compress('./compress/file.js', './public'));
 
-
         runGulp(() => {
             shouldExist('./public/file.js');
 
@@ -66,25 +69,3 @@ describe('Compress Task', function() {
         });
     });
 });
-
-
-var shouldExist = (file, contents) => {
-    fs.existsSync(file).should.be.true;
-
-    if (contents) {
-        fs.readFileSync(file, { encoding: 'utf8' }).should.equal(contents);
-    }
-};
-
-
-var runGulp = assertions => {
-    gulp.start('default', () => {
-        assertions();
-
-        remove.sync('./public');
-        remove.sync('./compress/all.js');
-        remove.sync('./compress/all.css');
-        remove.sync('./compress/file.min.js');
-        remove.sync('./compress/file.min.css');
-    });
-};

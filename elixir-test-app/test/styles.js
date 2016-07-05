@@ -1,15 +1,6 @@
-var fs     = require('fs');
-var gulp   = require('gulp');
-var remove = require('rimraf');
-var should = require('chai').should();
-var Elixir = require('laravel-elixir');
-
-
 describe('Styles Task', function() {
 
-    beforeEach(() => {
-        Elixir.tasks.empty();
-    });
+    beforeEach( () => Elixir.tasks.empty());
 
     it('merges stylesheets together', function(done) {
         Elixir(mix => mix.styles(['one.css', 'two.css']));
@@ -45,20 +36,4 @@ describe('Styles Task', function() {
             done();
         });
     });
-
 });
-
-
-var shouldExist = (file) => {
-    return fs.existsSync(file).should.be.true;
-};
-
-
-var runGulp = assertions => {
-    gulp.start('default', () => {
-        assertions();
-
-        remove.sync('./public/css');
-        remove.sync('./resources/assets/styles');
-    });
-};

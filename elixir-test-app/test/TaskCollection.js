@@ -1,7 +1,4 @@
-var expect = require('chai').expect;
-
-import Elixir from 'laravel-elixir';
-import TasksCollection from 'laravel-elixir/src/TaskCollection';
+import TasksCollection from 'laravel-elixir/dist/tasks/TaskCollection';
 
 let Task = Elixir.Task;
 
