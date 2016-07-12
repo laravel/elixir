@@ -1,5 +1,5 @@
 class CombineTask extends Elixir.Task {
-    
+
     /**
      * Create a new CombineTask instance.
      *
@@ -15,6 +15,21 @@ class CombineTask extends Elixir.Task {
      * Build the Gulp task.
      */
     gulpTask() {
+        // The mix.combine() task should only
+        // concat the files. That's it.
+        if (this.name == 'combine') {
+            return (
+                gulp
+                .src(this.src.path)
+                .pipe(this.concat())
+                .on('error', this.onError())
+                .pipe(this.saveAs(gulp))
+                .pipe(this.onSuccess('Assets Combined!'))
+            );
+        }
+
+        // Otherwise, for mix.scripts() and mix.styles(),
+        // we can also apply source maps and minification.
         return (
             gulp
             .src(this.src.path)
