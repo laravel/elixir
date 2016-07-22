@@ -137,7 +137,7 @@ class GulpPaths {
         // will think the user is referencing a file, rather
         // than a directory. So we'll check for that.
        try {
-            if (path.indexOf('.') > -1 && fs.statSync(path).isDirectory()) {
+            if (path.indexOf('..') !== 0 && path.indexOf('.') > -1 && fs.statSync(path).isDirectory()) {
                 segments.extname = '';
                 segments.dirname = segments.name;
                 segments.basename = segments.extname.replace('.', '');
