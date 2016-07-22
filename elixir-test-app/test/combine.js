@@ -11,9 +11,7 @@ describe('Combine Task', function() {
         runGulp(() => {
             shouldExist('./public/js/combined.js',
 `var somelib;
-var anotherlib;
-//# sourceMappingURL=combined.js.map
-`);
+var anotherlib;`);
 
             done();
         });
@@ -28,9 +26,7 @@ var anotherlib;
         runGulp(() => {
             shouldExist('./public/js/combined.js',
 `var somelib;
-var anotherlib;
-//# sourceMappingURL=combined.js.map
-`);
+var anotherlib;`);
 
             done();
         });
