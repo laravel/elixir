@@ -78,28 +78,28 @@ class TaskReporter {
      * @return {string}
      */
     colorize(file) {
-        if (fileExists(file)) {
+        if (this.fileExists(file)) {
             return gutil.colors.green(file);
         }
 
         return gutil.colors.bgRed(file);
     }
-}
 
 
-/**
- * Assert that the given file exists.
- *
- * @param  {string} file
- * @return {boolean}
- */
-function fileExists(file) {
-    // If this file begins with a !, then the
-    // user intends to exclude it from the
-    // src set; we're free to ignore it.
-    if (file.indexOf('!') == 0) return true;
+    /**
+     * Assert that the given file exists.
+     *
+     * @param  {string} file
+     * @return {boolean}
+     */
+    fileExists(file) {
+        // If this file begins with a !, then the
+        // user intends to exclude it from the
+        // src set; we're free to ignore it.
+        if (file.indexOf('!') == 0) return true;
 
-    return file.match(/\*/) || fs.existsSync(file);
+        return file.match(/\*/) || fs.existsSync(file);
+    }
 }
 
 

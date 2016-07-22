@@ -1,4 +1,5 @@
 import gutil from 'gulp-util';
+import MinimalTaskReporter from './tasks/MinimalTaskReporter';
 import TaskReporter from './tasks/TaskReporter';
 
 class Log {
@@ -7,7 +8,7 @@ class Log {
      * Create a new Logger instance.
      */
     constructor() {
-        this.reporter = new TaskReporter();
+        this.minimal = gutil.env.minimal;
     }
 
 
@@ -30,7 +31,7 @@ class Log {
      * @param {Task} task
      */
     task(task) {
-        this.reporter.report(task);
+        this.getReporter().report(task);
     }
 
 
@@ -38,7 +39,22 @@ class Log {
      * Report the stats for all registered tasks.
      */
     tasks() {
-        this.reporter.report();
+        this.getReporter().report();
+    }
+
+    /**
+     * Get the task reporter instance.
+     *
+     * @return {TaskReporter}
+     */
+    getReporter() {
+        if (! this.reporter) {
+            this.reporter = this.minimal
+                ? new MinimalTaskReporter()
+                : new TaskReporter();
+        }
+
+        return this.reporter;
     }
 
 
