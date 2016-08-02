@@ -11,8 +11,8 @@ import CssTask from '../CssTask';
  |
  */
 
-Elixir.extend('less', function(src, output, options) {
-    new CssTask('less', getPaths(src, output), options);
+Elixir.extend('less', function(src, output, baseDir, options) {
+    new CssTask('less', getPaths(src, baseDir, output), options);
 });
 
 
@@ -20,11 +20,12 @@ Elixir.extend('less', function(src, output, options) {
  * Prep the Gulp src and output paths.
  *
  * @param  {string|Array} src
+ * @param  {string|null}  baseDir
  * @param  {string|null}  output
  * @return {GulpPaths}
  */
-function getPaths(src, output) {
+function getPaths(src, baseDir, output) {
     return new Elixir.GulpPaths()
-        .src(src, Elixir.config.get('assets.css.less.folder'))
+        .src(src, baseDir || Elixir.config.get('assets.css.less.folder'))
         .output(output || Elixir.config.get('public.css.outputFolder'), 'app.css');
 };
