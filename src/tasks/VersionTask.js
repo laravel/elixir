@@ -77,7 +77,7 @@ class VersionTask extends Elixir.Task {
 
         this.recordStep('Rewriting File Paths');
 
-        return $.revReplace({ prefix: buildFolder });
+        return $.revReplace({ prefix: buildFolder + '/' });
     }
 
 
