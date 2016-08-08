@@ -249,7 +249,9 @@ class Task {
      * @param {string} message
      */
     recordStep(message) {
-        this.steps.push(message);
+        if (this.steps.indexOf(message) == -1) {
+            this.steps.push(message);
+        }
     }
 
 
