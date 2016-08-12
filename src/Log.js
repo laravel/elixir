@@ -1,6 +1,6 @@
 import gutil from 'gulp-util';
-import MinimalTaskReporter from './tasks/MinimalTaskReporter';
-import TaskReporter from './tasks/TaskReporter';
+import MinimalTaskReporter from './reporters/MinimalTaskReporter';
+import TaskReporter from './reporters/TaskReporter';
 
 class Log {
 
