@@ -11,8 +11,8 @@ import CssTask from '../CssTask';
  |
  */
 
-Elixir.extend('sass', function(src, output, options) {
-    new CssTask('sass', getPaths(src, output), options);
+Elixir.extend('sass', function(src, output, baseDir, options) {
+    new CssTask('sass', getPaths(src, baseDir, output), options);
 });
 
 
@@ -20,11 +20,12 @@ Elixir.extend('sass', function(src, output, options) {
  * Prep the Gulp src and output paths.
  *
  * @param  {string|Array} src
+ * @param  {string|null}  baseDir
  * @param  {string|null}  output
  * @return {GulpPaths}
  */
-function getPaths(src, output) {
+function getPaths(src, baseDir, output) {
     return new Elixir.GulpPaths()
-        .src(src, Elixir.config.get('assets.css.sass.folder'))
+        .src(src, baseDir || Elixir.config.get('assets.css.sass.folder'))
         .output(output || Elixir.config.get('public.css.outputFolder'), 'app.css');
 };
