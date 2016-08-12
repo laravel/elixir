@@ -1,37 +1,41 @@
 import TaskReporter from './TaskReporter';
+import Table from 'cli-table';
 
 class MinimalTaskReporter extends TaskReporter {
 
     /**
-     * Render a single task.
-     *
-     * @param {Task|null} task
+     * Create the table rows.
      */
-    report(task) {
-        var tasks = task ? [task] : Elixir.tasks;
-
-        tasks.forEach(task => {
-            Elixir.log.heading(`${task.ucName()}: Fetching Source Files`);
-            Elixir.log.message(this.src(task));
-
-            Elixir.log.heading('Saving To:');
-            Elixir.log.message(`\t- ${task.output.path || task.output}`);
+    makeTable() {
+        return new Table({
+            head: [
+                'Task',
+                'Source Files',
+                'Destination'
+            ]
         });
     }
 
 
     /**
-     * Get a string version of the src files.
+     * Add any number of rows to the table.
      *
-     * @param  {Task} task
-     * @return {string}
+     * @param {Table} table
+     * @param {array} tasks
      */
-    src(task) {
-        let src = task.src.path || task.src;
+    addRows(table, tasks) {
+        tasks.forEach(task => {
+            let row = [`mix.${task.name}()`];
 
-        src = Array.isArray(src) ? src : [src];
+            if (task.src && task.output) {
+                row.push(
+                    this.src(task),
+                    task.output.path || task.output
+                );
+            }
 
-        return '\t- ' + src.map(file => this.colorize(file)).join('\n\t- ');
+            table.push(row);
+        });
     }
 }
 
