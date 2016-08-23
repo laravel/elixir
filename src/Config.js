@@ -288,7 +288,7 @@ const config = {
         uglify: {
             options: {
                 compress: {
-                    drop_console: true
+                    drop_console: Elixir.inProduction
                 }
             }
         }
