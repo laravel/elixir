@@ -362,8 +362,23 @@ const config = {
         proxy: 'homestead.app',
         reloadOnRestart : true,
         notify: true
-    }
+    },
 
+    /*
+     |----------------------------------------------------------------
+     | Watch
+     |----------------------------------------------------------------
+     |
+     | Configure how your filesystem is monitored for changes. This
+     | modifies the behavior of any task using "watch."
+     |
+     */
+
+    watch: {
+        // https://www.npmjs.com/package/gulp-watch/#options
+        interval: 1000,
+        usePolling: true
+    }
 };
 
 /**
