@@ -9,10 +9,6 @@ import p from 'path';
  | and every Gulp task that Elixir wraps up. To override any
  | setting, reference elixir.config.* from your Gulpfile.
  |
- | Alternatively you may create an elixir.json file within your
- | project root. As JSON, modify any settings contained here
- | and they'll take precedence over these defaults. Easy!
- |
  */
 
 const config = {
