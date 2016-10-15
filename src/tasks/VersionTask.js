@@ -120,10 +120,12 @@ class VersionTask extends Elixir.Task {
      * @param {string} srcMap
      */
     copyMap(srcMap) {
-        let destMap = srcMap.replace(this.publicPath, this.buildPath +'/');
+        let destMap = srcMap.replace(this.publicPath, this.buildPath +'/').replace('//', '/');
 
-        fs.createReadStream(`${srcMap}.map`)
-          .pipe(fs.createWriteStream(`${destMap}.map`));
+        if (destMap != srcMap) {
+            fs.createReadStream(`${srcMap}.map`)
+              .pipe(fs.createWriteStream(`${destMap}.map`));
+        }
     }
 
 }
