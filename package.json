@@ -48,7 +48,7 @@
     "require-dir": "^0.3.0",
     "run-sequence": "^1.1.5",
     "underscore": "^1.8.3",
-    "vinyl-map": "^1.0.1"
+    "vinyl-map2": "^1.2.1"
   },
   "devDependencies": {
     "babel-cli": "^6.7.7",
