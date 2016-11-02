@@ -13,7 +13,7 @@ import inSequence from 'run-sequence';
 
 gulp.task('all', function (callback) {
     Elixir.isRunningAllTasks = true;
-    
+
     Elixir.hooks.before.forEach(hook => hook());
 
     inSequence.apply(this, Elixir.tasks.names().concat(callback));
@@ -24,4 +24,6 @@ gulp.task('default', ['all'], function() {
     // Once all tasks have been triggered, we can
     // render a pretty table for reporting.
     Elixir.log.tasks();
+
+    Elixir.isRunningAllTasks = false;
 });

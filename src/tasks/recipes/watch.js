@@ -11,10 +11,8 @@ const batch = Elixir.Plugins.batch;
  |
  */
 
-gulp.task('watch', () => {
+gulp.task('watch', ['default'], () => {
     Elixir.hooks.watch.forEach(hook => hook());
-
-    runAllTasks();
 
     Elixir.tasks.forEach(task => {
         let batchOptions = Elixir.config.batchOptions;
@@ -27,12 +25,3 @@ gulp.task('watch', () => {
         }
     });
 });
-
-/**
- * Trigger all registered tasks.
- */
-function runAllTasks() {
-    gulp.start('default');
-
-    Elixir.isRunningAllTasks = false;
-}
