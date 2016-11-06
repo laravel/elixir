@@ -1,4 +1,4 @@
-import map from 'vinyl-map';
+import map from 'vinyl-map2';
 import minifier from './utilities/minifier';
 
 class Task {
