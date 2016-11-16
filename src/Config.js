@@ -216,7 +216,7 @@ const config = {
 
             // https://github.com/sass/node-sass#options
             pluginOptions: {
-                outputStyle: Elixir.inProduction ? 'compressed' : 'nested',
+                outputStyle: 'expanded',
                 precision: 10
             }
         },
