@@ -38,7 +38,7 @@ class GulpBuilder {
             if (this.shouldRunAllTasksNamed(name)) {
                 return Elixir.tasks
                     .byName(name)
-                    .filter(task => !Elixir.tasks.watching || Elixir.tasks.watching === task)
+                    .filter(task => ! Elixir.tasks.watching || Elixir.tasks.watching === task)
                     .forEach(task => task.run());
             }
 
