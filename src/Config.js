@@ -101,6 +101,7 @@ const config = {
      | But of course you're free to disable this, if needed.
      |
      */
+
     muted: process.argv[1].indexOf('bin/_mocha') > -1,
 
     /*
