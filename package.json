@@ -45,7 +45,7 @@
     "parse-filepath": "^1.0.1",
     "path": "^0.12.7",
     "q": "^1.4.1",
-    "require-dir": "^0.3.0",
+    "require-dir": "^0.3.2",
     "run-sequence": "^1.1.5",
     "underscore": "^1.8.3",
     "vinyl-map2": "^1.2.1"
