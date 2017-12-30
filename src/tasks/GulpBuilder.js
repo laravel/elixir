@@ -1,5 +1,7 @@
 import { has, intersection } from 'underscore';
-import gutils from 'gulp-util';
+import parseArgs from 'minimist';
+
+const env = parseArgs(process.argv.slice(2));
 
 class GulpBuilder {
 
@@ -56,7 +58,7 @@ class GulpBuilder {
      * @return {Boolean}
      */
     shouldRunAllTasksNamed(name) {
-        return intersection(gutils.env._, [name, 'watch', 'tdd']).length;
+        return intersection(env._, [name, 'watch', 'tdd']).length;
     }
 }
 

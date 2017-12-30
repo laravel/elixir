@@ -1,6 +1,6 @@
 import p from 'path';
 import fs from 'fs';
-import gutils from 'gulp-util';
+import replaceExt from 'replace-ext';
 
 class GulpPaths {
 
@@ -81,7 +81,7 @@ class GulpPaths {
      * @return {string}
      */
     changeExtension(path, newExtension) {
-        return gutils.replaceExtension(path, newExtension);
+        return replaceExt(path, newExtension);
     }
 
 

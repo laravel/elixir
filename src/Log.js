@@ -1,6 +1,9 @@
-import gutil from 'gulp-util';
 import MinimalTaskReporter from './reporters/MinimalTaskReporter';
 import TaskReporter from './reporters/TaskReporter';
+import parseArgs from 'minimist';
+import chalk from 'chalk';
+
+const env = parseArgs(process.argv.slice(2));
 
 class Log {
 
@@ -8,7 +11,7 @@ class Log {
      * Create a new Logger instance.
      */
     constructor() {
-        this.minimal = gutil.env.minimal;
+        this.minimal = env.minimal;
     }
 
 
@@ -20,7 +23,7 @@ class Log {
      */
     heading(heading) {
         return this.break().message(
-            gutil.colors.black(gutil.colors.bgGreen(heading))
+            chalk.black(chalk.bgGreen(heading))
         );
     };
 
@@ -98,7 +101,7 @@ class Log {
      */
     error(message) {
         this.break().message(
-            gutil.colors.bgRed(message)
+            chalk.bgRed(message)
         );
 
         return this;
