@@ -1,5 +1,5 @@
 import fs from 'fs';
-import gutil from 'gulp-util';
+import chalk from 'chalk';
 import Table from 'cli-table';
 
 class TaskReporter {
@@ -79,10 +79,10 @@ class TaskReporter {
      */
     colorize(file) {
         if (this.fileExists(file)) {
-            return gutil.colors.green(file);
+            return chalk.green(file);
         }
 
-        return gutil.colors.bgRed(file);
+        return chalk.bgRed(file);
     }
 
 

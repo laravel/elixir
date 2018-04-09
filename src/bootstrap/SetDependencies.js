@@ -1,4 +1,6 @@
-import gutils from 'gulp-util';
+import parseArgs from 'minimist';
+
+const env = parseArgs(process.argv.slice(2));
 
 /**
  * This object stores all of the various Elixir tasks.
@@ -11,7 +13,7 @@ Elixir.mixins = {};
 /**
  * Determine if Elixir is in "production" mode.
  */
-if (Elixir.inProduction = gutils.env.production) {
+if (Elixir.inProduction = env.production) {
     process.env.NODE_ENV = 'production';
 }
 
@@ -19,7 +21,7 @@ if (Elixir.inProduction = gutils.env.production) {
 /**
  * Determine if 'gulp watch' is being run.
  */
-Elixir.isWatching = () => gutils.env._.indexOf('watch') > -1;
+Elixir.isWatching = () => env._.indexOf('watch') > -1;
 
 
 /**
