@@ -8,7 +8,7 @@ If you've ever been confused about how to get started with Gulp and asset compil
 
 ## Official Documentation
 
-Documentation for Elixir can be found on the [Laravel website](http://laravel.com/docs/elixir).
+Documentation for Elixir can be found on the [Laravel website](http://laravel.com/docs/5.3/elixir).
 
 ## License
 
