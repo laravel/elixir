@@ -1,5 +1,7 @@
 # Laravel Elixir
 
+*Please note that this project has been archived. Instead, we recommend that you transition to [Laravel Mix](github.com/jeffreyway/laravel-mix).*
+
 ## Introduction
 
 Laravel Elixir provides a clean, fluent API for defining basic Gulp tasks for your Laravel application. Elixir supports several common CSS and JavaScript pre-processors, and even testing tools.
