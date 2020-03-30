@@ -1,6 +1,6 @@
 # Laravel Elixir
 
-*Please note that this project has been archived. Instead, we recommend that you transition to [Laravel Mix](github.com/jeffreyway/laravel-mix).*
+*Please note that this project has been archived. Instead, we recommend that you transition to [Laravel Mix](https://github.com/jeffreyway/laravel-mix).*
 
 ## Introduction
 
